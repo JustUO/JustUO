@@ -1,0 +1,16 @@
+/Server/bin
+/JustUO.exe.config
+/JustUO.pdb
+/JustUO.exe
+/Server/obj
+/Server/Server.csproj.user
+/Scripts/bin
+/Scripts/obj
+/Scripts/Scripts.csproj.user
+/Logs
+/Saves
+/Backups
+*.log
+*.suo
+/VitaNexCore
+

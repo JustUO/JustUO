@@ -1,4 +1,7 @@
-JustUO
-======
+![ScreenShot](JustUOlogo.png)
 
-An Ultima Online emulator sponsored by PlayUO.org
+JustUO - http://www.playuo.org
+
+Advanced Ultima Online server emulation software.
+
+Come see our website and forums for more information!
