@@ -20,47 +20,47 @@ namespace Server.Mobiles
         public Medusa()
             : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            this.Name = "Medusa";
-            this.Body = 728;
+            Name = "Medusa";
+            Body = 728;
 
-            this.SetStr(1235, 1391);
-            this.SetDex(128, 139);
-            this.SetInt(537, 664);
+            SetStr(1235, 1391);
+            SetDex(128, 139);
+            SetInt(537, 664);
 
-            this.SetHits(170000);
+            SetHits(170000);
 
-            this.SetDamage(21, 28);
+            SetDamage(21, 28);
 
-            this.SetDamageType(ResistanceType.Physical, 60);
-            this.SetDamageType(ResistanceType.Fire, 20);
-            this.SetDamageType(ResistanceType.Energy, 20);
+            SetDamageType(ResistanceType.Physical, 60);
+            SetDamageType(ResistanceType.Fire, 20);
+            SetDamageType(ResistanceType.Energy, 20);
 
-            this.SetResistance(ResistanceType.Physical, 55, 65);
-            this.SetResistance(ResistanceType.Fire, 55, 65);
-            this.SetResistance(ResistanceType.Cold, 55, 65);
-            this.SetResistance(ResistanceType.Poison, 80, 90);
-            this.SetResistance(ResistanceType.Energy, 60, 75);
+            SetResistance(ResistanceType.Physical, 55, 65);
+            SetResistance(ResistanceType.Fire, 55, 65);
+            SetResistance(ResistanceType.Cold, 55, 65);
+            SetResistance(ResistanceType.Poison, 80, 90);
+            SetResistance(ResistanceType.Energy, 60, 75);
 
-            this.SetSkill(SkillName.Anatomy, 110.6, 116.1);
-            this.SetSkill(SkillName.EvalInt, 100.0, 114.4);
-            this.SetSkill(SkillName.Magery, 100.0);
-            this.SetSkill(SkillName.Meditation, 118.2, 127.8);
-            this.SetSkill(SkillName.MagicResist, 120.0);
-            this.SetSkill(SkillName.Tactics, 111.9, 134.5);
-            this.SetSkill(SkillName.Wrestling, 119.7, 128.9);
+            SetSkill(SkillName.Anatomy, 110.6, 116.1);
+            SetSkill(SkillName.EvalInt, 100.0, 114.4);
+            SetSkill(SkillName.Magery, 100.0);
+            SetSkill(SkillName.Meditation, 118.2, 127.8);
+            SetSkill(SkillName.MagicResist, 120.0);
+            SetSkill(SkillName.Tactics, 111.9, 134.5);
+            SetSkill(SkillName.Wrestling, 119.7, 128.9);
 
-            this.Fame = 22000;
-            this.Karma = -22000;
+            Fame = 22000;
+            Karma = -22000;
 
-            this.VirtualArmor = 60;
+            VirtualArmor = 60;
 
-            this.PackItem(new Arrow(Utility.RandomMinMax(600, 700)));
+            PackItem(new Arrow(Utility.RandomMinMax(600, 700)));
 
             IronwoodCompositeBow Bow = new IronwoodCompositeBow();
             Bow.Movable = false;
-            this.AddItem(Bow);
+            AddItem(Bow);
 
-            this.m_Scales = Utility.Random(5) + 1;
+            m_Scales = Utility.Random(5) + 1;
         }
 
         public Medusa(Serial serial)
@@ -131,6 +131,13 @@ namespace Server.Mobiles
                 return false;
             }
         }
+        public override bool AllureImmune
+        {
+            get
+            {
+                return true;
+            }
+        }
         public override bool Unprovokable
         {
             get
@@ -165,20 +172,20 @@ namespace Server.Mobiles
 
             foreach (Mobile m in from.GetMobilesInRange(12))
             {
-                if (m != null && m != from && !(m is MedusaClone) && !(m is StoneMonster) && !(Medusa.AffectedMobiles.Contains(m)) && !(m is BaseCreature))
+                if (m != null && m != from && !(m is MedusaClone) && !(m is StoneMonster) && !(AffectedMobiles.Contains(m)) && !(m is BaseCreature))
                 {
                     Item[] items = m.Backpack.FindItemsByType(typeof(GorgonLens));
 
                     if (items.Length == 0)
                     {
-                        Medusa.AffectedMobiles.Remove(m);
+                        AffectedMobiles.Remove(m);
                         list.Add(m);
                     }
                     else
                     {
                         foreach (GorgonLens gorg in items)
                         {
-                            Medusa.AffectedMobiles.Add(m);
+                            AffectedMobiles.Add(m);
                             gorg.ConsumeUse(from);
                             list.Remove(m);
                             m.SendLocalizedMessage(1112599);  //Your Gorgon Lens deflect Medusa's petrifying gaze!
@@ -188,9 +195,9 @@ namespace Server.Mobiles
                     }
                 }
 
-                if (m != null && m != from && !(m is MedusaClone) && !(m is StoneMonster) && !(Medusa.AffectedMobiles.Contains(m)) && (m is BaseCreature))
+                if (m != null && m != from && !(m is MedusaClone) && !(m is StoneMonster) && !(AffectedMobiles.Contains(m)) && (m is BaseCreature))
                 {
-                    Medusa.AffectedMobiles.Remove(m);
+                    AffectedMobiles.Remove(m);
                     list.Add(m);
                 }
             }
@@ -225,13 +232,13 @@ namespace Server.Mobiles
 
         public void Carve(Mobile from, Item item)
         {
-            if (this.m_Scales > 0 && from.Backpack != null)
+            if (m_Scales > 0 && from.Backpack != null)
             {
-                new Blood(0x122D).MoveToWorld(this.Location, this.Map);
+                new Blood(0x122D).MoveToWorld(Location, Map);
                 from.AddToBackpack(new MedusaDarkScales(Utility.Random(3) + 1));
                 from.SendLocalizedMessage(1114098); // You cut away some scales and put them in your backpack.
-                this.Combatant = from;
-                --this.m_Scales;
+                Combatant = from;
+                --m_Scales;
             }
         }
 
@@ -239,40 +246,40 @@ namespace Server.Mobiles
         {
             base.OnThink();
 
-            if (DateTime.UtcNow > this.m_DelayOne)
+            if (DateTime.UtcNow > m_DelayOne)
             {
-                Medusa.AffectedMobiles.Clear();
+                AffectedMobiles.Clear();
 
-                this.m_DelayOne = DateTime.UtcNow + TimeSpan.FromSeconds(Utility.RandomMinMax(30, 180));
+                m_DelayOne = DateTime.UtcNow + TimeSpan.FromSeconds(Utility.RandomMinMax(30, 180));
             }
 
-            if (DateTime.UtcNow > this.m_GazeDelay)
+            if (DateTime.UtcNow > m_GazeDelay)
             {
                 Mobile target = FindRandomMedusaTarget(this);
                 //  Mobile target = Ability.FindRandomMedusaTarget(this);
 
-                Map map = this.Map;
+                Map map = Map;
 
                 if (map == null)
                     return;
 
-                this.DoSpecialAbility(this);
+                DoSpecialAbility(this);
 
                 if ((target != null) && !(target is MedusaClone) && !(target is StoneMonster))
                 {
                     BaseCreature clone = new MedusaClone(target);
 
                     bool validLocation = false;
-                    Point3D loc = this.Location;
+                    Point3D loc = Location;
 
                     for (int j = 0; !validLocation && j < 10; ++j)
                     {
-                        int x = this.X + Utility.Random(10) - 1;
-                        int y = this.Y + Utility.Random(10) - 1;
+                        int x = X + Utility.Random(10) - 1;
+                        int y = Y + Utility.Random(10) - 1;
                         int z = map.GetAverageZ(x, y);
 
-                        if (validLocation = map.CanFit(x, y, this.Z, 16, false, false))
-                            loc = new Point3D(x, y, this.Z);
+                        if (validLocation = map.CanFit(x, y, Z, 16, false, false))
+                            loc = new Point3D(x, y, Z);
                         else if (validLocation = map.CanFit(x, y, z, 16, false, false))
                             loc = new Point3D(x, y, z);
                     }
@@ -286,7 +293,7 @@ namespace Server.Mobiles
                     target.SendLocalizedMessage(1112768); // You have been turned to stone!!!
 
                     new GazeTimer(target, clone).Start();
-                    this.m_GazeDelay = DateTime.UtcNow + TimeSpan.FromSeconds(Utility.RandomMinMax(30, 60));
+                    m_GazeDelay = DateTime.UtcNow + TimeSpan.FromSeconds(Utility.RandomMinMax(30, 60));
 
                     AffectedMobiles.Add(target);
                 }
@@ -296,24 +303,24 @@ namespace Server.Mobiles
         public void DoSpecialAbility(Mobile target)
         {
             if (0.8 >= Utility.RandomDouble())
-                this.SpawnStone(target);
+                SpawnStone(target);
 
             if (0.05 >= Utility.RandomDouble())
-                this.FreeStone(target);
+                FreeStone(target);
         }
 
         public void SpawnStone(Mobile target)
         {
-            Map map = this.Map;
+            Map map = Map;
 
             if (map == null)
                 return;
 
-            if (DateTime.UtcNow > this.m_DelayTwo)
+            if (DateTime.UtcNow > m_DelayTwo)
             {
                 int stones = 0;
 
-                foreach (Mobile m in this.GetMobilesInRange(40))
+                foreach (Mobile m in GetMobilesInRange(40))
                 {
                     if (m is StoneMonster)
                         ++stones;
@@ -328,16 +335,16 @@ namespace Server.Mobiles
                     BaseCreature stone = new StoneMonster();
 
                     bool validLocation = false;
-                    Point3D loc = this.Location;
+                    Point3D loc = Location;
 
                     for (int j = 0; !validLocation && j < 10; ++j)
                     {
-                        int x = this.X + Utility.Random(10) - 1;
-                        int y = this.Y + Utility.Random(10) - 1;
+                        int x = X + Utility.Random(10) - 1;
+                        int y = Y + Utility.Random(10) - 1;
                         int z = map.GetAverageZ(x, y);
 
-                        if (validLocation = map.CanFit(x, y, this.Z, 16, false, false))
-                            loc = new Point3D(x, y, this.Z);
+                        if (validLocation = map.CanFit(x, y, Z, 16, false, false))
+                            loc = new Point3D(x, y, Z);
                         else if (validLocation = map.CanFit(x, y, z, 16, false, false))
                             loc = new Point3D(x, y, z);
                     }
@@ -348,7 +355,7 @@ namespace Server.Mobiles
                     stone.Combatant = null;
                 }
 
-                this.m_DelayTwo = DateTime.UtcNow + TimeSpan.FromSeconds(Utility.RandomMinMax(30, 150));
+                m_DelayTwo = DateTime.UtcNow + TimeSpan.FromSeconds(Utility.RandomMinMax(30, 150));
             }
         }
 
@@ -358,7 +365,7 @@ namespace Server.Mobiles
             {
                 List<Mobile> list = new List<Mobile>();
 
-                foreach (Mobile mob in this.GetMobilesInRange(40))
+                foreach (Mobile mob in GetMobilesInRange(40))
                 {
                     if (mob is StoneMonster)
                         list.Add(mob);
@@ -386,7 +393,7 @@ namespace Server.Mobiles
 
         public override void GenerateLoot()
         {
-            this.AddLoot(LootPack.UltraRich, 5);
+            AddLoot(LootPack.UltraRich, 5);
         }
 
         public override void OnDeath(Container c)
@@ -414,7 +421,7 @@ namespace Server.Mobiles
 
         public override void OnAfterDelete()
         {
-            this.DeleteMedusaClone(this);
+            DeleteMedusaClone(this);
 
             for (int i = 0; i < AffectedMobiles.Count; i++)
                 if (AffectedMobiles[i] != null)
@@ -425,7 +432,7 @@ namespace Server.Mobiles
 
         public override bool OnBeforeDeath()
         {
-            this.DeleteMedusaClone(this);
+            DeleteMedusaClone(this);
 
             for (int i = 0; i < AffectedMobiles.Count; i++)
                 if (AffectedMobiles[i] != null)
@@ -436,7 +443,7 @@ namespace Server.Mobiles
 
         public override void OnDelete()
         {
-            this.DeleteMedusaClone(this);
+            DeleteMedusaClone(this);
 
             for (int i = 0; i < AffectedMobiles.Count; i++)
                 if (AffectedMobiles[i] != null)
@@ -449,7 +456,7 @@ namespace Server.Mobiles
         {
             ArrayList list = new ArrayList();
 
-            foreach (Mobile clone in this.GetMobilesInRange(40))
+            foreach (Mobile clone in GetMobilesInRange(40))
             {
                 if (clone is MedusaClone || clone is StoneMonster)
                     list.Add(clone);
@@ -465,7 +472,7 @@ namespace Server.Mobiles
         {
             base.Serialize(writer);
             writer.Write((int)0);
-            writer.Write((int)this.m_Scales);
+            writer.Write((int)m_Scales);
             writer.Write(AffectedMobiles);
         }
 
@@ -489,41 +496,41 @@ namespace Server.Mobiles
             public GazeTimer(Mobile m, Mobile mc)
                 : base(TimeSpan.FromSeconds(20), TimeSpan.FromSeconds(20))
             {
-                this.target = m;
-                this.clone = mc;
-                this.m_Count = 0;
+                target = m;
+                clone = mc;
+                m_Count = 0;
             }
 
             protected override void OnTick()
             {
-                ++this.m_Count;
+                ++m_Count;
 
-                if (this.m_Count == 1 && this.target != null)
+                if (m_Count == 1 && target != null)
                 {
-                    this.target.Frozen = false;
-                    this.target.SolidHueOverride = -1;
+                    target.Frozen = false;
+                    target.SolidHueOverride = -1;
 
-                    if (Medusa.AffectedMobiles.Contains(this.target))
-                        Medusa.AffectedMobiles.Remove(this.target);
+                    if (AffectedMobiles.Contains(target))
+                        AffectedMobiles.Remove(target);
                 }
-                else if (this.m_Count == 2 && this.clone != null)
+                else if (m_Count == 2 && clone != null)
                 {
-                    this.clone.SolidHueOverride = -1;
-                    this.clone.Frozen = this.clone.Blessed = false;
+                    clone.SolidHueOverride = -1;
+                    clone.Frozen = clone.Blessed = false;
 
-                    foreach (Mobile m in this.clone.GetMobilesInRange(12))
+                    foreach (Mobile m in clone.GetMobilesInRange(12))
                     {
                         if ((m != null) && (m.Player) && !(m is MedusaClone) && !(m is StoneMonster))
                         {
                             m.SendLocalizedMessage(1112767); // Medusa releases one of the petrified creatures!!
-                            m.Send(new RemoveMobile(this.clone));
-                            m.Send(new MobileIncoming(m, this.clone));
-                            this.clone.Combatant = m;
+                            m.Send(new RemoveMobile(clone));
+                            m.Send(new MobileIncoming(m, clone));
+                            clone.Combatant = m;
                         }
                     }
                 }
                 else
-                    this.Stop();
+                    Stop();
             }
         }
     }
@@ -533,8 +540,8 @@ namespace Server.Mobiles
         public MedusaClone(Mobile m)
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            this.SolidHueOverride = 33;
-            this.Clone(m);
+            SolidHueOverride = 33;
+            Clone(m);
         }
 
         public MedusaClone(Serial serial)
@@ -560,52 +567,52 @@ namespace Server.Mobiles
         {
             get
             {
-                return !this.Frozen;
+                return !Frozen;
             }
         }
         public void Clone(Mobile m)
         {
             if (m == null)
             {
-                this.Delete();
+                Delete();
                 return;
             }
 
-            this.Body = m.Body;
+            Body = m.Body;
 
-            this.Str = m.Str;
-            this.Dex = m.Dex;
-            this.Int = m.Int;
+            Str = m.Str;
+            Dex = m.Dex;
+            Int = m.Int;
 
-            this.Hits = m.HitsMax;
+            Hits = m.HitsMax;
 
-            this.Hue = m.Hue;
-            this.Female = m.Female;
+            Hue = m.Hue;
+            Female = m.Female;
 
-            this.Name = m.Name;
-            this.NameHue = m.NameHue;
+            Name = m.Name;
+            NameHue = m.NameHue;
 
-            this.Title = m.Title;
-            this.Kills = m.Kills;
+            Title = m.Title;
+            Kills = m.Kills;
 
-            this.HairItemID = m.HairItemID;
-            this.HairHue = m.HairHue;
+            HairItemID = m.HairItemID;
+            HairHue = m.HairHue;
 
-            this.FacialHairItemID = m.FacialHairItemID;
-            this.FacialHairHue = m.FacialHairHue;
+            FacialHairItemID = m.FacialHairItemID;
+            FacialHairHue = m.FacialHairHue;
 
-            this.BaseSoundID = m.BaseSoundID;
+            BaseSoundID = m.BaseSoundID;
 
             for (int i = 0; i < m.Skills.Length; ++i)
             {
-                this.Skills[i].Base = m.Skills[i].Base;
-                this.Skills[i].Cap = m.Skills[i].Cap;
+                Skills[i].Base = m.Skills[i].Base;
+                Skills[i].Cap = m.Skills[i].Cap;
             }
 
             for (int i = 0; i < m.Items.Count; i++)
             {
                 if (m.Items[i].Layer != Layer.Backpack && m.Items[i].Layer != Layer.Mount && m.Items[i].Layer != Layer.Bank)
-                    this.AddItem(this.CloneItem(m.Items[i]));
+                    AddItem(CloneItem(m.Items[i]));
             }
         }
 
@@ -623,15 +630,15 @@ namespace Server.Mobiles
 
         public override void OnDoubleClick(Mobile from)
         {
-            if (this.Frozen)
-                this.DisplayPaperdollTo(from);
+            if (Frozen)
+                DisplayPaperdollTo(from);
             else
                 base.OnDoubleClick(from);
         }
 
         public void OnRequestedAnimation(Mobile from)
         {
-            if (this.Frozen)
+            if (Frozen)
             {
                 //if (Core.SA)
                 //from.Send(new UpdateStatueAnimationSA(this, 31, 5));
@@ -642,7 +649,7 @@ namespace Server.Mobiles
 
         public override void OnDelete()
         {
-            Effects.SendLocationParticles(EffectItem.Create(this.Location, this.Map, EffectItem.DefaultDuration), 0x3728, 10, 15, 5042);
+            Effects.SendLocationParticles(EffectItem.Create(Location, Map, EffectItem.DefaultDuration), 0x3728, 10, 15, 5042);
 
             base.OnDelete();
         }
@@ -657,7 +664,7 @@ namespace Server.Mobiles
         {
             base.Deserialize(reader);
             int version = reader.ReadInt();
-            this.Delete();
+            Delete();
         }
     }
 }

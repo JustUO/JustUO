@@ -11,43 +11,43 @@ namespace Server.Mobiles
         public VitaviRenowned()
             : base(AIType.AI_Mage)
         {
-            this.Name = "Vitavi";
-            this.Title = "[Renowned]";
-            this.Body = 0x8F;
-            this.BaseSoundID = 437;
+            Name = "Vitavi";
+            Title = "[Renowned]";
+            Body = 0x8F;
+            BaseSoundID = 437;
 
-            this.SetStr(300, 350);
-            this.SetDex(250, 300);
-            this.SetInt(300, 350);
+            SetStr(300, 350);
+            SetDex(250, 300);
+            SetInt(300, 350);
 
-            this.SetHits(45000, 50000);
+            SetHits(45000, 50000);
 
-            this.SetDamage(7, 14);
+            SetDamage(7, 14);
 
-            this.SetDamageType(ResistanceType.Physical, 100);
+            SetDamageType(ResistanceType.Physical, 100);
 
-            this.SetResistance(ResistanceType.Physical, 50, 60);
-            this.SetResistance(ResistanceType.Fire, 30, 50);
-            this.SetResistance(ResistanceType.Cold, 60, 80);
-            this.SetResistance(ResistanceType.Poison, 20, 30);
-            this.SetResistance(ResistanceType.Energy, 30, 40);
+            SetResistance(ResistanceType.Physical, 50, 60);
+            SetResistance(ResistanceType.Fire, 30, 50);
+            SetResistance(ResistanceType.Cold, 60, 80);
+            SetResistance(ResistanceType.Poison, 20, 30);
+            SetResistance(ResistanceType.Energy, 30, 40);
 
-            this.SetSkill(SkillName.EvalInt, 70.1, 80.0);
-            this.SetSkill(SkillName.Magery, 70.1, 80.0);
-            this.SetSkill(SkillName.MagicResist, 75.1, 100.0);
-            this.SetSkill(SkillName.Tactics, 70.1, 75.0);
-            this.SetSkill(SkillName.Wrestling, 50.1, 75.0);
+            SetSkill(SkillName.EvalInt, 70.1, 80.0);
+            SetSkill(SkillName.Magery, 70.1, 80.0);
+            SetSkill(SkillName.MagicResist, 75.1, 100.0);
+            SetSkill(SkillName.Tactics, 70.1, 75.0);
+            SetSkill(SkillName.Wrestling, 50.1, 75.0);
 
-            this.Fame = 7500;
-            this.Karma = -7500;
+            Fame = 7500;
+            Karma = -7500;
 
-            this.VirtualArmor = 44;
+            VirtualArmor = 44;
 
-            this.PackItem(new EssenceBalance());
-            this.PackReg(6);
+            PackItem(new EssenceBalance());
+            PackReg(6);
 
             if (0.02 > Utility.RandomDouble())
-                this.PackStatue();
+                PackStatue();
         }
 
         public VitaviRenowned(Serial serial)
@@ -83,6 +83,13 @@ namespace Server.Mobiles
                 return true;
             }
         }
+        public override bool AllureImmune
+        {
+            get
+            {
+                return true;
+            }
+        }
         public override int Meat
         {
             get
@@ -106,8 +113,8 @@ namespace Server.Mobiles
         }
         public override void GenerateLoot()
         {
-            this.AddLoot(LootPack.Rich);
-            this.AddLoot(LootPack.LowScrolls);
+            AddLoot(LootPack.Rich);
+            AddLoot(LootPack.LowScrolls);
         }
 
         public override void Serialize(GenericWriter writer)
@@ -121,10 +128,10 @@ namespace Server.Mobiles
             base.Deserialize(reader);
             int version = reader.ReadInt();
 
-            if (this.Body == 42)
+            if (Body == 42)
             {
-                this.Body = 0x8F;
-                this.Hue = 0;
+                Body = 0x8F;
+                Hue = 0;
             }
         }
     }

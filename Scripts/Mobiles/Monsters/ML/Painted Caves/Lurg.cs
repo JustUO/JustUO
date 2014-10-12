@@ -9,44 +9,48 @@ namespace Server.Mobiles
         [Constructable]
         public Lurg()
         {
+            Name = "Lurg";
+            Hue = 0x455;
 
+            SetStr(584, 625);
+            SetDex(163, 176);
+            SetInt(90, 106);
 
-            this.Name = "Lurg";
-            this.Hue = 0x455;
+            SetHits(3034, 3189);
+            SetStam(163, 176);
+            SetMana(90, 106);
 
-            this.SetStr(584, 625);
-            this.SetDex(163, 176);
-            this.SetInt(90, 106);
+            SetDamage(16, 19);
 
-            this.SetHits(3034, 3189);
-            this.SetStam(163, 176);
-            this.SetMana(90, 106);
+            SetDamageType(ResistanceType.Physical, 100);
 
-            this.SetDamage(16, 19);
+            SetResistance(ResistanceType.Physical, 50, 53);
+            SetResistance(ResistanceType.Fire, 45, 47);
+            SetResistance(ResistanceType.Cold, 56, 60);
+            SetResistance(ResistanceType.Poison, 50, 60);
+            SetResistance(ResistanceType.Energy, 41, 56);
 
-            this.SetDamageType(ResistanceType.Physical, 100);
+            SetSkill(SkillName.Wrestling, 122.7, 130.5);
+            SetSkill(SkillName.Tactics, 109.3, 118.5);
+            SetSkill(SkillName.MagicResist, 72.9, 87.6);
+            SetSkill(SkillName.Anatomy, 110.5, 124.0);
+            SetSkill(SkillName.Healing, 84.1, 105.0);
 
-            this.SetResistance(ResistanceType.Physical, 50, 53);
-            this.SetResistance(ResistanceType.Fire, 45, 47);
-            this.SetResistance(ResistanceType.Cold, 56, 60);
-            this.SetResistance(ResistanceType.Poison, 50, 60);
-            this.SetResistance(ResistanceType.Energy, 41, 56);
-
-            this.SetSkill(SkillName.Wrestling, 122.7, 130.5);
-            this.SetSkill(SkillName.Tactics, 109.3, 118.5);
-            this.SetSkill(SkillName.MagicResist, 72.9, 87.6);
-            this.SetSkill(SkillName.Anatomy, 110.5, 124.0);
-            this.SetSkill(SkillName.Healing, 84.1, 105.0);
-
-            this.Fame = 10000;
-            this.Karma = -10000;
+            Fame = 10000;
+            Karma = -10000;
         }
 
         public Lurg(Serial serial)
             : base(serial)
         {
         }
-
+        public override bool AllureImmune
+        {
+            get
+            {
+                return true;
+            }
+        }
         public override bool GivesMLMinorArtifact
         {
             get
@@ -63,7 +67,7 @@ namespace Server.Mobiles
         }
         public override void GenerateLoot()
         {
-            this.AddLoot(LootPack.UltraRich, 2);
+            AddLoot(LootPack.UltraRich, 2);
         }
 
         public override WeaponAbility GetWeaponAbility()
