@@ -114,7 +114,7 @@ namespace Server.Mobiles
 
 		#region Static variable declarations
 		// specifies the level at which smartspawning will be triggered.  Players with AccessLevel above this will not trigger smartspawning unless unhidden.
-		public static AccessLevel SmartSpawnAccessLevel = AccessLevel.Player;
+		public static AccessLevel SmartSpawnAccessLevel = AccessLevel.VIP;
 
 		// define the default values used in making spawners
 		private static TimeSpan defMinDelay = TimeSpan.FromMinutes(5);
@@ -227,7 +227,7 @@ namespace Server.Mobiles
 		private DateTime m_SeqEnd;
 		private Region m_Region; // 2004.02.08 :: Omega Red
 		private string m_RegionName = string.Empty; // 2004.02.08 :: Omega Red
-		private AccessLevel m_TriggerAccessLevel = AccessLevel.Player;
+		private AccessLevel m_TriggerAccessLevel = AccessLevel.VIP;
 
 		public ArrayList m_TextEntryBook;
 		private XmlSpawnerGump m_SpawnerGump;

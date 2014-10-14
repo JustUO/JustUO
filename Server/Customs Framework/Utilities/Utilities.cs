@@ -58,7 +58,7 @@ namespace CustomsFramework
 		// TODO: Make this factor-in GeneralSettings AccessLevel options?
 		public static bool IsPlayer(this Mobile from)
 		{
-			return from.AccessLevel <= AccessLevel.Counselor;
+			return from.AccessLevel <= AccessLevel.VIP;
 		}
 
 		// TODO: Make this factor-in GeneralSettings AccessLevel options?

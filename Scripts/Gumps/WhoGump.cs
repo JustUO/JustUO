@@ -254,6 +254,7 @@ namespace Server.Gumps
                     return 0x21;
                 case AccessLevel.Decorator:
                     return 0x2;
+                case AccessLevel.VIP:
                 case AccessLevel.Player:
                 default:
                     {

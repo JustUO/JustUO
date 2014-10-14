@@ -893,7 +893,7 @@ namespace Server.Mobiles
 
 			CheckAtrophies(from);
 
-			if (AccountHandler.LockdownLevel > AccessLevel.Player)
+			if (AccountHandler.LockdownLevel > AccessLevel.VIP)
 			{
 				string notice;
 
@@ -4277,6 +4277,9 @@ namespace Server.Mobiles
 				string color = "";
 				switch (AccessLevel)
 				{
+					case AccessLevel.VIP:
+						color = "#1EFF00";
+						break;
 					case AccessLevel.Counselor:
 						color = "#00BFFF";
 						break; //Deep Sky Blue
@@ -4309,6 +4312,10 @@ namespace Server.Mobiles
 				{
 					list.Add(
 						1060658, "{0}\t{1}", "Staff", String.Format("<BASEFONT COLOR={0}>{1}", color, GetAccessLevelName(AccessLevel)));
+				}
+				else
+				{
+					list.Add(1060658, "VIP");
 				}
 			}
 

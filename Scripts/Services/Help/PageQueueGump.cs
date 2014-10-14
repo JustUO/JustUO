@@ -479,6 +479,7 @@ namespace Server.Engines.Help
         private static readonly int[] m_AccessLevelHues = new int[]
         {
                 2100, //Player
+                2122, //VIP
                 2122, //Counselor
                 2117, //Decorator
                 2117, //Spawner

@@ -72,6 +72,10 @@ namespace Services.Toolbar.Core
 					{
 						break;
 					}
+				case AccessLevel.VIP:
+					{
+						break;
+					}
 				case AccessLevel.Counselor:
 					{
 						entries.Add(CommandSystem.Prefix + "GMBody");
@@ -206,6 +210,10 @@ namespace Services.Toolbar.Core
 						dimensions.X = 0;
 						dimensions.Y = 0;
 						break;
+					}
+				case AccessLevel.VIP:
+					{
+						goto case AccessLevel.Player;
 					}
 				case AccessLevel.Counselor:
 					{

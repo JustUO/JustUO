@@ -429,6 +429,7 @@ namespace Server
 	public enum AccessLevel
 	{
 		Player,
+		VIP,
 		Counselor,
 		Decorator,
 		Spawner,
@@ -6524,7 +6525,7 @@ namespace Server
 
 		private static readonly string[] m_AccessLevelNames = new[]
 		{
-			"Player", "Counselor", "Decorator", "Spawner", "Game Master", "Seer", "Administrator", "Developer",
+			"Player", "VIP Player", "Counselor", "Decorator", "Spawner", "Game Master", "Seer", "Administrator", "Developer",
 			"Co-Owner", "Owner"
 		};
 

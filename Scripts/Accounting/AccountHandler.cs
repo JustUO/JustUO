@@ -246,7 +246,7 @@ namespace Server.Misc
                 Utility.PushColor(ConsoleColor.Red);
                 Console.WriteLine("Login: {0}: Access denied for '{1}'", e.State, un);
                 Utility.PopColor();
-                e.RejectReason = (m_LockdownLevel > AccessLevel.Player ? ALRReason.BadComm : ALRReason.BadPass);
+                e.RejectReason = (m_LockdownLevel > AccessLevel.VIP ? ALRReason.BadComm : ALRReason.BadPass);
             }
             else if (!acct.CheckPassword(pw))
             {

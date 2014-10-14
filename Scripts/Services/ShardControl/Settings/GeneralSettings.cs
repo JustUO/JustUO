@@ -38,7 +38,7 @@ namespace CustomsFramework.Systems.ShardControl
 			string address = null,
 			int port = 2593,
 			Expansion expansion = Expansion.SA,
-			AccessLevel maxPlayerLevel = AccessLevel.Player,
+			AccessLevel maxPlayerLevel = AccessLevel.VIP,
 			AccessLevel lowestStaffLevel = AccessLevel.Counselor,
 			AccessLevel lowestOwnerLevel = AccessLevel.CoOwner)
 		{
