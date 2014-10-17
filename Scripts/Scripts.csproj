@@ -3914,7 +3914,8 @@
     <Compile Include="Regions\StygianAbyssRegion.cs" />
     <Compile Include="Regions\TownRegion.cs" />
     <Compile Include="Regions\TwistedWealdDesert.cs" />
-    <Compile Include="Services\AssistantNegotiator\Assistants.cs" />
+    <Compile Include="Services\Assistant Support\Assistants.cs" />
+    <Compile Include="Services\Assistant Support\UO Steam\MapUO.cs" />
     <Compile Include="Services\BulkOrders\Books\BOBFilter.cs" />
     <Compile Include="Services\BulkOrders\Books\BOBFilterGump.cs" />
     <Compile Include="Services\BulkOrders\Books\BOBGump.cs" />
