@@ -666,13 +666,7 @@ namespace Server
         }
         */
 
-		/// <summary>
-		///     Gets the highest surface that is lower than <paramref name="p" />.
-		/// </summary>
-		/// <param name="p">The reference point.</param>
-		/// <returns>
-		///     A surface <typeparamref name="Tile" /> or <typeparamref name="Item" />.
-		/// </returns>
+		
 		public object GetTopSurface(Point3D p)
 		{
 			if (this == Internal)

@@ -5517,17 +5517,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Mobile LastKiller { get { return m_LastKiller; } set { m_LastKiller = value; } }
 
-		/// <summary>
-		///     Overridable. Virtual event invoked when the Mobile is <see cref="Damage">damaged</see>. It is called before
-		///     <see
-		///         cref="Hits">
-		///         hit points
-		///     </see>
-		///     are lowered or the Mobile is <see cref="Kill">killed</see>.
-		///     <seealso cref="Damage" />
-		///     <seealso cref="Hits" />
-		///     <seealso cref="Kill" />
-		/// </summary>
+		
 		public virtual void OnDamage(int amount, Mobile from, bool willKill)
 		{ }
 
@@ -7755,9 +7745,7 @@ namespace Server
 			return (Notoriety.Compute(this, target) == Notoriety.Innocent);
 		}
 
-		/// <summary>
-		///     Overridable. Event invoked when the Mobile <see cref="DoHarmful">does a harmful action</see>.
-		/// </summary>
+		
 		public virtual void OnHarmfulAction(Mobile target, bool isCriminal)
 		{
 			if (isCriminal)
