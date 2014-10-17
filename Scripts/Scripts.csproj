@@ -186,6 +186,11 @@
     <Compile Include="Custom Systems\Food Effects\Gumps\FoodEffectGump.cs" />
     <Compile Include="Custom Systems\Food Effects\Gumps\FoodEffectsSetupGump.cs" />
     <Compile Include="Custom Systems\Food Effects\Gumps\Gumplings\FoodEffectGumpling.cs" />
+    <Compile Include="Custom Systems\Referral Rewards\ReferralRewardItems.cs" />
+    <Compile Include="Custom Systems\Referral Rewards\ReferralRewardsGump.cs" />
+    <Compile Include="Custom Systems\Referral Rewards\ReferralRewardsStone.cs" />
+    <Compile Include="Custom Systems\Referral Rewards\TellAFriend.cs" />
+    <Compile Include="Custom Systems\Referral Rewards\XmlReferralRewards.cs" />
     <Compile Include="Custom Systems\Slayer Title System\Core\AutoUpgrade\SlayerTitleAttachment_v1.0.cs" />
     <Compile Include="Custom Systems\Slayer Title System\Core\AutoUpgrade\SlayerTitleAttachment_v2.0.cs" />
     <Compile Include="Custom Systems\Slayer Title System\Core\SlayerModule.cs" />

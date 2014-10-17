@@ -8,7 +8,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
+using System.Net;
 using Server.Accounting;
 using Server.ContextMenus;
 using Server.Engines.BulkOrders;
@@ -217,7 +217,11 @@ namespace Server.Mobiles
 		private PlayerFlag m_Flags;
 		private int m_Profession;
 
-		private int m_NonAutoreinsuredItems;
+        #region ReferralRewards
+        public List<IPAddress> ReferredList = new List<IPAddress>();
+        #endregion
+
+        private int m_NonAutoreinsuredItems;
 		// number of items that could not be automaitically reinsured because gold in bank was not enough
 
 		/*
@@ -3354,7 +3358,24 @@ namespace Server.Mobiles
 
 			switch (version)
 			{
-				case 29:
+				case 30:
+			    {
+                    int referredcount = reader.ReadInt();
+
+                    if (referredcount > 0)
+                    {
+                        ReferredList = new List<IPAddress>();
+
+                        for (int i = 0; i < referredcount; i++)
+                        {
+                            IPAddress r = reader.ReadIPAddress();
+                            ReferredList.Add(r);
+                        }
+                    }
+
+                    goto case 29;
+			    }
+                case 29:
 					{
 						m_GauntletPoints = reader.ReadDouble();
 
@@ -3761,7 +3782,15 @@ namespace Server.Mobiles
 
 			base.Serialize(writer);
 
-			writer.Write(29); // version old 28
+			writer.Write(30); // version old 29
+
+            // Version 30
+            writer.Write(ReferredList.Count);
+
+            foreach (IPAddress ip in ReferredList)
+            {
+                writer.Write(ip);
+            }
 
 			// Version 29
 			writer.Write(m_GauntletPoints);
