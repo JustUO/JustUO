@@ -1,27 +1,29 @@
-﻿using System;
-using System.Xml;
+﻿using System.Xml;
 
 namespace Server
 {
-    public class StartupReader
-    {
+	public static class StartupReader
+	{
+		private static readonly string clientpath;
+		private static readonly string shardname;
 
-        public static string GetClientPath()
-        {
-            XmlDocument xml = new XmlDocument();
-            string filePath = "startup.xml";
-            xml.Load(filePath);
-            string clientpath = xml.SelectSingleNode("startupinfo/clientpath").InnerText;
-            return clientpath;
-        }
+		static StartupReader()
+		{
+			XmlDocument xml = new XmlDocument();
+			string filePath = "startup.xml";
+			xml.Load(filePath);
+			clientpath = xml.SelectSingleNode("startupinfo/clientpath").InnerText;
+			shardname = xml.SelectSingleNode("startupinfo/shardname").InnerText;
+		}
 
-        public static string GetShardName()
-        {
-            XmlDocument xml = new XmlDocument();
-            string filePath = "startup.xml";
-            xml.Load(filePath);
-            string shardname = xml.SelectSingleNode("startupinfo/shardname").InnerText;
-            return shardname;
-        }
-    }
+		public static string GetClientPath()
+		{
+			return clientpath;
+		}
+
+		public static string GetShardName()
+		{
+			return shardname;
+		}
+	}
 }
