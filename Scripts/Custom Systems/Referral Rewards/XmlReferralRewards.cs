@@ -1,6 +1,8 @@
 #region References
 
 using System;
+using System.Collections.Generic;
+using System.Net;
 
 #endregion
 
@@ -13,8 +15,8 @@ namespace Server.Engines.XmlSpawner2
 		private int m_PointsSpent;
 		private int m_RewardsChosen;
 		private DateTime m_LastRewardChosen;
+	    public List<IPAddress> ReferredList;  //something im about to do, but now we test git.
 
-		[CommandProperty(AccessLevel.GameMaster)]
 		public int PointsAvailable
 		{
 			get { return m_PointsAvailable; }
