@@ -7,10 +7,11 @@
 /Scripts/bin
 /Scripts/obj
 /Scripts/Scripts.csproj.user
+/Scripts/Output
 /Logs
 /Saves
 /Backups
 *.log
 *.suo
 /VitaNexCore
-
+/.JustCode
