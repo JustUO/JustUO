@@ -74,6 +74,22 @@ namespace Server.Engines.XmlSpawner2
 		    m.SendMessage(String.Format("You are no longer eligable for referral rewards."));
 		}
 
+        public static void Initialize()
+        {
+            // Register our event handler
+            EventSink.CharacterCreated += new CharacterCreatedEventHandler(EventSink_CharacterCreated);
+        }
+
+	    private static void EventSink_CharacterCreated(CharacterCreatedEventArgs args)
+	    {
+	        Mobile from = args.Mobile;
+
+	        if (from != null)
+	        {
+                XmlAttach.AttachTo(from, new XmlReferralRewards());
+	        }
+	    }
+
 		public override void Deserialize(GenericReader reader)
 		{
 			base.Deserialize(reader);

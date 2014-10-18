@@ -742,7 +742,6 @@ namespace Server.Misc
 
             new WelcomeTimer(newChar).Start();
 
-            XmlAttach.AttachTo(newChar, new XmlReferralRewards());
             //XmlAttach.AttachTo(newChar, new XmlPoints());
             //XmlAttach.AttachTo(newChar, new XmlMobFactions());
         }
