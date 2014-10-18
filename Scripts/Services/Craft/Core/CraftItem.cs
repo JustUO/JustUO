@@ -7,7 +7,7 @@
 #region References
 using System;
 using System.Collections.Generic;
-
+using System.Linq;
 using Server.Commands;
 using Server.Engines.Plants;
 using Server.Factions;
@@ -628,6 +628,18 @@ namespace Server.Engines.Craft
 			}
 
 			return amount;
+		}
+
+		public static Type GetSecondaryResourceType(Type primaryType)
+		{
+			Type secondaryType = null;
+
+			foreach (Type[] types in m_TypesTable.Where(types => types[0] == primaryType).Where(types => types.Length > 1))
+			{
+				secondaryType = types[1];
+			}
+
+			return secondaryType;
 		}
 
 		public bool ConsumeRes(

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Server.Gumps;
 using Server.Items;
 using Server.Network;
@@ -151,6 +152,14 @@ namespace Server.Engines.Craft
 
                     for (int i = 0; i < items.Length; ++i)
                         resourceCount += items[i].Amount;
+
+	                Type secondaryType = Craft.CraftItem.GetSecondaryResourceType(resourceType);
+
+	                if (secondaryType != null)
+	                {
+		                items = from.Backpack.FindItemsByType(secondaryType, true);
+		                resourceCount += items.Sum(item => item.Amount);
+	                }
                 }
 
                 this.AddButton(15, 462, 4005, 4007, GetButtonID(6, 0), GumpButtonType.Reply, 0);
@@ -244,6 +253,14 @@ namespace Server.Engines.Craft
 
                     for (int j = 0; j < items.Length; ++j)
                         resourceCount += items[j].Amount;
+
+					Type secondaryType = Craft.CraftItem.GetSecondaryResourceType(subResource.ItemType);
+
+					if (secondaryType != null)
+					{
+						items = from.Backpack.FindItemsByType(secondaryType, true);
+						resourceCount += items.Sum(item => item.Amount);
+					}
                 }
 
                 this.AddButton(220, 70 + (index * 20), 4005, 4007, GetButtonID(5, i), GumpButtonType.Reply, 0);
