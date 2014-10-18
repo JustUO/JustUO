@@ -217,10 +217,6 @@ namespace Server.Mobiles
 		private PlayerFlag m_Flags;
 		private int m_Profession;
 
-        #region ReferralRewards
-        public List<IPAddress> ReferredList = new List<IPAddress>();
-        #endregion
-
         private int m_NonAutoreinsuredItems;
 		// number of items that could not be automaitically reinsured because gold in bank was not enough
 
