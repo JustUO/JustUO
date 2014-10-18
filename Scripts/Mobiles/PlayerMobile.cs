@@ -3358,23 +3358,6 @@ namespace Server.Mobiles
 
 			switch (version)
 			{
-				case 30:
-			    {
-                    int referredcount = reader.ReadInt();
-
-                    if (referredcount > 0)
-                    {
-                        ReferredList = new List<IPAddress>();
-
-                        for (int i = 0; i < referredcount; i++)
-                        {
-                            IPAddress r = reader.ReadIPAddress();
-                            ReferredList.Add(r);
-                        }
-                    }
-
-                    goto case 29;
-			    }
                 case 29:
 					{
 						m_GauntletPoints = reader.ReadDouble();
@@ -3782,15 +3765,7 @@ namespace Server.Mobiles
 
 			base.Serialize(writer);
 
-			writer.Write(30); // version old 29
-
-            // Version 30
-            writer.Write(ReferredList.Count);
-
-            foreach (IPAddress ip in ReferredList)
-            {
-                writer.Write(ip);
-            }
+			writer.Write(29); // version old 28
 
 			// Version 29
 			writer.Write(m_GauntletPoints);

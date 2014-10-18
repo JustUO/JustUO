@@ -58,21 +58,21 @@ namespace Server.Engines.XmlSpawner2
 		{
 			base.OnDelete();
 
-			if (AttachedTo is Mobile)
-			{
-				Mobile m = AttachedTo as Mobile;
-				if (!m.Deleted)
-				{
-					Effects.PlaySound(m, m.Map, 958);
-					m.SendMessage(String.Format("You are no longer eligable for referral rewards on Blood Oath."));
-				}
-			}
-		}
+		    if (!(AttachedTo is Mobile))
+		    {
+		        return;
+		    }
 
-        public override void OnAttach()
-        {
-            base.OnAttach();
-        }
+		    Mobile m = AttachedTo as Mobile;
+
+		    if (m.Deleted)
+		    {
+		        return;
+		    }
+
+		    Effects.PlaySound(m, m.Map, 958);
+		    m.SendMessage(String.Format("You are no longer eligable for referral rewards."));
+		}
 
 		public override void Deserialize(GenericReader reader)
 		{
@@ -80,16 +80,48 @@ namespace Server.Engines.XmlSpawner2
 
 			int version = reader.ReadInt();
 
-			m_PointsAvailable = reader.ReadInt();
-			m_PointsSpent = reader.ReadInt();
-			m_RewardsChosen = reader.ReadInt();
-			m_LastRewardChosen = reader.ReadDateTime();
+		    switch (version)
+		    {
+		        case 1:
+		        {
+                    int referredcount = reader.ReadInt();
+
+                    if (referredcount > 0)
+                    {
+                        ReferredList = new List<IPAddress>();
+
+                        for (int i = 0; i < referredcount; i++)
+                        {
+                            IPAddress r = reader.ReadIPAddress();
+                            ReferredList.Add(r);
+                        }
+                    }
+
+		            goto case 0;
+		        }
+                case 0:
+		        {
+                    m_PointsAvailable = reader.ReadInt();
+                    m_PointsSpent = reader.ReadInt();
+                    m_RewardsChosen = reader.ReadInt();
+                    m_LastRewardChosen = reader.ReadDateTime();
+
+		            break;
+		        }
+		    }
 		}
 
 		public override void Serialize(GenericWriter writer)
 		{
 			base.Serialize(writer);
-			writer.Write(0); // version
+			writer.Write(1); // version
+
+            writer.Write(ReferredList.Count);
+
+            foreach (IPAddress ip in ReferredList)
+            {
+                writer.Write(ip);
+            }
 
 			writer.Write(m_PointsAvailable);
 			writer.Write(m_PointsSpent);
