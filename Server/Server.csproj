@@ -231,7 +231,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="justuo.ico" />
-    <Content Include="playuo.ico" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
