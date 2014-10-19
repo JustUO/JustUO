@@ -91,7 +91,7 @@ namespace Server.Spells.Spellweaving
 				return false;
 			}
 
-			if (Caster is PlayerMobile && !((PlayerMobile)Caster).Spellweaving)
+			if (Caster is PlayerMobile && !((PlayerMobile)Caster).Spellweaving && Caster.AccessLevel < AccessLevel.GameMaster)
 			{
 				Caster.SendLocalizedMessage(1073220); // You must have completed the epic arcanist quest to use this ability.
 				return false;
