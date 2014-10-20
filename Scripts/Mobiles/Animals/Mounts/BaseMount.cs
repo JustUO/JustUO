@@ -379,7 +379,7 @@ namespace Server.Mobiles
                 return;
             }
 
-            if (from.Race == Race.Gargoyle && from.IsPlayer())
+            if (from.Race == Race.Gargoyle)
             {
                 from.SendLocalizedMessage(1112281);
                 this.OnDisallowedRider(from);
