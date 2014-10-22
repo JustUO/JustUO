@@ -1,15 +1,34 @@
+#region Header
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] ServerList.cs
+// ************************************/
+#endregion
+
+#region References
 using System;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Text.RegularExpressions;
+
 using Server.Network;
+#endregion
 
 namespace Server.Misc
 {
-    public class ServerList
-    {
-        /* 
+	public class ServerList
+	{
+		/* 
         * The default setting for Address, a value of 'null', will use your local IP address. If all of your local IP addresses
         * are private network addresses and AutoDetect is 'true' then ServUO will attempt to discover your public IP address
         * for you automatically.
@@ -36,157 +55,168 @@ namespace Server.Misc
         * If you would like to listen on additional ports (i.e. 22, 23, 80, for clients behind highly restrictive egress
         * firewalls) or specific IP adddresses you can do so by modifying the file SocketOptions.cs found in this directory.
         */
-        public static readonly string Address = null;
-        public static readonly string ServerName = StartupReader.GetShardName();
-        public static readonly bool AutoDetect = true;
-        private static IPAddress m_PublicAddress;
-        public static void Initialize()
-        {
-            if (Address == null)
-            {
-                if (AutoDetect)
-                    AutoDetection();
-            }
-            else
-            {
-                Resolve(Address, out m_PublicAddress);
-            }
+		public static readonly string Address = null;
 
-            EventSink.ServerList += new ServerListEventHandler(EventSink_ServerList);
-        }
+		public static readonly string ServerName = StartupReader.GetShardName();
+		public static readonly bool AutoDetect = true;
 
-        private static void EventSink_ServerList(ServerListEventArgs e)
-        {
-            try
-            {
-                NetState ns = e.State;
-                Socket s = ns.Socket;
+		private static IPAddress _PublicAddress;
 
-                IPEndPoint ipep = (IPEndPoint)s.LocalEndPoint;
+		private static readonly Regex _AddressPattern = new Regex(@"([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})");
 
-                IPAddress localAddress = ipep.Address;
-                int localPort = ipep.Port;
+		public static void Initialize()
+		{
+			if (Address == null)
+			{
+				if (AutoDetect)
+				{
+					AutoDetection();
+				}
+			}
+			else
+			{
+				Resolve(Address, out _PublicAddress);
+			}
 
-                if (IsPrivateNetwork(localAddress))
-                {
-                    ipep = (IPEndPoint)s.RemoteEndPoint;
-                    if (!IsPrivateNetwork(ipep.Address) && m_PublicAddress != null)
-                        localAddress = m_PublicAddress;
-                }
+			EventSink.ServerList += EventSink_ServerList;
+		}
 
-                e.AddServer(ServerName, new IPEndPoint(localAddress, localPort));
-            }
-            catch
-            {
-                e.Rejected = true;
-            }
-        }
+		private static void EventSink_ServerList(ServerListEventArgs e)
+		{
+			try
+			{
+				NetState ns = e.State;
+				Socket s = ns.Socket;
+				IPEndPoint ipep = (IPEndPoint)s.LocalEndPoint;
+				IPAddress localAddress = ipep.Address;
+				int localPort = ipep.Port;
 
-        private static void AutoDetection()
-        {
-            if (!HasPublicIPAddress())
-            {
-                Console.Write("ServerList: Auto-detecting public IP address...");
-                m_PublicAddress = FindPublicAddress();
+				if (IsPrivateNetwork(localAddress))
+				{
+					ipep = (IPEndPoint)s.RemoteEndPoint;
 
-                if (m_PublicAddress != null)
-                    Console.WriteLine("done ({0})", m_PublicAddress.ToString());
-                else
-                    Console.WriteLine("failed");
-            }
-        }
+					if (!IsPrivateNetwork(ipep.Address) && _PublicAddress != null)
+					{
+						localAddress = _PublicAddress;
+					}
+				}
 
-        private static void Resolve(string addr, out IPAddress outValue)
-        {
-            if (IPAddress.TryParse(addr, out outValue))
-                return;
+				e.AddServer(ServerName, new IPEndPoint(localAddress, localPort));
+			}
+			catch (Exception x)
+			{
+				x.ToConsole();
+				e.Rejected = true;
+			}
+		}
 
-            try
-            {
-                IPHostEntry iphe = Dns.GetHostEntry(addr);
+		private static void AutoDetection()
+		{
+			if (HasPublicIPAddress())
+			{
+				return;
+			}
 
-                if (iphe.AddressList.Length > 0)
-                    outValue = iphe.AddressList[iphe.AddressList.Length - 1];
-            }
-            catch
-            {
-            }
-        }
+			Console.Write("ServerList: Auto-detecting public IP address...");
 
-        private static bool HasPublicIPAddress()
-        {
-            NetworkInterface[] adapters = NetworkInterface.GetAllNetworkInterfaces();
+			_PublicAddress = FindPublicAddress();
 
-            foreach (NetworkInterface adapter in adapters)
-            {
-                IPInterfaceProperties properties = adapter.GetIPProperties();
+			if (_PublicAddress != null)
+			{
+				Console.WriteLine("done ({0})", _PublicAddress);
+			}
+			else
+			{
+				Console.WriteLine("failed");
+			}
+		}
 
-                foreach (IPAddressInformation unicast in properties.UnicastAddresses)
-                {
-                    IPAddress ip = unicast.Address;
+		public static void Resolve(string addr, out IPAddress outValue)
+		{
+			if (IPAddress.TryParse(addr.Trim(), out outValue))
+			{
+				return;
+			}
 
-                    if (!IPAddress.IsLoopback(ip) && ip.AddressFamily != AddressFamily.InterNetworkV6 && !IsPrivateNetwork(ip))
-                        return true;
-                }
-            }
+			try
+			{
+				IPHostEntry iphe = Dns.GetHostEntry(addr);
 
-            return false;
-            /*
-            IPHostEntry iphe = Dns.GetHostEntry( Dns.GetHostName() );
-            IPAddress[] ips = iphe.AddressList;
-            for ( int i = 0; i < ips.Length; ++i )
-            {
-            if ( ips[i].AddressFamily != AddressFamily.InterNetworkV6 && !IsPrivateNetwork( ips[i] ) )
-            return true;
-            }
-            return false;
-            */
-        }
+				if (iphe.AddressList.Length > 0)
+				{
+					outValue = iphe.AddressList[iphe.AddressList.Length - 1];
+				}
+			}
+			catch
+			{ }
+		}
 
-        private static bool IsPrivateNetwork(IPAddress ip)
-        {
-            // 10.0.0.0/8
-            // 172.16.0.0/12
-            // 192.168.0.0/16
-            if (ip.AddressFamily == AddressFamily.InterNetworkV6)
-                return false;
+		public static bool HasPublicIPAddress()
+		{
+			var adapters = NetworkInterface.GetAllNetworkInterfaces();
 
-            if (Utility.IPMatch("192.168.*", ip))
-                return true;
-            else if (Utility.IPMatch("10.*", ip))
-                return true;
-            else if (Utility.IPMatch("172.16-31.*", ip))
-                return true;
-            else
-                return false;
-        }
+			return
+				(adapters.Select(adapter => adapter.GetIPProperties())
+						 .SelectMany(
+							 properties => properties.UnicastAddresses.Cast<IPAddressInformation>(), (properties, unicast) => unicast.Address))
+					.Any(ip => !IPAddress.IsLoopback(ip) && ip.AddressFamily != AddressFamily.InterNetworkV6 && !IsPrivateNetwork(ip));
+		}
 
-        private static IPAddress FindPublicAddress()
-        {
-            try
-            {
-                String ip = "";
-                WebRequest request = WebRequest.Create("http://checkip.dyndns.org/");
-                request.Timeout = 15000;
+		public static bool IsPrivateNetwork(IPAddress ip)
+		{
+			// 10.0.0.0/8
+			// 172.16.0.0/12
+			// 192.168.0.0/16
+			if (ip.AddressFamily == AddressFamily.InterNetworkV6)
+			{
+				return false;
+			}
 
-                using (WebResponse response = request.GetResponse())
-                {
-                    using (StreamReader stream = new StreamReader(response.GetResponseStream()))
-                    {
-                        ip = stream.ReadToEnd();
-                    }
-                }
+			if (Utility.IPMatch("192.168.*", ip))
+			{
+				return true;
+			}
+			
+			if (Utility.IPMatch("10.*", ip))
+			{
+				return true;
+			}
+			
+			if (Utility.IPMatch("172.16-31.*", ip))
+			{
+				return true;
+			}
+			
+			return false;
+		}
 
-                int first = ip.IndexOf("Address: ") + 9;
-                int last = ip.LastIndexOf("</body>");
-                ip = ip.Substring(first, last - first);
+		/// <summary>
+		///     Uses checkip.dyndns.org to resolve the external IP of the current public network.
+		///     RunUO uses it's own hosted page to do this, but it's often unresponsive,
+		///     causing listener initialization delays.
+		/// </summary>
+		public static IPAddress FindPublicAddress()
+		{
+			string data = String.Empty;
 
-                return IPAddress.Parse(ip);
-            }
-            catch
-            {
-                return null;
-            }
-        }
-    }
+			WebRequest request = WebRequest.Create("http://checkip.dyndns.org/");
+
+			using (WebResponse response = request.GetResponse())
+			{
+				Stream r = response.GetResponseStream();
+
+				if (r != null)
+				{
+					using (var stream = new StreamReader(r))
+					{
+						data = stream.ReadToEnd();
+					}
+				}
+			}
+
+			Match m = _AddressPattern.Match(data);
+
+			return m.Success ? IPAddress.Parse(m.Value) : null;
+		}
+	}
 }

@@ -1,7 +1,15 @@
 #region Header
-// **********
-// ServUO - Compression.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] Compression.cs
+// ************************************/
 #endregion
 
 #region References
@@ -351,7 +359,7 @@ namespace Server.Network
 
 		public ZLibError Compress(byte[] dest, ref int destLength, byte[] source, int sourceLength)
 		{
-			ulong destLengthLong = (ulong)destLength;
+			var destLengthLong = (ulong)destLength;
 			ZLibError z = SafeNativeMethods.compress(dest, ref destLengthLong, source, sourceLength);
 			destLength = (int)destLengthLong;
 			return z;
@@ -359,7 +367,7 @@ namespace Server.Network
 
 		public ZLibError Compress(byte[] dest, ref int destLength, byte[] source, int sourceLength, ZLibQuality quality)
 		{
-			ulong destLengthLong = (ulong)destLength;
+			var destLengthLong = (ulong)destLength;
 			ZLibError z = SafeNativeMethods.compress2(dest, ref destLengthLong, source, sourceLength, quality);
 			destLength = (int)destLengthLong;
 			return z;
@@ -367,7 +375,7 @@ namespace Server.Network
 
 		public ZLibError Decompress(byte[] dest, ref int destLength, byte[] source, int sourceLength)
 		{
-			ulong destLengthLong = (ulong)destLength;
+			var destLengthLong = (ulong)destLength;
 			ZLibError z = SafeNativeMethods.uncompress(dest, ref destLengthLong, source, sourceLength);
 			destLength = (int)destLengthLong;
 			return z;

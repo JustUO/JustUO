@@ -1,7 +1,15 @@
 ﻿#region Header
-// **********
-// ServUO - ObjectDumper.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] ObjectDumper.cs
+// ************************************/
 #endregion
 
 #region References
@@ -47,7 +55,7 @@ namespace CustomsFramework
 			}
 			else
 			{
-				var objectType = element.GetType();
+				Type objectType = element.GetType();
 				if (!typeof(IEnumerable).IsAssignableFrom(objectType))
 				{
 					Write("{{{0}}}", objectType.FullName);
@@ -81,8 +89,8 @@ namespace CustomsFramework
 				}
 				else
 				{
-					var members = element.GetType().GetMembers(BindingFlags.Public | BindingFlags.Instance);
-					foreach (var memberInfo in members)
+					MemberInfo[] members = element.GetType().GetMembers(BindingFlags.Public | BindingFlags.Instance);
+					foreach (MemberInfo memberInfo in members)
 					{
 						var fieldInfo = memberInfo as FieldInfo;
 						var propertyInfo = memberInfo as PropertyInfo;
@@ -92,7 +100,7 @@ namespace CustomsFramework
 							continue;
 						}
 
-						var type = fieldInfo != null ? fieldInfo.FieldType : propertyInfo.PropertyType;
+						Type type = fieldInfo != null ? fieldInfo.FieldType : propertyInfo.PropertyType;
 						object value = fieldInfo != null ? fieldInfo.GetValue(element) : propertyInfo.GetValue(element, null);
 
 						if (type.IsValueType || type == typeof(string))
@@ -101,10 +109,10 @@ namespace CustomsFramework
 						}
 						else
 						{
-							var isEnumerable = typeof(IEnumerable).IsAssignableFrom(type);
+							bool isEnumerable = typeof(IEnumerable).IsAssignableFrom(type);
 							Write("{0}: {1}", memberInfo.Name, isEnumerable ? "..." : "{ }");
 
-							var alreadyTouched = !isEnumerable && AlreadyTouched(value);
+							bool alreadyTouched = !isEnumerable && AlreadyTouched(value);
 							_level++;
 							if (!alreadyTouched)
 							{
@@ -130,8 +138,8 @@ namespace CustomsFramework
 
 		private bool AlreadyTouched(object value)
 		{
-			var hash = value.GetHashCode();
-			for (var i = 0; i < _hashListOfFoundElements.Count; i++)
+			int hash = value.GetHashCode();
+			for (int i = 0; i < _hashListOfFoundElements.Count; i++)
 			{
 				if (_hashListOfFoundElements[i] == hash)
 				{

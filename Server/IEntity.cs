@@ -1,7 +1,15 @@
 #region Header
-// **********
-// ServUO - IEntity.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] IEntity.cs
+// ************************************/
 #endregion
 
 #region References
@@ -15,6 +23,7 @@ namespace Server
 		Serial Serial { get; }
 		Point3D Location { get; }
 		Map Map { get; }
+		bool Deleted { get; }
 
 		void Delete();
 		void ProcessDelta();
@@ -49,7 +58,8 @@ namespace Server
 
 		private Serial m_Serial;
 		private Point3D m_Location;
-		private readonly Map m_Map;
+		private Map m_Map;
+		private bool m_Deleted;
 
 		public Entity(Serial serial, Point3D loc, Map map)
 		{
@@ -63,15 +73,18 @@ namespace Server
 		public Point3D Location { get { return m_Location; } }
 
 		public int X { get { return m_Location.X; } }
-
 		public int Y { get { return m_Location.Y; } }
-
 		public int Z { get { return m_Location.Z; } }
 
 		public Map Map { get { return m_Map; } }
 
+		public bool Deleted { get { return m_Deleted; } }
+
 		public void Delete()
-		{ }
+		{
+			m_Deleted = true;
+			m_Map = null;
+		}
 
 		public void ProcessDelta()
 		{ }

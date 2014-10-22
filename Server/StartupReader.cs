@@ -1,4 +1,20 @@
-﻿using System.Xml;
+﻿#region Header
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] StartupReader.cs
+// ************************************/
+#endregion
+
+#region References
+using System.Xml;
+#endregion
 
 namespace Server
 {
@@ -9,7 +25,7 @@ namespace Server
 
 		static StartupReader()
 		{
-			XmlDocument xml = new XmlDocument();
+			var xml = new XmlDocument();
 			string filePath = "startup.xml";
 			xml.Load(filePath);
 			clientpath = xml.SelectSingleNode("startupinfo/clientpath").InnerText;

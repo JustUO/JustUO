@@ -1,7 +1,15 @@
 #region Header
-// **********
-// ServUO - TileData.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] TileData.cs
+// ************************************/
 #endregion
 
 #region References
@@ -203,9 +211,9 @@ namespace Server
 
 			if (File.Exists(filePath))
 			{
-				using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+				using (var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
 				{
-					BinaryReader bin = new BinaryReader(fs);
+					var bin = new BinaryReader(fs);
 
 					if (fs.Length == 3188736)
 					{
@@ -219,7 +227,7 @@ namespace Server
 								bin.ReadInt32(); // header
 							}
 
-							TileFlag flags = (TileFlag)bin.ReadInt64();
+							var flags = (TileFlag)bin.ReadInt64();
 							bin.ReadInt16(); // skip 2 bytes -- textureID
 
 							m_LandData[i] = new LandData(ReadNameString(bin), flags);
@@ -234,7 +242,7 @@ namespace Server
 								bin.ReadInt32(); // header
 							}
 
-							TileFlag flags = (TileFlag)bin.ReadInt64();
+							var flags = (TileFlag)bin.ReadInt64();
 							int weight = bin.ReadByte();
 							int quality = bin.ReadByte();
 							bin.ReadInt16();
@@ -259,7 +267,7 @@ namespace Server
 								bin.ReadInt32(); // header
 							}
 
-							TileFlag flags = (TileFlag)bin.ReadInt32();
+							var flags = (TileFlag)bin.ReadInt32();
 							bin.ReadInt16(); // skip 2 bytes -- textureID
 
 							m_LandData[i] = new LandData(ReadNameString(bin), flags);
@@ -277,7 +285,7 @@ namespace Server
 									bin.ReadInt32(); // header
 								}
 
-								TileFlag flags = (TileFlag)bin.ReadInt32();
+								var flags = (TileFlag)bin.ReadInt32();
 								int weight = bin.ReadByte();
 								int quality = bin.ReadByte();
 								bin.ReadInt16();
@@ -302,7 +310,7 @@ namespace Server
 									bin.ReadInt32(); // header
 								}
 
-								TileFlag flags = (TileFlag)bin.ReadInt32();
+								var flags = (TileFlag)bin.ReadInt32();
 								int weight = bin.ReadByte();
 								int quality = bin.ReadByte();
 								bin.ReadInt16();

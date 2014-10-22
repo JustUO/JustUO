@@ -1,7 +1,15 @@
 #region Header
-// **********
-// ServUO - ItemBounds.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] ItemBounds.cs
+// ************************************/
 #endregion
 
 #region References
@@ -23,9 +31,9 @@ namespace Server
 
 			if (File.Exists("Data/Binary/Bounds.bin"))
 			{
-				using (FileStream fs = new FileStream("Data/Binary/Bounds.bin", FileMode.Open, FileAccess.Read, FileShare.Read))
+				using (var fs = new FileStream("Data/Binary/Bounds.bin", FileMode.Open, FileAccess.Read, FileShare.Read))
 				{
-					BinaryReader bin = new BinaryReader(fs);
+					var bin = new BinaryReader(fs);
 
 					int count = Math.Min(m_Bounds.Length, (int)(fs.Length / 8));
 

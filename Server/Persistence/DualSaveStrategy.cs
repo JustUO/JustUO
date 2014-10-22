@@ -1,40 +1,48 @@
+#region Header
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] DualSaveStrategy.cs
+// ************************************/
+#endregion
+
+#region References
 using System.Threading;
+#endregion
 
 namespace Server
 {
-    public sealed class DualSaveStrategy : StandardSaveStrategy
-    {
-        public DualSaveStrategy()
-        {
-        }
+	public sealed class DualSaveStrategy : StandardSaveStrategy
+	{
+		public override string Name { get { return "Dual"; } }
 
-        public override string Name
-        {
-            get
-            {
-                return "Dual";
-            }
-        }
-        public override void Save(SaveMetrics metrics, bool permitBackgroundWrite) 
-        {
-            this.PermitBackgroundWrite = permitBackgroundWrite;
+		public override void Save(SaveMetrics metrics, bool permitBackgroundWrite)
+		{
+			PermitBackgroundWrite = permitBackgroundWrite;
 
-            Thread saveThread = new Thread(delegate()
-            {
-                this.SaveItems(metrics);
-            });
+			var saveThread = new Thread(() => SaveItems(metrics)) {
+				Name = "Item Save Subset"
+			};
 
-            saveThread.Name = "Item Save Subset";
-            saveThread.Start();
+			saveThread.Start();
 
-            this.SaveMobiles(metrics);
-            this.SaveGuilds(metrics);
-            this.SaveData(metrics);
+			SaveMobiles(metrics);
+			SaveGuilds(metrics);
+			SaveData(metrics);
 
-            saveThread.Join();
+			saveThread.Join();
 
-            if (permitBackgroundWrite && this.UseSequentialWriters)	//If we're permitted to write in the background, but we don't anyways, then notify.
-                World.NotifyDiskWriteComplete();
-        }
-    }
+			if (permitBackgroundWrite && UseSequentialWriters)
+			{
+				//If we're permitted to write in the background, but we don't anyways, then notify.
+				World.NotifyDiskWriteComplete();
+			}
+		}
+	}
 }

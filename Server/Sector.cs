@@ -1,7 +1,15 @@
 #region Header
-// **********
-// ServUO - Sector.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] Sector.cs
+// ************************************/
 #endregion
 
 #region References
@@ -40,7 +48,7 @@ namespace Server
 				return 1;
 			}
 
-			RegionRect regRect = obj as RegionRect;
+			var regRect = obj as RegionRect;
 
 			if (regRect == null)
 			{

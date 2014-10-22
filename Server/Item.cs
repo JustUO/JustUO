@@ -1,7 +1,15 @@
 #region Header
-// **********
-// ServUO - Item.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] Item.cs
+// ************************************/
 #endregion
 
 #region References
@@ -688,7 +696,7 @@ namespace Server
 
 		public List<BaseModule> SearchModules(string search)
 		{
-			var keywords = search.ToLower().Split(' ');
+			string[] keywords = search.ToLower().Split(' ');
 			var modules = new List<BaseModule>();
 
 			foreach (BaseModule mod in Modules)
@@ -1000,7 +1008,7 @@ namespace Server
 		{
 			if (this is Container)
 			{
-				Container cont = this as Container;
+				var cont = this as Container;
 
 				if (cont.m_Items == null)
 				{
@@ -1054,8 +1062,8 @@ namespace Server
 			int lineDelta = bd.Stride >> 1;
 
 			var pBuffer = (ushort*)bd.Scan0;
-			var pLineEnd = pBuffer + bd.Width;
-			var pEnd = pBuffer + (bd.Height * lineDelta);
+			ushort* pLineEnd = pBuffer + bd.Width;
+			ushort* pEnd = pBuffer + (bd.Height * lineDelta);
 
 			bool foundPixel = false;
 
@@ -1161,7 +1169,7 @@ namespace Server
 
 					if (bounce.m_Parent is Item)
 					{
-						Item parent = (Item)bounce.m_Parent;
+						var parent = (Item)bounce.m_Parent;
 
 						if (!parent.Deleted)
 						{
@@ -1170,7 +1178,7 @@ namespace Server
 					}
 					else if (bounce.m_Parent is Mobile)
 					{
-						Mobile parent = (Mobile)bounce.m_Parent;
+						var parent = (Mobile)bounce.m_Parent;
 
 						if (!parent.Deleted)
 						{
@@ -1532,7 +1540,7 @@ namespace Server
 
 				if (parent is Item && !((Item)parent).Deleted)
 				{
-					Item p = (Item)parent;
+					var p = (Item)parent;
 					object root = p.RootParent;
 					if (p.IsAccessibleTo(from) && (!(root is Mobile) || ((Mobile)root).CheckNonlocalDrop(from, this, p)))
 					{
@@ -1773,7 +1781,7 @@ namespace Server
 
 					if (oldLocation.m_X != 0)
 					{
-						var eable = m_Map.GetClientsInRange(oldLocation, GetMaxUpdateRange());
+						IPooledEnumerable<NetState> eable = m_Map.GetClientsInRange(oldLocation, GetMaxUpdateRange());
 
 						foreach (NetState state in eable)
 						{
@@ -1794,7 +1802,7 @@ namespace Server
 
 				ReleaseWorldPackets();
 
-				var items = LookupItems();
+				List<Item> items = LookupItems();
 
 				if (items != null)
 				{
@@ -1815,7 +1823,7 @@ namespace Server
 
 				if (m_Map != null)
 				{
-					var eable = m_Map.GetClientsInRange(m_Location, GetMaxUpdateRange());
+					IPooledEnumerable<NetState> eable = m_Map.GetClientsInRange(m_Location, GetMaxUpdateRange());
 
 					foreach (NetState state in eable)
 					{
@@ -2260,7 +2268,7 @@ namespace Server
 					{
 						Point3D worldLoc = GetWorldLocation();
 
-						var eable = m_Map.GetClientsInRange(worldLoc, GetMaxUpdateRange());
+						IPooledEnumerable<NetState> eable = m_Map.GetClientsInRange(worldLoc, GetMaxUpdateRange());
 
 						foreach (NetState state in eable)
 						{
@@ -2359,7 +2367,7 @@ namespace Server
 						SendRemovePacket();
 					}
 
-					var items = LookupItems();
+					List<Item> items = LookupItems();
 
 					if (items != null)
 					{
@@ -2442,7 +2450,7 @@ namespace Server
 		{
 			writer.Write(9); // version
 
-			SaveFlag flags = SaveFlag.None;
+			var flags = SaveFlag.None;
 
 			int x = m_Location.m_X, y = m_Location.m_Y, z = m_Location.m_Z;
 
@@ -2475,7 +2483,7 @@ namespace Server
 			}
 
 			CompactInfo info = LookupCompactInfo();
-			var items = LookupItems();
+			List<Item> items = LookupItems();
 
 			if (m_Direction != Direction.North)
 			{
@@ -2902,7 +2910,7 @@ namespace Server
 				case 7:
 				case 6:
 					{
-						SaveFlag flags = (SaveFlag)reader.ReadInt();
+						var flags = (SaveFlag)reader.ReadInt();
 
 						if (version < 7)
 						{
@@ -3025,7 +3033,7 @@ namespace Server
 
 						if (GetSaveFlag(flags, SaveFlag.Items))
 						{
-							var items = reader.ReadStrongItemList();
+							List<Item> items = reader.ReadStrongItemList();
 
 							if (this is Container)
 							{
@@ -3131,7 +3139,7 @@ namespace Server
 					}
 				case 5:
 					{
-						SaveFlag flags = (SaveFlag)reader.ReadInt();
+						var flags = (SaveFlag)reader.ReadInt();
 
 						LastMoved = reader.ReadDeltaTime();
 
@@ -3214,7 +3222,7 @@ namespace Server
 
 						if (GetSaveFlag(flags, SaveFlag.Items))
 						{
-							var items = reader.ReadStrongItemList();
+							List<Item> items = reader.ReadStrongItemList();
 
 							if (this is Container)
 							{
@@ -3639,7 +3647,7 @@ namespace Server
 		{
 			get
 			{
-				var items = LookupItems();
+				List<Item> items = LookupItems();
 
 				if (items == null)
 				{
@@ -3658,7 +3666,7 @@ namespace Server
 
 				while (p is Item)
 				{
-					Item item = (Item)p;
+					var item = (Item)p;
 
 					if (item.m_Parent == null)
 					{
@@ -3685,7 +3693,7 @@ namespace Server
 					return true;
 				}
 
-				Item item = (Item)p;
+				var item = (Item)p;
 
 				if (item.m_Parent == null)
 				{
@@ -3744,7 +3752,7 @@ namespace Server
 			item.Parent = this;
 			item.Map = m_Map;
 
-			var items = AcquireItems();
+			List<Item> items = AcquireItems();
 
 			items.Add(item);
 
@@ -3780,7 +3788,7 @@ namespace Server
 				{
 					try
 					{
-						using (StreamWriter op = new StreamWriter("delta-recursion.log", true))
+						using (var op = new StreamWriter("delta-recursion.log", true))
 						{
 							op.WriteLine("# {0}", DateTime.UtcNow);
 							op.WriteLine(new StackTrace());
@@ -3811,7 +3819,7 @@ namespace Server
 				{
 					try
 					{
-						using (StreamWriter op = new StreamWriter("delta-recursion.log", true))
+						using (var op = new StreamWriter("delta-recursion.log", true))
 						{
 							op.WriteLine("# {0}", DateTime.UtcNow);
 							op.WriteLine(new StackTrace());
@@ -3845,7 +3853,7 @@ namespace Server
 			{
 				bool sendOPLUpdate = ObjectPropertyList.Enabled && (flags & ItemDelta.Properties) != 0;
 
-				Container contParent = m_Parent as Container;
+				var contParent = m_Parent as Container;
 
 				if (contParent != null && !contParent.IsPublicContainer)
 				{
@@ -3853,7 +3861,7 @@ namespace Server
 					{
 						Point3D worldLoc = GetWorldLocation();
 
-						Mobile rootParent = contParent.RootParent as Mobile;
+						var rootParent = contParent.RootParent as Mobile;
 						Mobile tradeRecip = null;
 
 						if (rootParent != null)
@@ -3930,7 +3938,7 @@ namespace Server
 							}
 						}
 
-						var openers = contParent.Openers;
+						List<Mobile> openers = contParent.Openers;
 
 						if (openers != null)
 						{
@@ -3992,7 +4000,7 @@ namespace Server
 					Packet p = null;
 					Point3D worldLoc = GetWorldLocation();
 
-					var eable = map.GetClientsInRange(worldLoc, GetMaxUpdateRange());
+					IPooledEnumerable<NetState> eable = map.GetClientsInRange(worldLoc, GetMaxUpdateRange());
 
 					foreach (NetState state in eable)
 					{
@@ -4055,7 +4063,7 @@ namespace Server
 						Packet p = null;
 						Point3D worldLoc = GetWorldLocation();
 
-						var eable = map.GetClientsInRange(worldLoc, GetMaxUpdateRange());
+						IPooledEnumerable<NetState> eable = map.GetClientsInRange(worldLoc, GetMaxUpdateRange());
 
 						foreach (NetState state in eable)
 						{
@@ -4090,7 +4098,7 @@ namespace Server
 				if (sendOPLUpdate)
 				{
 					Point3D worldLoc = GetWorldLocation();
-					var eable = map.GetClientsInRange(worldLoc, GetMaxUpdateRange());
+					IPooledEnumerable<NetState> eable = map.GetClientsInRange(worldLoc, GetMaxUpdateRange());
 
 					foreach (NetState state in eable)
 					{
@@ -4165,7 +4173,7 @@ namespace Server
 
 			OnDelete();
 
-			var items = LookupItems();
+			List<Item> items = LookupItems();
 
 			if (items != null)
 			{
@@ -4216,7 +4224,7 @@ namespace Server
 				Packet p = null;
 				Point3D worldLoc = GetWorldLocation();
 
-				var eable = m_Map.GetClientsInRange(worldLoc, GetMaxUpdateRange());
+				IPooledEnumerable<NetState> eable = m_Map.GetClientsInRange(worldLoc, GetMaxUpdateRange());
 
 				foreach (NetState state in eable)
 				{
@@ -4260,7 +4268,7 @@ namespace Server
 				Packet p = null;
 				Point3D worldLoc = GetWorldLocation();
 
-				var eable = m_Map.GetClientsInRange(worldLoc, GetMaxUpdateRange());
+				IPooledEnumerable<NetState> eable = m_Map.GetClientsInRange(worldLoc, GetMaxUpdateRange());
 
 				foreach (NetState state in eable)
 				{
@@ -4293,7 +4301,7 @@ namespace Server
 
 		public virtual void RemoveItem(Item item)
 		{
-			var items = LookupItems();
+			List<Item> items = LookupItems();
 
 			if (items != null && items.Contains(item))
 			{
@@ -4374,7 +4382,7 @@ namespace Server
 		{
 			get
 			{
-				IEntity p = Parent as IEntity;
+				var p = Parent as IEntity;
 
 				return p;
 			}
@@ -4385,7 +4393,7 @@ namespace Server
 		{
 			get
 			{
-				IEntity p = RootParent as IEntity;
+				var p = RootParent as IEntity;
 
 				return p;
 			}
@@ -4838,7 +4846,7 @@ namespace Server
 				}
 			}
 
-			var tiles = map.Tiles.GetStaticTiles(x, y, true);
+			StaticTile[] tiles = map.Tiles.GetStaticTiles(x, y, true);
 
 			for (int i = 0; i < tiles.Length; ++i)
 			{
@@ -4862,7 +4870,7 @@ namespace Server
 
 			var items = new List<Item>();
 
-			var eable = map.GetItemsInRange(p, 0);
+			IPooledEnumerable<Item> eable = map.GetItemsInRange(p, 0);
 
 			foreach (Item item in eable)
 			{
@@ -5092,7 +5100,7 @@ namespace Server
 			{
 				Point3D worldLoc = GetWorldLocation();
 
-				var eable = m_Map.GetClientsInRange(worldLoc, GetMaxUpdateRange());
+				IPooledEnumerable<NetState> eable = m_Map.GetClientsInRange(worldLoc, GetMaxUpdateRange());
 
 				foreach (NetState state in eable)
 				{
@@ -5363,7 +5371,7 @@ namespace Server
 
 			while (p is Item)
 			{
-				Item item = (Item)p;
+				var item = (Item)p;
 
 				if (item.m_Parent == null)
 				{
@@ -5432,7 +5440,7 @@ namespace Server
 
 		public bool CheckLift(Mobile from)
 		{
-			LRReason reject = LRReason.Inspecific;
+			var reject = LRReason.Inspecific;
 
 			return CheckLift(from, this, ref reject);
 		}

@@ -1,7 +1,15 @@
 ﻿#region Header
-// **********
-// ServUO - Utilities.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] Utilities.cs
+// ************************************/
 #endregion
 
 #region References
@@ -158,7 +166,7 @@ namespace CustomsFramework
 		{
 			Console.WriteLine();
 
-			foreach (var element in elements)
+			foreach (object element in elements)
 			{
 				Console.WriteLine(ObjectDumper.Dump(element));
 				Console.WriteLine();
@@ -167,7 +175,7 @@ namespace CustomsFramework
 
 		public static void Compress7z(string copyPath, string outPath, CompressionLevel compressionLevel)
 		{
-			SevenZipCompressor compressor = new SevenZipCompressor();
+			var compressor = new SevenZipCompressor();
 
 			compressor.CustomParameters.Add("mt", "on");
 			compressor.CompressionLevel = compressionLevel;
@@ -178,7 +186,7 @@ namespace CustomsFramework
 
 		public static void Compress7z(string copyPath, Stream outStream, CompressionLevel compressionLevel)
 		{
-			SevenZipCompressor compressor = new SevenZipCompressor();
+			var compressor = new SevenZipCompressor();
 
 			compressor.CustomParameters.Add("mt", "on");
 			compressor.CompressionLevel = compressionLevel;

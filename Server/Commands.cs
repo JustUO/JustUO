@@ -1,7 +1,15 @@
 #region Header
-// **********
-// ServUO - Commands.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] Commands.cs
+// ************************************/
 #endregion
 
 #region References
@@ -121,7 +129,7 @@ namespace Server.Commands
 				return 1;
 			}
 
-			CommandEntry e = obj as CommandEntry;
+			var e = obj as CommandEntry;
 
 			if (e == null)
 			{
@@ -140,7 +148,7 @@ namespace Server.Commands
 
 		public static string[] Split(string value)
 		{
-			var array = value.ToCharArray();
+			char[] array = value.ToCharArray();
 			var list = new List<string>();
 
 			int start = 0, end = 0;
@@ -260,7 +268,7 @@ namespace Server.Commands
 					{
 						if (entry.Handler != null)
 						{
-							CommandEventArgs e = new CommandEventArgs(from, command, argString, args);
+							var e = new CommandEventArgs(from, command, argString, args);
 							entry.Handler(e);
 							EventSink.InvokeCommand(e);
 						}

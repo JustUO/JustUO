@@ -1,7 +1,15 @@
 #region Header
-// **********
-// ServUO - Gump.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] Gump.cs
+// ************************************/
 #endregion
 
 #region References
@@ -596,7 +604,7 @@ namespace Server.Gumps
 				}
 				else
 				{
-					GumpButton button = e as GumpButton;
+					var button = e as GumpButton;
 
 					if (button != null)
 					{
@@ -604,7 +612,7 @@ namespace Server.Gumps
 					}
 					else
 					{
-						GumpImageTileButton tileButton = e as GumpImageTileButton;
+						var tileButton = e as GumpImageTileButton;
 
 						if (tileButton != null)
 						{
@@ -613,7 +621,7 @@ namespace Server.Gumps
 						}
 						else
 						{
-							GumpRadio radio = e as GumpRadio;
+							var radio = e as GumpRadio;
 
 							if (radio != null)
 							{
@@ -621,7 +629,7 @@ namespace Server.Gumps
 							}
 							else
 							{
-								GumpCheck check = e as GumpCheck;
+								var check = e as GumpCheck;
 
 								if (check != null)
 								{

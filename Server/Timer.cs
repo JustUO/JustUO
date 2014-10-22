@@ -1,7 +1,15 @@
 #region Header
-// **********
-// ServUO - Timer.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] Timer.cs
+// ************************************/
 #endregion
 
 #region References
@@ -164,10 +172,10 @@ namespace Server
 						list.Add(t);
 					}
 
-					foreach (var kv in hash)
+					foreach (KeyValuePair<string, List<Timer>> kv in hash)
 					{
 						string key = kv.Key;
-						var list = kv.Value;
+						List<Timer> list = kv.Value;
 
 						tw.WriteLine(
 							"Type: {0}; Count: {1}; Percent: {2}%", key, list.Count, (int)(100 * (list.Count / (double)m_Timers[i].Count)));
@@ -307,6 +315,12 @@ namespace Server
 
 				while (!Core.Closing)
 				{
+					if (World.Saving)
+					{
+						Thread.Sleep(1);
+						continue;
+					}
+
 					ProcessChanged();
 
 					loaded = false;

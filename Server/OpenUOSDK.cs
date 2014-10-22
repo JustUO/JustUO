@@ -1,13 +1,22 @@
 ﻿#region Header
-// **********
-// ServUO - OpenUOSDK.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] OpenUOSDK.cs
+// ************************************/
 #endregion
 
 #region References
 using System;
 using System.IO;
 using System.Linq;
+
 using OpenUO.Core.Patterns;
 using OpenUO.Ultima;
 using OpenUO.Ultima.Windows.Forms;
@@ -44,7 +53,7 @@ namespace Server
 				}
 			}
 
-			Container container = new Container();
+			var container = new Container();
 			container.RegisterModule<UltimaSDKCoreModule>();
 			container.RegisterModule<UltimaSDKBitmapModule>();
 

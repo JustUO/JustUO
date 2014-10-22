@@ -1,7 +1,15 @@
 #region Header
-// **********
-// ServUO - Random.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] Random.cs
+// ************************************/
 #endregion
 
 #region References
@@ -25,7 +33,7 @@ namespace Server
 		{
 			if (Core.Unix)
 			{
-				_Random = new SimpleRandom();
+				_Random = new CSPRandom();
 			}
 			else if (Core.Is64Bit && File.Exists("rdrand64.dll"))
 			{
@@ -132,7 +140,8 @@ namespace Server
 		private int _Index;
 
 		private readonly object _sync = new object();
-		private readonly object _syncB = new object();
+
+		private readonly ManualResetEvent _filled = new ManualResetEvent(false);
 
 		public CSPRandom()
 		{
@@ -142,39 +151,38 @@ namespace Server
 
 		private void CheckSwap(int c)
 		{
-			lock (_sync)
+			if (_Index + c < BUFFER_SIZE)
 			{
-				if (_Index + c < BUFFER_SIZE)
-				{
-					return;
-				}
-
-				lock (_syncB)
-				{
-					var b = _Working;
-					_Working = _Buffer;
-					_Buffer = b;
-					_Index = 0;
-				}
+				return;
 			}
+
+			_filled.WaitOne();
+
+			byte[] b = _Working;
+			_Working = _Buffer;
+			_Buffer = b;
+			_Index = 0;
+
+			_filled.Reset();
+
 			ThreadPool.QueueUserWorkItem(Fill);
 		}
 
 		private void Fill(object o)
 		{
-			lock (_syncB)
-				lock (_CSP)
-					_CSP.GetBytes(_Buffer);
+			lock (_CSP)
+				_CSP.GetBytes(_Buffer);
+
+			_filled.Set();
 		}
 
 		private void _GetBytes(byte[] b)
 		{
 			int c = b.Length;
 
-			CheckSwap(c);
-
 			lock (_sync)
 			{
+				CheckSwap(c);
 				Buffer.BlockCopy(_Working, _Index, b, 0, c);
 				_Index += c;
 			}
@@ -182,10 +190,9 @@ namespace Server
 
 		private void _GetBytes(byte[] b, int offset, int count)
 		{
-			CheckSwap(count);
-
 			lock (_sync)
 			{
+				CheckSwap(count);
 				Buffer.BlockCopy(_Working, _Index, b, offset, count);
 				_Index += count;
 			}
@@ -203,10 +210,11 @@ namespace Server
 
 		private byte NextByte()
 		{
-			CheckSwap(1);
-
 			lock (_sync)
+			{
+				CheckSwap(1);
 				return _Working[_Index++];
+			}
 		}
 
 		public void NextBytes(byte[] b)
@@ -272,7 +280,8 @@ namespace Server
 		private int _Index;
 
 		private readonly object _sync = new object();
-		private readonly object _syncB = new object();
+
+		private readonly ManualResetEvent _filled = new ManualResetEvent(false);
 
 		public RDRand32()
 		{
@@ -288,38 +297,36 @@ namespace Server
 
 		private void CheckSwap(int c)
 		{
-			lock (_sync)
+			if (_Index + c < BUFFER_SIZE)
 			{
-				if (_Index + c < BUFFER_SIZE)
-				{
-					return;
-				}
-
-				lock (_syncB)
-				{
-					var b = _Working;
-					_Working = _Buffer;
-					_Buffer = b;
-					_Index = 0;
-				}
+				return;
 			}
+
+			_filled.WaitOne();
+
+			byte[] b = _Working;
+			_Working = _Buffer;
+			_Buffer = b;
+			_Index = 0;
+
+			_filled.Reset();
+
 			ThreadPool.QueueUserWorkItem(Fill);
 		}
 
 		private void Fill(object o)
 		{
-			lock (_syncB)
-				SafeNativeMethods.rdrand_get_bytes(BUFFER_SIZE, _Buffer);
+			SafeNativeMethods.rdrand_get_bytes(BUFFER_SIZE, _Buffer);
+			_filled.Set();
 		}
 
 		private void _GetBytes(byte[] b)
 		{
 			int c = b.Length;
 
-			CheckSwap(c);
-
 			lock (_sync)
 			{
+				CheckSwap(c);
 				Buffer.BlockCopy(_Working, _Index, b, 0, c);
 				_Index += c;
 			}
@@ -327,10 +334,9 @@ namespace Server
 
 		private void _GetBytes(byte[] b, int offset, int count)
 		{
-			CheckSwap(count);
-
 			lock (_sync)
 			{
+				CheckSwap(count);
 				Buffer.BlockCopy(_Working, _Index, b, offset, count);
 				_Index += count;
 			}
@@ -348,10 +354,11 @@ namespace Server
 
 		private byte NextByte()
 		{
-			CheckSwap(1);
-
 			lock (_sync)
+			{
+				CheckSwap(1);
 				return _Working[_Index++];
+			}
 		}
 
 		public void NextBytes(byte[] b)
@@ -416,7 +423,8 @@ namespace Server
 		private int _Index;
 
 		private readonly object _sync = new object();
-		private readonly object _syncB = new object();
+
+		private readonly ManualResetEvent _filled = new ManualResetEvent(false);
 
 		public RDRand64()
 		{
@@ -432,38 +440,36 @@ namespace Server
 
 		private void CheckSwap(int c)
 		{
-			lock (_sync)
+			if (_Index + c < BUFFER_SIZE)
 			{
-				if (_Index + c < BUFFER_SIZE)
-				{
-					return;
-				}
-
-				lock (_syncB)
-				{
-					var b = _Working;
-					_Working = _Buffer;
-					_Buffer = b;
-					_Index = 0;
-				}
+				return;
 			}
+
+			_filled.WaitOne();
+
+			byte[] b = _Working;
+			_Working = _Buffer;
+			_Buffer = b;
+			_Index = 0;
+
+			_filled.Reset();
+
 			ThreadPool.QueueUserWorkItem(Fill);
 		}
 
 		private void Fill(object o)
 		{
-			lock (_syncB)
-				SafeNativeMethods.rdrand_get_bytes(BUFFER_SIZE, _Buffer);
+			SafeNativeMethods.rdrand_get_bytes(BUFFER_SIZE, _Buffer);
+			_filled.Set();
 		}
 
 		private void _GetBytes(byte[] b)
 		{
 			int c = b.Length;
 
-			CheckSwap(c);
-
 			lock (_sync)
 			{
+				CheckSwap(c);
 				Buffer.BlockCopy(_Working, _Index, b, 0, c);
 				_Index += c;
 			}
@@ -471,10 +477,9 @@ namespace Server
 
 		private void _GetBytes(byte[] b, int offset, int count)
 		{
-			CheckSwap(count);
-
 			lock (_sync)
 			{
+				CheckSwap(count);
 				Buffer.BlockCopy(_Working, _Index, b, offset, count);
 				_Index += count;
 			}
@@ -492,10 +497,11 @@ namespace Server
 
 		private byte NextByte()
 		{
-			CheckSwap(1);
-
 			lock (_sync)
+			{
+				CheckSwap(1);
 				return _Working[_Index++];
+			}
 		}
 
 		public void NextBytes(byte[] b)

@@ -1,7 +1,15 @@
 #region Header
-// **********
-// ServUO - Effects.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] Effects.cs
+// ************************************/
 #endregion
 
 #region References
@@ -51,7 +59,7 @@ namespace Server
 			{
 				Packet playSound = null;
 
-				var eable = map.GetClientsInRange(new Point3D(p));
+				IPooledEnumerable<NetState> eable = map.GetClientsInRange(new Point3D(p));
 
 				foreach (NetState state in eable)
 				{
@@ -94,7 +102,7 @@ namespace Server
 
 			Packet preEffect = null, boltEffect = null, playSound = null;
 
-			var eable = map.GetClientsInRange(e.Location);
+			IPooledEnumerable<NetState> eable = map.GetClientsInRange(e.Location);
 
 			foreach (NetState state in eable)
 			{
@@ -176,7 +184,7 @@ namespace Server
 			{
 				Packet particles = null, regular = null;
 
-				var eable = map.GetClientsInRange(e.Location);
+				IPooledEnumerable<NetState> eable = map.GetClientsInRange(e.Location);
 
 				foreach (NetState state in eable)
 				{
@@ -270,7 +278,7 @@ namespace Server
 			{
 				Packet particles = null, regular = null;
 
-				var eable = map.GetClientsInRange(target.Location);
+				IPooledEnumerable<NetState> eable = map.GetClientsInRange(target.Location);
 
 				foreach (NetState state in eable)
 				{
@@ -437,7 +445,7 @@ namespace Server
 			{
 				Packet particles = null, regular = null;
 
-				var eable = map.GetClientsInRange(from.Location);
+				IPooledEnumerable<NetState> eable = map.GetClientsInRange(from.Location);
 
 				foreach (NetState state in eable)
 				{
@@ -493,7 +501,7 @@ namespace Server
 		{
 			if (map != null)
 			{
-				var eable = map.GetClientsInRange(origin);
+				IPooledEnumerable<NetState> eable = map.GetClientsInRange(origin);
 
 				p.Acquire();
 
@@ -513,7 +521,7 @@ namespace Server
 		{
 			if (map != null)
 			{
-				var eable = map.GetClientsInRange(new Point3D(origin));
+				IPooledEnumerable<NetState> eable = map.GetClientsInRange(new Point3D(origin));
 
 				p.Acquire();
 

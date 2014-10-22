@@ -1,12 +1,22 @@
 #region Header
-// **********
-// ServUO - MessagePump.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] MessagePump.cs
+// ************************************/
 #endregion
 
 #region References
 using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Sockets;
 using System.Threading;
 
 using Server.Diagnostics;
@@ -23,7 +33,7 @@ namespace Server.Network
 
 		public MessagePump()
 		{
-			var ipep = Listener.EndPoints;
+			IPEndPoint[] ipep = Listener.EndPoints;
 
 			m_Listeners = new Listener[ipep.Length];
 
@@ -33,7 +43,7 @@ namespace Server.Network
 			{
 				for (int i = 0; i < ipep.Length; i++)
 				{
-					Listener l = new Listener(ipep[i]);
+					var l = new Listener(ipep[i]);
 					if (!success && l != null)
 					{
 						success = true;
@@ -60,7 +70,7 @@ namespace Server.Network
 
 		public void AddListener(Listener l)
 		{
-			var old = m_Listeners;
+			Listener[] old = m_Listeners;
 
 			m_Listeners = new Listener[old.Length + 1];
 
@@ -76,11 +86,11 @@ namespace Server.Network
 		{
 			for (int j = 0; j < m_Listeners.Length; ++j)
 			{
-				var accepted = m_Listeners[j].Slice();
+				Socket[] accepted = m_Listeners[j].Slice();
 
 				for (int i = 0; i < accepted.Length; ++i)
 				{
-					NetState ns = new NetState(accepted[i], this);
+					var ns = new NetState(accepted[i], this);
 					ns.Start();
 
 					if (ns.Running)
@@ -107,7 +117,7 @@ namespace Server.Network
 
 			lock (this)
 			{
-				var temp = m_WorkingQueue;
+				Queue<NetState> temp = m_WorkingQueue;
 				m_WorkingQueue = m_Queue;
 				m_Queue = temp;
 			}
@@ -295,7 +305,7 @@ namespace Server.Network
 
 						packetLength = buffer.Dequeue(packetBuffer, 0, packetLength);
 
-						PacketReader r = new PacketReader(packetBuffer, packetLength, handler.Length != 0);
+						var r = new PacketReader(packetBuffer, packetLength, handler.Length != 0);
 
 						handler.OnReceive(ns, r);
 						length = buffer.Length;

@@ -1,7 +1,15 @@
 #region Header
-// **********
-// ServUO - Attributes.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] Attributes.cs
+// ************************************/
 #endregion
 
 #region References
@@ -63,7 +71,7 @@ namespace Server
 
 		private int GetPriority(MethodInfo mi)
 		{
-			var objs = mi.GetCustomAttributes(typeof(CallPriorityAttribute), true);
+			object[] objs = mi.GetCustomAttributes(typeof(CallPriorityAttribute), true);
 
 			if (objs == null)
 			{
@@ -75,7 +83,7 @@ namespace Server
 				return 0;
 			}
 
-			CallPriorityAttribute attr = objs[0] as CallPriorityAttribute;
+			var attr = objs[0] as CallPriorityAttribute;
 
 			if (attr == null)
 			{

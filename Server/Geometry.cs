@@ -1,7 +1,15 @@
 #region Header
-// **********
-// ServUO - Geometry.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] Geometry.cs
+// ************************************/
 #endregion
 
 #region References
@@ -87,7 +95,7 @@ namespace Server
 				return false;
 			}
 
-			IPoint2D p = (IPoint2D)o;
+			var p = (IPoint2D)o;
 
 			return m_X == p.X && m_Y == p.Y;
 		}
@@ -253,7 +261,7 @@ namespace Server
 				return false;
 			}
 
-			IPoint3D p = (IPoint3D)o;
+			var p = (IPoint3D)o;
 
 			return m_X == p.X && m_Y == p.Y && m_Z == p.Z;
 		}

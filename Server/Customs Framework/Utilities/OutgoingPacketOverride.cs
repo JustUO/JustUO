@@ -1,7 +1,15 @@
 ﻿#region Header
-// **********
-// ServUO - OutgoingPacketOverride.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] OutgoingPacketOverride.cs
+// ************************************/
 #endregion
 
 #region References
@@ -104,7 +112,7 @@ namespace CustomsFramework
 
 				if (to.CompressionEnabled)
 				{
-					var firstByte = Decompressor.DecompressFirstByte(packetBuffer, packetLength);
+					byte? firstByte = Decompressor.DecompressFirstByte(packetBuffer, packetLength);
 
 					if (!firstByte.HasValue)
 					{

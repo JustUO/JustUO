@@ -1,7 +1,15 @@
 #region Header
-// **********
-// ServUO - World.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] World.cs
+// ************************************/
 #endregion
 
 #region References
@@ -120,7 +128,7 @@ namespace Server
 				p = new UnicodeMessage(Serial.MinusOne, -1, MessageType.Regular, hue, 3, "ENU", "System", text);
 			}
 
-			var list = NetState.Instances;
+			List<NetState> list = NetState.Instances;
 
 			p.Acquire();
 
@@ -357,15 +365,15 @@ namespace Server
 
 			if (File.Exists(MobileIndexPath) && File.Exists(MobileTypesPath))
 			{
-				using (FileStream idx = new FileStream(MobileIndexPath, FileMode.Open, FileAccess.Read, FileShare.Read))
+				using (var idx = new FileStream(MobileIndexPath, FileMode.Open, FileAccess.Read, FileShare.Read))
 				{
-					BinaryReader idxReader = new BinaryReader(idx);
+					var idxReader = new BinaryReader(idx);
 
-					using (FileStream tdb = new FileStream(MobileTypesPath, FileMode.Open, FileAccess.Read, FileShare.Read))
+					using (var tdb = new FileStream(MobileTypesPath, FileMode.Open, FileAccess.Read, FileShare.Read))
 					{
-						BinaryReader tdbReader = new BinaryReader(tdb);
+						var tdbReader = new BinaryReader(tdb);
 
-						var types = ReadTypes(tdbReader);
+						List<Tuple<ConstructorInfo, string>> types = ReadTypes(tdbReader);
 
 						mobileCount = idxReader.ReadInt32();
 
@@ -378,7 +386,7 @@ namespace Server
 							long pos = idxReader.ReadInt64();
 							int length = idxReader.ReadInt32();
 
-							var objs = types[typeID];
+							Tuple<ConstructorInfo, string> objs = types[typeID];
 
 							if (objs == null)
 							{
@@ -417,15 +425,15 @@ namespace Server
 
 			if (File.Exists(ItemIndexPath) && File.Exists(ItemTypesPath))
 			{
-				using (FileStream idx = new FileStream(ItemIndexPath, FileMode.Open, FileAccess.Read, FileShare.Read))
+				using (var idx = new FileStream(ItemIndexPath, FileMode.Open, FileAccess.Read, FileShare.Read))
 				{
-					BinaryReader idxReader = new BinaryReader(idx);
+					var idxReader = new BinaryReader(idx);
 
-					using (FileStream tdb = new FileStream(ItemTypesPath, FileMode.Open, FileAccess.Read, FileShare.Read))
+					using (var tdb = new FileStream(ItemTypesPath, FileMode.Open, FileAccess.Read, FileShare.Read))
 					{
-						BinaryReader tdbReader = new BinaryReader(tdb);
+						var tdbReader = new BinaryReader(tdb);
 
-						var types = ReadTypes(tdbReader);
+						List<Tuple<ConstructorInfo, string>> types = ReadTypes(tdbReader);
 
 						itemCount = idxReader.ReadInt32();
 
@@ -438,7 +446,7 @@ namespace Server
 							long pos = idxReader.ReadInt64();
 							int length = idxReader.ReadInt32();
 
-							var objs = types[typeID];
+							Tuple<ConstructorInfo, string> objs = types[typeID];
 
 							if (objs == null)
 							{
@@ -477,13 +485,13 @@ namespace Server
 
 			if (File.Exists(GuildIndexPath))
 			{
-				using (FileStream idx = new FileStream(GuildIndexPath, FileMode.Open, FileAccess.Read, FileShare.Read))
+				using (var idx = new FileStream(GuildIndexPath, FileMode.Open, FileAccess.Read, FileShare.Read))
 				{
-					BinaryReader idxReader = new BinaryReader(idx);
+					var idxReader = new BinaryReader(idx);
 
 					guildCount = idxReader.ReadInt32();
 
-					CreateGuildEventArgs createEventArgs = new CreateGuildEventArgs(-1);
+					var createEventArgs = new CreateGuildEventArgs(-1);
 					for (int i = 0; i < guildCount; ++i)
 					{
 						idxReader.ReadInt32(); //no typeid for guilds
@@ -506,15 +514,15 @@ namespace Server
 
 			if (File.Exists(DataIndexPath) && File.Exists(DataTypesPath))
 			{
-				using (FileStream indexStream = new FileStream(DataIndexPath, FileMode.Open, FileAccess.Read, FileShare.Read))
+				using (var indexStream = new FileStream(DataIndexPath, FileMode.Open, FileAccess.Read, FileShare.Read))
 				{
-					BinaryReader indexReader = new BinaryReader(indexStream);
+					var indexReader = new BinaryReader(indexStream);
 
-					using (FileStream typeStream = new FileStream(DataTypesPath, FileMode.Open, FileAccess.Read, FileShare.Read))
+					using (var typeStream = new FileStream(DataTypesPath, FileMode.Open, FileAccess.Read, FileShare.Read))
 					{
-						BinaryReader typeReader = new BinaryReader(typeStream);
+						var typeReader = new BinaryReader(typeStream);
 
-						var types = ReadTypes(typeReader);
+						List<Tuple<ConstructorInfo, string>> types = ReadTypes(typeReader);
 
 						dataCount = indexReader.ReadInt32();
 						_Data = new Dictionary<CustomSerial, SaveData>(dataCount);
@@ -526,7 +534,7 @@ namespace Server
 							long pos = indexReader.ReadInt64();
 							int length = indexReader.ReadInt32();
 
-							var objects = types[typeID];
+							Tuple<ConstructorInfo, string> objects = types[typeID];
 
 							if (objects == null)
 							{
@@ -576,9 +584,9 @@ namespace Server
 
 			if (File.Exists(MobileDataPath))
 			{
-				using (FileStream bin = new FileStream(MobileDataPath, FileMode.Open, FileAccess.Read, FileShare.Read))
+				using (var bin = new FileStream(MobileDataPath, FileMode.Open, FileAccess.Read, FileShare.Read))
 				{
-					BinaryFileReader reader = new BinaryFileReader(new BinaryReader(bin));
+					var reader = new BinaryFileReader(new BinaryReader(bin));
 
 					for (int i = 0; i < mobiles.Count; ++i)
 					{
@@ -620,9 +628,9 @@ namespace Server
 
 			if (!failedMobiles && File.Exists(ItemDataPath))
 			{
-				using (FileStream bin = new FileStream(ItemDataPath, FileMode.Open, FileAccess.Read, FileShare.Read))
+				using (var bin = new FileStream(ItemDataPath, FileMode.Open, FileAccess.Read, FileShare.Read))
 				{
-					BinaryFileReader reader = new BinaryFileReader(new BinaryReader(bin));
+					var reader = new BinaryFileReader(new BinaryReader(bin));
 
 					for (int i = 0; i < items.Count; ++i)
 					{
@@ -666,9 +674,9 @@ namespace Server
 
 			if (!failedMobiles && !failedItems && File.Exists(GuildDataPath))
 			{
-				using (FileStream bin = new FileStream(GuildDataPath, FileMode.Open, FileAccess.Read, FileShare.Read))
+				using (var bin = new FileStream(GuildDataPath, FileMode.Open, FileAccess.Read, FileShare.Read))
 				{
-					BinaryFileReader reader = new BinaryFileReader(new BinaryReader(bin));
+					var reader = new BinaryFileReader(new BinaryReader(bin));
 
 					for (int i = 0; i < guilds.Count; ++i)
 					{
@@ -709,9 +717,9 @@ namespace Server
 
 			if (!failedMobiles && !failedItems && !failedGuilds && File.Exists(DataBinaryPath))
 			{
-				using (FileStream stream = new FileStream(DataBinaryPath, FileMode.Open, FileAccess.Read, FileShare.Read))
+				using (var stream = new FileStream(DataBinaryPath, FileMode.Open, FileAccess.Read, FileShare.Read))
 				{
-					BinaryFileReader reader = new BinaryFileReader(new BinaryReader(stream));
+					var reader = new BinaryFileReader(new BinaryReader(stream));
 
 					for (int i = 0; i < data.Count; ++i)
 					{
@@ -900,7 +908,7 @@ namespace Server
 			{
 				IEntity entity = _addQueue.Dequeue();
 
-				Item item = entity as Item;
+				var item = entity as Item;
 
 				if (item != null)
 				{
@@ -908,7 +916,7 @@ namespace Server
 				}
 				else
 				{
-					Mobile mob = entity as Mobile;
+					var mob = entity as Mobile;
 
 					if (mob != null)
 					{
@@ -921,7 +929,7 @@ namespace Server
 			{
 				IEntity entity = _deleteQueue.Dequeue();
 
-				Item item = entity as Item;
+				var item = entity as Item;
 
 				if (item != null)
 				{
@@ -929,7 +937,7 @@ namespace Server
 				}
 				else
 				{
-					Mobile mob = entity as Mobile;
+					var mob = entity as Mobile;
 
 					if (mob != null)
 					{
@@ -942,7 +950,7 @@ namespace Server
 			{
 				ICustomsEntity entity = _CustomsAddQueue.Dequeue();
 
-				SaveData data = entity as SaveData;
+				var data = entity as SaveData;
 
 				if (data != null)
 				{
@@ -954,7 +962,7 @@ namespace Server
 			{
 				ICustomsEntity entity = _CustomsDeleteQueue.Dequeue();
 
-				SaveData data = entity as SaveData;
+				var data = entity as SaveData;
 
 				if (data != null)
 				{
@@ -995,7 +1003,7 @@ namespace Server
 
 			try
 			{
-				using (StreamWriter op = new StreamWriter("world-save-errors.log", true))
+				using (var op = new StreamWriter("world-save-errors.log", true))
 				{
 					op.WriteLine("{0}\t{1}", DateTime.UtcNow, message);
 					op.WriteLine(new StackTrace(2).ToString());
@@ -1023,9 +1031,9 @@ namespace Server
 				Directory.CreateDirectory("Saves/Guilds/");
 			}
 
-			using (FileStream idx = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None))
+			using (var idx = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None))
 			{
-				BinaryWriter idxWriter = new BinaryWriter(idx);
+				var idxWriter = new BinaryWriter(idx);
 
 				idxWriter.Write(list.Count);
 
@@ -1050,9 +1058,9 @@ namespace Server
 				Directory.CreateDirectory("Saves/Customs/");
 			}
 
-			using (FileStream indexStream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None))
+			using (var indexStream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None))
 			{
-				BinaryWriter indexWriter = new BinaryWriter(indexStream);
+				var indexWriter = new BinaryWriter(indexStream);
 
 				indexWriter.Write(list.Count);
 
@@ -1313,7 +1321,7 @@ namespace Server
 
 		public static List<SaveData> SearchData(string find)
 		{
-			var keywords = find.ToLower().Split(' ');
+			string[] keywords = find.ToLower().Split(' ');
 			var results = new List<SaveData>();
 
 			foreach (SaveData data in _Data.Values)
@@ -1372,7 +1380,7 @@ namespace Server
 			{
 				if (data is BaseModule)
 				{
-					BaseModule module = data as BaseModule;
+					var module = data as BaseModule;
 
 					if (module.LinkedMobile == mobile)
 					{
@@ -1392,7 +1400,7 @@ namespace Server
 			{
 				if (data is BaseModule)
 				{
-					BaseModule module = data as BaseModule;
+					var module = data as BaseModule;
 
 					if (module.LinkedMobile == mobile)
 					{
@@ -1410,7 +1418,7 @@ namespace Server
 			{
 				if (data is BaseModule)
 				{
-					BaseModule module = data as BaseModule;
+					var module = data as BaseModule;
 
 					if (module.LinkedItem == item)
 					{
@@ -1430,7 +1438,7 @@ namespace Server
 			{
 				if (data is BaseModule)
 				{
-					BaseModule module = data as BaseModule;
+					var module = data as BaseModule;
 
 					if (module.LinkedItem == item)
 					{
@@ -1448,7 +1456,7 @@ namespace Server
 			{
 				if (data is BaseModule)
 				{
-					BaseModule module = data as BaseModule;
+					var module = data as BaseModule;
 
 					if (module.Name == name && module.LinkedMobile == mobile)
 					{
@@ -1468,7 +1476,7 @@ namespace Server
 			{
 				if (data is BaseModule)
 				{
-					BaseModule module = data as BaseModule;
+					var module = data as BaseModule;
 
 					if (module.Name == name && module.LinkedMobile == mobile)
 					{
@@ -1486,7 +1494,7 @@ namespace Server
 			{
 				if (data is BaseModule)
 				{
-					BaseModule module = data as BaseModule;
+					var module = data as BaseModule;
 
 					if (module.GetType() == type && module.LinkedMobile == mobile)
 					{
@@ -1504,7 +1512,7 @@ namespace Server
 			{
 				if (data is BaseModule)
 				{
-					BaseModule module = data as BaseModule;
+					var module = data as BaseModule;
 
 					if (module.Name == name && module.LinkedItem == item)
 					{
@@ -1524,7 +1532,7 @@ namespace Server
 			{
 				if (data is BaseModule)
 				{
-					BaseModule module = data as BaseModule;
+					var module = data as BaseModule;
 
 					if (module.Name == name && module.LinkedItem == item)
 					{
@@ -1542,7 +1550,7 @@ namespace Server
 			{
 				if (data is BaseModule)
 				{
-					BaseModule module = data as BaseModule;
+					var module = data as BaseModule;
 
 					if (module.GetType() == type && module.LinkedItem == item)
 					{
@@ -1556,14 +1564,14 @@ namespace Server
 
 		public static List<BaseModule> SearchModules(Mobile mobile, string text)
 		{
-			var keywords = text.ToLower().Split(' ');
+			string[] keywords = text.ToLower().Split(' ');
 			var results = new List<BaseModule>();
 
 			foreach (SaveData data in _Data.Values)
 			{
 				if (data is BaseModule)
 				{
-					BaseModule module = data as BaseModule;
+					var module = data as BaseModule;
 
 					bool match = true;
 					string name = module.Name.ToLower();
@@ -1588,14 +1596,14 @@ namespace Server
 
 		public static List<BaseModule> SearchModules(Item item, string text)
 		{
-			var keywords = text.ToLower().Split(' ');
+			string[] keywords = text.ToLower().Split(' ');
 			var results = new List<BaseModule>();
 
 			foreach (SaveData data in _Data.Values)
 			{
 				if (data is BaseModule)
 				{
-					BaseModule module = data as BaseModule;
+					var module = data as BaseModule;
 
 					bool match = true;
 					string name = module.Name.ToLower();

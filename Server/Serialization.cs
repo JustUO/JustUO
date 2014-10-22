@@ -1,7 +1,15 @@
 #region Header
-// **********
-// ServUO - Serialization.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] Serialization.cs
+// ************************************/
 #endregion
 
 #region References
@@ -269,7 +277,7 @@ namespace Server
 
 		public override void WriteEncodedInt(int value)
 		{
-			uint v = (uint)value;
+			var v = (uint)value;
 
 			while (v >= 0x80)
 			{
@@ -422,7 +430,7 @@ namespace Server
 
 		public override void Write(decimal value)
 		{
-			var bits = Decimal.GetBits(value);
+			int[] bits = Decimal.GetBits(value);
 
 			for (int i = 0; i < bits.Length; ++i)
 			{
@@ -1324,7 +1332,7 @@ namespace Server
 		public override DateTimeOffset ReadDateTimeOffset()
 		{
 			long ticks = m_File.ReadInt64();
-			TimeSpan offset = new TimeSpan(m_File.ReadInt64());
+			var offset = new TimeSpan(m_File.ReadInt64());
 
 			return new DateTimeOffset(ticks, offset);
 		}
@@ -1470,7 +1478,7 @@ namespace Server
 
 			if (count > 0)
 			{
-				ArrayList list = new ArrayList(count);
+				var list = new ArrayList(count);
 
 				for (int i = 0; i < count; ++i)
 				{
@@ -1496,7 +1504,7 @@ namespace Server
 
 			if (count > 0)
 			{
-				ArrayList list = new ArrayList(count);
+				var list = new ArrayList(count);
 
 				for (int i = 0; i < count; ++i)
 				{
@@ -1522,7 +1530,7 @@ namespace Server
 
 			if (count > 0)
 			{
-				ArrayList list = new ArrayList(count);
+				var list = new ArrayList(count);
 
 				for (int i = 0; i < count; ++i)
 				{
@@ -1548,7 +1556,7 @@ namespace Server
 
 			if (count > 0)
 			{
-				ArrayList list = new ArrayList(count);
+				var list = new ArrayList(count);
 
 				for (int i = 0; i < count; ++i)
 				{
@@ -1583,7 +1591,7 @@ namespace Server
 
 				for (int i = 0; i < count; ++i)
 				{
-					T item = ReadItem() as T;
+					var item = ReadItem() as T;
 
 					if (item != null)
 					{
@@ -1614,7 +1622,7 @@ namespace Server
 
 				for (int i = 0; i < count; ++i)
 				{
-					T item = ReadItem() as T;
+					var item = ReadItem() as T;
 
 					if (item != null)
 					{
@@ -1645,7 +1653,7 @@ namespace Server
 
 				for (int i = 0; i < count; ++i)
 				{
-					T m = ReadMobile() as T;
+					var m = ReadMobile() as T;
 
 					if (m != null)
 					{
@@ -1676,7 +1684,7 @@ namespace Server
 
 				for (int i = 0; i < count; ++i)
 				{
-					T item = ReadMobile() as T;
+					var item = ReadMobile() as T;
 
 					if (item != null)
 					{
@@ -1707,7 +1715,7 @@ namespace Server
 
 				for (int i = 0; i < count; ++i)
 				{
-					T g = ReadGuild() as T;
+					var g = ReadGuild() as T;
 
 					if (g != null)
 					{
@@ -1738,7 +1746,7 @@ namespace Server
 
 				for (int i = 0; i < count; ++i)
 				{
-					T item = ReadGuild() as T;
+					var item = ReadGuild() as T;
 
 					if (item != null)
 					{
@@ -1769,7 +1777,7 @@ namespace Server
 
 				for (int i = 0; i < count; ++i)
 				{
-					T data = ReadData() as T;
+					var data = ReadData() as T;
 
 					if (data != null)
 					{
@@ -1800,7 +1808,7 @@ namespace Server
 
 				for (int i = 0; i < count; ++i)
 				{
-					T data = ReadData() as T;
+					var data = ReadData() as T;
 
 					if (data != null)
 					{
@@ -1887,7 +1895,7 @@ namespace Server
 				m_ThreadCount++;
 				while (m_Owner.m_WriteQueue.Count > 0)
 				{
-					MemoryStream mem = (MemoryStream)m_Owner.m_WriteQueue.Dequeue();
+					var mem = (MemoryStream)m_Owner.m_WriteQueue.Dequeue();
 
 					if (mem != null && mem.Length > 0)
 					{
@@ -2041,7 +2049,7 @@ namespace Server
 
 		public override void WriteEncodedInt(int value)
 		{
-			uint v = (uint)value;
+			var v = (uint)value;
 
 			while (v >= 0x80)
 			{

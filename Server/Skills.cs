@@ -1,12 +1,21 @@
 #region Header
-// **********
-// ServUO - Skills.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] Skills.cs
+// ************************************/
 #endregion
 
 #region References
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 using Server.Network;
 #endregion
@@ -249,7 +258,7 @@ namespace Server
 					value = 0xFFFF;
 				}
 
-				ushort sv = (ushort)value;
+				var sv = (ushort)value;
 
 				int oldBase = m_Base;
 
@@ -288,7 +297,7 @@ namespace Server
 					value = 0xFFFF;
 				}
 
-				ushort sv = (ushort)value;
+				var sv = (ushort)value;
 
 				if (m_Cap != sv)
 				{
@@ -358,7 +367,7 @@ namespace Server
 
 				m_Owner.Owner.ValidateSkillMods();
 
-				var mods = m_Owner.Owner.SkillMods;
+				List<SkillMod> mods = m_Owner.Owner.SkillMods;
 
 				double bonusObey = 0.0, bonusNotObey = 0.0;
 
@@ -861,7 +870,7 @@ namespace Server
 			m_Owner = owner;
 			m_Cap = 7000;
 
-			var info = SkillInfo.Table;
+			SkillInfo[] info = SkillInfo.Table;
 
 			m_Skills = new Skill[info.Length];
 
@@ -897,7 +906,7 @@ namespace Server
 							reader.ReadInt();
 						}
 
-						var info = SkillInfo.Table;
+						SkillInfo[] info = SkillInfo.Table;
 
 						m_Skills = new Skill[info.Length];
 
@@ -907,7 +916,7 @@ namespace Server
 						{
 							if (i < info.Length)
 							{
-								Skill sk = new Skill(this, info[i], reader);
+								var sk = new Skill(this, info[i], reader);
 
 								if (sk.BaseFixedPoint != 0 || sk.CapFixedPoint != 1000 || sk.Lock != SkillLock.Up)
 								{

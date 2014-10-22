@@ -1,7 +1,15 @@
 #region Header
-// **********
-// ServUO - PacketHandlers.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] PacketHandlers.cs
+// ************************************/
 #endregion
 
 #region References
@@ -357,7 +365,7 @@ namespace Server.Network
 					{
 						Serial serial = pvSrc.ReadInt32();
 
-						SecureTradeContainer cont = World.FindItem(serial) as SecureTradeContainer;
+						var cont = World.FindItem(serial) as SecureTradeContainer;
 
 						if (cont != null && cont.Trade != null &&
 							(cont.Trade.From.Mobile == state.Mobile || cont.Trade.To.Mobile == state.Mobile))
@@ -371,7 +379,7 @@ namespace Server.Network
 					{
 						Serial serial = pvSrc.ReadInt32();
 
-						SecureTradeContainer cont = World.FindItem(serial) as SecureTradeContainer;
+						var cont = World.FindItem(serial) as SecureTradeContainer;
 
 						if (cont != null)
 						{
@@ -435,7 +443,7 @@ namespace Server.Network
 
 				if (buyList.Count > 0)
 				{
-					IVendor v = vendor as IVendor;
+					var v = vendor as IVendor;
 
 					if (v != null && v.OnBuyItems(state.Mobile, buyList))
 					{
@@ -482,7 +490,7 @@ namespace Server.Network
 
 				if (sellList.Count > 0)
 				{
-					IVendor v = vendor as IVendor;
+					var v = vendor as IVendor;
 
 					if (v != null && v.OnSellItems(state.Mobile, sellList))
 					{
@@ -774,7 +782,7 @@ namespace Server.Network
 						{
 							try
 							{
-								var split = command.Split(' ');
+								string[] split = command.Split(' ');
 
 								int x = Utility.ToInt32(split[0]);
 								int y = Utility.ToInt32(split[1]);
@@ -836,7 +844,7 @@ namespace Server.Network
 					}
 				case 0x27: // Cast spell from book
 					{
-						var split = command.Split(' ');
+						string[] split = command.Split(' ');
 
 						if (split.Length > 0)
 						{
@@ -1084,7 +1092,7 @@ namespace Server.Network
 			int z = pvSrc.ReadSByte();
 			Serial dest = pvSrc.ReadInt32();
 
-			Point3D loc = new Point3D(x, y, z);
+			var loc = new Point3D(x, y, z);
 
 			Mobile from = state.Mobile;
 
@@ -1122,7 +1130,7 @@ namespace Server.Network
 			pvSrc.ReadByte(); // Grid Location?
 			Serial dest = pvSrc.ReadInt32();
 
-			Point3D loc = new Point3D(x, y, z);
+			var loc = new Point3D(x, y, z);
 
 			Mobile from = state.Mobile;
 
@@ -1234,7 +1242,7 @@ namespace Server.Network
 								}
 								else
 								{
-									var tiles = map.Tiles.GetStaticTiles(x, y, !t.DisallowMultis);
+									StaticTile[] tiles = map.Tiles.GetStaticTiles(x, y, !t.DisallowMultis);
 
 									bool valid = false;
 
@@ -1432,7 +1440,7 @@ namespace Server.Network
 		{
 			Mobile from = state.Mobile;
 
-			MessageType type = (MessageType)pvSrc.ReadByte();
+			var type = (MessageType)pvSrc.ReadByte();
 			int hue = pvSrc.ReadInt16();
 			pvSrc.ReadInt16(); // font
 			string text = pvSrc.ReadStringSafe().Trim();
@@ -1456,7 +1464,7 @@ namespace Server.Network
 		{
 			Mobile from = state.Mobile;
 
-			MessageType type = (MessageType)pvSrc.ReadByte();
+			var type = (MessageType)pvSrc.ReadByte();
 			int hue = pvSrc.ReadInt16();
 			pvSrc.ReadInt16(); // font
 			string lang = pvSrc.ReadString(4);
@@ -1643,7 +1651,7 @@ namespace Server.Network
 
 		public static void MovementReq(NetState state, PacketReader pvSrc)
 		{
-			Direction dir = (Direction)pvSrc.ReadByte();
+			var dir = (Direction)pvSrc.ReadByte();
 			int seq = pvSrc.ReadByte();
 			int key = pvSrc.ReadInt32();
 
@@ -2087,7 +2095,7 @@ namespace Server.Network
 					return;
 				}
 
-				ContextMenu c = new ContextMenu(from, target);
+				var c = new ContextMenu(from, target);
 
 				if (c.Entries.Length > 0)
 				{
@@ -2237,7 +2245,7 @@ namespace Server.Network
 			{
 				bool authOK = false;
 
-				ulong razorFeatures = (((ulong)pvSrc.ReadUInt32())<<32) | ((ulong)pvSrc.ReadUInt32());
+				ulong razorFeatures = (((ulong)pvSrc.ReadUInt32()) << 32) | (pvSrc.ReadUInt32());
 
 				if (razorFeatures == (ulong)FeatureProtection.DisabledFeatures)
 				{
@@ -2486,7 +2494,7 @@ namespace Server.Network
 
 			if (state.StygianAbyss)
 			{
-				byte raceID = (byte)(genderRace < 4 ? 0 : ((genderRace / 2) - 1));
+				var raceID = (byte)(genderRace < 4 ? 0 : ((genderRace / 2) - 1));
 				race = Race.Races[raceID];
 			}
 			else
@@ -2499,7 +2507,7 @@ namespace Server.Network
 				race = Race.DefaultRace;
 			}
 
-			var info = state.CityInfo;
+			CityInfo[] info = state.CityInfo;
 			IAccount a = state.Account;
 
 			if (info == null || a == null || cityIndex < 0 || cityIndex >= info.Length)
@@ -2525,7 +2533,7 @@ namespace Server.Network
 
 				state.Flags = (ClientFlags)flags;
 
-				CharacterCreatedEventArgs args = new CharacterCreatedEventArgs(
+				var args = new CharacterCreatedEventArgs(
 					state,
 					a,
 					name,
@@ -2621,7 +2629,7 @@ namespace Server.Network
 
 			Race race = null;
 
-			byte raceID = (byte)(genderRace < 4 ? 0 : ((genderRace / 2) - 1));
+			var raceID = (byte)(genderRace < 4 ? 0 : ((genderRace / 2) - 1));
 			race = Race.Races[raceID];
 
 			if (race == null)
@@ -2629,7 +2637,7 @@ namespace Server.Network
 				race = Race.DefaultRace;
 			}
 
-			var info = state.CityInfo;
+			CityInfo[] info = state.CityInfo;
 			IAccount a = state.Account;
 
 			if (info == null || a == null || cityIndex < 0 || cityIndex >= info.Length)
@@ -2655,7 +2663,7 @@ namespace Server.Network
 
 				state.Flags = (ClientFlags)flags;
 
-				CharacterCreatedEventArgs args = new CharacterCreatedEventArgs(
+				var args = new CharacterCreatedEventArgs(
 					state,
 					a,
 					name,
@@ -2729,7 +2737,7 @@ namespace Server.Network
 				int oldestID = 0;
 				DateTime oldest = DateTime.MaxValue;
 
-				foreach (var kvp in m_AuthIDWindow)
+				foreach (KeyValuePair<int, AuthIDPersistence> kvp in m_AuthIDWindow)
 				{
 					if (kvp.Value.Age < oldest)
 					{
@@ -2807,7 +2815,7 @@ namespace Server.Network
 			string username = pvSrc.ReadString(30);
 			string password = pvSrc.ReadString(30);
 
-			GameLoginEventArgs e = new GameLoginEventArgs(state, username, password);
+			var e = new GameLoginEventArgs(state, username, password);
 
 			EventSink.InvokeGameLogin(e);
 
@@ -2836,7 +2844,7 @@ namespace Server.Network
 		public static void PlayServer(NetState state, PacketReader pvSrc)
 		{
 			int index = pvSrc.ReadInt16();
-			var info = state.ServerInfo;
+			ServerInfo[] info = state.ServerInfo;
 			IAccount a = state.Account;
 
 			if (info == null || a == null || index < 0 || index >= info.Length)
@@ -2923,7 +2931,7 @@ namespace Server.Network
 			string username = pvSrc.ReadString(30);
 			string password = pvSrc.ReadString(30);
 
-			AccountLoginEventArgs e = new AccountLoginEventArgs(state, username, password);
+			var e = new AccountLoginEventArgs(state, username, password);
 
 			EventSink.InvokeAccountLogin(e);
 
@@ -2939,7 +2947,7 @@ namespace Server.Network
 
 		public static void AccountLogin_ReplyAck(NetState state)
 		{
-			ServerListEventArgs e = new ServerListEventArgs(state, state.Account);
+			var e = new ServerListEventArgs(state, state.Account);
 
 			EventSink.InvokeServerList(e);
 
@@ -2951,7 +2959,7 @@ namespace Server.Network
 			}
 			else
 			{
-				var info = e.Servers.ToArray();
+				ServerInfo[] info = e.Servers.ToArray();
 
 				state.ServerInfo = info;
 
