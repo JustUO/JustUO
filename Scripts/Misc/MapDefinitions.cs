@@ -1,4 +1,16 @@
-using System;
+#region Header
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] MapDefinitions.cs
+// ************************************/
+#endregion
 
 namespace Server.Misc
 {
@@ -41,9 +53,10 @@ namespace Server.Misc
             MultiComponentList.PostHSFormat = true; // OSI Client Patch 7.0.9.0
         }
 
-        public static void RegisterMap(int mapIndex, int mapID, int fileIndex, int width, int height, int season, string name, MapRules rules)
+		public static void RegisterMap(
+			int mapIndex, int mapID, int fileIndex, int width, int height, int season, string name, MapRules rules)
         {
-            Map newMap = new Map(mapID, mapIndex, fileIndex, width, height, season, name, rules);
+			var newMap = new Map(mapID, mapIndex, fileIndex, width, height, season, name, rules);
 
             Map.Maps[mapIndex] = newMap;
             Map.AllMaps.Add(newMap);

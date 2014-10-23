@@ -1,7 +1,15 @@
 #region Header
-// **********
-// ServUO - Mobile.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] Mobile.cs
+// ************************************/
 #endregion
 
 #region References
@@ -555,7 +563,7 @@ namespace Server
 
 		public List<BaseModule> SearchModules(string search)
 		{
-			var keywords = search.ToLower().Split(' ');
+			string[] keywords = search.ToLower().Split(' ');
 			var modules = new List<BaseModule>();
 
 			foreach (BaseModule mod in Modules)
@@ -837,14 +845,14 @@ namespace Server
 
 		private int[] m_Resistances;
 
-        protected List<string> m_SlayerVulnerabilities = new List<string>();
-        protected bool m_SpecialSlayerMechanics = false;
+		protected List<string> m_SlayerVulnerabilities = new List<string>();
+		protected bool m_SpecialSlayerMechanics = false;
 
-        public List<String> SlayerVulnerabilities { get { return m_SlayerVulnerabilities; } }
+		public List<String> SlayerVulnerabilities { get { return m_SlayerVulnerabilities; } }
 
-        [CommandProperty(AccessLevel.Decorator)]
-        public bool SpecialSlayerMechanics { get { return m_SpecialSlayerMechanics; } }
-  
+		[CommandProperty(AccessLevel.Decorator)]
+		public bool SpecialSlayerMechanics { get { return m_SpecialSlayerMechanics; } }
+
 		public int[] Resistances { get { return m_Resistances; } }
 
 		public virtual int BasePhysicalResistance { get { return 0; } }
@@ -918,7 +926,7 @@ namespace Server
 				m_Resistances = new int[5] {int.MinValue, int.MinValue, int.MinValue, int.MinValue, int.MinValue};
 			}
 
-			int v = (int)type;
+			var v = (int)type;
 
 			if (v < 0 || v >= m_Resistances.Length)
 			{
@@ -989,7 +997,7 @@ namespace Server
 			for (int i = 0; m_ResistMods != null && i < m_ResistMods.Count; ++i)
 			{
 				ResistanceMod mod = m_ResistMods[i];
-				int v = (int)mod.Type;
+				var v = (int)mod.Type;
 
 				if (v >= 0 && v < m_Resistances.Length)
 				{
@@ -2325,7 +2333,7 @@ namespace Server
 
 			bool addAggressor = true;
 
-			var list = m_Aggressors;
+			List<AggressorInfo> list = m_Aggressors;
 
 			for (int i = 0; i < list.Count; ++i)
 			{
@@ -2440,7 +2448,7 @@ namespace Server
 				return;
 			}
 
-			var list = m_Aggressed;
+			List<AggressorInfo> list = m_Aggressed;
 
 			for (int i = 0; i < list.Count; ++i)
 			{
@@ -2470,7 +2478,7 @@ namespace Server
 				return;
 			}
 
-			var list = m_Aggressors;
+			List<AggressorInfo> list = m_Aggressors;
 
 			for (int i = 0; i < list.Count; ++i)
 			{
@@ -3067,8 +3075,8 @@ namespace Server
 		private static readonly Packet[][] m_MovingPacketCache = new Packet[2][] {new Packet[8], new Packet[8]};
 
 		private bool m_Pushing;
-        private bool m_IgnoreMobiles;
-        private bool m_IsStealthing;
+		private bool m_IgnoreMobiles;
+		private bool m_IsStealthing;
 
 		public bool Pushing { get { return m_Pushing; } set { m_Pushing = value; } }
 
@@ -3314,7 +3322,7 @@ namespace Server
 
 						if (m_MoveRecords.Count >= m_FwdMaxSteps)
 						{
-							FastWalkEventArgs fw = new FastWalkEventArgs(m_NetState);
+							var fw = new FastWalkEventArgs(m_NetState);
 							EventSink.InvokeFastWalk(fw);
 
 							if (fw.Blocked)
@@ -3362,7 +3370,7 @@ namespace Server
 
 			if (m_Map != null)
 			{
-				var eable = m_Map.GetObjectsInRange(m_Location, Core.GlobalMaxUpdateRange);
+				IPooledEnumerable<IEntity> eable = m_Map.GetObjectsInRange(m_Location, Core.GlobalMaxUpdateRange);
 
 				foreach (IEntity o in eable)
 				{
@@ -3373,7 +3381,7 @@ namespace Server
 
 					if (o is Mobile)
 					{
-						Mobile mob = o as Mobile;
+						var mob = o as Mobile;
 						if (mob.NetState != null)
 						{
 							m_MoveClientList.Add(mob);
@@ -3382,7 +3390,7 @@ namespace Server
 					}
 					else if (o is Item)
 					{
-						Item item = (Item)o;
+						var item = (Item)o;
 
 						if (item.HandlesOnMovement)
 						{
@@ -3393,7 +3401,7 @@ namespace Server
 
 				eable.Free();
 
-				var cache = m_MovingPacketCache;
+				Packet[][] cache = m_MovingPacketCache;
 
 				/*for( int i = 0; i < cache.Length; ++i )
 					for (int j = 0; j < cache[i].Length; ++j)
@@ -3527,7 +3535,7 @@ namespace Server
 
 		public virtual bool CheckShove(Mobile shoved)
 		{
-            if (!m_IgnoreMobiles && (m_Map.Rules & MapRules.FreeMovement) == 0)
+			if (!m_IgnoreMobiles && (m_Map.Rules & MapRules.FreeMovement) == 0)
 			{
 				if (!shoved.Alive || !Alive || shoved.IsDeadBondedPet || IsDeadBondedPet)
 				{
@@ -4185,7 +4193,7 @@ namespace Server
 			{
 				Packet animPacket = null;
 
-				var eable = m_Map.GetClientsInRange(m_Location);
+				IPooledEnumerable<NetState> eable = m_Map.GetClientsInRange(m_Location);
 
 				foreach (NetState state in eable)
 				{
@@ -4259,7 +4267,7 @@ namespace Server
 				//Body = this.Female ? 0x193 : 0x192;
 				Body = Race.GhostBody(this);
 
-				Item deathShroud = new Item(0x204E);
+				var deathShroud = new Item(0x204E);
 
 				deathShroud.Movable = false;
 				deathShroud.Layer = Layer.OuterTorso;
@@ -4528,13 +4536,13 @@ namespace Server
 					{
 						reject = LRReason.CannotLift;
 					}
-					#region Mondain's Legacy
+						#region Mondain's Legacy
 					else if (item.QuestItem && amount != item.Amount && !from.IsStaff())
 					{
 						reject = LRReason.Inspecific;
 						from.SendLocalizedMessage(1074868); // Stacks of quest items cannot be unstacked.
 					}
-					#endregion
+						#endregion
 
 					else if (!item.IsAccessibleTo(from))
 					{
@@ -4600,7 +4608,7 @@ namespace Server
 
 							if (m_DragEffects && map != null && (root == null || root is Item))
 							{
-								var eable = map.GetClientsInRange(from.Location);
+								IPooledEnumerable<NetState> eable = map.GetClientsInRange(from.Location);
 								Packet p = null;
 
 								foreach (NetState ns in eable)
@@ -4763,21 +4771,30 @@ namespace Server
 
 				if (map != null && (root == null || root is Item))
 				{
-					var eable = map.GetClientsInRange(m_Location);
+					IPooledEnumerable<NetState> eable = map.GetClientsInRange(m_Location);
 					Packet p = null;
 
-					foreach(NetState ns in eable) {
+					foreach (NetState ns in eable)
+					{
 						if (ns.StygianAbyss)
-								continue;
+						{
+							continue;
+						}
 
-						if( ns.Mobile != this && ns.Mobile.CanSee( this ) && ns.Mobile.InLOS( this ) && ns.Mobile.CanSee( root ) ) {
-							if (p == null) {
+						if (ns.Mobile != this && ns.Mobile.CanSee(this) && ns.Mobile.InLOS(this) && ns.Mobile.CanSee(root))
+						{
+							if (p == null)
+							{
 								IEntity trg;
 
 								if (root == null)
+								{
 									trg = new Entity(Serial.Zero, item.Location, map);
+								}
 								else
+								{
 									trg = new Entity(((Item)root).Serial, ((Item)root).Location, map);
+								}
 
 								p = Packet.Acquire(new DragEffect(this, trg, item.ItemID, item.Hue, item.Amount));
 							}
@@ -4913,7 +4930,7 @@ namespace Server
 				return false;
 			}
 
-			StringBuilder sb = new StringBuilder(text.Length, text.Length);
+			var sb = new StringBuilder(text.Length, text.Length);
 
 			for (int i = 0; i < text.Length; ++i)
 			{
@@ -5122,7 +5139,7 @@ namespace Server
 					break;
 			}
 
-			SpeechEventArgs regArgs = new SpeechEventArgs(this, text, type, hue, keywords);
+			var regArgs = new SpeechEventArgs(this, text, type, hue, keywords);
 
 			EventSink.InvokeSpeech(regArgs);
 			Region.OnSpeech(regArgs);
@@ -5140,18 +5157,18 @@ namespace Server
 				return;
 			}
 
-			var hears = m_Hears;
-			var onSpeech = m_OnSpeech;
+			List<Mobile> hears = m_Hears;
+			List<IEntity> onSpeech = m_OnSpeech;
 
 			if (m_Map != null)
 			{
-				var eable = m_Map.GetObjectsInRange(m_Location, range);
+				IPooledEnumerable<IEntity> eable = m_Map.GetObjectsInRange(m_Location, range);
 
 				foreach (IEntity o in eable)
 				{
 					if (o is Mobile)
 					{
-						Mobile heard = (Mobile)o;
+						var heard = (Mobile)o;
 
 						if (heard.CanSee(this) && (m_NoSpeechLOS || !heard.Player || heard.InLOS(this)))
 						{
@@ -5267,7 +5284,7 @@ namespace Server
 
 					if (obj is Mobile)
 					{
-						Mobile heard = (Mobile)obj;
+						var heard = (Mobile)obj;
 
 						if (mutatedArgs == null || !CheckHearsMutatedSpeech(heard, mutateContext))
 						{
@@ -5280,7 +5297,7 @@ namespace Server
 					}
 					else
 					{
-						Item item = (Item)obj;
+						var item = (Item)obj;
 
 						item.OnSpeech(regArgs);
 					}
@@ -5480,7 +5497,7 @@ namespace Server
 
 			if (master != null)
 			{
-				var list = de.Responsible;
+				List<DamageEntry> list = de.Responsible;
 
 				if (list == null)
 				{
@@ -5517,7 +5534,6 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Mobile LastKiller { get { return m_LastKiller; } set { m_LastKiller = value; } }
 
-		
 		public virtual void OnDamage(int amount, Mobile from, bool willKill)
 		{ }
 
@@ -5694,7 +5710,7 @@ namespace Server
 				return;
 			}
 
-			var eable = map.GetClientsInRange(m_Location);
+			IPooledEnumerable<NetState> eable = map.GetClientsInRange(m_Location);
 
 			Packet pNew = null;
 			Packet pOld = null;
@@ -5807,33 +5823,32 @@ namespace Server
 
 			switch (version)
 			{
-                case 33:
-                    {
-                        m_SpecialSlayerMechanics = reader.ReadBool();
+				case 33:
+					{
+						m_SpecialSlayerMechanics = reader.ReadBool();
 
-                        if (reader.ReadBool())
-                        {
-                            int length = reader.ReadInt();
+						if (reader.ReadBool())
+						{
+							int length = reader.ReadInt();
 
-                            for (int i = 0; i < length; i++)
-                            {
-                                m_SlayerVulnerabilities.Add(reader.ReadString());
-                            }
+							for (int i = 0; i < length; i++)
+							{
+								m_SlayerVulnerabilities.Add(reader.ReadString());
+							}
+						}
+						else
+						{
+							m_SlayerVulnerabilities = new List<string>();
+						}
 
-                        }
-                        else
-                        {
-                            m_SlayerVulnerabilities = new List<string>();
-                        }
+						goto case 32;
+					}
+				case 32:
+					{
+						m_IgnoreMobiles = reader.ReadBool();
 
-                        goto case 32;
-                    }
-                case 32:
-                    {
-                        m_IgnoreMobiles = reader.ReadBool();
-
-                        goto case 31;
-                    }
+						goto case 31;
+					}
 				case 31:
 					{
 						m_LastStrGain = reader.ReadDeltaTime();
@@ -6292,25 +6307,25 @@ namespace Server
 		{
 			writer.Write(33); // version
 
-            writer.Write(m_SpecialSlayerMechanics);
+			writer.Write(m_SpecialSlayerMechanics);
 
-            if (m_SlayerVulnerabilities != null && m_SlayerVulnerabilities.Count > 0)
-            {
-                writer.Write(true);
+			if (m_SlayerVulnerabilities != null && m_SlayerVulnerabilities.Count > 0)
+			{
+				writer.Write(true);
 
-                writer.Write(m_SlayerVulnerabilities.Count);
+				writer.Write(m_SlayerVulnerabilities.Count);
 
-                for (int i = 0; i < m_SlayerVulnerabilities.Count; i++)
-                {
-                    writer.Write(m_SlayerVulnerabilities[i]);
-                }
-            }
-            else
-            {
-                writer.Write(false);
-            }
-            
-            writer.Write(m_IgnoreMobiles);
+				for (int i = 0; i < m_SlayerVulnerabilities.Count; i++)
+				{
+					writer.Write(m_SlayerVulnerabilities[i]);
+				}
+			}
+			else
+			{
+				writer.Write(false);
+			}
+
+			writer.Write(m_IgnoreMobiles);
 
 			writer.WriteDeltaTime(m_LastStrGain);
 			writer.WriteDeltaTime(m_LastIntGain);
@@ -6705,7 +6720,7 @@ namespace Server
 				Packet p = null;
 				//Packet pNew = null;
 
-				var eable = map.GetClientsInRange(m_Location);
+				IPooledEnumerable<NetState> eable = map.GetClientsInRange(m_Location);
 
 				foreach (NetState state in eable)
 				{
@@ -6842,7 +6857,7 @@ namespace Server
 			{
 				Packet p = Packet.Acquire(new PlaySound(soundID, this));
 
-				var eable = m_Map.GetClientsInRange(m_Location);
+				IPooledEnumerable<NetState> eable = m_Map.GetClientsInRange(m_Location);
 
 				foreach (NetState state in eable)
 				{
@@ -6861,26 +6876,22 @@ namespace Server
 		[CommandProperty(AccessLevel.Counselor)]
 		public Skills Skills { get { return m_Skills; } set { } }
 
-        [CommandProperty(AccessLevel.GameMaster)]
-        public bool IgnoreMobiles
-        {
-            get { return m_IgnoreMobiles; }
-            set
-            {
-                if (m_IgnoreMobiles != value)
-                {
-                    m_IgnoreMobiles = value;
-                    Delta(MobileDelta.Flags);
-                }
-            }
-        }
+		[CommandProperty(AccessLevel.GameMaster)]
+		public bool IgnoreMobiles
+		{
+			get { return m_IgnoreMobiles; }
+			set
+			{
+				if (m_IgnoreMobiles != value)
+				{
+					m_IgnoreMobiles = value;
+					Delta(MobileDelta.Flags);
+				}
+			}
+		}
 
-        [CommandProperty(AccessLevel.GameMaster)]
-        public bool IsStealthing
-        {
-            get { return m_IsStealthing; }
-            set { m_IsStealthing = value; }
-        }
+		[CommandProperty(AccessLevel.GameMaster)]
+		public bool IsStealthing { get { return m_IsStealthing; } set { m_IsStealthing = value; } }
 
 		[CommandProperty(AccessLevel.Counselor, AccessLevel.Administrator)]
 		public AccessLevel AccessLevel
@@ -6961,7 +6972,7 @@ namespace Server
 				Hidden = false;
 			}
 
-            m_IsStealthing = false;
+			m_IsStealthing = false;
 
 			DisruptiveAction(); // Anything that unhides you will also distrupt meditation
 		}
@@ -7111,7 +7122,7 @@ namespace Server
 		{
 			if (m_Map != null)
 			{
-				var eable = m_Map.GetClientsInRange(m_Location);
+				IPooledEnumerable<NetState> eable = m_Map.GetClientsInRange(m_Location);
 
 				foreach (NetState state in eable)
 				{
@@ -7131,13 +7142,13 @@ namespace Server
 
 			if (m_Map != null && ns != null)
 			{
-				var eable = m_Map.GetObjectsInRange(m_Location, Core.GlobalMaxUpdateRange);
+				IPooledEnumerable<IEntity> eable = m_Map.GetObjectsInRange(m_Location, Core.GlobalMaxUpdateRange);
 
 				foreach (IEntity o in eable)
 				{
 					if (o is Mobile)
 					{
-						Mobile m = (Mobile)o;
+						var m = (Mobile)o;
 
 						if (m != this && Utility.InUpdateRange(m_Location, m.m_Location))
 						{
@@ -7146,7 +7157,7 @@ namespace Server
 					}
 					else if (o is Item)
 					{
-						Item item = (Item)o;
+						var item = (Item)o;
 
 						if (InRange(item.Location, item.GetUpdateRange(this)))
 						{
@@ -7391,13 +7402,13 @@ namespace Server
 
 			if (m_Map != null && ns != null)
 			{
-				var eable = m_Map.GetObjectsInRange(m_Location, Core.GlobalMaxUpdateRange);
+				IPooledEnumerable<IEntity> eable = m_Map.GetObjectsInRange(m_Location, Core.GlobalMaxUpdateRange);
 
 				foreach (IEntity o in eable)
 				{
 					if (o is Item)
 					{
-						Item item = (Item)o;
+						var item = (Item)o;
 
 						if (CanSee(item) && InRange(item.Location, item.GetUpdateRange(this)))
 						{
@@ -7406,7 +7417,7 @@ namespace Server
 					}
 					else if (o is Mobile)
 					{
-						Mobile m = (Mobile)o;
+						var m = (Mobile)o;
 
 						if (CanSee(m) && Utility.InUpdateRange(m_Location, m.m_Location))
 						{
@@ -7745,7 +7756,6 @@ namespace Server
 			return (Notoriety.Compute(this, target) == Notoriety.Innocent);
 		}
 
-		
 		public virtual void OnHarmfulAction(Mobile target, bool isCriminal)
 		{
 			if (isCriminal)
@@ -8528,10 +8538,10 @@ namespace Server
 				flags |= 0x80;
 			}
 
-            if (m_IgnoreMobiles)
-            {
-                flags |= 0x10;
-            }
+			if (m_IgnoreMobiles)
+			{
+				flags |= 0x10;
+			}
 
 			return flags;
 		}
@@ -8571,10 +8581,10 @@ namespace Server
 				flags |= 0x80;
 			}
 
-            if (m_IgnoreMobiles)
-            {
-                flags |= 0x10;
-            }
+			if (m_IgnoreMobiles)
+			{
+				flags |= 0x10;
+			}
 
 			return flags;
 		}
@@ -8693,7 +8703,7 @@ namespace Server
 
 			if (m_Map != null)
 			{
-				var eable = m_Map.GetClientsInRange(m_Location);
+				IPooledEnumerable<NetState> eable = m_Map.GetClientsInRange(m_Location);
 
 				foreach (NetState state in eable)
 				{
@@ -8890,7 +8900,7 @@ namespace Server
 			{
 				if (item.Parent is Item)
 				{
-					Item parent = item.Parent as Item;
+					var parent = item.Parent as Item;
 
 					if (!(CanSee(parent) && parent.IsChildVisibleTo(this, item)))
 					{
@@ -8908,7 +8918,7 @@ namespace Server
 
 			if (item is BankBox)
 			{
-				BankBox box = item as BankBox;
+				var box = item as BankBox;
 
 				if (box != null && IsPlayer() && (box.Owner != this || !box.Opened))
 				{
@@ -9806,7 +9816,7 @@ namespace Server
 				{
 					// First, send a remove message to everyone who can no longer see us. (inOldRange && !inNewRange)
 
-					var eable = map.GetClientsInRange(oldLocation);
+					IPooledEnumerable<NetState> eable = map.GetClientsInRange(oldLocation);
 
 					foreach (NetState ns in eable)
 					{
@@ -9823,7 +9833,7 @@ namespace Server
 					// Check to see if we are attached to a client
 					if (ourState != null)
 					{
-						var eeable = map.GetObjectsInRange(newLocation, Core.GlobalMaxUpdateRange);
+						IPooledEnumerable<IEntity> eeable = map.GetObjectsInRange(newLocation, Core.GlobalMaxUpdateRange);
 
 						// We are attached to a client, so it's a bit more complex. We need to send new items and people to ourself, and ourself to other clients
 
@@ -9831,7 +9841,7 @@ namespace Server
 						{
 							if (o is Item)
 							{
-								Item item = (Item)o;
+								var item = (Item)o;
 
 								int range = item.GetUpdateRange(this);
 								Point3D loc = item.Location;
@@ -9843,7 +9853,7 @@ namespace Server
 							}
 							else if (o != this && o is Mobile)
 							{
-								Mobile m = (Mobile)o;
+								var m = (Mobile)o;
 
 								if (!Utility.InUpdateRange(newLocation, m.m_Location))
 								{
@@ -10103,7 +10113,7 @@ namespace Server
 		{
 			get
 			{
-				Item item = m_Weapon as Item;
+				var item = m_Weapon as Item;
 
 				if (item != null && !item.Deleted && item.Parent == this && CanSee(item))
 				{
@@ -10190,7 +10200,7 @@ namespace Server
 
 		public Item FindItemOnLayer(Layer layer)
 		{
-			var eq = m_Items;
+			List<Item> eq = m_Items;
 			int count = eq.Count;
 
 			for (int i = 0; i < count; ++i)
@@ -10363,7 +10373,7 @@ namespace Server
 		{
 			if (m_Map != null)
 			{
-				var eable = m_Map.GetClientsInRange(m_Location);
+				IPooledEnumerable<NetState> eable = m_Map.GetClientsInRange(m_Location);
 
 				foreach (NetState state in eable)
 				{
@@ -10794,7 +10804,7 @@ namespace Server
 
 						try
 						{
-							using (StreamWriter op = new StreamWriter("delta-recursion.log", true))
+							using (var op = new StreamWriter("delta-recursion.log", true))
 							{
 								op.WriteLine("# {0}", DateTime.UtcNow);
 								op.WriteLine(new StackTrace());
@@ -11093,7 +11103,7 @@ namespace Server
 
 				if (sendStam || sendMana)
 				{
-					IParty ip = m_Party as IParty;
+					var ip = m_Party as IParty;
 
 					if (ip != null && sendStam)
 					{
@@ -11155,7 +11165,7 @@ namespace Server
 				Packet hbpPacket = null;
 				Packet hbyPacket = null;
 
-				var eable = m.Map.GetClientsInRange(m.m_Location);
+				IPooledEnumerable<NetState> eable = m.Map.GetClientsInRange(m.m_Location);
 
 				foreach (NetState state in eable)
 				{
@@ -11487,7 +11497,7 @@ namespace Server
 
 				p.Acquire();
 
-				var eable = m_Map.GetClientsInRange(m_Location);
+				IPooledEnumerable<NetState> eable = m_Map.GetClientsInRange(m_Location);
 
 				foreach (NetState state in eable)
 				{
@@ -11519,7 +11529,7 @@ namespace Server
 			{
 				Packet p = Packet.Acquire(new MessageLocalized(m_Serial, Body, type, hue, 3, number, Name, args));
 
-				var eable = m_Map.GetClientsInRange(m_Location);
+				IPooledEnumerable<NetState> eable = m_Map.GetClientsInRange(m_Location);
 
 				foreach (NetState state in eable)
 				{
@@ -11549,7 +11559,7 @@ namespace Server
 				Packet p =
 					Packet.Acquire(new MessageLocalizedAffix(m_Serial, Body, type, hue, 3, number, Name, affixType, affix, args));
 
-				var eable = m_Map.GetClientsInRange(m_Location);
+				IPooledEnumerable<NetState> eable = m_Map.GetClientsInRange(m_Location);
 
 				foreach (NetState state in eable)
 				{
@@ -11640,7 +11650,7 @@ namespace Server
 			{
 				Packet p = Packet.Acquire(new MessageLocalized(m_Serial, Body, type, hue, 3, number, Name, args));
 
-				var eable = m_Map.GetClientsInRange(m_Location);
+				IPooledEnumerable<NetState> eable = m_Map.GetClientsInRange(m_Location);
 
 				foreach (NetState state in eable)
 				{
@@ -11673,7 +11683,7 @@ namespace Server
 
 				p.Acquire();
 
-				var eable = m_Map.GetClientsInRange(m_Location);
+				IPooledEnumerable<NetState> eable = m_Map.GetClientsInRange(m_Location);
 
 				foreach (NetState state in eable)
 				{
@@ -11948,7 +11958,7 @@ namespace Server
 				Send(new StatLockInfo(this));
 			}
 
-			IParty ip = m_Party as IParty;
+			var ip = m_Party as IParty;
 
 			if (ip != null)
 			{

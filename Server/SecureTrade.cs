@@ -1,11 +1,20 @@
 #region Header
-// **********
-// ServUO - SecureTrade.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] SecureTrade.cs
+// ************************************/
 #endregion
 
 #region References
 using System;
+using System.Collections.Generic;
 
 using Server.Items;
 using Server.Network;
@@ -32,7 +41,7 @@ namespace Server
 				return;
 			}
 
-			var list = m_From.Container.Items;
+			List<Item> list = m_From.Container.Items;
 
 			for (int i = list.Count - 1; i >= 0; --i)
 			{
@@ -108,7 +117,7 @@ namespace Server
 
 			if (m_From.Accepted && m_To.Accepted)
 			{
-				var list = m_From.Container.Items;
+				List<Item> list = m_From.Container.Items;
 
 				bool allowed = true;
 

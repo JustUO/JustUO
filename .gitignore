@@ -1,6 +1,5 @@
 /Server/bin
-/JustUO.exe.config
-/JustUO.pdb
+/JustUO.pdb
 /JustUO.exe
 /Server/obj
 /Server/Server.csproj.user

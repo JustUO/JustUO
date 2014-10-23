@@ -1,7 +1,15 @@
 #region Header
-// **********
-// ServUO - MultiData.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] MultiData.cs
+// ************************************/
 #endregion
 
 #region References
@@ -88,9 +96,9 @@ namespace Server
 
 				if (File.Exists(vdPath))
 				{
-					using (FileStream fs = new FileStream(vdPath, FileMode.Open, FileAccess.Read, FileShare.Read))
+					using (var fs = new FileStream(vdPath, FileMode.Open, FileAccess.Read, FileShare.Read))
 					{
-						BinaryReader bin = new BinaryReader(fs);
+						var bin = new BinaryReader(fs);
 
 						int count = bin.ReadInt32();
 
@@ -177,7 +185,7 @@ namespace Server
 
 			if (vx >= 0 && vx < m_Width && vy >= 0 && vy < m_Height)
 			{
-				var oldTiles = m_Tiles[vx][vy];
+				StaticTile[] oldTiles = m_Tiles[vx][vy];
 
 				for (int i = oldTiles.Length - 1; i >= 0; --i)
 				{
@@ -208,7 +216,7 @@ namespace Server
 
 				m_Tiles[vx][vy] = newTiles;
 
-				var oldList = m_List;
+				MultiTileEntry[] oldList = m_List;
 				var newList = new MultiTileEntry[oldList.Length + 1];
 
 				for (int i = 0; i < oldList.Length; ++i)
@@ -249,7 +257,7 @@ namespace Server
 
 			if (vx >= 0 && vx < m_Width && vy >= 0 && vy < m_Height)
 			{
-				var oldTiles = m_Tiles[vx][vy];
+				StaticTile[] oldTiles = m_Tiles[vx][vy];
 
 				for (int i = 0; i < oldTiles.Length; ++i)
 				{
@@ -275,7 +283,7 @@ namespace Server
 					}
 				}
 
-				var oldList = m_List;
+				MultiTileEntry[] oldList = m_List;
 
 				for (int i = 0; i < oldList.Length; ++i)
 				{
@@ -311,7 +319,7 @@ namespace Server
 
 			if (vx >= 0 && vx < m_Width && vy >= 0 && vy < m_Height)
 			{
-				var oldTiles = m_Tiles[vx][vy];
+				StaticTile[] oldTiles = m_Tiles[vx][vy];
 
 				for (int i = 0; i < oldTiles.Length; ++i)
 				{
@@ -337,7 +345,7 @@ namespace Server
 					}
 				}
 
-				var oldList = m_List;
+				MultiTileEntry[] oldList = m_List;
 
 				for (int i = 0; i < oldList.Length; ++i)
 				{
@@ -369,7 +377,7 @@ namespace Server
 		public void Resize(int newWidth, int newHeight)
 		{
 			int oldWidth = m_Width, oldHeight = m_Height;
-			var oldTiles = m_Tiles;
+			StaticTile[][][] oldTiles = m_Tiles;
 
 			int totalLength = 0;
 
@@ -408,7 +416,7 @@ namespace Server
 			{
 				for (int y = 0; y < newHeight; ++y)
 				{
-					var tiles = newTiles[x][y];
+					StaticTile[] tiles = newTiles[x][y];
 
 					for (int i = 0; i < tiles.Length; ++i)
 					{
@@ -515,7 +523,7 @@ namespace Server
 
 			int length = reader.ReadInt();
 
-			var allTiles = m_List = new MultiTileEntry[length];
+			MultiTileEntry[] allTiles = m_List = new MultiTileEntry[length];
 
 			if (version == 0)
 			{
@@ -586,7 +594,7 @@ namespace Server
 
 		public MultiComponentList(BinaryReader reader, int count)
 		{
-			var allTiles = m_List = new MultiTileEntry[count];
+			MultiTileEntry[] allTiles = m_List = new MultiTileEntry[count];
 
 			for (int i = 0; i < count; ++i)
 			{

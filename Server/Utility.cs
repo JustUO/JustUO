@@ -1,7 +1,15 @@
 #region Header
-// **********
-// ServUO - Utility.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] Utility.cs
+// ************************************/
 #endregion
 
 #region References
@@ -134,7 +142,7 @@ namespace Server
 				return str;
 			}
 
-			StringBuilder sb = new StringBuilder(str);
+			var sb = new StringBuilder(str);
 
 			if (hasOpen)
 			{
@@ -195,7 +203,7 @@ namespace Server
             */
 
 			var bytes = new byte[4];
-			var split = cidr.Split('.');
+			string[] split = cidr.Split('.');
 			bool cidrBits = false;
 			int cidrLength = 0;
 
@@ -345,7 +353,7 @@ namespace Server
 				return true;
 			}
 
-			var addr = address.GetAddressBytes();
+			byte[] addr = address.GetAddressBytes();
 			if (addr.Length == 16) //sanity 0 - 15 //10 11 //12 13 14 15
 			{
 				if (addr[10] != 0xFF || addr[11] != 0xFF)
@@ -379,7 +387,7 @@ namespace Server
 		{
 			valid = true;
 
-			var split = val.Split('.');
+			string[] split = val.Split('.');
 
 			for (int i = 0; i < 4; ++i)
 			{
@@ -1163,7 +1171,7 @@ namespace Server
 		{
 			IEnumerator e = enumerable.GetEnumerator();
 
-			ArrayList list = new ArrayList();
+			var list = new ArrayList();
 
 			while (e.MoveNext())
 			{
@@ -1190,8 +1198,8 @@ namespace Server
 
 			for (int i = 0; i < whole; ++i, byteIndex += 16)
 			{
-				StringBuilder bytes = new StringBuilder(49);
-				StringBuilder chars = new StringBuilder(16);
+				var bytes = new StringBuilder(49);
+				var chars = new StringBuilder(16);
 
 				for (int j = 0; j < 16; ++j)
 				{
@@ -1227,8 +1235,8 @@ namespace Server
 
 			if (rem != 0)
 			{
-				StringBuilder bytes = new StringBuilder(49);
-				StringBuilder chars = new StringBuilder(rem);
+				var bytes = new StringBuilder(49);
+				var chars = new StringBuilder(rem);
 
 				for (int j = 0; j < 16; ++j)
 				{
@@ -1365,7 +1373,7 @@ namespace Server
 
 			for (int i = 0; i < list.Count; i++)
 			{
-				TOutput t = list[i] as TOutput;
+				var t = list[i] as TOutput;
 
 				if (t != null)
 				{

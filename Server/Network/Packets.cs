@@ -1,7 +1,15 @@
 #region Header
-// **********
-// ServUO - Packets.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] Packets.cs
+// ************************************/
 #endregion
 
 #region References
@@ -374,7 +382,7 @@ namespace Server.Network
 		{
 			EnsureCapacity(256);
 
-			Container BuyPack = vendor.FindItemOnLayer(Layer.ShopBuy) as Container;
+			var BuyPack = vendor.FindItemOnLayer(Layer.ShopBuy) as Container;
 			m_Stream.Write((BuyPack == null ? Serial.MinusOne : BuyPack.Serial));
 
 			m_Stream.Write((byte)list.Count);
@@ -539,7 +547,7 @@ namespace Server.Network
 		public DisplayEquipmentInfo(Item item, EquipmentInfo info)
 			: base(0xBF)
 		{
-			var attrs = info.Attributes;
+			EquipInfoAttribute[] attrs = info.Attributes;
 
 			EnsureCapacity(
 				17 + (info.Crafter == null ? 0 : 6 + info.Crafter.Name == null ? 0 : info.Crafter.Name.Length) +
@@ -589,7 +597,7 @@ namespace Server.Network
 
 		public static ChangeUpdateRange Instantiate(int range)
 		{
-			byte idx = (byte)range;
+			var idx = (byte)range;
 			ChangeUpdateRange p = m_Cache[idx];
 
 			if (p == null)
@@ -800,7 +808,7 @@ namespace Server.Network
 				m_Stream.WriteAsciiFixed(question, questionLength);
 			}
 
-			var entries = menu.Entries;
+			ItemListEntry[] entries = menu.Entries;
 
 			int entriesLength = (byte)entries.Length;
 
@@ -852,7 +860,7 @@ namespace Server.Network
 				m_Stream.WriteAsciiFixed(question, questionLength);
 			}
 
-			var answers = menu.Answers;
+			string[] answers = menu.Answers;
 
 			int answersLength = (byte)answers.Length;
 
@@ -884,7 +892,7 @@ namespace Server.Network
 
 		public static GlobalLightLevel Instantiate(int level)
 		{
-			byte lvl = (byte)level;
+			var lvl = (byte)level;
 			GlobalLightLevel p = m_Cache[lvl];
 
 			if (p == null)
@@ -941,7 +949,7 @@ namespace Server.Network
 		public DisplayContextMenu(ContextMenu menu)
 			: base(0xBF)
 		{
-			var entries = menu.Entries;
+			ContextMenuEntry[] entries = menu.Entries;
 
 			int length = (byte)entries.Length;
 
@@ -950,7 +958,7 @@ namespace Server.Network
 			m_Stream.Write((short)0x14);
 			m_Stream.Write((short)0x02);
 
-			IEntity target = menu.Target as IEntity;
+			var target = menu.Target as IEntity;
 
 			m_Stream.Write((target == null ? Serial.MinusOne : target.Serial));
 
@@ -999,7 +1007,7 @@ namespace Server.Network
 		public DisplayContextMenuOld(ContextMenu menu)
 			: base(0xBF)
 		{
-			var entries = menu.Entries;
+			ContextMenuEntry[] entries = menu.Entries;
 
 			int length = (byte)entries.Length;
 
@@ -1008,7 +1016,7 @@ namespace Server.Network
 			m_Stream.Write((short)0x14);
 			m_Stream.Write((short)0x01);
 
-			IEntity target = menu.Target as IEntity;
+			var target = menu.Target as IEntity;
 
 			m_Stream.Write((target == null ? Serial.MinusOne : target.Serial));
 
@@ -1127,7 +1135,7 @@ namespace Server.Network
 
 			if (item.Parent is Mobile)
 			{
-				Mobile mob = (Mobile)item.Parent;
+				var mob = (Mobile)item.Parent;
 
 				if (mob.SolidHueOverride >= 0)
 				{
@@ -1156,7 +1164,7 @@ namespace Server.Network
 			// +2 - Hue
 			// +1 - Flags
 
-			uint serial = (uint)item.Serial.Value;
+			var serial = (uint)item.Serial.Value;
 			int itemID = item.ItemID & 0x3FFF;
 			int amount = item.Amount;
 			Point3D loc = item.Location;
@@ -1164,7 +1172,7 @@ namespace Server.Network
 			int y = loc.m_Y;
 			int hue = item.Hue;
 			int flags = item.GetPacketFlags();
-			int direction = (int)item.Direction;
+			var direction = (int)item.Direction;
 
 			if (amount != 0)
 			{
@@ -2183,7 +2191,7 @@ m_Stream.Write( (int) renderMode );
 		public ContainerContent(Mobile beholder, Item beheld)
 			: base(0x3C)
 		{
-			var items = beheld.Items;
+			List<Item> items = beheld.Items;
 			int count = items.Count;
 
 			EnsureCapacity(5 + (count * 19));
@@ -2225,7 +2233,7 @@ m_Stream.Write( (int) renderMode );
 		public ContainerContent6017(Mobile beholder, Item beheld)
 			: base(0x3C)
 		{
-			var items = beheld.Items;
+			List<Item> items = beheld.Items;
 			int count = items.Count;
 
 			EnsureCapacity(5 + (count * 20));
@@ -2359,7 +2367,7 @@ m_Stream.Write( (int) renderMode );
 				Skill s = skills[i];
 
 				double v = s.NonRacialValue;
-				int uv = (int)(v * 10);
+				var uv = (int)(v * 10);
 
 				if (uv < 0)
 				{
@@ -2398,7 +2406,7 @@ m_Stream.Write( (int) renderMode );
 			EnsureCapacity(13);
 
 			double v = skill.NonRacialValue;
-			int uv = (int)(v * 10);
+			var uv = (int)(v * 10);
 
 			if (uv < 0)
 			{
@@ -2781,8 +2789,8 @@ m_Stream.Write( (int) renderMode );
 
 		private void WritePacked(PacketWriter src)
 		{
-			var buffer = src.UnderlyingStream.GetBuffer();
-			int length = (int)src.Length;
+			byte[] buffer = src.UnderlyingStream.GetBuffer();
+			var length = (int)src.Length;
 
 			if (length == 0)
 			{
@@ -3013,7 +3021,7 @@ m_Stream.Write( (int) renderMode );
 				return InvalidInstance;
 			}
 
-			int v = (int)name;
+			var v = (int)name;
 			Packet p;
 
 			if (v >= 0 && v < m_Instances.Length)
@@ -3745,9 +3753,9 @@ m_Stream.Write( (int) renderMode );
 			m_Beheld = beheld;
 
 			int m_Version = ++(m_VersionTL.Value);
-			var m_DupedLayers = m_DupedLayersTL.Value;
+			int[] m_DupedLayers = m_DupedLayersTL.Value;
 
-			var eq = beheld.Items;
+			List<Item> eq = beheld.Items;
 			int count = eq.Count;
 
 			if (beheld.HairItemID > 0)
@@ -3782,7 +3790,7 @@ m_Stream.Write( (int) renderMode );
 			{
 				Item item = eq[i];
 
-				byte layer = (byte)item.Layer;
+				var layer = (byte)item.Layer;
 
 				if (!item.Deleted && beholder.CanSee(item) && m_DupedLayers[layer] != m_Version)
 				{
@@ -3866,9 +3874,9 @@ m_Stream.Write( (int) renderMode );
 			m_Beheld = beheld;
 
 			int m_Version = ++(m_VersionTL.Value);
-			var m_DupedLayers = m_DupedLayersTL.Value;
+			int[] m_DupedLayers = m_DupedLayersTL.Value;
 
-			var eq = beheld.Items;
+			List<Item> eq = beheld.Items;
 			int count = eq.Count;
 
 			if (beheld.HairItemID > 0)
@@ -3903,7 +3911,7 @@ m_Stream.Write( (int) renderMode );
 			{
 				Item item = eq[i];
 
-				byte layer = (byte)item.Layer;
+				var layer = (byte)item.Layer;
 
 				if (!item.Deleted && beholder.CanSee(item) && m_DupedLayers[layer] != m_Version)
 				{
@@ -4017,9 +4025,9 @@ m_Stream.Write( (int) renderMode );
 			m_Beheld = beheld;
 
 			int m_Version = ++(m_VersionTL.Value);
-			var m_DupedLayers = m_DupedLayersTL.Value;
+			int[] m_DupedLayers = m_DupedLayersTL.Value;
 
-			var eq = beheld.Items;
+			List<Item> eq = beheld.Items;
 			int count = eq.Count;
 
 			if (beheld.HairItemID > 0)
@@ -4054,7 +4062,7 @@ m_Stream.Write( (int) renderMode );
 			{
 				Item item = eq[i];
 
-				byte layer = (byte)item.Layer;
+				var layer = (byte)item.Layer;
 
 				if (!item.Deleted && beholder.CanSee(item) && m_DupedLayers[layer] != m_Version)
 				{
@@ -4556,7 +4564,7 @@ m_Stream.Write( (int) renderMode );
 
 				m_Stream.UnderlyingStream.Flush();
 
-				var hashCode = m_MD5Provider.ComputeHash(
+				byte[] hashCode = m_MD5Provider.ComputeHash(
 					m_Stream.UnderlyingStream.GetBuffer(), 0, (int)m_Stream.UnderlyingStream.Length);
 				var buffer = new byte[28];
 
@@ -4658,7 +4666,7 @@ m_Stream.Write( (int) renderMode );
 
 				m_Stream.UnderlyingStream.Flush();
 
-				var hashCode = m_MD5Provider.ComputeHash(
+				byte[] hashCode = m_MD5Provider.ComputeHash(
 					m_Stream.UnderlyingStream.GetBuffer(), 0, (int)m_Stream.UnderlyingStream.Length);
 				var buffer = new byte[28];
 
@@ -5075,7 +5083,7 @@ m_Stream.Write( (int) renderMode );
 
 							try
 							{
-								using (StreamWriter op = new StreamWriter("net_opt.log", true))
+								using (var op = new StreamWriter("net_opt.log", true))
 								{
 									op.WriteLine("Redundant compile for packet {0}, use Acquire() and Release()", GetType());
 									op.WriteLine(new StackTrace());
@@ -5119,7 +5127,7 @@ m_Stream.Write( (int) renderMode );
 			MemoryStream ms = m_Stream.UnderlyingStream;
 
 			m_CompiledBuffer = ms.GetBuffer();
-			int length = (int)ms.Length;
+			var length = (int)ms.Length;
 
 			if (compress)
 			{
@@ -5136,7 +5144,7 @@ m_Stream.Write( (int) renderMode );
 						m_PacketID,
 						GetType().Name,
 						length);
-					using (StreamWriter op = new StreamWriter("compression_overflow.log", true))
+					using (var op = new StreamWriter("compression_overflow.log", true))
 					{
 						op.WriteLine(
 							"{0} Warning: Compression buffer overflowed on packet 0x{1:X2} ('{2}') (length={3})",
@@ -5170,7 +5178,7 @@ m_Stream.Write( (int) renderMode );
 			}
 			else if (length > 0)
 			{
-				var old = m_CompiledBuffer;
+				byte[] old = m_CompiledBuffer;
 				m_CompiledLength = length;
 
 				if (length > BufferSize || (m_State & State.Static) != 0)

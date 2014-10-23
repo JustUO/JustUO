@@ -1,7 +1,15 @@
 #region Header
-// **********
-// ServUO - AggressorInfo.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] AggressorInfo.cs
+// ************************************/
 #endregion
 
 #region References
@@ -79,7 +87,7 @@ namespace Server
 
 		public static void DumpAccess()
 		{
-			using (StreamWriter op = new StreamWriter("warnings.log", true))
+			using (var op = new StreamWriter("warnings.log", true))
 			{
 				op.WriteLine("Warning: Access to queued AggressorInfo:");
 				op.WriteLine(new StackTrace());

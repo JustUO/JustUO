@@ -1,7 +1,15 @@
 #region Header
-// **********
-// ServUO - ScriptCompiler.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] ScriptCompiler.cs
+// ************************************/
 #endregion
 
 #region References
@@ -36,7 +44,7 @@ namespace Server
 
 			if (File.Exists(path))
 			{
-				using (StreamReader ip = new StreamReader(path))
+				using (var ip = new StreamReader(path))
 				{
 					string line;
 
@@ -70,13 +78,12 @@ namespace Server
 			AppendCompilerOption( ref sb, "/d:MONO" );
             #endif
 
-			//These two defines are legacy, ie, depreciated.
 			if (Core.Is64Bit)
 			{
-				AppendCompilerOption(ref sb, "/d:x64");
+				AppendCompilerOption(ref sb, "/d:x64"); // Legacy Support
 			}
 
-			AppendCompilerOption(ref sb, "/d:Framework_4_0");
+			AppendCompilerOption(ref sb, "/d:Framework_4_0"); // Legacy Support
 
 			return (sb == null ? null : sb.ToString());
 		}
@@ -97,11 +104,11 @@ namespace Server
 
 		private static byte[] GetHashCode(string compiledFile, string[] scriptFiles, bool debug)
 		{
-			using (MemoryStream ms = new MemoryStream())
+			using (var ms = new MemoryStream())
 			{
-				using (BinaryWriter bin = new BinaryWriter(ms))
+				using (var bin = new BinaryWriter(ms))
 				{
-					FileInfo fileInfo = new FileInfo(compiledFile);
+					var fileInfo = new FileInfo(compiledFile);
 
 					bin.Write(fileInfo.LastWriteTimeUtc.Ticks);
 
@@ -140,7 +147,7 @@ namespace Server
 			Utility.PushColor(ConsoleColor.Green);
 			Console.Write("Scripts: Compiling C# scripts...");
 			Utility.PopColor();
-			var files = GetScripts("*.cs");
+			string[] files = GetScripts("*.cs");
 
 			if (files.Length == 0)
 			{
@@ -157,14 +164,13 @@ namespace Server
 				{
 					try
 					{
-						var hashCode = GetHashCode("Scripts/Output/Scripts.CS.dll", files, debug);
+						byte[] hashCode = GetHashCode("Scripts/Output/Scripts.CS.dll", files, debug);
 
-						using (
-							FileStream fs = new FileStream("Scripts/Output/Scripts.CS.hash", FileMode.Open, FileAccess.Read, FileShare.Read))
+						using (var fs = new FileStream("Scripts/Output/Scripts.CS.hash", FileMode.Open, FileAccess.Read, FileShare.Read))
 						{
-							using (BinaryReader bin = new BinaryReader(fs))
+							using (var bin = new BinaryReader(fs))
 							{
-								var bytes = bin.ReadBytes(hashCode.Length);
+								byte[] bytes = bin.ReadBytes(hashCode.Length);
 
 								if (bytes.Length == hashCode.Length)
 								{
@@ -205,11 +211,11 @@ namespace Server
 
 			DeleteFiles("Scripts.CS*.dll");
 
-			using (CSharpCodeProvider provider = new CSharpCodeProvider())
+			using (var provider = new CSharpCodeProvider())
 			{
 				string path = GetUnusedPath("Scripts.CS");
 
-				CompilerParameters parms = new CompilerParameters(GetReferenceAssemblies(), path, debug);
+				var parms = new CompilerParameters(GetReferenceAssemblies(), path, debug);
 
 				string options = GetCompilerOptions(debug);
 
@@ -254,13 +260,12 @@ namespace Server
 				{
 					try
 					{
-						var hashCode = GetHashCode(path, files, debug);
+						byte[] hashCode = GetHashCode(path, files, debug);
 
 						using (
-							FileStream fs = new FileStream(
-								"Scripts/Output/Scripts.CS.hash", FileMode.Create, FileAccess.Write, FileShare.None))
+							var fs = new FileStream("Scripts/Output/Scripts.CS.hash", FileMode.Create, FileAccess.Write, FileShare.None))
 						{
-							using (BinaryWriter bin = new BinaryWriter(fs))
+							using (var bin = new BinaryWriter(fs))
 							{
 								bin.Write(hashCode, 0, hashCode.Length);
 							}
@@ -288,7 +293,7 @@ namespace Server
 		public static bool CompileVBScripts(bool debug, bool cache, out Assembly assembly)
 		{
 			Console.Write("Scripts: Compiling VB.NET scripts...");
-			var files = GetScripts("*.vb");
+			string[] files = GetScripts("*.vb");
 
 			if (files.Length == 0)
 			{
@@ -301,16 +306,15 @@ namespace Server
 			{
 				if (cache && File.Exists("Scripts/Output/Scripts.VB.hash"))
 				{
-					var hashCode = GetHashCode("Scripts/Output/Scripts.VB.dll", files, debug);
+					byte[] hashCode = GetHashCode("Scripts/Output/Scripts.VB.dll", files, debug);
 
 					try
 					{
-						using (
-							FileStream fs = new FileStream("Scripts/Output/Scripts.VB.hash", FileMode.Open, FileAccess.Read, FileShare.Read))
+						using (var fs = new FileStream("Scripts/Output/Scripts.VB.hash", FileMode.Open, FileAccess.Read, FileShare.Read))
 						{
-							using (BinaryReader bin = new BinaryReader(fs))
+							using (var bin = new BinaryReader(fs))
 							{
-								var bytes = bin.ReadBytes(hashCode.Length);
+								byte[] bytes = bin.ReadBytes(hashCode.Length);
 
 								if (bytes.Length == hashCode.Length)
 								{
@@ -349,11 +353,11 @@ namespace Server
 
 			DeleteFiles("Scripts.VB*.dll");
 
-			using (VBCodeProvider provider = new VBCodeProvider())
+			using (var provider = new VBCodeProvider())
 			{
 				string path = GetUnusedPath("Scripts.VB");
 
-				CompilerParameters parms = new CompilerParameters(GetReferenceAssemblies(), path, debug);
+				var parms = new CompilerParameters(GetReferenceAssemblies(), path, debug);
 
 				string options = GetCompilerOptions(debug);
 
@@ -382,13 +386,12 @@ namespace Server
 				{
 					try
 					{
-						var hashCode = GetHashCode(path, files, debug);
+						byte[] hashCode = GetHashCode(path, files, debug);
 
 						using (
-							FileStream fs = new FileStream(
-								"Scripts/Output/Scripts.VB.hash", FileMode.Create, FileAccess.Write, FileShare.None))
+							var fs = new FileStream("Scripts/Output/Scripts.VB.hash", FileMode.Create, FileAccess.Write, FileShare.None))
 						{
-							using (BinaryWriter bin = new BinaryWriter(fs))
+							using (var bin = new BinaryWriter(fs))
 							{
 								bin.Write(hashCode, 0, hashCode.Length);
 							}
@@ -421,7 +424,7 @@ namespace Server
 						continue;
 					}
 
-					var table = (e.IsWarning ? warnings : errors);
+					Dictionary<string, List<CompilerError>> table = (e.IsWarning ? warnings : errors);
 
 					List<CompilerError> list = null;
 					table.TryGetValue(file, out list);
@@ -448,7 +451,7 @@ namespace Server
 				}
 
 				string scriptRoot = Path.GetFullPath(Path.Combine(Core.BaseDirectory, "Scripts" + Path.DirectorySeparatorChar));
-				Uri scriptRootUri = new Uri(scriptRoot);
+				var scriptRootUri = new Uri(scriptRoot);
 
 				Utility.PushColor(ConsoleColor.Yellow);
 
@@ -457,10 +460,10 @@ namespace Server
 					Console.WriteLine("Warnings:");
 				}
 
-				foreach (var kvp in warnings)
+				foreach (KeyValuePair<string, List<CompilerError>> kvp in warnings)
 				{
 					string fileName = kvp.Key;
-					var list = kvp.Value;
+					List<CompilerError> list = kvp.Value;
 
 					string fullPath = Path.GetFullPath(fileName);
 					string usedPath = Uri.UnescapeDataString(scriptRootUri.MakeRelativeUri(new Uri(fullPath)).OriginalString);
@@ -486,10 +489,10 @@ namespace Server
 					Console.WriteLine("Errors:");
 				}
 
-				foreach (var kvp in errors)
+				foreach (KeyValuePair<string, List<CompilerError>> kvp in errors)
 				{
 					string fileName = kvp.Key;
-					var list = kvp.Value;
+					List<CompilerError> list = kvp.Value;
 
 					string fullPath = Path.GetFullPath(fileName);
 					string usedPath = Uri.UnescapeDataString(scriptRootUri.MakeRelativeUri(new Uri(fullPath)).OriginalString);
@@ -532,7 +535,7 @@ namespace Server
 		{
 			try
 			{
-				var files = Directory.GetFiles(Path.Combine(Core.BaseDirectory, "Scripts/Output"), mask);
+				string[] files = Directory.GetFiles(Path.Combine(Core.BaseDirectory, "Scripts/Output"), mask);
 
 				foreach (string file in files)
 				{
@@ -642,7 +645,7 @@ namespace Server
 
 			for (int a = 0; a < m_Assemblies.Length; ++a)
 			{
-				var types = m_Assemblies[a].GetTypes();
+				Type[] types = m_Assemblies[a].GetTypes();
 
 				for (int i = 0; i < types.Length; ++i)
 				{
@@ -808,11 +811,11 @@ namespace Server
 
 				if (type.IsDefined(typeofTypeAliasAttribute, false))
 				{
-					var attrs = type.GetCustomAttributes(typeofTypeAliasAttribute, false);
+					object[] attrs = type.GetCustomAttributes(typeofTypeAliasAttribute, false);
 
 					if (attrs != null && attrs.Length > 0)
 					{
-						TypeAliasAttribute attr = attrs[0] as TypeAliasAttribute;
+						var attr = attrs[0] as TypeAliasAttribute;
 
 						if (attr != null)
 						{

@@ -1,7 +1,15 @@
 #region Header
-// **********
-// ServUO - Body.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] Body.cs
+// ************************************/
 #endregion
 
 #region References
@@ -31,7 +39,7 @@ namespace Server
 		{
 			if (File.Exists("Data/bodyTable.cfg"))
 			{
-				using (StreamReader ip = new StreamReader("Data/bodyTable.cfg"))
+				using (var ip = new StreamReader("Data/bodyTable.cfg"))
 				{
 					m_Types = new BodyType[0x1000];
 
@@ -44,7 +52,7 @@ namespace Server
 							continue;
 						}
 
-						var split = line.Split('\t');
+						string[] split = line.Split('\t');
 
 						BodyType type;
 						int bodyID;

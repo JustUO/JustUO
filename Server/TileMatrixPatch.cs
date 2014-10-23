@@ -1,7 +1,15 @@
 #region Header
-// **********
-// ServUO - TileMatrixPatch.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] TileMatrixPatch.cs
+// ************************************/
 #endregion
 
 #region References
@@ -66,13 +74,13 @@ namespace Server
 		[MethodImpl(MethodImplOptions.Synchronized)]
 		private unsafe int PatchLand(TileMatrix matrix, string dataPath, string indexPath)
 		{
-			using (FileStream fsData = new FileStream(dataPath, FileMode.Open, FileAccess.Read, FileShare.Read))
+			using (var fsData = new FileStream(dataPath, FileMode.Open, FileAccess.Read, FileShare.Read))
 			{
-				using (FileStream fsIndex = new FileStream(indexPath, FileMode.Open, FileAccess.Read, FileShare.Read))
+				using (var fsIndex = new FileStream(indexPath, FileMode.Open, FileAccess.Read, FileShare.Read))
 				{
-					BinaryReader indexReader = new BinaryReader(fsIndex);
+					var indexReader = new BinaryReader(fsIndex);
 
-					int count = (int)(indexReader.BaseStream.Length / 4);
+					var count = (int)(indexReader.BaseStream.Length / 4);
 
 					for (int i = 0; i < count; ++i)
 					{
@@ -108,16 +116,16 @@ namespace Server
 		[MethodImpl(MethodImplOptions.Synchronized)]
 		private unsafe int PatchStatics(TileMatrix matrix, string dataPath, string indexPath, string lookupPath)
 		{
-			using (FileStream fsData = new FileStream(dataPath, FileMode.Open, FileAccess.Read, FileShare.Read))
+			using (var fsData = new FileStream(dataPath, FileMode.Open, FileAccess.Read, FileShare.Read))
 			{
-				using (FileStream fsIndex = new FileStream(indexPath, FileMode.Open, FileAccess.Read, FileShare.Read))
+				using (var fsIndex = new FileStream(indexPath, FileMode.Open, FileAccess.Read, FileShare.Read))
 				{
-					using (FileStream fsLookup = new FileStream(lookupPath, FileMode.Open, FileAccess.Read, FileShare.Read))
+					using (var fsLookup = new FileStream(lookupPath, FileMode.Open, FileAccess.Read, FileShare.Read))
 					{
-						BinaryReader indexReader = new BinaryReader(fsIndex);
-						BinaryReader lookupReader = new BinaryReader(fsLookup);
+						var indexReader = new BinaryReader(fsIndex);
+						var lookupReader = new BinaryReader(fsLookup);
 
-						int count = (int)(indexReader.BaseStream.Length / 4);
+						var count = (int)(indexReader.BaseStream.Length / 4);
 
 						var lists = new TileList[8][];
 
@@ -156,7 +164,7 @@ namespace Server
 								m_TileBuffer = new StaticTile[tileCount];
 							}
 
-							var staTiles = m_TileBuffer;
+							StaticTile[] staTiles = m_TileBuffer;
 
 							fixed (StaticTile* pTiles = staTiles)
 							{

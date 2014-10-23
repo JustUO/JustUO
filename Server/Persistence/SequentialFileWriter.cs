@@ -1,173 +1,134 @@
-/***************************************************************************
-*                           SequentialFileWriter.cs
-*                            -------------------
-*   begin                : May 1, 2002
-*   copyright            : (C) The RunUO Software Team
-*   email                : info@runuo.com
-*
-*   $Id: SequentialFileWriter.cs 4 2006-06-15 04:28:39Z mark $
-*
-***************************************************************************/
+#region Header
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] SequentialFileWriter.cs
+// ************************************/
+#endregion
 
-
-
-
-
-
-
-
-/***************************************************************************
-*
-*   This program is free software; you can redistribute it and/or modify
-*   it under the terms of the GNU General Public License as published by
-*   the Free Software Foundation; either version 2 of the License, or
-*   (at your option) any later version.
-*
-***************************************************************************/
+#region References
 using System;
 using System.IO;
+#endregion
 
 namespace Server
 {
-    public sealed class SequentialFileWriter : Stream
-    {
-        private readonly SaveMetrics metrics;
-        private FileStream fileStream;
-        private FileQueue fileQueue;
-        private AsyncCallback writeCallback;
-        public SequentialFileWriter(string path, SaveMetrics metrics)
-        {
-            if (path == null)
-            {
-                throw new ArgumentNullException("path");
-            }
+	public sealed class SequentialFileWriter : Stream
+	{
+		private readonly SaveMetrics metrics;
+		private FileStream fileStream;
+		private FileQueue fileQueue;
+		private AsyncCallback writeCallback;
 
-            this.metrics = metrics;
+		public SequentialFileWriter(string path, SaveMetrics metrics)
+		{
+			if (path == null)
+			{
+				throw new ArgumentNullException("path");
+			}
 
-            this.fileStream = FileOperations.OpenSequentialStream(path, FileMode.Create, FileAccess.Write, FileShare.None);
+			this.metrics = metrics;
 
-            this.fileQueue = new FileQueue(
-                Math.Max(1, FileOperations.Concurrency),
-                FileCallback);
-        }
+			fileStream = FileOperations.OpenSequentialStream(path, FileMode.Create, FileAccess.Write, FileShare.None);
 
-        public override long Position
-        {
-            get
-            {
-                return this.fileQueue.Position;
-            }
-            set
-            {
-                throw new InvalidOperationException();
-            }
-        }
-        public override bool CanRead
-        {
-            get
-            {
-                return false;
-            }
-        }
-        public override bool CanSeek
-        {
-            get
-            {
-                return false;
-            }
-        }
-        public override bool CanWrite
-        {
-            get
-            {
-                return true;
-            }
-        }
-        public override long Length
-        {
-            get
-            {
-                return this.Position;
-            }
-        }
-        public override void Write(byte[] buffer, int offset, int size)
-        {
-            this.fileQueue.Enqueue(buffer, offset, size);
-        }
+			fileQueue = new FileQueue(Math.Max(1, FileOperations.Concurrency), FileCallback);
+		}
 
-        public override void Flush()
-        {
-            this.fileQueue.Flush();
-            this.fileStream.Flush();
-        }
+		public override long Position { get { return fileQueue.Position; } set { throw new InvalidOperationException(); } }
+		public override bool CanRead { get { return false; } }
+		public override bool CanSeek { get { return false; } }
+		public override bool CanWrite { get { return true; } }
+		public override long Length { get { return Position; } }
 
-        public override int Read(byte[] buffer, int offset, int count)
-        {
-            throw new InvalidOperationException();
-        }
+		public override void Write(byte[] buffer, int offset, int size)
+		{
+			fileQueue.Enqueue(buffer, offset, size);
+		}
 
-        public override long Seek(long offset, SeekOrigin origin)
-        {
-            throw new InvalidOperationException();
-        }
+		public override void Flush()
+		{
+			fileQueue.Flush();
+			fileStream.Flush();
+		}
 
-        public override void SetLength(long value)
-        {
-            this.fileStream.SetLength(value);
-        }
+		public override int Read(byte[] buffer, int offset, int count)
+		{
+			throw new InvalidOperationException();
+		}
 
-        protected override void Dispose(bool disposing)
-        {
-            if (this.fileStream != null)
-            {
-                this.Flush();
+		public override long Seek(long offset, SeekOrigin origin)
+		{
+			throw new InvalidOperationException();
+		}
 
-                this.fileQueue.Dispose();
-                this.fileQueue = null;
+		public override void SetLength(long value)
+		{
+			fileStream.SetLength(value);
+		}
 
-                this.fileStream.Close();
-                this.fileStream = null;
-            }
+		protected override void Dispose(bool disposing)
+		{
+			if (fileStream != null)
+			{
+				Flush();
 
-            base.Dispose(disposing);
-        }
+				fileQueue.Dispose();
+				fileQueue = null;
 
-        private void FileCallback(FileQueue.Chunk chunk)
-        {
-            if (FileOperations.AreSynchronous)
-            {
-                this.fileStream.Write(chunk.Buffer, chunk.Offset, chunk.Size);
+				fileStream.Close();
+				fileStream = null;
+			}
 
-                if (this.metrics != null)
-                {
-                    this.metrics.OnFileWritten(chunk.Size);
-                }
+			base.Dispose(disposing);
+		}
 
-                chunk.Commit();
-            }
-            else
-            {
-                if (this.writeCallback == null)
-                {
-                    this.writeCallback = this.OnWrite;
-                }
+		private void FileCallback(FileQueue.Chunk chunk)
+		{
+			if (FileOperations.AreSynchronous)
+			{
+				fileStream.Write(chunk.Buffer, chunk.Offset, chunk.Size);
 
-                this.fileStream.BeginWrite(chunk.Buffer, chunk.Offset, chunk.Size, this.writeCallback, chunk);
-            }
-        }
+				if (metrics != null)
+				{
+					metrics.OnFileWritten(chunk.Size);
+				}
 
-        private void OnWrite(IAsyncResult asyncResult)
-        {
-            FileQueue.Chunk chunk = asyncResult.AsyncState as FileQueue.Chunk;
+				chunk.Commit();
+			}
+			else
+			{
+				if (writeCallback == null)
+				{
+					writeCallback = OnWrite;
+				}
 
-            this.fileStream.EndWrite(asyncResult);
+				fileStream.BeginWrite(chunk.Buffer, chunk.Offset, chunk.Size, writeCallback, chunk);
+			}
+		}
 
-            if (this.metrics != null)
-            {
-                this.metrics.OnFileWritten(chunk.Size);
-            }
+		private void OnWrite(IAsyncResult asyncResult)
+		{
+			var chunk = asyncResult.AsyncState as FileQueue.Chunk;
 
-            chunk.Commit();
-        }
-    }
+			fileStream.EndWrite(asyncResult);
+
+			if (chunk == null)
+			{
+				return;
+			}
+
+			if (metrics != null)
+			{
+				metrics.OnFileWritten(chunk.Size);
+			}
+
+			chunk.Commit();
+		}
+	}
 }

@@ -1,7 +1,15 @@
 #region Header
-// **********
-// ServUO - TileList.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] TileList.cs
+// ************************************/
 #endregion
 
 namespace Server
@@ -23,7 +31,7 @@ namespace Server
 		{
 			if ((m_Count + tiles.Length) > m_Tiles.Length)
 			{
-				var old = m_Tiles;
+				StaticTile[] old = m_Tiles;
 				m_Tiles = new StaticTile[(m_Count + tiles.Length) * 2];
 
 				for (int i = 0; i < old.Length; ++i)
@@ -42,7 +50,7 @@ namespace Server
 		{
 			if ((m_Count + 1) > m_Tiles.Length)
 			{
-				var old = m_Tiles;
+				StaticTile[] old = m_Tiles;
 				m_Tiles = new StaticTile[old.Length * 2];
 
 				for (int i = 0; i < old.Length; ++i)

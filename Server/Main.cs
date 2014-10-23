@@ -1,7 +1,15 @@
 #region Header
-// **********
-// ServUO - Main.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] Main.cs
+// ************************************/
 #endregion
 
 #region References
@@ -27,6 +35,8 @@ namespace Server
 
 	public static class Core
 	{
+		public static Action<CrashedEventArgs> CrashedHandler { get; set; }
+
 		private static bool m_Crashed;
 		private static Thread timerThread;
 		private static string m_BaseDirectory;
@@ -115,37 +125,35 @@ namespace Server
 		private static ThreadLocal<uint> _LastTickCount = new ThreadLocal<uint>();
 		*/
 
-		private static readonly bool _HighRes = Stopwatch.IsHighResolution;
-		private static readonly double _Frequency = 1000.0 / Stopwatch.Frequency;
+		private static readonly bool m_HighRes = Stopwatch.IsHighResolution;
+		private static readonly double m_Frequency = 1000.0 / Stopwatch.Frequency;
+
+		private static bool m_UseHRT;
+
+		public static bool UsingHighResolutionTiming { get { return m_UseHRT && m_HighRes && !m_Unix; } }
 
 		public static long TickCount
 		{
 			get
 			{
-				long t = 0;
-
-				// TODO: Unreliable with certain system configurations.
-				if (_HighRes)
+#if !MONO
+				if (m_UseHRT && m_HighRes)
 				{
+					long t;
 					SafeNativeMethods.QueryPerformanceCounter(out t);
+					return (long)(t * m_Frequency);
 				}
-				else
-				{
-					t = DateTime.UtcNow.Ticks;
-				}
-
-				return (long)(t * _Frequency);
+#endif
+				return (long)(DateTime.UtcNow.Ticks * 0.0001);
 
 				/* We don't really need this, but it may be useful in the future.
 				uint t = (uint)Environment.TickCount;
 
 				if (_LastTickCount.Value > t) // Wrapped
-				{
 					_HighOrder.Value += 0x100000000;
-				}
 
 				_LastTickCount.Value = t;
-
+				
 				return _HighOrder.Value | _LastTickCount.Value;
 				*/
 			}
@@ -163,8 +171,10 @@ namespace Server
 
 		public static bool Unix { get { return m_Unix; } }
 
-		public static string FindDataFile(string path)
+		public static string FindDataFile(string format, params object[] args)
 		{
+			string path = String.Format(format, args);
+
 			if (m_DataDirectories.Count == 0)
 			{
 				throw new InvalidOperationException("Attempted to FindDataFile before DataDirectories list has been filled.");
@@ -172,9 +182,9 @@ namespace Server
 
 			string fullPath = null;
 
-			for (int i = 0; i < m_DataDirectories.Count; ++i)
+			foreach (string t in m_DataDirectories)
 			{
-				fullPath = Path.Combine(m_DataDirectories[i], path);
+				fullPath = Path.Combine(t, path);
 
 				if (File.Exists(fullPath))
 				{
@@ -187,47 +197,22 @@ namespace Server
 			return fullPath;
 		}
 
-		public static string FindDataFile(string format, params object[] args)
-		{
-			return FindDataFile(String.Format(format, args));
-		}
-
 		#region Expansions
 		private static Expansion m_Expansion;
 		public static Expansion Expansion { get { return m_Expansion; } set { m_Expansion = value; } }
 
 		public static bool T2A { get { return m_Expansion >= Expansion.T2A; } }
-
 		public static bool UOR { get { return m_Expansion >= Expansion.UOR; } }
-
 		public static bool UOTD { get { return m_Expansion >= Expansion.UOTD; } }
-
 		public static bool LBR { get { return m_Expansion >= Expansion.LBR; } }
-
 		public static bool AOS { get { return m_Expansion >= Expansion.AOS; } }
-
 		public static bool SE { get { return m_Expansion >= Expansion.SE; } }
-
 		public static bool ML { get { return m_Expansion >= Expansion.ML; } }
-
 		public static bool SA { get { return m_Expansion >= Expansion.SA; } }
-
 		public static bool HS { get { return m_Expansion >= Expansion.HS; } }
 		#endregion
 
-		public static string ExePath
-		{
-			get
-			{
-				if (m_ExePath == null)
-				{
-					m_ExePath = Assembly.Location;
-					//m_ExePath = Process.GetCurrentProcess().MainModule.FileName;
-				}
-
-				return m_ExePath;
-			}
-		}
+		public static string ExePath { get { return m_ExePath ?? (m_ExePath = Assembly.Location); } }
 
 		public static string BaseDirectory
 		{
@@ -259,41 +244,58 @@ namespace Server
 			Console.WriteLine(e.IsTerminating ? "Error:" : "Warning:");
 			Console.WriteLine(e.ExceptionObject);
 
-			if (e.IsTerminating)
+			if (!e.IsTerminating)
 			{
-				m_Crashed = true;
+				return;
+			}
 
-				bool close = false;
+			m_Crashed = true;
 
+			bool close = false;
+
+			var args = new CrashedEventArgs(e.ExceptionObject as Exception);
+
+			try
+			{
+				EventSink.InvokeCrashed(args);
+				close = args.Close;
+			}
+			catch
+			{ }
+
+			if (CrashedHandler != null)
+			{
 				try
 				{
-					CrashedEventArgs args = new CrashedEventArgs(e.ExceptionObject as Exception);
-
-					EventSink.InvokeCrashed(args);
-
+					CrashedHandler(args);
 					close = args.Close;
 				}
 				catch
 				{ }
-
-				if (!close && !m_Service)
-				{
-					try
-					{
-						for (int i = 0; i < m_MessagePump.Listeners.Length; i++)
-						{
-							m_MessagePump.Listeners[i].Dispose();
-						}
-					}
-					catch
-					{ }
-
-					Console.WriteLine("This exception is fatal, press return to exit");
-					Console.ReadLine();
-				}
-
-				Kill();
 			}
+
+			if (!close && !m_Service)
+			{
+				try
+				{
+					foreach (Listener t in m_MessagePump.Listeners)
+					{
+						try
+						{
+							t.Dispose();
+						}
+						catch
+						{ }
+					}
+				}
+				catch
+				{ }
+
+				Console.WriteLine("This exception is fatal, press return to exit");
+				Console.ReadLine();
+			}
+
+			Kill();
 		}
 
 		internal enum ConsoleEventType
@@ -415,31 +417,35 @@ namespace Server
 			AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 			AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
 
-			for (int i = 0; i < args.Length; ++i)
+			foreach (string arg in args)
 			{
-				if (Insensitive.Equals(args[i], "-debug"))
+				if (Insensitive.Equals(arg, "-debug"))
 				{
 					m_Debug = true;
 				}
-				else if (Insensitive.Equals(args[i], "-service"))
+				else if (Insensitive.Equals(arg, "-service"))
 				{
 					m_Service = true;
 				}
-				else if (Insensitive.Equals(args[i], "-profile"))
+				else if (Insensitive.Equals(arg, "-profile"))
 				{
 					Profiling = true;
 				}
-				else if (Insensitive.Equals(args[i], "-nocache"))
+				else if (Insensitive.Equals(arg, "-nocache"))
 				{
 					m_Cache = false;
 				}
-				else if (Insensitive.Equals(args[i], "-haltonwarning"))
+				else if (Insensitive.Equals(arg, "-haltonwarning"))
 				{
 					m_HaltOnWarning = true;
 				}
-				else if (Insensitive.Equals(args[i], "-vb"))
+				else if (Insensitive.Equals(arg, "-vb"))
 				{
 					m_VBdotNET = true;
+				}
+				else if (Insensitive.Equals(arg, "-usehrt"))
+				{
+					m_UseHRT = true;
 				}
 			}
 
@@ -476,25 +482,22 @@ namespace Server
 				Directory.SetCurrentDirectory(BaseDirectory);
 			}
 
-			Timer.TimerThread ttObj = new Timer.TimerThread();
-			timerThread = new Thread(ttObj.TimerMain);
-			timerThread.Name = "Timer Thread";
+			var ttObj = new Timer.TimerThread();
+
+			timerThread = new Thread(ttObj.TimerMain)
+			{
+				Name = "Timer Thread"
+			};
 
 			Version ver = m_Assembly.GetName().Version;
 
-			String publishNumber = "";
+			String publishNumber = String.Empty;
 
 			if (File.Exists("publish.txt"))
 			{
 				try
 				{
-					FileStream fs = new FileStream("publish.txt", FileMode.Open, FileAccess.Read, FileShare.Read);
-					StreamReader sr = new StreamReader(fs);
-
-					publishNumber = sr.ReadLine();
-
-					sr.Close();
-					fs.Close();
+					publishNumber = File.ReadAllText("publish.txt", Encoding.UTF8);
 				}
 				catch
 				{ }
@@ -505,10 +508,20 @@ namespace Server
 			Console.WriteLine(@"----------------------------------------------------------------------------");
 			Utility.PopColor();
 			Utility.PushColor(ConsoleColor.Cyan);
-			Console.WriteLine(
-				"JustUO - [http://www.playuo.org] Version {0}.{1}", ver.Major, ver.Minor);
-			Console.WriteLine("Publish {0}", publishNumber);
+			Console.WriteLine("JustUO - [http://www.playuo.org] Version {0}.{1}", ver.Major, ver.Minor);
+
+			if (!String.IsNullOrWhiteSpace(publishNumber))
+			{
+				Console.WriteLine("Publish {0}", publishNumber);
+			}
+
 			Utility.PopColor();
+
+			Console.WriteLine(
+				"Core: .NET Framework Version {0}.{1}.{2}",
+				Environment.Version.Major,
+				Environment.Version.Minor,
+				Environment.Version.Build);
 
 			string s = Arguments;
 
@@ -537,7 +550,8 @@ namespace Server
 				Utility.PopColor();
 			}
 
-			int platform = (int)Environment.OSVersion.Platform;
+			var platform = (int)Environment.OSVersion.Platform;
+
 			if (platform == 4 || platform == 128)
 			{
 				// MS 4, MONO 128
@@ -557,6 +571,12 @@ namespace Server
 				Utility.PushColor(ConsoleColor.DarkYellow);
 				Console.WriteLine("Core: Server garbage collection mode enabled");
 				Utility.PopColor();
+			}
+
+			if (m_UseHRT)
+			{
+				Console.WriteLine(
+					"Core: Requested high resolution timing ({0})", UsingHighResolutionTiming ? "Supported" : "Unsupported");
 			}
 
 			Console.WriteLine("RandomImpl: {0} ({1})", RandomImpl.Type.Name, RandomImpl.IsHardwareRNG ? "Hardware" : "Software");
@@ -593,9 +613,9 @@ namespace Server
 
 			timerThread.Start();
 
-			for (int i = 0; i < Map.AllMaps.Count; ++i)
+			foreach (Map m in Map.AllMaps)
 			{
-				Map.AllMaps[i].Tiles.Force();
+				m.Tiles.Force();
 			}
 
 			NetState.Initialize();
@@ -647,7 +667,7 @@ namespace Server
 		{
 			get
 			{
-				StringBuilder sb = new StringBuilder();
+				var sb = new StringBuilder();
 
 				if (Debug)
 				{
@@ -679,6 +699,11 @@ namespace Server
 					Utility.Separate(sb, "-vb", " ");
 				}
 
+				if (m_UseHRT)
+				{
+					Utility.Separate(sb, "-usehrt", " ");
+				}
+
 				return sb.ToString();
 			}
 		}
@@ -701,14 +726,14 @@ namespace Server
 
 			VerifySerialization(Assembly.GetCallingAssembly());
 
-			for (int a = 0; a < ScriptCompiler.Assemblies.Length; ++a)
+			foreach (Assembly a in ScriptCompiler.Assemblies)
 			{
-				VerifySerialization(ScriptCompiler.Assemblies[a]);
+				VerifySerialization(a);
 			}
 		}
 
-		private static readonly Type[] m_SerialTypeArray = new Type[1] {typeof(Serial)};
-		private static readonly Type[] m_CustomsSerialTypeArray = new Type[1] {typeof(CustomSerial)};
+		private static readonly Type[] m_SerialTypeArray = new[] {typeof(Serial)};
+		private static readonly Type[] m_CustomsSerialTypeArray = new[] {typeof(CustomSerial)};
 
 		private static void VerifyType(Type t)
 		{
@@ -731,26 +756,9 @@ namespace Server
 
 				try
 				{
-					/*
-					if( isItem && t.IsPublic && !t.IsAbstract )
-					{
-					ConstructorInfo cInfo = t.GetConstructor( Type.EmptyTypes );
-
-					if( cInfo == null )
-					{
-					if (warningSb == null)
-					warningSb = new StringBuilder();
-
-					warningSb.AppendLine("       - No zero paramater constructor");
-					}
-					}*/
-
 					if (t.GetConstructor(m_SerialTypeArray) == null)
 					{
-						if (warningSb == null)
-						{
-							warningSb = new StringBuilder();
-						}
+						warningSb = new StringBuilder();
 
 						warningSb.AppendLine("       - No serialization constructor");
 					}
@@ -803,10 +811,7 @@ namespace Server
 				{
 					if (t.GetConstructor(m_CustomsSerialTypeArray) == null)
 					{
-						if (warningSb == null)
-						{
-							warningSb = new StringBuilder();
-						}
+						warningSb = new StringBuilder();
 
 						warningSb.AppendLine("       - No serialization constructor");
 					}
@@ -853,16 +858,14 @@ namespace Server
 
 		private static void VerifySerialization(Assembly a)
 		{
-			if (a == null)
+			if (a != null)
 			{
-				return;
+				Parallel.ForEach(a.GetTypes(), VerifyType);
 			}
-
-			Parallel.ForEach(a.GetTypes(), t => { VerifyType(t); });
 		}
 	}
 
-	public class FileLogger : TextWriter, IDisposable
+	public class FileLogger : TextWriter
 	{
 		private readonly string m_FileName;
 		private bool m_NewLine;
@@ -878,7 +881,7 @@ namespace Server
 		{
 			m_FileName = file;
 			using (
-				StreamWriter writer =
+				var writer =
 					new StreamWriter(
 						new FileStream(m_FileName, append ? FileMode.Append : FileMode.Create, FileAccess.Write, FileShare.Read)))
 			{
@@ -890,9 +893,7 @@ namespace Server
 
 		public override void Write(char ch)
 		{
-			using (
-				StreamWriter writer = new StreamWriter(
-					new FileStream(m_FileName, FileMode.Append, FileAccess.Write, FileShare.Read)))
+			using (var writer = new StreamWriter(new FileStream(m_FileName, FileMode.Append, FileAccess.Write, FileShare.Read)))
 			{
 				if (m_NewLine)
 				{
@@ -905,9 +906,7 @@ namespace Server
 
 		public override void Write(string str)
 		{
-			using (
-				StreamWriter writer = new StreamWriter(
-					new FileStream(m_FileName, FileMode.Append, FileAccess.Write, FileShare.Read)))
+			using (var writer = new StreamWriter(new FileStream(m_FileName, FileMode.Append, FileAccess.Write, FileShare.Read)))
 			{
 				if (m_NewLine)
 				{
@@ -920,9 +919,7 @@ namespace Server
 
 		public override void WriteLine(string line)
 		{
-			using (
-				StreamWriter writer = new StreamWriter(
-					new FileStream(m_FileName, FileMode.Append, FileAccess.Write, FileShare.Read)))
+			using (var writer = new StreamWriter(new FileStream(m_FileName, FileMode.Append, FileAccess.Write, FileShare.Read)))
 			{
 				if (m_NewLine)
 				{
@@ -962,24 +959,28 @@ namespace Server
 
 		public override void Write(char ch)
 		{
-			for (int i = 0; i < m_Streams.Count; i++)
+			foreach (TextWriter t in m_Streams)
 			{
-				m_Streams[i].Write(ch);
+				t.Write(ch);
 			}
 		}
 
 		public override void WriteLine(string line)
 		{
-			for (int i = 0; i < m_Streams.Count; i++)
+			foreach (TextWriter t in m_Streams)
 			{
-				m_Streams[i].WriteLine(line);
+				t.WriteLine(line);
 			}
 		}
+
+		// ReSharper disable MethodOverloadWithOptionalParameter
 
 		public override void WriteLine(string line, params object[] args)
 		{
 			WriteLine(String.Format(line, args));
 		}
+
+		// ReSharper restore MethodOverloadWithOptionalParameter
 
 		public override Encoding Encoding { get { return Encoding.Default; } }
 	}

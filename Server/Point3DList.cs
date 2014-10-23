@@ -1,7 +1,15 @@
 #region Header
-// **********
-// ServUO - Point3DList.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] Point3DList.cs
+// ************************************/
 #endregion
 
 namespace Server
@@ -32,7 +40,7 @@ namespace Server
 		{
 			if ((m_Count + 1) > m_List.Length)
 			{
-				var old = m_List;
+				Point3D[] old = m_List;
 				m_List = new Point3D[old.Length * 2];
 
 				for (int i = 0; i < old.Length; ++i)
@@ -51,7 +59,7 @@ namespace Server
 		{
 			if ((m_Count + 1) > m_List.Length)
 			{
-				var old = m_List;
+				Point3D[] old = m_List;
 				m_List = new Point3D[old.Length * 2];
 
 				for (int i = 0; i < old.Length; ++i)

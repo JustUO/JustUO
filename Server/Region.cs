@@ -1,7 +1,15 @@
 #region Header
-// **********
-// ServUO - Region.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] Region.cs
+// ************************************/
 #endregion
 
 #region References
@@ -102,7 +110,7 @@ namespace Server
 			}
 
 			Sector sector = map.GetSector(p);
-			var list = sector.RegionRects;
+			List<RegionRect> list = sector.RegionRects;
 
 			for (int i = 0; i < list.Count; ++i)
 			{
@@ -524,7 +532,7 @@ namespace Server
 				return 1;
 			}
 
-			Region reg = obj as Region;
+			var reg = obj as Region;
 
 			if (reg == null)
 			{
@@ -987,7 +995,7 @@ namespace Server
 			Console.Write("Regions: Loading...");
 			Utility.PopColor();
 
-			XmlDocument doc = new XmlDocument();
+			var doc = new XmlDocument();
 			doc.Load(Path.Combine(Core.BaseDirectory, "Data/Regions.xml"));
 
 			XmlElement root = doc["ServerRegions"];
@@ -1093,7 +1101,7 @@ namespace Server
 			var area = new List<Rectangle3D>();
 			foreach (XmlElement xmlRect in xml.SelectNodes("rect"))
 			{
-				Rectangle3D rect = new Rectangle3D();
+				var rect = new Rectangle3D();
 				if (ReadRectangle3D(xmlRect, minZ, maxZ, ref rect))
 				{
 					area.Add(rect);

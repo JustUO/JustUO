@@ -1,7 +1,15 @@
 #region Header
-// **********
-// ServUO - Container.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] Container.cs
+// ************************************/
 #endregion
 
 #region References
@@ -273,8 +281,8 @@ namespace Server.Items
 
 			public int Compare(object x, object y)
 			{
-				Item a = (Item)x;
-				Item b = (Item)y;
+				var a = (Item)x;
+				var b = (Item)y;
 
 				return m_Grouper(a, b);
 			}
@@ -288,7 +296,7 @@ namespace Server.Items
 				throw new ArgumentNullException();
 			}
 
-			var typedItems = FindItemsByType(type, recurse);
+			Item[] typedItems = FindItemsByType(type, recurse);
 
 			var groups = new List<List<Item>>();
 			int idx = 0;
@@ -404,7 +412,7 @@ namespace Server.Items
 
 			for (int i = 0; i < types.Length; ++i)
 			{
-				var typedItems = FindItemsByType(types[i], recurse);
+				Item[] typedItems = FindItemsByType(types[i], recurse);
 
 				var groups = new List<List<Item>>();
 				int idx = 0;
@@ -524,7 +532,7 @@ namespace Server.Items
 
 			for (int i = 0; i < types.Length; ++i)
 			{
-				var typedItems = FindItemsByType(types[i], recurse);
+				Item[] typedItems = FindItemsByType(types[i], recurse);
 
 				var groups = new List<List<Item>>();
 				int idx = 0;
@@ -780,7 +788,7 @@ namespace Server.Items
 
 		public bool ConsumeTotal(Type type, int amount, bool recurse, OnItemConsumed callback)
 		{
-			var items = FindItemsByType(type, recurse);
+			Item[] items = FindItemsByType(type, recurse);
 
 			// First pass, compute total
 			int total = 0;
@@ -855,7 +863,7 @@ namespace Server.Items
 		{
 			if (current != null && current.Items.Count > 0)
 			{
-				var list = current.Items;
+				List<Item> list = current.Items;
 
 				for (int i = 0; i < list.Count; ++i)
 				{
@@ -898,7 +906,7 @@ namespace Server.Items
 
 			int best = 0;
 
-			var typedItems = FindItemsByType(type, recurse);
+			Item[] typedItems = FindItemsByType(type, recurse);
 
 			var groups = new List<List<Item>>();
 			int idx = 0;
@@ -932,7 +940,7 @@ namespace Server.Items
 
 			for (int i = 0; i < groups.Count; ++i)
 			{
-				var items = groups[i].ToArray();
+				Item[] items = groups[i].ToArray();
 
 				//Item[] items = (Item[])(((ArrayList)groups[i]).ToArray( typeof( Item ) ));
 				int total = 0;
@@ -960,7 +968,7 @@ namespace Server.Items
 
 			int best = 0;
 
-			var typedItems = FindItemsByType(types, recurse);
+			Item[] typedItems = FindItemsByType(types, recurse);
 
 			var groups = new List<List<Item>>();
 			int idx = 0;
@@ -994,7 +1002,7 @@ namespace Server.Items
 
 			for (int j = 0; j < groups.Count; ++j)
 			{
-				var items = groups[j].ToArray();
+				Item[] items = groups[j].ToArray();
 				//Item[] items = (Item[])(((ArrayList)groups[j]).ToArray( typeof( Item ) ));
 				int total = 0;
 
@@ -1023,7 +1031,7 @@ namespace Server.Items
 
 			for (int i = 0; i < types.Length; ++i)
 			{
-				var typedItems = FindItemsByType(types[i], recurse);
+				Item[] typedItems = FindItemsByType(types[i], recurse);
 
 				var groups = new List<List<Item>>();
 				int idx = 0;
@@ -1057,7 +1065,7 @@ namespace Server.Items
 
 				for (int j = 0; j < groups.Count; ++j)
 				{
-					var items = groups[j].ToArray();
+					Item[] items = groups[j].ToArray();
 					//Item[] items = (Item[])(((ArrayList)groups[j]).ToArray( typeof( Item ) ));
 					int total = 0;
 
@@ -1083,7 +1091,7 @@ namespace Server.Items
 
 		public int GetAmount(Type type, bool recurse)
 		{
-			var items = FindItemsByType(type, recurse);
+			Item[] items = FindItemsByType(type, recurse);
 
 			int amount = 0;
 
@@ -1102,7 +1110,7 @@ namespace Server.Items
 
 		public int GetAmount(Type[] types, bool recurse)
 		{
-			var items = FindItemsByType(types, recurse);
+			Item[] items = FindItemsByType(types, recurse);
 
 			int amount = 0;
 
@@ -1139,7 +1147,7 @@ namespace Server.Items
 		{
 			if (current != null && current.Items.Count > 0)
 			{
-				var items = current.Items;
+				List<Item> items = current.Items;
 
 				for (int i = 0; i < items.Count; ++i)
 				{
@@ -1179,7 +1187,7 @@ namespace Server.Items
 		{
 			if (current != null && current.Items.Count > 0)
 			{
-				var items = current.Items;
+				List<Item> items = current.Items;
 
 				for (int i = 0; i < items.Count; ++i)
 				{
@@ -1212,7 +1220,7 @@ namespace Server.Items
 		{
 			if (current != null && current.Items.Count > 0)
 			{
-				var list = current.Items;
+				List<Item> list = current.Items;
 
 				for (int i = 0; i < list.Count; ++i)
 				{
@@ -1251,7 +1259,7 @@ namespace Server.Items
 		{
 			if (current != null && current.Items.Count > 0)
 			{
-				var list = current.Items;
+				List<Item> list = current.Items;
 
 				for (int i = 0; i < list.Count; ++i)
 				{
@@ -1312,7 +1320,7 @@ namespace Server.Items
 		{
 			if (current != null && current.Items.Count > 0)
 			{
-				var items = current.Items;
+				List<Item> items = current.Items;
 
 				for (int i = 0; i < items.Count; ++i)
 				{
@@ -1320,7 +1328,7 @@ namespace Server.Items
 
 					if (typeof(T).IsAssignableFrom(item.GetType()))
 					{
-						T typedItem = (T)item;
+						var typedItem = (T)item;
 
 						if (predicate == null || predicate(typedItem))
 						{
@@ -1360,7 +1368,7 @@ namespace Server.Items
 		{
 			if (current != null && current.Items.Count > 0)
 			{
-				var list = current.Items;
+				List<Item> list = current.Items;
 
 				for (int i = 0; i < list.Count; ++i)
 				{
@@ -1368,7 +1376,7 @@ namespace Server.Items
 
 					if (typeof(T).IsAssignableFrom(item.GetType()))
 					{
-						T typedItem = (T)item;
+						var typedItem = (T)item;
 
 						if (predicate == null || predicate(typedItem))
 						{
@@ -1435,7 +1443,7 @@ namespace Server.Items
 
 			writer.Write(2); // version
 
-			SaveFlag flags = SaveFlag.None;
+			var flags = SaveFlag.None;
 
 			SetSaveFlag(ref flags, SaveFlag.MaxItems, m_MaxItems != -1);
 			SetSaveFlag(ref flags, SaveFlag.GumpID, m_GumpID != -1);
@@ -1470,7 +1478,7 @@ namespace Server.Items
 			{
 				case 2:
 					{
-						SaveFlag flags = (SaveFlag)reader.ReadByte();
+						var flags = (SaveFlag)reader.ReadByte();
 
 						if (GetSaveFlag(flags, SaveFlag.MaxItems))
 						{
@@ -1608,7 +1616,7 @@ namespace Server.Items
 			m_TotalItems = 0;
 			m_TotalWeight = 0;
 
-			var items = m_Items;
+			List<Item> items = m_Items;
 
 			if (items == null)
 			{
@@ -1667,7 +1675,7 @@ namespace Server.Items
 				return false;
 			}
 
-			var list = Items;
+			List<Item> list = Items;
 
 			for (int i = 0; i < list.Count; ++i)
 			{
@@ -1843,7 +1851,7 @@ namespace Server.Items
 
 			if (ObjectPropertyList.Enabled)
 			{
-				var items = Items;
+				List<Item> items = Items;
 
 				for (int i = 0; i < items.Count; ++i)
 				{
@@ -1954,7 +1962,7 @@ namespace Server.Items
 				return;
 			}
 
-			using (StreamReader reader = new StreamReader(path))
+			using (var reader = new StreamReader(path))
 			{
 				string line;
 
@@ -1969,13 +1977,13 @@ namespace Server.Items
 
 					try
 					{
-						var split = line.Split('\t');
+						string[] split = line.Split('\t');
 
 						if (split.Length >= 3)
 						{
 							int gumpID = Utility.ToInt32(split[0]);
 
-							var aRect = split[1].Split(' ');
+							string[] aRect = split[1].Split(' ');
 							if (aRect.Length < 4)
 							{
 								continue;
@@ -1986,11 +1994,11 @@ namespace Server.Items
 							int width = Utility.ToInt32(aRect[2]);
 							int height = Utility.ToInt32(aRect[3]);
 
-							Rectangle2D bounds = new Rectangle2D(x, y, width, height);
+							var bounds = new Rectangle2D(x, y, width, height);
 
 							int dropSound = Utility.ToInt32(split[2]);
 
-							ContainerData data = new ContainerData(gumpID, bounds, dropSound);
+							var data = new ContainerData(gumpID, bounds, dropSound);
 
 							if (m_Default == null)
 							{
@@ -1999,7 +2007,7 @@ namespace Server.Items
 
 							if (split.Length >= 4)
 							{
-								var aIDs = split[3].Split(',');
+								string[] aIDs = split[3].Split(',');
 
 								for (int i = 0; i < aIDs.Length; i++)
 								{

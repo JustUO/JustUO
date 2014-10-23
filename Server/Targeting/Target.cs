@@ -1,7 +1,15 @@
 #region Header
-// **********
-// ServUO - Target.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] Target.cs
+// ************************************/
 #endregion
 
 #region References
@@ -200,7 +208,7 @@ namespace Server.Targeting
 			}
 			else if (targeted is Item)
 			{
-				Item item = (Item)targeted;
+				var item = (Item)targeted;
 
 				if (item.Deleted)
 				{

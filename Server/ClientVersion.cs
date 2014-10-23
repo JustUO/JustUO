@@ -1,7 +1,15 @@
 #region Header
-// **********
-// ServUO - ClientVersion.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] ClientVersion.cs
+// ************************************/
 #endregion
 
 #region References
@@ -98,7 +106,7 @@ namespace Server
 				return false;
 			}
 
-			ClientVersion v = obj as ClientVersion;
+			var v = obj as ClientVersion;
 
 			if (v == null)
 			{
@@ -111,7 +119,7 @@ namespace Server
 
 		private string _ToStringImpl()
 		{
-			StringBuilder builder = new StringBuilder(16);
+			var builder = new StringBuilder(16);
 
 			builder.Append(m_Major);
 			builder.Append('.');
@@ -213,7 +221,7 @@ namespace Server
 				return 1;
 			}
 
-			ClientVersion o = obj as ClientVersion;
+			var o = obj as ClientVersion;
 
 			if (o == null)
 			{
@@ -278,8 +286,8 @@ namespace Server
 				return 1;
 			}
 
-			ClientVersion a = x as ClientVersion;
-			ClientVersion b = y as ClientVersion;
+			var a = x as ClientVersion;
+			var b = y as ClientVersion;
 
 			if (IsNull(a) || IsNull(b))
 			{

@@ -1,7 +1,15 @@
 #region Header
-// **********
-// ServUO - NetState.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] NetState.cs
+// ************************************/
 #endregion
 
 #region References
@@ -303,7 +311,7 @@ namespace Server.Network
 
 		public SecureTradeContainer AddTrade(NetState state)
 		{
-			SecureTrade newTrade = new SecureTrade(m_Mobile, state.m_Mobile);
+			var newTrade = new SecureTrade(m_Mobile, state.m_Mobile);
 
 			m_Trades.Add(newTrade);
 			state.m_Trades.Add(newTrade);
@@ -547,7 +555,7 @@ namespace Server.Network
 			}
 
 			int length;
-			var buffer = p.Compile(m_CompressionEnabled, out length);
+			byte[] buffer = p.Compile(m_CompressionEnabled, out length);
 
 			if (buffer != null)
 			{
@@ -623,7 +631,7 @@ namespace Server.Network
 				Utility.PushColor(ConsoleColor.DarkRed);
 				Console.WriteLine("Client: {0}: null buffer send, disconnecting...", this);
 				Utility.PopColor();
-				using (StreamWriter op = new StreamWriter("null_send.log", true))
+				using (var op = new StreamWriter("null_send.log", true))
 				{
 					op.WriteLine("{0} Client: {1}: null buffer send, disconnecting...", DateTime.UtcNow, this);
 					op.WriteLine(new StackTrace());
@@ -864,7 +872,7 @@ namespace Server.Network
 
 		private void OnReceive(IAsyncResult asyncResult)
 		{
-			Socket s = (Socket)asyncResult.AsyncState;
+			var s = (Socket)asyncResult.AsyncState;
 
 			try
 			{
@@ -874,7 +882,7 @@ namespace Server.Network
 				{
 					m_NextCheckActivity = Core.TickCount + 90000;
 
-					var buffer = m_RecvBuffer;
+					byte[] buffer = m_RecvBuffer;
 
 					if (m_Encoder != null)
 					{
@@ -917,7 +925,7 @@ namespace Server.Network
 
 		private void OnSend(IAsyncResult asyncResult)
 		{
-			Socket s = (Socket)asyncResult.AsyncState;
+			var s = (Socket)asyncResult.AsyncState;
 
 			try
 			{
@@ -1128,7 +1136,7 @@ namespace Server.Network
 
 			try
 			{
-				using (StreamWriter op = new StreamWriter("network-errors.log", true))
+				using (var op = new StreamWriter("network-errors.log", true))
 				{
 					op.WriteLine("# {0}", DateTime.UtcNow);
 

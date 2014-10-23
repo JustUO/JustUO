@@ -1,7 +1,15 @@
 #region Header
-// **********
-// ServUO - KeywordList.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] KeywordList.cs
+// ************************************/
 #endregion
 
 namespace Server
@@ -35,7 +43,7 @@ namespace Server
 		{
 			if ((m_Count + 1) > m_Keywords.Length)
 			{
-				var old = m_Keywords;
+				int[] old = m_Keywords;
 				m_Keywords = new int[old.Length * 2];
 
 				for (int i = 0; i < old.Length; ++i)

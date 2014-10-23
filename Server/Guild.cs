@@ -1,7 +1,15 @@
 #region Header
-// **********
-// ServUO - Guild.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] Guild.cs
+// ************************************/
 #endregion
 
 #region References
@@ -96,7 +104,7 @@ namespace Server.Guilds
 
 		public static List<BaseGuild> Search(string find)
 		{
-			var words = find.ToLower().Split(' ');
+			string[] words = find.ToLower().Split(' ');
 			var results = new List<BaseGuild>();
 
 			foreach (BaseGuild g in m_GuildList.Values)

@@ -1,7 +1,15 @@
 #region Header
-// **********
-// ServUO - PacketWriter.cs
-// **********
+// **************************************\
+//     _  _   _   __  ___  _   _   ___   |
+//    |# |#  |#  |## |### |#  |#  |###   |
+//    |# |#  |# |#    |#  |#  |# |#  |#  |
+//    |# |#  |#  |#   |#  |#  |# |#  |#  |
+//   _|# |#__|#  _|#  |#  |#__|# |#__|#  |
+//  |##   |##   |##   |#   |##    |###   |
+//        [http://www.playuo.org]        |
+// **************************************/
+//  [2014] PacketWriter.cs
+// ************************************/
 #endregion
 
 #region References
@@ -63,7 +71,7 @@ namespace Server.Network
 				{
 					try
 					{
-						using (StreamWriter op = new StreamWriter("neterr.log"))
+						using (var op = new StreamWriter("neterr.log"))
 						{
 							op.WriteLine("{0}\tInstance pool contains writer", DateTime.UtcNow);
 						}
