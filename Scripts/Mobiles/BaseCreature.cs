@@ -1516,6 +1516,9 @@ namespace Server.Mobiles
 				speechType.OnDamage(this, amount);
 			}
 
+            if (!Summoned && willKill)
+                LevelItemManager.CheckItems(from, this);
+
 			if (m_ReceivedHonorContext != null)
 			{
 				m_ReceivedHonorContext.OnTargetDamaged(from, amount);
