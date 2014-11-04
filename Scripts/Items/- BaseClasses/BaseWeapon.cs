@@ -3000,36 +3000,39 @@ namespace Server.Items
 		{
 			int bonus = VirtualDamageBonus;
 
-			switch (m_Quality)
-			{
-				case WeaponQuality.Low:
-					bonus -= 20;
-					break;
-				case WeaponQuality.Exceptional:
-					bonus += 20;
-					break;
-			}
+		    if (!Core.AOS)
+		    {
+		        switch (m_Quality)
+		        {
+		            case WeaponQuality.Low:
+		                bonus -= 20;
+		                break;
+		            case WeaponQuality.Exceptional:
+		                bonus += 20;
+		                break;
+		        }
 
-			switch (m_DamageLevel)
-			{
-				case WeaponDamageLevel.Ruin:
-					bonus += 15;
-					break;
-				case WeaponDamageLevel.Might:
-					bonus += 20;
-					break;
-				case WeaponDamageLevel.Force:
-					bonus += 25;
-					break;
-				case WeaponDamageLevel.Power:
-					bonus += 30;
-					break;
-				case WeaponDamageLevel.Vanq:
-					bonus += 35;
-					break;
-			}
+		        switch (m_DamageLevel)
+		        {
+		            case WeaponDamageLevel.Ruin:
+		                bonus += 15;
+		                break;
+		            case WeaponDamageLevel.Might:
+		                bonus += 20;
+		                break;
+		            case WeaponDamageLevel.Force:
+		                bonus += 25;
+		                break;
+		            case WeaponDamageLevel.Power:
+		                bonus += 30;
+		                break;
+		            case WeaponDamageLevel.Vanq:
+		                bonus += 35;
+		                break;
+		        }
+		    }
 
-			return bonus;
+		    return bonus;
 		}
 
 		public virtual void GetStatusDamage(Mobile from, out int min, out int max)
@@ -5227,20 +5230,20 @@ namespace Server.Items
 				{
 					if (Attributes.WeaponDamage > 35)
 					{
-						Attributes.WeaponDamage -= 20;
+						Attributes.WeaponDamage = 35;
 					}
 					else
 					{
-						Attributes.WeaponDamage = 15;
+						Attributes.WeaponDamage = 35;
 					}
 
 					if (Core.ML)
 					{
 						Attributes.WeaponDamage += (int)(from.Skills.ArmsLore.Value / 20);
 
-						if (Attributes.WeaponDamage > 50)
+						if (Attributes.WeaponDamage > 40)
 						{
-							Attributes.WeaponDamage = 50;
+							Attributes.WeaponDamage = 40;
 						}
 
 						from.CheckSkill(SkillName.ArmsLore, 0, 100);
