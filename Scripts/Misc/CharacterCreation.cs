@@ -11,6 +11,8 @@ namespace Server.Misc
     {
         private static readonly CityInfo m_NewHavenInfo = new CityInfo("New Haven", "The Bountiful Harvest Inn", 3503, 2574, 14, Map.Trammel);
         private static Mobile m_Mobile;
+
+		[CallPriority(Int32.MinValue)]
         public static void Initialize()
         {
             // Register our event handler
