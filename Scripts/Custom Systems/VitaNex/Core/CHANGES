@@ -1,0 +1,218 @@
+﻿2.2.0.0
+
+- CFG file typo fix.
+- Major memory leak fixes.
+- Added overload for the SuperGump.Send instance method that supports type generic cast for the return value.
+- Added extension method overloads for GeoExtUtility Lerp2D/3D that accept raw X,Y,Z values.
+- Added BeginTarget extension method to MobileExtUtility to allow simple target handling.
+- Added TypeEquals extension method to ObjectExtUtility to allow simple Type equality comparisons.
+- Fixed callback issue with SkillSelectionGump.
+- Added CommandUtility RegisterAlias method for simple registering of aliases for existing commands.
+- Additional Type equality logic and overload for the TypeSelectProperty CheckType method.
+- NotifyGump now uses the DefaultPauseDuration as it was intended when first implemented.
+- Removed redundant addition of Cancel button in ListGump<T> menu options.
+- Added GetLastKiller and HasItems extension methods to MobileExtUtility.
+- Added NotorietyExtUtility for Notoriety.
+- Added CreatureExtUtility for BaseCreature.
+- Added SpellExtUtility for Spells.
+- Added AccountExtUtility for Accounts.
+- Added ContainerExtUtility for Containers.
+- Added LayerExtUtility for Layers.
+- Added NotorietyExtUtility for Notoriety.
+- Added NumericExtUtility for numbers.
+- SpellUtility now allows you to fetch SpellInfo for a spell type with the GetSpellInfo methods.
+- Added more overload combinations for the WrapUOHtmlColor method in StringExtUtility.
+- LCDLines enum now implements byte instead of short.
+- Added SpellTypeSelectProperty.
+- Added SetAll extension method overrides to CollectionExtUtility.
+- Added AddOrReplace extension method for IDictionary<TKey, TVal> and List<T> to CollectionExtUtility.
+- Renamed and re-purposed a CompareNull<T> extension method to CheckNull<T> in ObjExtUtility. 
+- Added new throwable furniture items.
+- Added AdvancedVendor and simple stock management logic.
+- Added GhostMulti item capable of projecting holograms of any MultiID.
+- Added GC command to allow staff to force a full Garbage Collection of memory.
+- Added ExportPoint2D/3D command to compliment the ExportBounds2D/3D commands.
+- UOFont character spacing is now 2 pixels.
+- BBCodeUtility now supports image-to-link parsing.
+- Deleted the SandBox service and all sandbox test scenarios.
+- Added MySQL ODBC 5.3 driver support.
+- Added ability to force unique player names to Player Name Register service.
+
+- Added Modules (Disabled by default) 
+* Anti-Adverts
+* Auto Donate
+* Auto PvP
+* Deceit Braziers
+* Equipment Sets
+* MOTD
+* Spell Cast Bars
+* Toolbar
+* Voting
+* WebStats
+* World Chat
+
+2.1.1.0
+
+- Added compatibility for NEWPARENT and NEWTIMERS pre-processor directives, always look to the future! (RunUO 2.4, 2.5 and 2.6 compatibility)
+- Added Parallel Linq support to NotifyCommand.
+- NotifyCommand will now display the time of the message before the name of the sender.
+- Added time zone name support to ChronExtUtility.ToSimpleString format using tokens 'Z' and 'z' for optional DST correction.
+- Optimized some implementations of event subscriptions in SuperGumps.
+- Optimized SuperGumps initialization and gump registration functions.
+- Improved exception safety for UpdateService functions.
+- SkillBuffInfo now instantiates the skill that the mod is intended for.
+- SkillSelectionGump now supports Accept/Cancel handlers.
+- SkillSelectionGump namespace moved to VitaNex.SuperGumps.UI.
+- SkillCodex gump refactored arguments to match SkillSelectionGump parameters.
+- Added CryptoHashCode extension methods for GenericWriter and GenericReader.
+- Added Get* method overloads with generic type support to PropertyCache and FieldCache.
+- Added PacketExtUtility with initial support for packet value rewriting.
+- Added ArtworkSupport service, which allows the dynamic re-writing of WorldItem packets to switch out one ItemID for another.
+- Implemented ArtworkSupportAttribute on PyrotechnicsKit.
+- Added GetCustomAttributes extension method with generic type support to TypeExtUtility.
+- Added covariant support to ODBCVersion strings for descriptive driver versions in later MySQL builds.
+- Extracted method for connection string generation to MySQL class.
+- Added VitaNex.Text.EncodingUtility and VitaNex.Text.EncodingType, the enum can be used for custom properties, etc.
+- The IOExtUtility.AppendText method will now actually append text.
+- Added more CollectionExtUtility.SetAll extension method overloads.
+- Added generic type overload for CollectionExtUtility.GetRandom extension method with default return value argument.
+- Added CollectionExtUtility.InBounds extension methods to determine whether the given index is in bounds.
+- MapPoint.MoveToWorld methods now check Zero as well as Internal.
+- Added SeveredHead, a non-transferable head item that decays naturally without being moved.
+- Moved the decapitation feature of the ThrowableAxe to SeveredHead.
+- Added Lerp (linear interpolation) extension methods for IPoint2D and IPoint3D in GeoExtUtility.
+- Added ObjectExtUtility.
+- Added CompareNull extension method to ObjectExtUtility to shorten comparer impl syntax where needed.
+- Changed the ID used by the Modal overlay feature in SuperGumps to 2624 (pure black background), this removes the grainy effect.
+- Fixed an issue with MySQL disposing disconnected connections causing enumeration crash.
+
+2.1.0.0
+
++ This version may contain significant breaking changes; mainly the renaming, addition or removal of files and classes.
++ A fresh install of VNc is recommended.
+
+- Fixed file name typo in Schedules service.
+- Fixed an issue with the SuperGump double click detection.
+- Added OnClick and OnDoubleClick methods to SuperGumps.
+- Rune Codex Gump support double click action for category selection and recalling.
+- Reduced the SuperGump instance poll timer delay down to 10ms to increase accuracy for gumps that use fast (auto-) refresh rates.
+- Added a 'before send' handler argument to the Mobile SendNotification extension method to allow the notify gump to be modified before it is sent.
+- Refactored RangeExtUtility ZipRange to ScanRange.
+- Moved various extension methods to relevant files and classes.
+- Added Parallel Tasks support to Clilocs for loading files.
+- Added Parallel Tasks support for SuperGumps that have lots of input entries.
+- Added Parallel Tasks support for BaseEffects to speed up the Point3D caching algorithm.
+- Added support for Int64 'Ticks' to TimeStamp construction.
+- Added support for DateTimeKind to TimeStamp to differentiate between UTC and non-UTC instances.
+- Added Block3D, a geometric struct representing a box on a single point by giving it height.
+- Block3D allows for more precise intersection calculations when used in a component matrix such as multis.
+- Added Wireframe, a geomtric struct representing a collection of Block3D values that make up a virtual 3D frame.
+- Added DynamicWireframe, akin to Wireframe, but can be edited after creation.
+- Added Shape3D object, a derivitive of DynamicWireframe.
+- Added Cube3D, Cylendar3D, Disc3D, Plane3D, Ring3D and Sphere3D as pre-defined derivitives of Shape3D.
+- Added extension methods for BaseMulti to allow easy cache-supported fetch of Wireframes and MultiComponentLists with optional itemID overrides.
+- The MapPoint implementation has been revised to increase integrity and ensure it behaves as expected, it is now a class, not a struct.
+- The Coords implementation has been revised to increase integrity and ensure it behaves as expected, it is now a class, not a struct.
+- Added extension method RemoveRange for generic List<T> in CollectionExtUtility.
+- Added extension methods RemoveKeyRange and RemoveValueRange for generic IDictionary<TKey, TVal> in CollectionExtUtility.
+- Added extension method overloads for 'ForRange' for IEnumerable<T> and IDictionary<TKey, TVal> in CollectionExtUtility.
+- Added extension method 'HasWater' for Map in MapExtUtility.
+- Renamed class 'GeometryExtUtility' to 'GeoExtUtility', and file name from 'GeometryExt' to 'GeoExt', since it contains geometry and geography based functions.
+- Added extension method overloads for 'GetAverageZ' for Map in GeoExtUtility, they use static tiles to help resolve coast-line issues.
+- Added foundation of SuperCrafts framework.
+- Added SuperCraftSystem and additional associated objects.
+- Added Pyrotechnics crafting, pyrotechnics tool kit and some simple fireworks.
+- Added more generic static construction methods to PollTimer.
+- Added IndependentLanguagePack.
+- Changed chance algorithm for LuckyDipTicket.
+- Promoted Crypto to CoreService and moved to Services directory.
+- Added UpdateService for version resolving.
+- Added HttpService for sending Http requests.
+- Added RootDirectory property to VitaNexCore class.
+- Removed INIT file from project root, replaced with VNC.cfg
+- Added VNC.cfg file parsing support.
+- Added VNC.cfg property handling framework.
+- Updated file headers.
+- Created new directory 'Geometry'
+- Created new directory 'Geography'
+- Created new directory 'Items/Tools'
+- Created new directory 'Items/Fireworks'
+
++ There may be other updates not listed here.
+
+2.0.0.5
+
+- Prevented bug in SuperGumps where default X/Y properties do not get set when running on Mono.
+
+2.0.0.4
+
+- Removed created/edited dates from file headers to prevent future merge conflictions.
+- Removed all redundant references to named property 'recompile' for SuperGump.Refresh method.
+- Removed redundant GumpUtility class, useful code has been moved or reimplemented.
+- SuperGumps will now correctly distinguish buttons for GumpButtonTypes Reply and Page.
+- SuperGumps instance polling will not poll the gump instance by default, it will detect when to start and stop the timer, or it can be forced to start and stop. 
+- SuperGump.InnerSize property renamed to SuperGump.OuterSize as it represents the maimum bounds of a gump and its' elements.
+- SuperGumps provided by SuperGumps.UI now have plain black backgrounds to increase readability.
+- Added support to SuperGumps for the new Gump.AddItemProperty method (RunUO 2.3 r1072), if RunUO doesn't support it, the SuperGump simply won't use it.
+- Added support to SuperGumps for Movement detection and overriding.
+- Changed HueSelector gump default icon to something more fitting.
+- Compensated for an issue that prevented the last columns and rows from being displayed in HueSelector gump.
+- MenuGump width detection is now based on the new UOFont feature.
+- Added NotifyGump, this animated gump roughly emulates features such as eNotify for websites, supports plain text, basic HTML and BBC.
+- Added [Notify command, it allows a staff member to send all players a NotifyGump with a custom message, supports plain text, basic HTML and BBC. 
+- Added HueDeeds with standard hues.
+- Added RuneCodex, a special book to replace [Master] Runebooks, charge it up with Gold and build a categorized library of places, by default it stores up to 10,000 locations.
+- HauntedMomento entities will no longer appear when the momento is in the bank, or when the parent mobile is hidden.
+- Added TileButton support to SuperGumps.
+- Added double-click detection for SuperGump buttons, may need to tweak the click interval.
+- Added UOFont for handling standard UO fonts, plans to read font files instead of using hard-coded values.
+- Crash protection added to BBCodeUtility.ParseBBCode method.
+- BBCodeUtility.ParseBBCode method is now an extension of System.String.
+- Grid<T>.Count and Grid<T>.Capacity are no longer virtual.
+- RestrictMobileTiles no longer block staff members.
+- BaseThrowables now provide a property for finding the current user, BaseThrowable.User.
+- ThrowableBomb has been updated and optimized, it now uses the FireExplodeEffect in VitaNex.FX and requires 100.0 throwing skill.
+- Added ThrowableHealBomb, ThrowableManaBomb and ThrowableCureBomb that function like the ThrowableBomb, but have beneficial affects.
+- Setting the StrobeLantern.HueCycleDelay property will now update the timers' interval if it is running.
+- Added new size computation extension methods to StringExtUtility, they measure strings based on UOFont data.
+- Added new interpolation extension method to ColorExtUtility, allows smooth interpolation between color values.
+- Added Mobile extension methods to support new NotifyGump and NotifyCommand features to MobileExtUtility.
+- Added comments to CollectionExtUtility methods.
+- Added crash protection to CollectionExtUtility iteration methods, collections can be manipulated by the action without causing "out of range", or "collection modified" exceptions.
+- Fixed an issue with Z-axis detection in RangeExtUtility.InRange3D extension method.
+- MobileExtUtility.GetNotorietyColor extension method will now return named colors instead of vague hexidecimal colors.
+- MobileExtUtility.InCombat extension method no longer uses SpellHelper.CheckCombat as it is unreliable in some contexts, it now uses an overridable default value of 5 seconds.
+- GeometryExtUtility.MapPoint is now a struct, as a class it was vulnerable to having its' values changed globally in some contexts.
+- GeometryExtUtility extension methods that calculate travel time between two points now has better accuracy, but it's still not perfect.
+- Added default incremental values for all properties defined in AttributesExtUtility.
+- AttributesExtUtility.HasAttribute extension method will now include negative value properties.
+- Added various attribute support detection extension methods to AttributesExtUtility. 
+
+2.0.0.3
+
+- Added Chinese support to Clilocs.
+- Failed Cliloc export will now give a feedback message.
+- Fixed potential fatal exception bug in StringExtUtility.
+- Changed directory name for ExportBoundsCommand.
+- Added work-around for SkillCodex compile failure on some shard set-ups.
+- Updated LICENSE date.
+
+2.0.0.2
+
+- Added CHANGES file to main project.
+- HueSelector now allows the preview icon to be changed.
+- InstallationLocator will not prompt for console input if the Core has any data directories listed before it is initialized.
+- Updated IOUtility with more Unix-based support, specifically prepending directory separators to paths without one.
+- Grid member _Size now has a default value assigned.
+- Clilocs will now issue a warning if files are not found, in some cases the client localization files are required for proper execution of some system features.
+- GmlReader has had some fields commented out to prevent compile warnings during development of the reader feature.
+
+2.0.0.1
+
+- Updated IOUtility to use proper environment directory separator.
+- If you use a unix system, your current saved data for VNc will not be loaded and should be discarded.
+- Thanks to Dark Chapter for the feedback: http://darkchapter.org
+
+2.0.0.0
+
+- Initial release.
