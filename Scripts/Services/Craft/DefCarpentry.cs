@@ -125,7 +125,7 @@ namespace Server.Engines.Craft
             int index = -1;
 
             // Other Items
-            if (Core.Expansion >= Expansion.AOS)
+            if (Core.Expansion >= Expansion.AOS && Core.Expansion < Expansion.SA) //Changed back to using an axe in SA era.
             {
                 index = this.AddCraft(typeof(Board), 1044294, 1027127, 0.0, 0.0, typeof(Log), 1044466, 1, 1044465);
                 this.SetUseAllRes(index, true);
