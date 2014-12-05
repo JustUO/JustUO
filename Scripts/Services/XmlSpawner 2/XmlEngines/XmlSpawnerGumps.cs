@@ -284,8 +284,8 @@ namespace Server.Mobiles
             this.AddImageTiled(23, 300, 214, 23, 0x52);
             this.AddImageTiled(24, 301, 213, 21, 0xBBC);
 
-            this.AddTextEntry(35, 275, 200, 21, 0, 1, null);
-            this.AddTextEntry(35, 300, 200, 21, 0, 2, null);
+            this.AddTextEntry(35, 275, 200, 21, 0, 1, (string)null);
+            this.AddTextEntry(35, 300, 200, 21, 0, 2, (string)null);
         }
 
         public override void OnResponse(NetState state, RelayInfo info)
