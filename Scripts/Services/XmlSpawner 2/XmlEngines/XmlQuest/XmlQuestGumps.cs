@@ -200,7 +200,7 @@ namespace Server.Gumps
                 this.AddImageTiled(134, height - 7, 159, 23, 0x52);
                 this.AddImageTiled(135, height - 6, 157, 21, 0xBBC);
                 this.AddHtmlLocalized(105, height - 7, 200, 30, 3002006, 0x7fff, false, false); // Say:
-                this.AddTextEntry(135, height - 7, 150, 21, 0, 99, null);
+                this.AddTextEntry(135, height - 7, 150, 21, 0, 99, (string)null);
 
                 this.LocalAddHtml(maintext, 105, 159, 299, 182, 0xEFEF5A, false, true);
             }
