@@ -764,6 +764,9 @@ namespace Server.Items
                     }
             }
 
+		if(this.m_SAAbsorptionAttributes==null)
+			this.m_SAAbsorptionAttributes = new SAAbsorptionAttributes(this);
+				
             #region Mondain's Legacy Sets
             if (this.m_SetAttributes == null)
                 this.m_SetAttributes = new AosAttributes(this);
