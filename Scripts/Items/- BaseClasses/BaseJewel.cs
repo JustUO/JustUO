@@ -312,7 +312,9 @@ namespace Server.Items
             jewel.m_SetSkillBonuses = new AosSkillBonuses(newItem, this.m_SetSkillBonuses);
             #endregion
 
-            jewel.m_AosSkillBonuses = new AosSkillBonuses(newItem, this.m_AosSkillBonuses);
+            #region SA
+            jewel.m_SAAbsorptionAttributes = new SAAbsorptionAttributes(newItem, this.m_SAAbsorptionAttributes);
+            #endregion
         }
 
         public virtual int ArtifactRarity
@@ -764,15 +766,17 @@ namespace Server.Items
                     }
             }
 
-		if(this.m_SAAbsorptionAttributes==null)
-			this.m_SAAbsorptionAttributes = new SAAbsorptionAttributes(this);
-				
             #region Mondain's Legacy Sets
             if (this.m_SetAttributes == null)
                 this.m_SetAttributes = new AosAttributes(this);
 
             if (this.m_SetSkillBonuses == null)
                 this.m_SetSkillBonuses = new AosSkillBonuses(this);
+            #endregion
+
+            #region SA
+            if (this.m_SAAbsorptionAttributes == null)
+                this.m_SAAbsorptionAttributes = new SAAbsorptionAttributes(this);
             #endregion
 
             if (version < 2)
