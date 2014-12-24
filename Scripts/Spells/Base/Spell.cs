@@ -288,7 +288,10 @@ namespace Server.Spells
 
 		public virtual bool ConsumeReagents()
 		{
-			if (m_Scroll != null || !m_Caster.Player)
+            if (m_Caster.AccessLevel >= AccessLevel.Counselor)
+                return true;
+            
+            if (m_Scroll != null || !m_Caster.Player)
 			{
 				return true;
 			}

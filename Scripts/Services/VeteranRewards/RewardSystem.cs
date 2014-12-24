@@ -354,6 +354,8 @@ namespace Server.Engines.VeteranRewards
                     new RewardEntry(houseAddOns, 1072216, typeof(ContestMiniHouseDeed), Expansion.SE, MiniHouseType.ChurchAtNight),
                     new RewardEntry(miscellaneous, 1076155, typeof(RedSoulstone), Expansion.ML),
                     new RewardEntry(miscellaneous, 1080523, typeof(CommodityDeedBox), Expansion.ML),
+                    new RewardEntry(miscellaneous, 1113945, typeof(CrystalPortal), Expansion.SA),
+                    new RewardEntry(miscellaneous, 1150074, typeof(CorruptedCrystalPortal), Expansion.SA)
                 }),
                 new RewardList(RewardInterval, 2, new RewardEntry[]
                 {
@@ -480,6 +482,9 @@ namespace Server.Engines.VeteranRewards
         private static void EventSink_Login(LoginEventArgs e)
         {
             if (!e.Mobile.Alive)
+                return;
+
+            if (e.Mobile.AccessLevel >= AccessLevel.Counselor)
                 return;
 
             int cur, max, level;
