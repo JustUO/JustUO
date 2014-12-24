@@ -1,10 +1,4 @@
-﻿#region Header
-// **********
-// ServUO - FairyDragon.cs
-// **********
-#endregion
-
-#region References
+﻿#region References
 using Server.Items;
 #endregion
 
@@ -13,15 +7,13 @@ namespace Server.Mobiles
 	[CorpseName("a Fairy dragon corpse")]
 	public class FairyDragon : BaseCreature
 	{
-		//public override bool ReacquireOnMovement { get { return !Controlled; } }
-		//public override bool HasBreath{ get{ return true; } } // fire breath enabled
+
 		public override bool AutoDispel { get { return !Controlled; } }
 		public override int TreasureMapLevel { get { return 4; } }
 		public override int Meat { get { return 9; } }
 		public override Poison HitPoison { get { return Poison.Greater; } }
 		public override double HitPoisonChance { get { return 0.75; } }
 		public override FoodType FavoriteFood { get { return FoodType.Meat; } }
-		public override bool CanAngerOnTame { get { return true; } }
 
 		[Constructable]
 		public FairyDragon()
@@ -39,7 +31,6 @@ namespace Server.Mobiles
 
 			SetDamage(15, 18);
 
-			//SetDamageType( ResistanceType.Physical, 100 );
 			SetDamageType(ResistanceType.Fire, 20, 25);
 			SetDamageType(ResistanceType.Cold, 20, 25);
 			SetDamageType(ResistanceType.Poison, 20, 25);
@@ -61,10 +52,6 @@ namespace Server.Mobiles
 			Karma = -15000;
 
 			VirtualArmor = 39;
-
-			Tamable = false;
-			ControlSlots = 3;
-			MinTameSkill = 93.9;
 		}
 
 		public FairyDragon(Serial serial)
