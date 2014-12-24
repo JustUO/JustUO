@@ -4656,6 +4656,10 @@
     <Compile Include="Services\VeteranRewards\Character Statue Maker\CharacterStatuePlinth.cs" />
     <Compile Include="Services\VeteranRewards\Character Statue Maker\Gumps\CharacterStatueGump.cs" />
     <Compile Include="Services\VeteranRewards\Character Statue Maker\Packets.cs" />
+    <Compile Include="Services\VeteranRewards\Crystal Portals\CorruptedCrystalPortal.cs" />
+    <Compile Include="Services\VeteranRewards\Crystal Portals\CorruptedCrystalPortalGump.cs" />
+    <Compile Include="Services\VeteranRewards\Crystal Portals\CrystalPortal.cs" />
+    <Compile Include="Services\VeteranRewards\Crystal Portals\CrystalPortalGump.cs" />
     <Compile Include="Services\VeteranRewards\RewardCategory.cs" />
     <Compile Include="Services\VeteranRewards\RewardChoiceGump.cs" />
     <Compile Include="Services\VeteranRewards\RewardConfirmGump.cs" />
