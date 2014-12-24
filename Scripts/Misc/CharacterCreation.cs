@@ -679,6 +679,8 @@ namespace Server.Misc
             newChar.Hue = newChar.Race.ClipSkinHue(args.Hue & 0x3FFF) | 0x8000;
 
             newChar.Hunger = 20;
+            newChar.SkillsCap = StartupReader.GetSkillcap();
+            newChar.StatCap = StartupReader.GetStatcap();
 
             bool young = false;
 

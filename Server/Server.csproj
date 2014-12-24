@@ -74,15 +74,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="OpenUO.Core">
-      <HintPath>..\OpenUO.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="OpenUO.Ultima">
-      <HintPath>..\OpenUO.Ultima.dll</HintPath>
-    </Reference>
-    <Reference Include="OpenUO.Ultima.Windows.Forms">
-      <HintPath>..\OpenUO.Ultima.Windows.Forms.dll</HintPath>
-    </Reference>
     <Reference Include="SevenZipSharp">
       <HintPath>..\SevenZipSharp.dll</HintPath>
     </Reference>
@@ -196,7 +187,6 @@
     <Compile Include="Network\SendQueue.cs" />
     <Compile Include="Notoriety.cs" />
     <Compile Include="ObjectPropertyList.cs" />
-    <Compile Include="OpenUOSDK.cs" />
     <Compile Include="Party.cs" />
     <Compile Include="Persistence\BinaryMemoryWriter.cs" />
     <Compile Include="Persistence\DualSaveStrategy.cs" />

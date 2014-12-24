@@ -6,7 +6,7 @@ namespace Server.Misc
 {
     public class AutoSave : Timer
     {
-        private static readonly TimeSpan m_Delay = TimeSpan.FromMinutes(5.0);
+        private static readonly TimeSpan m_Delay = TimeSpan.FromMinutes(StartupReader.GetSaves());
         private static readonly TimeSpan m_Warning = TimeSpan.Zero;
         //private static TimeSpan m_Warning = TimeSpan.FromSeconds( 15.0 );
         private static readonly string[] m_Backups = new string[]
