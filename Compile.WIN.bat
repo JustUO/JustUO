@@ -32,7 +32,7 @@
 
 
 @ECHO:
-@ECHO: Ready to start JustUO
+@ECHO: Ready to start JustUO Configuration Utility
 @ECHO:
 
 @PAUSE
@@ -41,4 +41,7 @@
 
 @ECHO OFF
 
-%CURPATH%JustUO.exe
+start %CURPATH%JustUOStartup.exe
+
+@ECHO OFF
+EXIT /B
