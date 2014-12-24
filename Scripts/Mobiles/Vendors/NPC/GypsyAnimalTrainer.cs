@@ -1,8 +1,4 @@
-#region Header
-// **********
-// ServUO - GypsyAnimalTrainer.cs
-// **********
-#endregion
+
 
 namespace Server.Mobiles
 {

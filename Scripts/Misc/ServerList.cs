@@ -30,7 +30,7 @@ namespace Server.Misc
 	{
 		/* 
         * The default setting for Address, a value of 'null', will use your local IP address. If all of your local IP addresses
-        * are private network addresses and AutoDetect is 'true' then ServUO will attempt to discover your public IP address
+        * are private network addresses and AutoDetect is 'true' then JustUO will attempt to discover your public IP address
         * for you automatically.
         *
         * If you do not plan on allowing clients outside of your LAN to connect, you can set AutoDetect to 'false' and leave
@@ -38,7 +38,7 @@ namespace Server.Misc
         * 
         * If your public IP address cannot be determined, you must change the value of Address to your public IP address
         * manually to allow clients outside of your LAN to connect to your server. Address can be either an IP address or
-        * a hostname that will be resolved when ServUO starts.
+        * a hostname that will be resolved when JustUO starts.
         * 
         * If you want players outside your LAN to be able to connect to your server and you are behind a router, you must also
         * forward TCP port 2593 to your private IP address. The procedure for doing this varies by manufacturer but generally

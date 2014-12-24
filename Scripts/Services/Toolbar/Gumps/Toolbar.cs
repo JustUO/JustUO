@@ -1,9 +1,4 @@
-﻿#region Header
-// **********
-// ServUO - Toolbar.cs
-// **********
-#endregion
-
+﻿
 #region References
 using System;
 

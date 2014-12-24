@@ -14,7 +14,7 @@ namespace Server.Misc
 
                 if (Console.ReadKey(true).Key == ConsoleKey.Y)
                 {
-                    Console.WriteLine();
+                    Console.WriteLine("/n");
 
                     Console.Write("Username: ");
                     string username = Console.ReadLine();

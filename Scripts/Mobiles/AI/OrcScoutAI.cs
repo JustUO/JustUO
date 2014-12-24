@@ -1,9 +1,3 @@
-#region Header
-// **********
-// ServUO - OrcScoutAI.cs
-// **********
-#endregion
-
 #region References
 using System;
 

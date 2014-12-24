@@ -1,9 +1,3 @@
-#region Header
-// **********
-// ServUO - ArcherAI.cs
-// **********
-#endregion
-
 #region References
 using Server.Items;
 #endregion
