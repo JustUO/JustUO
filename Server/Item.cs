@@ -1029,21 +1029,6 @@ namespace Server
 		}
 
 		#region Mondain's Legacy
-		public static Bitmap GetBitmap(int itemID)
-		{
-			try
-			{
-				return OpenUOSDK.ArtFactory.GetStatic<Bitmap>(itemID);
-			}
-			catch
-			{
-				Utility.PushColor(ConsoleColor.Red);
-				Console.WriteLine("Error: Not able to read client files.");
-				Utility.PopColor();
-			}
-
-			return null;
-		}
 
 		public static unsafe void Measure(Bitmap bmp, out int xMin, out int yMin, out int xMax, out int yMax)
 		{

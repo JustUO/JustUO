@@ -69,8 +69,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="OpenUO.Core">
+      <HintPath>..\OpenUO.Core.dll</HintPath>
+    </Reference>
     <Reference Include="OpenUO.Ultima">
       <HintPath>..\OpenUO.Ultima.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenUO.Ultima.Windows.Forms">
+      <HintPath>..\OpenUO.Ultima.Windows.Forms.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -185,28 +191,11 @@
     <Compile Include="Custom Systems\Compendium\PageElements\LabelElement.cs" />
     <Compile Include="Custom Systems\Compendium\PageElements\TiledImageElement.cs" />
     <Compile Include="Custom Systems\Compendium\SaveAs.cs" />
-    <Compile Include="Custom Systems\Food Effects\Core\Enumerators.cs" />
-    <Compile Include="Custom Systems\Food Effects\Core\FoodEffect.cs" />
-    <Compile Include="Custom Systems\Food Effects\Core\FoodEffectModule.cs" />
-    <Compile Include="Custom Systems\Food Effects\Core\FoodEffectsCore.cs" />
-    <Compile Include="Custom Systems\Food Effects\Gumps\FoodEffectGump.cs" />
-    <Compile Include="Custom Systems\Food Effects\Gumps\FoodEffectsSetupGump.cs" />
-    <Compile Include="Custom Systems\Food Effects\Gumps\Gumplings\FoodEffectGumpling.cs" />
     <Compile Include="Custom Systems\Referral Rewards\ReferralRewardItems.cs" />
     <Compile Include="Custom Systems\Referral Rewards\ReferralRewardsGump.cs" />
     <Compile Include="Custom Systems\Referral Rewards\ReferralRewardsStone.cs" />
     <Compile Include="Custom Systems\Referral Rewards\TellAFriend.cs" />
     <Compile Include="Custom Systems\Referral Rewards\XmlReferralRewards.cs" />
-    <Compile Include="Custom Systems\Slayer Title System\Core\AutoUpgrade\SlayerTitleAttachment_v1.0.cs" />
-    <Compile Include="Custom Systems\Slayer Title System\Core\AutoUpgrade\SlayerTitleAttachment_v2.0.cs" />
-    <Compile Include="Custom Systems\Slayer Title System\Core\SlayerModule.cs" />
-    <Compile Include="Custom Systems\Slayer Title System\Core\SlayerTitleCore.cs" />
-    <Compile Include="Custom Systems\Slayer Title System\Core\TitleDefinition.cs" />
-    <Compile Include="Custom Systems\Slayer Title System\Core\TitleEntry.cs" />
-    <Compile Include="Custom Systems\Slayer Title System\Gumps\Gumplings\LabelAddRemoveGumpling.cs" />
-    <Compile Include="Custom Systems\Slayer Title System\Gumps\SlayerTitleSetupGump.cs" />
-    <Compile Include="Custom Systems\Slayer Title System\Gumps\TitleDefinitionGump.cs" />
-    <Compile Include="Custom Systems\Slayer Title System\SlayerTitleDef.cs" />
     <Compile Include="Custom Systems\VitaNex\Core\Build\CSharpCompiler.cs" />
     <Compile Include="Custom Systems\VitaNex\Core\Commands\ExportBounds.cs" />
     <Compile Include="Custom Systems\VitaNex\Core\Commands\ExportPoint.cs" />
@@ -2823,6 +2812,8 @@
     <Compile Include="Misc\NameList.cs" />
     <Compile Include="Misc\NameVerification.cs" />
     <Compile Include="Misc\Notoriety.cs" />
+    <Compile Include="Misc\OpenUOHelper.cs" />
+    <Compile Include="Misc\OpenUOSDK.cs" />
     <Compile Include="Misc\Paperdoll.cs" />
     <Compile Include="Misc\Poison.cs" />
     <Compile Include="Misc\ProfanityProtection.cs" />
@@ -3348,7 +3339,6 @@
     <Compile Include="Mobiles\Monsters\Reptile\Magic\DeepSeaSerpent.cs" />
     <Compile Include="Mobiles\Monsters\Reptile\Magic\Dragon.cs" />
     <Compile Include="Mobiles\Monsters\Reptile\Magic\FairyDragon.cs" />
-    <Compile Include="Mobiles\Monsters\Reptile\Magic\FairyDragon1.cs" />
     <Compile Include="Mobiles\Monsters\Reptile\Magic\Leviathan.cs" />
     <Compile Include="Mobiles\Monsters\Reptile\Magic\OphidianArchmage.cs" />
     <Compile Include="Mobiles\Monsters\Reptile\Magic\OphidianMage.cs" />

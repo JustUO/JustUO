@@ -1,9 +1,6 @@
-using System;
 using System.Collections.Generic;
 using Server.ContextMenus;
 
-using CustomsFramework;
-using CustomsFramework.Systems.FoodEffects;
 
 namespace Server.Items
 {
@@ -19,11 +16,11 @@ namespace Server.Items
         {
             get
             {
-                return this.m_Poisoner;
+                return m_Poisoner;
             }
             set
             {
-                this.m_Poisoner = value;
+                m_Poisoner = value;
             }
         }
 
@@ -32,11 +29,11 @@ namespace Server.Items
         {
             get
             {
-                return this.m_PlayerConstructed;
+                return m_PlayerConstructed;
             }
             set
             {
-                this.m_PlayerConstructed = value;
+                m_PlayerConstructed = value;
                 InvalidateProperties();
             }
         }
@@ -46,11 +43,11 @@ namespace Server.Items
         {
             get
             {
-                return this.m_Poison;
+                return m_Poison;
             }
             set
             {
-                this.m_Poison = value;
+                m_Poison = value;
             }
         }
 
@@ -59,11 +56,11 @@ namespace Server.Items
         {
             get
             {
-                return this.m_FillFactor;
+                return m_FillFactor;
             }
             set
             {
-                this.m_FillFactor = value;
+                m_FillFactor = value;
             }
         }
 
@@ -75,23 +72,14 @@ namespace Server.Items
         public Food(int amount, int itemID)
             : base(itemID)
         {
-            this.Stackable = true;
-            this.Amount = amount;
-            this.m_FillFactor = 1;
-
-            FoodEffectsCore.OnFoodEffectSystemUpdate += FoodEffectsCore_OnFoodEffectSystemUpdate;
+            Stackable = true;
+            Amount = amount;
+            m_FillFactor = 1;
         }
 
         public Food(Serial serial)
             : base(serial)
         {
-            FoodEffectsCore.OnFoodEffectSystemUpdate += FoodEffectsCore_OnFoodEffectSystemUpdate;
-        }
-
-        private void FoodEffectsCore_OnFoodEffectSystemUpdate(BaseCoreEventArgs e)
-        {
-            if (e.Core == FoodEffectsCore.Core)
-                InvalidateProperties();
         }
 
         public override void GetContextMenuEntries(Mobile from, List<ContextMenuEntry> list)
@@ -99,65 +87,32 @@ namespace Server.Items
             base.GetContextMenuEntries(from, list);
 
             if (from.Alive)
-                list.Add(new ContextMenus.EatEntry(from, this));
+                list.Add(new EatEntry(from, this));
         }
 
         public override void OnDoubleClick(Mobile from)
         {
-            if (!this.Movable)
+            if (!Movable)
                 return;
 
-            if (from.InRange(this.GetWorldLocation(), 1))
+            if (from.InRange(GetWorldLocation(), 1))
             {
-                this.Eat(from);
+                Eat(from);
             }
         }
 
         public override bool StackWith(Mobile from, Item dropped, bool playSound)
         {
-            if (dropped is Food && ((Food)dropped).PlayerConstructed == this.PlayerConstructed)
+            if (dropped is Food && ((Food)dropped).PlayerConstructed == PlayerConstructed)
                 return base.StackWith(from, dropped, playSound);
             else
                 return false;
         }
 
-        public override void GetProperties(ObjectPropertyList list)
-        {
-            base.GetProperties(list);
-
-            FoodEffect effect = FoodEffectsCore.GetEffects(this);
-
-            if (effect != null)
-            {
-                int prop;
-
-                if ((prop = effect.DexBonus) != 0)
-                    list.Add(1060409, prop.ToString()); // dexterity bonus ~1_val~
-
-                if ((prop = effect.IntBonus) != 0)
-                    list.Add(1060432, prop.ToString()); // intelligence bonus ~1_val~
-
-                if ((prop = effect.RegenMana) != 0)
-                    list.Add(1060440, prop.ToString()); // mana regeneration ~1_val~
-
-                if ((prop = effect.RegenStam) != 0)
-                    list.Add(1060443, prop.ToString()); // stamina regeneration ~1_val~
-
-                if ((prop = effect.RegenHits) != 0)
-                    list.Add(1060444, prop.ToString()); // hit point regeneration ~1_val~
-
-                if ((prop = effect.StrBonus) != 0)
-                    list.Add(1060485, prop.ToString()); // strength bonus ~1_val~
-
-                if ((prop = effect.Duration) != 0)
-                    list.Add(1071346, prop.ToString()); // Duration: ~1_val~ minutes
-            }
-        }
-
         public virtual bool Eat(Mobile from)
         {
             // Fill the Mobile with FillFactor
-            if (this.CheckHunger(from))
+            if (CheckHunger(from))
             {
                 // Play a random "eat" sound
                 from.PlaySound(Utility.Random(0x3A, 3));
@@ -165,10 +120,10 @@ namespace Server.Items
                 if (from.Body.IsHuman && !from.Mounted)
                     from.Animate(34, 5, 1, true, false, 0);
 
-                if (this.m_Poison != null)
-                    from.ApplyPoison(this.m_Poisoner, this.m_Poison);
+                if (m_Poison != null)
+                    from.ApplyPoison(m_Poisoner, m_Poison);
 
-                this.Consume();
+                Consume();
 
                 EventSink.InvokeOnConsume(new OnConsumeEventArgs(from, this));
 
@@ -180,7 +135,7 @@ namespace Server.Items
 
         public virtual bool CheckHunger(Mobile from)
         {
-            return FillHunger(from, this.m_FillFactor);
+            return FillHunger(from, m_FillFactor);
         }
 
         public static bool FillHunger(Mobile from, int fillFactor)
@@ -225,10 +180,10 @@ namespace Server.Items
             writer.Write((int)5); // version
 
             writer.Write((bool)m_PlayerConstructed);
-            writer.Write(this.m_Poisoner);
+            writer.Write(m_Poisoner);
 
-            Poison.Serialize(this.m_Poison, writer);
-            writer.Write(this.m_FillFactor);
+            Poison.Serialize(m_Poison, writer);
+            writer.Write(m_FillFactor);
         }
 
         public override void Deserialize(GenericReader reader)
@@ -244,19 +199,19 @@ namespace Server.Items
                         switch ( reader.ReadInt() )
                         {
                             case 0:
-                                this.m_Poison = null;
+                                m_Poison = null;
                                 break;
                             case 1:
-                                this.m_Poison = Poison.Lesser;
+                                m_Poison = Poison.Lesser;
                                 break;
                             case 2:
-                                this.m_Poison = Poison.Regular;
+                                m_Poison = Poison.Regular;
                                 break;
                             case 3:
-                                this.m_Poison = Poison.Greater;
+                                m_Poison = Poison.Greater;
                                 break;
                             case 4:
-                                this.m_Poison = Poison.Deadly;
+                                m_Poison = Poison.Deadly;
                                 break;
                         }
 
@@ -264,23 +219,23 @@ namespace Server.Items
                     }
                 case 2:
                     {
-                        this.m_Poison = Poison.Deserialize(reader);
+                        m_Poison = Poison.Deserialize(reader);
                         break;
                     }
                 case 3:
                     {
-                        this.m_Poison = Poison.Deserialize(reader);
-                        this.m_FillFactor = reader.ReadInt();
+                        m_Poison = Poison.Deserialize(reader);
+                        m_FillFactor = reader.ReadInt();
                         break;
                     }
                 case 4:
                     {
-                        this.m_Poisoner = reader.ReadMobile();
+                        m_Poisoner = reader.ReadMobile();
                         goto case 3;
                     }
                 case 5:
                     {
-                        this.m_PlayerConstructed = reader.ReadBool();
+                        m_PlayerConstructed = reader.ReadBool();
                         goto case 4;
                     }
             }
@@ -299,8 +254,8 @@ namespace Server.Items
         public BreadLoaf(int amount)
             : base(amount, 0x103B)
         {
-            this.Weight = 1.0;
-            this.FillFactor = 3;
+            Weight = 1.0;
+            FillFactor = 3;
         }
 
         public BreadLoaf(Serial serial)
@@ -335,8 +290,8 @@ namespace Server.Items
         public Bacon(int amount)
             : base(amount, 0x979)
         {
-            this.Weight = 1.0;
-            this.FillFactor = 1;
+            Weight = 1.0;
+            FillFactor = 1;
         }
 
         public Bacon(Serial serial)
@@ -371,8 +326,8 @@ namespace Server.Items
         public SlabOfBacon(int amount)
             : base(amount, 0x976)
         {
-            this.Weight = 1.0;
-            this.FillFactor = 3;
+            Weight = 1.0;
+            FillFactor = 3;
         }
 
         public SlabOfBacon(Serial serial)
@@ -415,7 +370,7 @@ namespace Server.Items
         public FishSteak(int amount)
             : base(amount, 0x97B)
         {
-            this.FillFactor = 3;
+            FillFactor = 3;
         }
 
         public FishSteak(Serial serial)
@@ -458,7 +413,7 @@ namespace Server.Items
         public CheeseWheel(int amount)
             : base(amount, 0x97E)
         {
-            this.FillFactor = 3;
+            FillFactor = 3;
         }
 
         public CheeseWheel(Serial serial)
@@ -501,7 +456,7 @@ namespace Server.Items
         public CheeseWedge(int amount)
             : base(amount, 0x97D)
         {
-            this.FillFactor = 3;
+            FillFactor = 3;
         }
 
         public CheeseWedge(Serial serial)
@@ -544,7 +499,7 @@ namespace Server.Items
         public CheeseSlice(int amount)
             : base(amount, 0x97C)
         {
-            this.FillFactor = 1;
+            FillFactor = 1;
         }
 
         public CheeseSlice(Serial serial)
@@ -579,8 +534,8 @@ namespace Server.Items
         public FrenchBread(int amount)
             : base(amount, 0x98C)
         {
-            this.Weight = 2.0;
-            this.FillFactor = 3;
+            Weight = 2.0;
+            FillFactor = 3;
         }
 
         public FrenchBread(Serial serial)
@@ -615,8 +570,8 @@ namespace Server.Items
         public FriedEggs(int amount)
             : base(amount, 0x9B6)
         {
-            this.Weight = 1.0;
-            this.FillFactor = 4;
+            Weight = 1.0;
+            FillFactor = 4;
         }
 
         public FriedEggs(Serial serial)
@@ -651,8 +606,8 @@ namespace Server.Items
         public CookedBird(int amount)
             : base(amount, 0x9B7)
         {
-            this.Weight = 1.0;
-            this.FillFactor = 5;
+            Weight = 1.0;
+            FillFactor = 5;
         }
 
         public CookedBird(Serial serial)
@@ -687,8 +642,8 @@ namespace Server.Items
         public RoastPig(int amount)
             : base(amount, 0x9BB)
         {
-            this.Weight = 45.0;
-            this.FillFactor = 20;
+            Weight = 45.0;
+            FillFactor = 20;
         }
 
         public RoastPig(Serial serial)
@@ -723,8 +678,8 @@ namespace Server.Items
         public Sausage(int amount)
             : base(amount, 0x9C0)
         {
-            this.Weight = 1.0;
-            this.FillFactor = 4;
+            Weight = 1.0;
+            FillFactor = 4;
         }
 
         public Sausage(Serial serial)
@@ -759,8 +714,8 @@ namespace Server.Items
         public Ham(int amount)
             : base(amount, 0x9C9)
         {
-            this.Weight = 1.0;
-            this.FillFactor = 5;
+            Weight = 1.0;
+            FillFactor = 5;
         }
 
         public Ham(Serial serial)
@@ -789,9 +744,9 @@ namespace Server.Items
         public Cake()
             : base(0x9E9)
         {
-            this.Stackable = false;
-            this.Weight = 1.0;
-            this.FillFactor = 10;
+            Stackable = false;
+            Weight = 1.0;
+            FillFactor = 10;
         }
 
         public Cake(Serial serial)
@@ -826,8 +781,8 @@ namespace Server.Items
         public Ribs(int amount)
             : base(amount, 0x9F2)
         {
-            this.Weight = 1.0;
-            this.FillFactor = 5;
+            Weight = 1.0;
+            FillFactor = 5;
         }
 
         public Ribs(Serial serial)
@@ -856,9 +811,9 @@ namespace Server.Items
         public Cookies()
             : base(0x160b)
         {
-            this.Stackable = Core.ML;
-            this.Weight = 1.0;
-            this.FillFactor = 4;
+            Stackable = Core.ML;
+            Weight = 1.0;
+            FillFactor = 4;
         }
 
         public Cookies(Serial serial)
@@ -887,9 +842,9 @@ namespace Server.Items
         public Muffins()
             : base(0x9eb)
         {
-            this.Stackable = false;
-            this.Weight = 1.0;
-            this.FillFactor = 4;
+            Stackable = false;
+            Weight = 1.0;
+            FillFactor = 4;
         }
 
         public Muffins(Serial serial)
@@ -927,9 +882,9 @@ namespace Server.Items
         public CheesePizza()
             : base(0x1040)
         {
-            this.Stackable = false;
-            this.Weight = 1.0;
-            this.FillFactor = 6;
+            Stackable = false;
+            Weight = 1.0;
+            FillFactor = 6;
         }
 
         public CheesePizza(Serial serial)
@@ -966,9 +921,9 @@ namespace Server.Items
         public SausagePizza()
             : base(0x1040)
         {
-            this.Stackable = false;
-            this.Weight = 1.0;
-            this.FillFactor = 6;
+            Stackable = false;
+            Weight = 1.0;
+            FillFactor = 6;
         }
 
         public SausagePizza(Serial serial)
@@ -1036,9 +991,9 @@ namespace Server.Items
         public FruitPie()
             : base(0x1041)
         {
-            this.Stackable = false;
-            this.Weight = 1.0;
-            this.FillFactor = 5;
+            Stackable = false;
+            Weight = 1.0;
+            FillFactor = 5;
         }
 
         public FruitPie(Serial serial)
@@ -1075,9 +1030,9 @@ namespace Server.Items
         public MeatPie()
             : base(0x1041)
         {
-            this.Stackable = false;
-            this.Weight = 1.0;
-            this.FillFactor = 5;
+            Stackable = false;
+            Weight = 1.0;
+            FillFactor = 5;
         }
 
         public MeatPie(Serial serial)
@@ -1114,9 +1069,9 @@ namespace Server.Items
         public PumpkinPie()
             : base(0x1041)
         {
-            this.Stackable = false;
-            this.Weight = 1.0;
-            this.FillFactor = 5;
+            Stackable = false;
+            Weight = 1.0;
+            FillFactor = 5;
         }
 
         public PumpkinPie(Serial serial)
@@ -1153,9 +1108,9 @@ namespace Server.Items
         public ApplePie()
             : base(0x1041)
         {
-            this.Stackable = false;
-            this.Weight = 1.0;
-            this.FillFactor = 5;
+            Stackable = false;
+            Weight = 1.0;
+            FillFactor = 5;
         }
 
         public ApplePie(Serial serial)
@@ -1192,9 +1147,9 @@ namespace Server.Items
         public PeachCobbler()
             : base(0x1041)
         {
-            this.Stackable = false;
-            this.Weight = 1.0;
-            this.FillFactor = 5;
+            Stackable = false;
+            Weight = 1.0;
+            FillFactor = 5;
         }
 
         public PeachCobbler(Serial serial)
@@ -1231,9 +1186,9 @@ namespace Server.Items
         public Quiche()
             : base(0x1041)
         {
-            this.Stackable = Core.ML;
-            this.Weight = 1.0;
-            this.FillFactor = 5;
+            Stackable = Core.ML;
+            Weight = 1.0;
+            FillFactor = 5;
         }
 
         public Quiche(Serial serial)
@@ -1268,8 +1223,8 @@ namespace Server.Items
         public LambLeg(int amount)
             : base(amount, 0x160a)
         {
-            this.Weight = 2.0;
-            this.FillFactor = 5;
+            Weight = 2.0;
+            FillFactor = 5;
         }
 
         public LambLeg(Serial serial)
@@ -1304,8 +1259,8 @@ namespace Server.Items
         public ChickenLeg(int amount)
             : base(amount, 0x1608)
         {
-            this.Weight = 1.0;
-            this.FillFactor = 4;
+            Weight = 1.0;
+            FillFactor = 4;
         }
 
         public ChickenLeg(Serial serial)
@@ -1328,7 +1283,7 @@ namespace Server.Items
         }
     }
 
-    [FlipableAttribute(0xC74, 0xC75)]
+    [Flipable(0xC74, 0xC75)]
     public class HoneydewMelon : Food
     {
         [Constructable]
@@ -1341,8 +1296,8 @@ namespace Server.Items
         public HoneydewMelon(int amount)
             : base(amount, 0xC74)
         {
-            this.Weight = 1.0;
-            this.FillFactor = 1;
+            Weight = 1.0;
+            FillFactor = 1;
         }
 
         public HoneydewMelon(Serial serial)
@@ -1365,7 +1320,7 @@ namespace Server.Items
         }
     }
 
-    [FlipableAttribute(0xC64, 0xC65)]
+    [Flipable(0xC64, 0xC65)]
     public class YellowGourd : Food
     {
         [Constructable]
@@ -1378,8 +1333,8 @@ namespace Server.Items
         public YellowGourd(int amount)
             : base(amount, 0xC64)
         {
-            this.Weight = 1.0;
-            this.FillFactor = 1;
+            Weight = 1.0;
+            FillFactor = 1;
         }
 
         public YellowGourd(Serial serial)
@@ -1402,7 +1357,7 @@ namespace Server.Items
         }
     }
 
-    [FlipableAttribute(0xC66, 0xC67)]
+    [Flipable(0xC66, 0xC67)]
     public class GreenGourd : Food
     {
         [Constructable]
@@ -1415,8 +1370,8 @@ namespace Server.Items
         public GreenGourd(int amount)
             : base(amount, 0xC66)
         {
-            this.Weight = 1.0;
-            this.FillFactor = 1;
+            Weight = 1.0;
+            FillFactor = 1;
         }
 
         public GreenGourd(Serial serial)
@@ -1439,7 +1394,7 @@ namespace Server.Items
         }
     }
 
-    [FlipableAttribute(0xC7F, 0xC81)]
+    [Flipable(0xC7F, 0xC81)]
     public class EarOfCorn : Food
     {
         [Constructable]
@@ -1452,8 +1407,8 @@ namespace Server.Items
         public EarOfCorn(int amount)
             : base(amount, 0xC81)
         {
-            this.Weight = 1.0;
-            this.FillFactor = 1;
+            Weight = 1.0;
+            FillFactor = 1;
         }
 
         public EarOfCorn(Serial serial)
@@ -1488,8 +1443,8 @@ namespace Server.Items
         public Turnip(int amount)
             : base(amount, 0xD3A)
         {
-            this.Weight = 1.0;
-            this.FillFactor = 1;
+            Weight = 1.0;
+            FillFactor = 1;
         }
 
         public Turnip(Serial serial)
@@ -1518,7 +1473,7 @@ namespace Server.Items
         public SheafOfHay()
             : base(0xF36)
         {
-            this.Weight = 10.0;
+            Weight = 10.0;
         }
 
         public SheafOfHay(Serial serial)

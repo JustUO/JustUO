@@ -51,7 +51,6 @@ namespace Server
 		private static bool m_HaltOnWarning;
 		private static bool m_VBdotNET;
 		private static MultiTextWriter m_MultiConOut;
-		private static OpenUOSDK _OpenUOSDK;
 
 		private static bool m_Profiling;
 		private static DateTime m_ProfileStart;
@@ -580,8 +579,6 @@ namespace Server
 			}
 
 			Console.WriteLine("RandomImpl: {0} ({1})", RandomImpl.Type.Name, RandomImpl.IsHardwareRNG ? "Hardware" : "Software");
-
-			_OpenUOSDK = new OpenUOSDK();
 
 			while (!ScriptCompiler.Compile(m_Debug, m_Cache))
 			{
