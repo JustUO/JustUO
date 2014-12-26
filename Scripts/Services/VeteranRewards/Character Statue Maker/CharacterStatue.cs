@@ -7,11 +7,9 @@ using Server.Engines.VeteranRewards;
 using Server.Gumps;
 using Server.Items;
 using Server.Multis;
+using Server.Network;
 using Server.Spells;
 using Server.Targeting;
-
-
-
 
 namespace Server.Mobiles
 {
@@ -51,26 +49,22 @@ namespace Server.Mobiles
         private bool m_IsRewardItem;
         private int m_Animation;
         private int m_Frames;
-       
         public CharacterStatue(Mobile from, StatueType type)
             : base()
         {
-            m_Type = type;
-            m_Pose = StatuePose.Ready;
-            m_Material = StatueMaterial.Antique;
+            this.m_Type = type;
+            this.m_Pose = StatuePose.Ready;
+            this.m_Material = StatueMaterial.Antique;
 
-            Direction = Direction.South;
-            AccessLevel = AccessLevel.Counselor;
-            Hits = HitsMax;
-            Blessed = true;
-            Frozen = true;
-           
+            this.Direction = Direction.South;
+            this.AccessLevel = AccessLevel.Counselor;
+            this.Hits = this.HitsMax;
+            this.Blessed = true;
+            this.Frozen = true;
 
-            CloneBody(from);
-            CloneClothes(from);
-            InvalidateHues();
-           
-            BeginUpdate();
+            this.CloneBody(from);
+            this.CloneClothes(from);
+            this.InvalidateHues();
         }
 
         public CharacterStatue(Serial serial)
@@ -83,13 +77,13 @@ namespace Server.Mobiles
         {
             get
             {
-                return m_Type;
+                return this.m_Type;
             }
             set
             {
-                m_Type = value;
-                InvalidateHues();
-                InvalidatePose();
+                this.m_Type = value;
+                this.InvalidateHues();
+                this.InvalidatePose();
             }
         }
         [CommandProperty(AccessLevel.GameMaster)]
@@ -97,14 +91,12 @@ namespace Server.Mobiles
         {
             get
             {
-                return m_Pose;
+                return this.m_Pose;
             }
             set
             {
-                m_Pose = value;
-                InvalidatePose();
-               
-                BeginUpdate();
+                this.m_Pose = value;
+                this.InvalidatePose();
             }
         }
         [CommandProperty(AccessLevel.GameMaster)]
@@ -112,13 +104,13 @@ namespace Server.Mobiles
         {
             get
             {
-                return m_Material;
+                return this.m_Material;
             }
             set
             {
-                m_Material = value;
-                InvalidateHues();
-                InvalidatePose();
+                this.m_Material = value;
+                this.InvalidateHues();
+                this.InvalidatePose();
             }
         }
         [CommandProperty(AccessLevel.GameMaster)]
@@ -126,12 +118,12 @@ namespace Server.Mobiles
         {
             get
             {
-                return m_SculptedBy;
+                return this.m_SculptedBy;
             }
             set
             {
-                m_SculptedBy = value;
-                InvalidateProperties();
+                this.m_SculptedBy = value;
+                this.InvalidateProperties();
             }
         }
         [CommandProperty(AccessLevel.GameMaster)]
@@ -139,22 +131,22 @@ namespace Server.Mobiles
         {
             get
             {
-                return m_SculptedOn;
+                return this.m_SculptedOn;
             }
             set
             {
-                m_SculptedOn = value;
+                this.m_SculptedOn = value;
             }
         }
         public CharacterStatuePlinth Plinth
         {
             get
             {
-                return m_Plinth;
+                return this.m_Plinth;
             }
             set
             {
-                m_Plinth = value;
+                this.m_Plinth = value;
             }
         }
         [CommandProperty(AccessLevel.GameMaster)]
@@ -162,29 +154,28 @@ namespace Server.Mobiles
         {
             get
             {
-                return m_IsRewardItem;
+                return this.m_IsRewardItem;
             }
             set
             {
-                m_IsRewardItem = value;
+                this.m_IsRewardItem = value;
             }
         }
-       
         public override void OnDoubleClick(Mobile from)
         {
-            DisplayPaperdollTo(from);
+            this.DisplayPaperdollTo(from);
         }
 
         public override void GetProperties(ObjectPropertyList list)
         {
             base.GetProperties(list);
 
-            if (m_SculptedBy != null)
+            if (this.m_SculptedBy != null)
             {
-                if (m_SculptedBy.ShowFameTitle && (m_SculptedBy.Player || m_SculptedBy.Body.IsHuman) && m_SculptedBy.Fame >= 10000)
-                    list.Add(1076202, String.Format("{0} {1}", m_SculptedBy.Female ? "Lady" : "Lord", m_SculptedBy.Name)); // Sculpted by ~1_Name~
+                if (this.m_SculptedBy.ShowFameTitle && (this.m_SculptedBy.Player || this.m_SculptedBy.Body.IsHuman) && this.m_SculptedBy.Fame >= 10000)
+                    list.Add(1076202, String.Format("{0} {1}", this.m_SculptedBy.Female ? "Lady" : "Lord", this.m_SculptedBy.Name)); // Sculpted by ~1_Name~
                 else
-                    list.Add(1076202, m_SculptedBy.Name); // Sculpted by ~1_Name~
+                    list.Add(1076202, this.m_SculptedBy.Name); // Sculpted by ~1_Name~
             }
         }
 
@@ -192,7 +183,7 @@ namespace Server.Mobiles
         {
             base.GetContextMenuEntries(from, list);
 
-            if (from.Alive && m_SculptedBy != null)
+            if (from.Alive && this.m_SculptedBy != null)
             {
                 BaseHouse house = BaseHouse.FindHouseAt(this);
 
@@ -205,8 +196,8 @@ namespace Server.Mobiles
         {
             base.OnAfterDelete();
 
-            if (m_Plinth != null && !m_Plinth.Deleted)
-                m_Plinth.Delete();
+            if (this.m_Plinth != null && !this.m_Plinth.Deleted)
+                this.m_Plinth.Delete();
         }
 
         public override bool CanBeRenamedBy(Mobile from)
@@ -221,8 +212,11 @@ namespace Server.Mobiles
 
         public void OnRequestedAnimation(Mobile from)
         {
-            InvalidatePose();
-            BeginUpdate();
+            from.Send(new UpdateStatueAnimation(this, 1, this.m_Animation, this.m_Frames));
+        }
+
+        public override void OnAosSingleClick(Mobile from)
+        {
         }
 
         public override void Serialize(GenericWriter writer)
@@ -231,15 +225,15 @@ namespace Server.Mobiles
 
             writer.WriteEncodedInt((int)0); // version
 
-            writer.Write((int)m_Type);
-            writer.Write((int)m_Pose);
-            writer.Write((int)m_Material);
+            writer.Write((int)this.m_Type);
+            writer.Write((int)this.m_Pose);
+            writer.Write((int)this.m_Material);
 
-            writer.Write((Mobile)m_SculptedBy);
-            writer.Write((DateTime)m_SculptedOn);
+            writer.Write((Mobile)this.m_SculptedBy);
+            writer.Write((DateTime)this.m_SculptedOn);
 
-            writer.Write((Item)m_Plinth);
-            writer.Write((bool)m_IsRewardItem);
+            writer.Write((Item)this.m_Plinth);
+            writer.Write((bool)this.m_IsRewardItem);
         }
 
         public override void Deserialize(GenericReader reader)
@@ -248,50 +242,48 @@ namespace Server.Mobiles
 
             int version = reader.ReadEncodedInt();
 
-            m_Type = (StatueType)reader.ReadInt();
-            m_Pose = (StatuePose)reader.ReadInt();
-            m_Material = (StatueMaterial)reader.ReadInt();
+            this.m_Type = (StatueType)reader.ReadInt();
+            this.m_Pose = (StatuePose)reader.ReadInt();
+            this.m_Material = (StatueMaterial)reader.ReadInt();
 
-            m_SculptedBy = reader.ReadMobile();
-            m_SculptedOn = reader.ReadDateTime();
+            this.m_SculptedBy = reader.ReadMobile();
+            this.m_SculptedOn = reader.ReadDateTime();
 
-            m_Plinth = reader.ReadItem() as CharacterStatuePlinth;
-            m_IsRewardItem = reader.ReadBool();
+            this.m_Plinth = reader.ReadItem() as CharacterStatuePlinth;
+            this.m_IsRewardItem = reader.ReadBool();
 
-            InvalidatePose();
+            this.InvalidatePose();
 
-            Frozen = true;
+            this.Frozen = true;
 
-            if (m_SculptedBy == null || Map == Map.Internal) // Remove preview statues
+            if (this.m_SculptedBy == null || this.Map == Map.Internal) // Remove preview statues
             {
                 Timer.DelayCall(TimeSpan.Zero, new TimerCallback(Delete));
             }
-           
-            BeginUpdate();
         }
 
         public void Sculpt(Mobile by)
         {
-            m_SculptedBy = by;
-            m_SculptedOn = DateTime.UtcNow;
+            this.m_SculptedBy = by;
+            this.m_SculptedOn = DateTime.UtcNow;
 
-            InvalidateProperties();
+            this.InvalidateProperties();
         }
 
         public bool Demolish(Mobile by)
         {
-            var deed = new CharacterStatueDeed(null);
+            CharacterStatueDeed deed = new CharacterStatueDeed(null);
 
             if (by.PlaceInBackpack(deed))
             {
-                Delete();
+                this.Delete();
 
                 deed.Statue = this;
-                deed.StatueType = m_Type;
-                deed.IsRewardItem = m_IsRewardItem;
+                deed.StatueType = this.m_Type;
+                deed.IsRewardItem = this.m_IsRewardItem;
 
-                if (m_Plinth != null)
-                    m_Plinth.Delete();
+                if (this.m_Plinth != null)
+                    this.m_Plinth.Delete();
 
                 return true;
             }
@@ -306,38 +298,38 @@ namespace Server.Mobiles
 
         public void Restore(CharacterStatue from)
         {
-            m_Material = from.Material;
-            m_Pose = from.Pose;
+            this.m_Material = from.Material;
+            this.m_Pose = from.Pose;
 
-            Direction = from.Direction;
+            this.Direction = from.Direction;
 
-            CloneBody(from);
-            CloneClothes(from);
+            this.CloneBody(from);
+            this.CloneClothes(from);
 
-            InvalidateHues();
-            InvalidatePose();
+            this.InvalidateHues();
+            this.InvalidatePose();
         }
 
         public void CloneBody(Mobile from)
         {
-            Name = from.Name;
-            BodyValue = from.BodyValue;
-            Female = from.Female;
-            HairItemID = from.HairItemID;
-            FacialHairItemID = from.FacialHairItemID;
+            this.Name = from.Name;
+            this.BodyValue = from.BodyValue;
+            this.Female = from.Female;
+            this.HairItemID = from.HairItemID;
+            this.FacialHairItemID = from.FacialHairItemID;
         }
 
         public void CloneClothes(Mobile from)
         {
-            for (int i = Items.Count - 1; i >= 0; i --)
-                Items[i].Delete();
+            for (int i = this.Items.Count - 1; i >= 0; i --)
+                this.Items[i].Delete();
 
             for (int i = from.Items.Count - 1; i >= 0; i --)
             {
                 Item item = from.Items[i];
 
                 if (item.Layer != Layer.Backpack && item.Layer != Layer.Mount && item.Layer != Layer.Bank)
-                    AddItem(CloneItem(item));
+                    this.AddItem(this.CloneItem(item));
             }
         }
 
@@ -355,94 +347,88 @@ namespace Server.Mobiles
 
         public void InvalidateHues()
         {
-            Hue = 0xB8F + (int)m_Type * 4 + (int)m_Material;
+            this.Hue = 0xB8F + (int)this.m_Type * 4 + (int)this.m_Material;
 
-            HairHue = Hue;
+            this.HairHue = this.Hue;
 
-            if (FacialHairItemID > 0)
-                FacialHairHue = Hue;
+            if (this.FacialHairItemID > 0)
+                this.FacialHairHue = this.Hue;
 
-            for (int i = Items.Count - 1; i >= 0; i --)
-                Items[i].Hue = Hue;
+            for (int i = this.Items.Count - 1; i >= 0; i --)
+                this.Items[i].Hue = this.Hue;
 
-            if (m_Plinth != null)
-                m_Plinth.InvalidateHue();
+            if (this.m_Plinth != null)
+                this.m_Plinth.InvalidateHue();
         }
-       
-        private void BeginUpdate()
-        {
-            Timer.DelayCall( TimeSpan.FromSeconds( 1.0 ), new TimerCallback( RoutineUpdate ) );
-        }
-       
-        public void RoutineUpdate()
-        {
-            if( this != null && !Deleted )
-            {
-                InvalidatePose();
 
-                if( Map.GetSector( this ) != null && Map.GetSector( this ).Active )
-                {
-                    if( Mounted )
-                        Animate( m_Animation, m_Frames, 1, false, false, 5 );
-                    else
-                        Animate( m_Animation, m_Frames, 1, false, false, 255 );
-                }
-            }
-        }
-   
         public void InvalidatePose()
         {
-            switch ( m_Pose )
+            switch ( this.m_Pose )
             {
                 case StatuePose.Ready:
-                    m_Animation = 4;
-                    m_Frames = 0;
+                    this.m_Animation = 4;
+                    this.m_Frames = 0;
                     break;
                 case StatuePose.Casting:
-                    m_Animation = 16;
-                    m_Frames = 2;
+                    this.m_Animation = 16;
+                    this.m_Frames = 2;
                     break;
                 case StatuePose.Salute:
-                    m_Animation = 33;
-                    m_Frames = 1;
+                    this.m_Animation = 33;
+                    this.m_Frames = 1;
                     break;
                 case StatuePose.AllPraiseMe:
-                    m_Animation = 17;
-                    m_Frames = 4;
+                    this.m_Animation = 17;
+                    this.m_Frames = 4;
                     break;
                 case StatuePose.Fighting:
-                    m_Animation = 31;
-                    m_Frames = 5;
+                    this.m_Animation = 31;
+                    this.m_Frames = 5;
                     break;
                 case StatuePose.HandsOnHips:
-                    m_Animation = 6;
-                    m_Frames = 1;
+                    this.m_Animation = 6;
+                    this.m_Frames = 1;
                     break;
             }
-           
-                if( Mount != null )
+
+            if (this.Map != null)
             {
-                m_Animation = 25;
-                m_Frames = 5;
+                this.ProcessDelta();
+
+                Packet p = null;
+
+                IPooledEnumerable eable = this.Map.GetClientsInRange(this.Location);
+
+                foreach (NetState state in eable)
+                {
+                    state.Mobile.ProcessDelta();
+
+                    if (p == null)
+                        p = Packet.Acquire(new UpdateStatueAnimation(this, 1, this.m_Animation, this.m_Frames));
+
+                    state.Send(p);
+                }
+
+                Packet.Release(p);
+
+                eable.Free();
             }
         }
-           
+
         protected override void OnMapChange(Map oldMap)
         {
-            InvalidatePose();
+            this.InvalidatePose();
 
-            if (m_Plinth != null)
-                m_Plinth.Map = Map;
+            if (this.m_Plinth != null)
+                this.m_Plinth.Map = this.Map;
         }
 
         protected override void OnLocationChange(Point3D oldLocation)
         {
-            InvalidatePose();
+            this.InvalidatePose();
 
-            if (m_Plinth != null)
-                m_Plinth.Location = new Point3D(X, Y, Z - 5);
-   
-            BeginUpdate();
+            if (this.m_Plinth != null)
+                this.m_Plinth.Location = new Point3D(this.X, this.Y, this.Z - 5);
         }
 
         private class DemolishEntry : ContextMenuEntry
@@ -451,15 +437,15 @@ namespace Server.Mobiles
             public DemolishEntry(CharacterStatue statue)
                 : base(6275, 2)
             {
-                m_Statue = statue;
+                this.m_Statue = statue;
             }
 
             public override void OnClick()
             {
-                if (m_Statue.Deleted)
+                if (this.m_Statue.Deleted)
                     return;
 
-                m_Statue.Demolish(Owner.From);
+                this.m_Statue.Demolish(this.Owner.From);
             }
         }
     }
@@ -472,16 +458,16 @@ namespace Server.Mobiles
         public CharacterStatueDeed(CharacterStatue statue)
             : base(0x14F0)
         {
-            m_Statue = statue;
+            this.m_Statue = statue;
 
             if (statue != null)
             {
-                m_Type = statue.StatueType;
-                m_IsRewardItem = statue.IsRewardItem;
+                this.m_Type = statue.StatueType;
+                this.m_IsRewardItem = statue.IsRewardItem;
             }
 
-            LootType = LootType.Blessed;
-            Weight = 1.0;
+            this.LootType = LootType.Blessed;
+            this.Weight = 1.0;
         }
 
         public CharacterStatueDeed(Serial serial)
@@ -493,11 +479,11 @@ namespace Server.Mobiles
         {
             get
             {
-                StatueType t = m_Type;
+                StatueType t = this.m_Type;
 
-                if (m_Statue != null)
+                if (this.m_Statue != null)
                 {
-                    t = m_Statue.StatueType;
+                    t = this.m_Statue.StatueType;
                 }
 
                 switch ( t )
@@ -518,11 +504,11 @@ namespace Server.Mobiles
         {
             get
             {
-                return m_Statue;
+                return this.m_Statue;
             }
             set
             {
-                m_Statue = value;
+                this.m_Statue = value;
             }
         }
         [CommandProperty(AccessLevel.GameMaster)]
@@ -530,14 +516,14 @@ namespace Server.Mobiles
         {
             get
             {
-                if (m_Statue != null)
-                    return m_Statue.StatueType;
+                if (this.m_Statue != null)
+                    return this.m_Statue.StatueType;
 
-                return m_Type;
+                return this.m_Type;
             }
             set
             {
-                m_Type = value;
+                this.m_Type = value;
             }
         }
         [CommandProperty(AccessLevel.GameMaster)]
@@ -545,46 +531,46 @@ namespace Server.Mobiles
         {
             get
             {
-                return m_IsRewardItem;
+                return this.m_IsRewardItem;
             }
             set
             {
-                m_IsRewardItem = value;
-                InvalidateProperties();
+                this.m_IsRewardItem = value;
+                this.InvalidateProperties();
             }
         }
         public override void GetProperties(ObjectPropertyList list)
         {
             base.GetProperties(list);
 
-            if (m_IsRewardItem)
+            if (this.m_IsRewardItem)
                 list.Add(1076222); // 6th Year Veteran Reward
 
-            if (m_Statue != null)
-                list.Add(1076231, m_Statue.Name); // Statue of ~1_Name~
+            if (this.m_Statue != null)
+                list.Add(1076231, this.m_Statue.Name); // Statue of ~1_Name~
         }
 
         public override void OnDoubleClick(Mobile from)
         {
-            var acct = from.Account as Account;
+            Account acct = from.Account as Account;
 
             if (acct != null && from.IsPlayer())
             {
                 TimeSpan time = TimeSpan.FromDays(RewardSystem.RewardInterval.TotalDays * 6) - (DateTime.UtcNow - acct.Created);
-                
+
                 if (time > TimeSpan.Zero)
                 {
                     from.SendLocalizedMessage(1008126, true, Math.Ceiling(time.TotalDays / RewardSystem.RewardInterval.TotalDays).ToString()); // Your account is not old enough to use this item. Months until you can use this item :
                     return;
                 }
             }
-            
-            if (IsChildOf(from.Backpack))
+
+            if (this.IsChildOf(from.Backpack))
             {
                 if (!from.IsBodyMod)
                 {
                     from.SendLocalizedMessage(1076194); // Select a place where you would like to put your statue.
-                    from.Target = new CharacterStatueTarget(this, StatueType);
+                    from.Target = new CharacterStatueTarget(this, this.StatueType);
                 }
                 else
                     from.SendLocalizedMessage(1073648); // You may only proceed while in your original state...
@@ -597,8 +583,8 @@ namespace Server.Mobiles
         {
             base.OnDelete();
 
-            if (m_Statue != null)
-                m_Statue.Delete();
+            if (this.m_Statue != null)
+                this.m_Statue.Delete();
         }
 
         public override void Serialize(GenericWriter writer)
@@ -607,10 +593,10 @@ namespace Server.Mobiles
 
             writer.WriteEncodedInt((int)1); // version
 
-            writer.Write((int)m_Type);
+            writer.Write((int)this.m_Type);
 
-            writer.Write((Mobile)m_Statue);
-            writer.Write((bool)m_IsRewardItem);
+            writer.Write((Mobile)this.m_Statue);
+            writer.Write((bool)this.m_IsRewardItem);
         }
 
         public override void Deserialize(GenericReader reader)
@@ -621,14 +607,13 @@ namespace Server.Mobiles
 
             if (version >= 1)
             {
-                m_Type = (StatueType)reader.ReadInt();
+                this.m_Type = (StatueType)reader.ReadInt();
             }
 
-            m_Statue = reader.ReadMobile() as CharacterStatue;
-            m_IsRewardItem = reader.ReadBool();
+            this.m_Statue = reader.ReadMobile() as CharacterStatue;
+            this.m_IsRewardItem = reader.ReadBool();
         }
     }
-
 
     public class CharacterStatueTarget : Target
     {
@@ -637,8 +622,8 @@ namespace Server.Mobiles
         public CharacterStatueTarget(Item maker, StatueType type)
             : base(-1, true, TargetFlags.None)
         {
-            m_Maker = maker;
-            m_Type = type;
+            this.m_Maker = maker;
+            this.m_Type = type;
         }
 
         public static AddonFitResult CouldFit(Point3D p, Map map, Mobile from, ref BaseHouse house)
@@ -674,10 +659,10 @@ namespace Server.Mobiles
             IPoint3D p = targeted as IPoint3D;
             Map map = from.Map;
 
-            if (p == null || map == null || m_Maker == null || m_Maker.Deleted)
+            if (p == null || map == null || this.m_Maker == null || this.m_Maker.Deleted)
                 return;
 
-            if (m_Maker.IsChildOf(from.Backpack))
+            if (this.m_Maker.IsChildOf(from.Backpack))
             {
                 SpellHelper.GetSurfaceTop(ref p);
                 BaseHouse house = null;
@@ -698,13 +683,13 @@ namespace Server.Mobiles
 
                 if (result == AddonFitResult.Valid)
                 {
-                    var statue = new CharacterStatue(from, m_Type);
-                    var plinth = new CharacterStatuePlinth(statue);
+                    CharacterStatue statue = new CharacterStatue(from, this.m_Type);
+                    CharacterStatuePlinth plinth = new CharacterStatuePlinth(statue);
 
                     house.Addons.Add(plinth);
 
-                    if (m_Maker is IRewardItem)
-                        statue.IsRewardItem = ((IRewardItem)m_Maker).IsRewardItem;
+                    if (this.m_Maker is IRewardItem)
+                        statue.IsRewardItem = ((IRewardItem)this.m_Maker).IsRewardItem;
 
                     statue.Plinth = plinth;
                     plinth.MoveToWorld(loc, map);
@@ -715,11 +700,11 @@ namespace Server.Mobiles
                     * customization, leading to redeeding issues. Exact OSI behavior
                     * needs looking into.
                     */
-                    m_Maker.Delete();
+                    this.m_Maker.Delete();
                     statue.Sculpt(from);
 
                     from.CloseGump(typeof(CharacterStatueGump));
-                    from.SendGump(new CharacterStatueGump(m_Maker, statue, from));
+                    from.SendGump(new CharacterStatueGump(this.m_Maker, statue, from));
                 }
                 else if (result == AddonFitResult.Blocked)
                     from.SendLocalizedMessage(500269); // You cannot build that there.
