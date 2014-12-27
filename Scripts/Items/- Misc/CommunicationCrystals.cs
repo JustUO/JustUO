@@ -169,8 +169,11 @@ namespace Server.Items
                 }
                 else if (this.Charges > 0)
                 {
+                    if (!from.Hidden)
+                    { 
                     receiver.TransmitMessage(from, speech);
                     this.Charges--;
+                    }
                 }
                 else
                 {
