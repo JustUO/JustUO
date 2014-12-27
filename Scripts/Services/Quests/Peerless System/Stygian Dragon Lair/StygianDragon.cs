@@ -88,7 +88,7 @@ namespace Server.Mobiles
                 return false;
             }
         }
-        // public override bool GivesSAArtifact { get { return true; } }
+        public override bool GivesSAArtifact { get { return true; } }
         public override bool HasBreath
         {
             get
