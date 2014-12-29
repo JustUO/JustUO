@@ -841,6 +841,8 @@ namespace Server
 
 		public virtual double RacialSkillBonus { get { return 0; } }
 
+        public virtual bool CanBeRevealed { get { return true; } }
+
 		private List<ResistanceMod> m_ResistMods;
 
 		private int[] m_Resistances;
