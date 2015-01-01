@@ -3112,6 +3112,7 @@
     <Compile Include="Mobiles\Monsters\Humanoid\AncientLich.cs" />
     <Compile Include="Mobiles\Monsters\Humanoid\ArcaneDaemon.cs" />
     <Compile Include="Mobiles\Monsters\Humanoid\ArchDaemon.cs" />
+    <Compile Include="Mobiles\Monsters\Humanoid\Archmage.cs" />
     <Compile Include="Mobiles\Monsters\Humanoid\ArcticOgreLord.cs" />
     <Compile Include="Mobiles\Monsters\Humanoid\Balron.cs" />
     <Compile Include="Mobiles\Monsters\Humanoid\Betrayer.cs" />
@@ -3119,6 +3120,8 @@
     <Compile Include="Mobiles\Monsters\Humanoid\BoneKnight.cs" />
     <Compile Include="Mobiles\Monsters\Humanoid\BoneMagi.cs" />
     <Compile Include="Mobiles\Monsters\Humanoid\Brigand.cs" />
+    <Compile Include="Mobiles\Monsters\Humanoid\BrigandCannibalMage.cs" />
+    <Compile Include="Mobiles\Monsters\Humanoid\CaveTrollWrong.cs" />
     <Compile Include="Mobiles\Monsters\Humanoid\ChaosDaemon.cs" />
     <Compile Include="Mobiles\Monsters\Humanoid\ClanCA.cs" />
     <Compile Include="Mobiles\Monsters\Humanoid\ClanCT.cs" />
@@ -3163,6 +3166,7 @@
     <Compile Include="Mobiles\Monsters\Humanoid\HeadlessOne.cs" />
     <Compile Include="Mobiles\Monsters\Humanoid\HordeMinion.cs" />
     <Compile Include="Mobiles\Monsters\Humanoid\HumanBrigand.cs" />
+    <Compile Include="Mobiles\Monsters\Humanoid\HungryOgre.cs" />
     <Compile Include="Mobiles\Monsters\Humanoid\IceFiend.cs" />
     <Compile Include="Mobiles\Monsters\Humanoid\Imp.cs" />
     <Compile Include="Mobiles\Monsters\Humanoid\Juggernaut.cs" />
@@ -3355,6 +3359,8 @@
     <Compile Include="Mobiles\Monsters\Reptile\Melee\Harpy.cs" />
     <Compile Include="Mobiles\Monsters\Reptile\Melee\Kraken.cs" />
     <Compile Include="Mobiles\Monsters\Reptile\Melee\Lizardman.cs" />
+    <Compile Include="Mobiles\Monsters\Reptile\Melee\LizardmanDefender.cs" />
+    <Compile Include="Mobiles\Monsters\Reptile\Melee\LizardmanSquatter.cs" />
     <Compile Include="Mobiles\Monsters\Reptile\Melee\OphidianKnight.cs" />
     <Compile Include="Mobiles\Monsters\Reptile\Melee\OphidianWarrior.cs" />
     <Compile Include="Mobiles\Monsters\Reptile\Melee\Scorpion.cs" />
