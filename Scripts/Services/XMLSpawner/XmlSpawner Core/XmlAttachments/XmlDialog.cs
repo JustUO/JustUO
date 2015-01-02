@@ -273,7 +273,7 @@ namespace Server.Engines.XmlSpawner2
                     }
 
                 Server.Items.Clock.GetTime(map, x, y, out  hours, out  minutes);
-                return (new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, hours, minutes, 0).TimeOfDay);
+                return (new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day, hours, minutes, 0).TimeOfDay);
             }
         }
 
@@ -282,7 +282,7 @@ namespace Server.Engines.XmlSpawner2
         {
             get
             {
-                return DateTime.Now.TimeOfDay;
+                return DateTime.UtcNow.TimeOfDay;
             }
         }
 
@@ -291,7 +291,7 @@ namespace Server.Engines.XmlSpawner2
         {
             get
             {
-                return DateTime.Now.Day;
+                return DateTime.UtcNow.Day;
             }
         }
 
@@ -300,7 +300,7 @@ namespace Server.Engines.XmlSpawner2
         {
             get
             {
-                return DateTime.Now.Month;
+                return DateTime.UtcNow.Month;
             }
         }
 
@@ -309,7 +309,7 @@ namespace Server.Engines.XmlSpawner2
         {
             get
             {
-                return DateTime.Now.DayOfWeek;
+                return DateTime.UtcNow.DayOfWeek;
             }
         }
 
@@ -1110,7 +1110,7 @@ namespace Server.Engines.XmlSpawner2
                         pause = TimeSpan.FromSeconds(CurrentEntry.Pause);
                     }
                     // check to see if the current pause interval has elapsed
-                    if (DateTime.Now - pause > m_LastInteraction)
+                    if (DateTime.UtcNow - pause > m_LastInteraction)
                     {
                         // process speech that is not keyword dependent
                         CheckForReset();
@@ -1143,7 +1143,7 @@ namespace Server.Engines.XmlSpawner2
         {
             // check to see if the interaction time has elapsed or player has gone out of range.  If so then reset to entry zero
             if (!m_HoldProcessing && 
-                ((DateTime.Now - ResetTime > m_LastInteraction) ||
+                ((DateTime.UtcNow - ResetTime > m_LastInteraction) ||
                 (AttachedTo is IEntity && m_ActivePlayer != null && !IsInRange(m_ActivePlayer, (IEntity)AttachedTo, ResetRange))))
             {
                 Reset();
@@ -1210,7 +1210,7 @@ namespace Server.Engines.XmlSpawner2
                 }
 
                 IsActive = true;
-                m_LastInteraction = DateTime.Now;
+                m_LastInteraction = DateTime.UtcNow;
 
                 // execute any action associated with it
                 // allow for multiple action strings on a single line separated by a semicolon
@@ -1338,7 +1338,7 @@ namespace Server.Engines.XmlSpawner2
                         pause = TimeSpan.FromSeconds(m_npc.CurrentEntry.Pause);
                     }
                     // check to see if the current pause interval has elapsed
-                    if (DateTime.Now - pause > m_npc.LastInteraction)
+                    if (DateTime.UtcNow - pause > m_npc.LastInteraction)
                     {
                         // process speech that is not keyword dependent
 

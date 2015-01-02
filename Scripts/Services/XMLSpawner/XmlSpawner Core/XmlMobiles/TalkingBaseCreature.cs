@@ -87,7 +87,7 @@ namespace Server.Mobiles
 				 //SendOffsetTargetEffect(this, new Point3D(Location.X + EOffset.X, Location.Y + EOffset.Y, Location.Z + EOffset.Z), EItemID, 10, EDuration, EHue, 0);
 				Effects.SendLocationEffect(new Point3D(Location.X + EOffset.X, Location.Y + EOffset.Y, Location.Z + EOffset.Z), Map, EItemID, EDuration, EHue, 0);
 
-				lasteffect = DateTime.Now;
+				lasteffect = DateTime.UtcNow;
 
 			}
 		}
@@ -112,7 +112,7 @@ namespace Server.Mobiles
 		{
 			base.OnThink();
 
-			if(lasteffect + TimeSpan.FromSeconds(1) < DateTime.Now)
+			if(lasteffect + TimeSpan.FromSeconds(1) < DateTime.UtcNow)
 			{
 				DisplayHighlight();
 			}
@@ -176,7 +176,7 @@ namespace Server.Mobiles
 				int minutes;
 
 				Server.Items.Clock.GetTime(this.Map, this.Location.X, this.Location.Y, out  hours, out  minutes);
-				return (new DateTime(DateTime.Now.Year,DateTime.Now.Month,DateTime.Now.Day,hours, minutes,0).TimeOfDay);
+				return (new DateTime(DateTime.UtcNow.Year,DateTime.UtcNow.Month,DateTime.UtcNow.Day,hours, minutes,0).TimeOfDay);
 			}
 		}
 
@@ -185,7 +185,7 @@ namespace Server.Mobiles
 		{
 			get
 			{
-				return DateTime.Now.TimeOfDay;
+				return DateTime.UtcNow.TimeOfDay;
 			}
 		}
 
@@ -194,7 +194,7 @@ namespace Server.Mobiles
 		{
 			get
 			{
-				return DateTime.Now.Day;
+				return DateTime.UtcNow.Day;
 			}
 		}
 
@@ -203,7 +203,7 @@ namespace Server.Mobiles
 		{
 			get
 			{
-				return DateTime.Now.Month;
+				return DateTime.UtcNow.Month;
 			}
 		}
 
@@ -212,7 +212,7 @@ namespace Server.Mobiles
 		{
 			get
 			{
-				return DateTime.Now.DayOfWeek;
+				return DateTime.UtcNow.DayOfWeek;
 			}
 		}
 

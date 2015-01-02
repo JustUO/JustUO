@@ -746,14 +746,14 @@ namespace Server.Engines.XmlSpawner2
 					// check for any ranking change and update rank date
 					if(r.Rank != a.Rank)
 					{
-						a.WhenRanked = DateTime.Now;
+						a.WhenRanked = DateTime.UtcNow;
 						if(a.Rank > 0)
 							a.DeltaRank = a.Rank - r.Rank;
 						a.Rank = r.Rank;
 
 					}
 
-					TimeSpan timeranked = DateTime.Now - a.WhenRanked;
+					TimeSpan timeranked = DateTime.UtcNow - a.WhenRanked;
 
 					// write out the entry information
 					
@@ -876,14 +876,14 @@ namespace Server.Engines.XmlSpawner2
 					// check for any ranking change and update rank date
 					if(r.Rank != a.Rank)
 					{
-						a.WhenRanked = DateTime.Now;
+						a.WhenRanked = DateTime.UtcNow;
 						if(a.Rank > 0)
 							a.DeltaRank = a.Rank - r.Rank;
 						a.Rank = r.Rank;
 
 					}
 
-					TimeSpan tr = DateTime.Now - a.WhenRanked;
+					TimeSpan tr = DateTime.UtcNow - a.WhenRanked;
 					string timeranked = null;
 					int days = (int)tr.TotalDays;
 					int hours = (int)(tr - TimeSpan.FromDays(days)).TotalHours;
@@ -1400,7 +1400,7 @@ namespace Server.Engines.XmlSpawner2
 							if(a.m_CancelTimer != null && a.m_CancelTimer.Running)
 							{
 								// timer is running
-								a.SendText(100208, a.m_CancelEnd - DateTime.Now); // "{0} mins remaining until current challenge is cancelled."
+								a.SendText(100208, a.m_CancelEnd - DateTime.UtcNow); // "{0} mins remaining until current challenge is cancelled."
 							} 
 							else
 							{
@@ -1464,7 +1464,7 @@ namespace Server.Engines.XmlSpawner2
 				m_CancelTimer.Stop();
 
 			m_CancelTimer = new CancelTimer(this, delay);
-			m_CancelEnd = DateTime.Now + delay;
+			m_CancelEnd = DateTime.UtcNow + delay;
 			m_CancelTimer.Start();
 		}
 
@@ -1668,12 +1668,12 @@ namespace Server.Engines.XmlSpawner2
 			base.Serialize(writer);
 			
 			// check for points decay
-			if(m_Kills > 0 && m_PointsDecay > 0 && m_Points > DefaultStartingPoints && (DateTime.Now - m_LastDecay) > m_PointsDecayTime &&
-				(DateTime.Now - m_LastKill) >  m_PointsDecayTime && (DateTime.Now - m_LastDeath) >  m_PointsDecayTime)
+			if(m_Kills > 0 && m_PointsDecay > 0 && m_Points > DefaultStartingPoints && (DateTime.UtcNow - m_LastDecay) > m_PointsDecayTime &&
+				(DateTime.UtcNow - m_LastKill) >  m_PointsDecayTime && (DateTime.UtcNow - m_LastDeath) >  m_PointsDecayTime)
 			{
 				m_Points -= m_PointsDecay;
 				if(m_Points < DefaultStartingPoints) m_Points = DefaultStartingPoints;
-				m_LastDecay = DateTime.Now;
+				m_LastDecay = DateTime.UtcNow;
 			}
 
 			writer.Write( (int) 8 );
@@ -1694,7 +1694,7 @@ namespace Server.Engines.XmlSpawner2
 			writer.Write(m_ChallengeGame);
 			writer.Write(m_ChallengeSetup);
 			// version 5
-			writer.Write(m_CancelEnd - DateTime.Now);
+			writer.Write(m_CancelEnd - DateTime.UtcNow);
 			// version 4
 			writer.Write(m_ReceiveBroadcasts);
 			// version 3
@@ -1847,7 +1847,7 @@ namespace Server.Engines.XmlSpawner2
 
 				foreach(KillEntry k in KillList)
 				{
-					if(k.WhenKilled + m_KillDelay <= DateTime.Now)
+					if(k.WhenKilled + m_KillDelay <= DateTime.UtcNow)
 					{
 						// expired so remove it from the list
 						deletelist.Add(k);
@@ -1909,7 +1909,7 @@ namespace Server.Engines.XmlSpawner2
 				{
 					using (StreamWriter op = new StreamWriter("kills.log", true))
 					{
-						op.WriteLine("{0}: {1} killed {2}", DateTime.Now, killer, killed);
+						op.WriteLine("{0}: {1} killed {2}", DateTime.UtcNow, killer, killed);
 					}
 				}
 				catch { }
@@ -1935,7 +1935,7 @@ namespace Server.Engines.XmlSpawner2
 
 			Credits += cval;
 
-			m_LastKill = DateTime.Now;
+			m_LastKill = DateTime.UtcNow;
 
 			killer.SendMessage(String.Format(Text(100215), val, killed.Name));  // "You receive {0} points for killing {1}"
 			
@@ -1957,7 +1957,7 @@ namespace Server.Engines.XmlSpawner2
 
 
 			// add to the recently killed list
-			//KillList.Add(new KillEntry(killed, DateTime.Now));
+			//KillList.Add(new KillEntry(killed, DateTime.UtcNow));
 
 			// add to the cumulative death count
 			Kills++;
@@ -2152,7 +2152,7 @@ namespace Server.Engines.XmlSpawner2
 				{
 					foreach(KillEntry k in a.KillList)
 					{
-						if(k.WhenKilled + m_KillDelay > DateTime.Now)
+						if(k.WhenKilled + m_KillDelay > DateTime.UtcNow)
 						{
 							// found a match on the list so dont give any points
 							if(k.Killed == killed)
@@ -2168,7 +2168,7 @@ namespace Server.Engines.XmlSpawner2
 			if(from == killed)
 			{
 				// is it still within the minimum delay for being killed?
-				if(DateTime.Now < m_LastDeath + m_DeathDelay) return false;
+				if(DateTime.UtcNow < m_LastDeath + m_DeathDelay) return false;
 			}
 
 			return true;
@@ -2292,7 +2292,7 @@ namespace Server.Engines.XmlSpawner2
 
 
 				// add to the recently killed list
-				xp.KillList.Add(new KillEntry(killed, DateTime.Now));
+				xp.KillList.Add(new KillEntry(killed, DateTime.UtcNow));
 			}
 
 			int val = (int)((Points - killerpoints)* m_LoseScale);
@@ -2320,7 +2320,7 @@ namespace Server.Engines.XmlSpawner2
 			}
 
 
-			m_LastDeath = DateTime.Now;
+			m_LastDeath = DateTime.UtcNow;
 
 		}
 
@@ -2724,7 +2724,7 @@ namespace Server.Engines.XmlSpawner2
 						// check for any ranking change and update rank date
 						if(r.Rank != a.Rank)
 						{
-							a.WhenRanked = DateTime.Now;
+							a.WhenRanked = DateTime.UtcNow;
 							if(a.Rank > 0)
 								a.DeltaRank = a.Rank - r.Rank;
 							a.Rank = r.Rank;
@@ -2774,7 +2774,7 @@ namespace Server.Engines.XmlSpawner2
 
 						count++;
 
-						TimeSpan timeranked = DateTime.Now - a.WhenRanked;
+						TimeSpan timeranked = DateTime.UtcNow - a.WhenRanked;
 
 						int days = (int)timeranked.TotalDays;
 						int hours = (int)(timeranked.TotalHours - days*24);

@@ -683,7 +683,7 @@ namespace Server.Mobiles
 				Type = type;
 				m_Delay = delay;
 				m_Timeout = timeout;
-				m_TimeoutEnd = DateTime.Now + timeout;
+				m_TimeoutEnd = DateTime.UtcNow + timeout;
 				m_Spawner = spawner;
 				m_Condition = condition;
 				m_Goto = gotogroup;
@@ -759,7 +759,7 @@ namespace Server.Mobiles
 
 			private void DoTimer(TimeSpan delay, TimeSpan repeatdelay, string condition, int gotogroup)
 			{
-				m_End = DateTime.Now + delay;
+				m_End = DateTime.UtcNow + delay;
 
 				if (m_Timer != null)
 					m_Timer.Stop();
@@ -780,11 +780,11 @@ namespace Server.Mobiles
 				if (Type == 0)
 				{
 					// save any timer information
-					writer.Write(m_End - DateTime.Now);
+					writer.Write(m_End - DateTime.UtcNow);
 					writer.Write(m_Delay);
 					writer.Write(m_Condition);
 					writer.Write(m_Goto);
-					writer.Write(m_TimeoutEnd - DateTime.Now);
+					writer.Write(m_TimeoutEnd - DateTime.UtcNow);
 					writer.Write(m_Timeout);
 					writer.Write(m_TrigMob);
 				}
@@ -811,7 +811,7 @@ namespace Server.Mobiles
 							m_Goto = reader.ReadInt();
 
 							TimeSpan timeoutdelay = reader.ReadTimeSpan();
-							m_TimeoutEnd = DateTime.Now + timeoutdelay;
+							m_TimeoutEnd = DateTime.UtcNow + timeoutdelay;
 							m_Timeout = reader.ReadTimeSpan();
 							m_TrigMob = reader.ReadMobile();
 
@@ -890,7 +890,7 @@ namespace Server.Mobiles
 							{
 								//if(m_Tag.m_Timeout > TimeSpan.Zero)
 								// check the timeout if applicable
-								if (m_Tag.m_Timeout > TimeSpan.Zero && m_Tag.m_TimeoutEnd < DateTime.Now)
+								if (m_Tag.m_Timeout > TimeSpan.Zero && m_Tag.m_TimeoutEnd < DateTime.UtcNow)
 								{
 									// release the hold on spawning and delete the tag
 									m_Tag.Delete();

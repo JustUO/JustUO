@@ -191,7 +191,7 @@ namespace Server.Items
                         {
                             // were previously out of bounds so check for disqualification
                             // check to see how long they have been out of bounds
-                            if(DateTime.Now - entry.LastCaution > MaximumOfflineDuration)
+                            if(DateTime.UtcNow - entry.LastCaution > MaximumOfflineDuration)
                             {
                                 entry.Status = ChallengeStatus.Disqualified;
                                 GameBroadcast(100308, entry.Participant.Name);  // "{0} has been disqualified"
@@ -200,7 +200,7 @@ namespace Server.Items
                             }
                         } else
                         {
-                            entry.LastCaution  = DateTime.Now;
+                            entry.LastCaution  = DateTime.UtcNow;
                             statuschange = true;
                         }
     
@@ -224,7 +224,7 @@ namespace Server.Items
                     {
                         // were previously out of bounds so check for disqualification
                         // check to see how long they have been out of bounds
-                        if(DateTime.Now - entry.LastCaution > MaximumOutOfBoundsDuration)
+                        if(DateTime.UtcNow - entry.LastCaution > MaximumOutOfBoundsDuration)
                         {
                             entry.Status = ChallengeStatus.Disqualified;
                             GameBroadcast(100308, entry.Participant.Name);  // "{0} has been disqualified"
@@ -233,7 +233,7 @@ namespace Server.Items
                         }
                     } else
                     {
-                        entry.LastCaution  = DateTime.Now;
+                        entry.LastCaution  = DateTime.UtcNow;
                         // inform the player
                         XmlPoints.SendText(entry.Participant, 100309, MaximumOutOfBoundsDuration.TotalSeconds);  // "You are out of bounds!  You have {0} seconds to return"
                         statuschange = true;
@@ -250,7 +250,7 @@ namespace Server.Items
                     {
                         // were previously hidden so check for disqualification
                         // check to see how long they have hidden
-                        if(DateTime.Now - entry.LastCaution > MaximumHiddenDuration)
+                        if(DateTime.UtcNow - entry.LastCaution > MaximumHiddenDuration)
                         {
                             entry.Status = ChallengeStatus.Disqualified;
                             GameBroadcast(100308, entry.Participant.Name);  // "{0} has been disqualified"
@@ -259,7 +259,7 @@ namespace Server.Items
                         }
                     } else
                     {
-                        entry.LastCaution  = DateTime.Now;
+                        entry.LastCaution  = DateTime.UtcNow;
                         // inform the player
                         XmlPoints.SendText(entry.Participant, 100310, MaximumHiddenDuration.TotalSeconds); // "You have {0} seconds become unhidden"
                         statuschange = true;

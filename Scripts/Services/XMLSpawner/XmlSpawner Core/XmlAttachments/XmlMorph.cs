@@ -75,7 +75,7 @@ namespace Server.Engines.XmlSpawner2
 			writer.Write(m_Word);
 			if(m_MorphTimer != null)
 			{
-				writer.Write(m_MorphEnd - DateTime.Now);
+				writer.Write(m_MorphEnd - DateTime.UtcNow);
 			} 
 			else
 			{
@@ -214,7 +214,7 @@ namespace Server.Engines.XmlSpawner2
 		// ----------------------------------------------
 		private void DoTimer(TimeSpan delay)
 		{
-			m_MorphEnd = DateTime.Now + delay;
+			m_MorphEnd = DateTime.UtcNow + delay;
 
 			if ( m_MorphTimer != null )
 				m_MorphTimer.Stop();

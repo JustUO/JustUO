@@ -110,7 +110,7 @@ namespace Server.Gumps
                 if(gauntlet.GameInProgress && gauntlet.MatchLength > TimeSpan.Zero)
                 {
                     AddLabelCropped( 20, 130, 180, 21, 0, String.Format(XmlPoints.GetText(from, 200565),                // "Time left {0}"
-                    TimeSpan.FromSeconds((double)((int)((gauntlet.MatchStart + gauntlet.MatchLength - DateTime.Now).TotalSeconds)))));
+                    TimeSpan.FromSeconds((double)((int)((gauntlet.MatchStart + gauntlet.MatchLength - DateTime.UtcNow).TotalSeconds)))));
                 }
 
                 AddLabel( 160, 130, 0, XmlPoints.GetText(from, 200591));  // "Team"

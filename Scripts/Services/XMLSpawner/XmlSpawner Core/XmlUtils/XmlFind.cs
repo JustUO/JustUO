@@ -321,12 +321,12 @@ namespace Server.Mobiles
 				if (direction)
 				{
 					// true means allow only mobs greater than the age
-					if ((DateTime.Now - mob.CreationTime) > TimeSpan.FromHours(age)) return true;
+					if ((DateTime.UtcNow - mob.CreationTime) > TimeSpan.FromHours(age)) return true;
 				}
 				else
 				{
 					// false means allow only mobs less than the age
-					if ((DateTime.Now - mob.CreationTime) < TimeSpan.FromHours(age)) return true;
+					if ((DateTime.UtcNow - mob.CreationTime) < TimeSpan.FromHours(age)) return true;
 				}
 
 			}

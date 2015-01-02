@@ -152,15 +152,15 @@ namespace Server.Items
                         {
                             // were previously out of bounds so check for disqualification
                             // check to see how long they have been out of bounds
-                            if(DateTime.Now - entry.LastCaution > MaximumOfflineDuration)
+                            if(DateTime.UtcNow - entry.LastCaution > MaximumOfflineDuration)
                             {
                                 // penalize them
                                 SubtractScore(entry);
-                                entry.LastCaution  = DateTime.Now;
+                                entry.LastCaution  = DateTime.UtcNow;
                             }
                         } else
                         {
-                            entry.LastCaution  = DateTime.Now;
+                            entry.LastCaution  = DateTime.UtcNow;
                             statuschange = true;
                         }
     
@@ -185,7 +185,7 @@ namespace Server.Items
                     {
                         // were previously out of bounds so check for disqualification
                         // check to see how long they have been out of bounds
-                        if(DateTime.Now - entry.LastCaution > MaximumOutOfBoundsDuration)
+                        if(DateTime.UtcNow - entry.LastCaution > MaximumOutOfBoundsDuration)
                         {
                             // teleport them back to the gauntlet
                             RespawnWithPenalty(entry);
@@ -195,7 +195,7 @@ namespace Server.Items
                         }
                     } else
                     {
-                        entry.LastCaution  = DateTime.Now;
+                        entry.LastCaution  = DateTime.UtcNow;
                         // inform the player
                         XmlPoints.SendText(entry.Participant, 100309, MaximumOutOfBoundsDuration.TotalSeconds);  // "You are out of bounds!  You have {0} seconds to return"
                         statuschange = true;
@@ -212,7 +212,7 @@ namespace Server.Items
                     {
                         // were previously hidden so check for disqualification
                         // check to see how long they have hidden
-                        if(DateTime.Now - entry.LastCaution > MaximumHiddenDuration)
+                        if(DateTime.UtcNow - entry.LastCaution > MaximumHiddenDuration)
                         {
                             // penalize them
                             SubtractScore(entry);
@@ -223,7 +223,7 @@ namespace Server.Items
                         }
                     } else
                     {
-                        entry.LastCaution  = DateTime.Now;
+                        entry.LastCaution  = DateTime.UtcNow;
                         // inform the player
                         XmlPoints.SendText(entry.Participant, 100310, MaximumHiddenDuration.TotalSeconds); // "You have {0} seconds become unhidden"
                         statuschange = true;
@@ -275,7 +275,7 @@ namespace Server.Items
         {
             base.StartGame();
 
-            MatchStart = DateTime.Now;
+            MatchStart = DateTime.UtcNow;
 
             SetNameHue();
         }
@@ -324,7 +324,7 @@ namespace Server.Items
                 lastt.Winner = true;
             }
 
-            if(winner.Count == 0 && MatchLength > TimeSpan.Zero && (DateTime.Now >= MatchStart + MatchLength))
+            if(winner.Count == 0 && MatchLength > TimeSpan.Zero && (DateTime.UtcNow >= MatchStart + MatchLength))
             {
                 // find the highest score
                 // has anyone reached the target score
@@ -556,7 +556,7 @@ namespace Server.Items
             
             if(GameTimer != null && GameTimer.Running)
             {
-                writer.Write(DateTime.Now - m_MatchStart);
+                writer.Write(DateTime.UtcNow - m_MatchStart);
             } else
             {
                 writer.Write(TimeSpan.Zero);
@@ -608,7 +608,7 @@ namespace Server.Items
                 
                 if(elapsed > TimeSpan.Zero)
                 {
-                    m_MatchStart = DateTime.Now - elapsed;
+                    m_MatchStart = DateTime.UtcNow - elapsed;
                 }
                 
                 int count = reader.ReadInt();

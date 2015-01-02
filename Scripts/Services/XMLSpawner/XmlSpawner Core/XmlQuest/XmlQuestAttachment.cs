@@ -27,14 +27,14 @@ namespace Server.Engines.XmlSpawner2
 		public XmlQuestAttachment(string name)
 		{
 			Name = name;
-			Date = DateTime.Now;
+			Date = DateTime.UtcNow;
 		}
 
 		[Attachable]
 		public XmlQuestAttachment(string name, double expiresin)
 		{
 			Name = name;
-			Date = DateTime.Now;
+			Date = DateTime.UtcNow;
 			Expiration = TimeSpan.FromMinutes(expiresin);
 
 		}

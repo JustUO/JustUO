@@ -101,7 +101,7 @@ namespace Server.Engines.XmlSpawner2
 			get
 			{
 				if (m_AutoRepairTimer != null && m_AutoRepairTimer.Running)
-					return m_AutoRepairEnd - DateTime.Now;
+					return m_AutoRepairEnd - DateTime.UtcNow;
 				else
 					return TimeSpan.FromSeconds(0);
 			}
@@ -263,7 +263,7 @@ namespace Server.Engines.XmlSpawner2
 
 		public void DoAutoRepairTimer(TimeSpan delay)
 		{
-			m_AutoRepairEnd = DateTime.Now + delay;
+			m_AutoRepairEnd = DateTime.UtcNow + delay;
 
 			if (m_AutoRepairTimer != null)
 				m_AutoRepairTimer.Stop();
@@ -978,9 +978,9 @@ namespace Server.Engines.XmlSpawner2
 			writer.Write((int)2);
 			// version 2
 			writer.Write(m_AutoRepairTime);
-			if (m_AutoRepairEnd > DateTime.Now)
+			if (m_AutoRepairEnd > DateTime.UtcNow)
 			{
-				writer.Write(m_AutoRepairEnd - DateTime.Now);
+				writer.Write(m_AutoRepairEnd - DateTime.UtcNow);
 			}
 			else
 			{

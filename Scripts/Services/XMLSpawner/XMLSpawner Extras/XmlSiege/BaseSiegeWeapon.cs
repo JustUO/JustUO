@@ -152,10 +152,10 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public TimeSpan NextFiring
 		{
-			get { return m_NextFiringTime - DateTime.Now; }
+			get { return m_NextFiringTime - DateTime.UtcNow; }
 			set
 			{
-				m_NextFiringTime = DateTime.Now + value;
+				m_NextFiringTime = DateTime.UtcNow + value;
 			}
 		}
 
@@ -434,7 +434,7 @@ namespace Server.Items
 			// calculate the cooldown time with dexterity bonus and firing speed bonus on top of the base delay
 			double loadingdelay = WeaponLoadingDelay - dexbonus - firingspeedbonus;
 
-			m_NextFiringTime = DateTime.Now + TimeSpan.FromSeconds(loadingdelay);
+			m_NextFiringTime = DateTime.UtcNow + TimeSpan.FromSeconds(loadingdelay);
 
 			// calculate the accuracy based on distance and weapon skill
 			int accuracy = distance * 10 - weaponskill + accuracybonus;
@@ -521,7 +521,7 @@ namespace Server.Items
 			}
 
 			// check if the cannon is cool enough to fire
-			if (m_NextFiringTime > DateTime.Now)
+			if (m_NextFiringTime > DateTime.UtcNow)
 			{
 				from.SendMessage("Not ready yet.");
 				return;

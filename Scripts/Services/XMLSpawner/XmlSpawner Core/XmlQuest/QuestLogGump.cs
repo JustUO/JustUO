@@ -399,7 +399,7 @@ namespace Server.Gumps
 						} 
 						else
 						{
-							DateTime nexttime = DateTime.Now + qa.Expiration;
+							DateTime nexttime = DateTime.UtcNow + qa.Expiration;
 							AddLabel( 560 - xoffset, y, color, nexttime.ToString() );
 						}
 					} 

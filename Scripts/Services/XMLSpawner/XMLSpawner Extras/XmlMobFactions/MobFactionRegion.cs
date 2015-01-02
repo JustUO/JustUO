@@ -42,10 +42,10 @@ namespace Server.Engines.XmlSpawner2
             if(fac < FactionLevel)
             {
                 // throttle message display
-                if(DateTime.Now - m_lastmsg > TimeSpan.FromSeconds(1))
+                if(DateTime.UtcNow - m_lastmsg > TimeSpan.FromSeconds(1))
                 {
                     m.SendMessage("Your {0} faction is too low to enter here", FactionType);
-                    m_lastmsg = DateTime.Now;
+                    m_lastmsg = DateTime.UtcNow;
                 }
                 return false;
             }
