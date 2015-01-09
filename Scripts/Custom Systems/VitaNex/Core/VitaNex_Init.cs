@@ -33,6 +33,10 @@ namespace VitaNex
 		{
 			_INITVersion = "2.2.0.0";
 
+			#if MONO
+			Version = _INITVersion;
+			#endif
+			
 			_INITQueue = new Queue<Tuple<string, string>>();
 			_INITHandlers = new Dictionary<string, Action<string>>();
 
@@ -93,9 +97,10 @@ namespace VitaNex
 			{
 				return null;
 			}
-
+			
 			path = IOUtility.GetSafeDirectoryPath(path);
 
+			#if !MONO
 			var root = TryCatchGet(
 				() =>
 				{
@@ -109,6 +114,9 @@ namespace VitaNex
 					return dir;
 				},
 				ToConsole);
+			#else
+			var root = new DirectoryInfo(Core.BaseDirectory);
+			#endif
 
 			if (root == null || !root.Exists)
 			{
