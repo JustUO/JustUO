@@ -1,4 +1,5 @@
-﻿#region Header
+﻿#if !MONO
+#region Header
 //   Vorspire    _,-'/-'/  InstallationLocator.cs
 //   .      __,-; ,'( '/
 //    \.    `-.__`-._`:_,-._       _ , . ``
@@ -216,3 +217,4 @@ namespace VitaNex
 		}
 	}
 }
+#endif

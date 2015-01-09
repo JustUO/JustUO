@@ -16,8 +16,11 @@ namespace Server
 		//! files if you are having conflict issues with JustUO using the same files
 		//! that your client is using.
 		//!+ Example: private static string _ClientData = @"C:\Server Files";
-		public static string ClientDataPath = StartupReader.GetClientPath();
-
+	    #if MONO
+	        public static string ClientDataPath = Core.BaseDirectory + "/muls";
+	    #else
+	        public static string ClientDataPath = StartupReader.GetClientPath();
+	    #endif
 		public static AnimationDataFactory AnimationDataFactory { get; set; }
 		public static AnimationFactory AnimationFactory { get; set; }
 		public static ArtworkFactory ArtFactory { get; set; }
