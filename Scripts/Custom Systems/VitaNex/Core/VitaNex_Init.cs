@@ -62,8 +62,15 @@ namespace VitaNex
 							 "file before starting the application.");
 			}
 
-			var root = FindRootDirectory("Scripts/VitaNex");
 
+			#if !MONO
+			// Someone moved VitaNex from Scripts/VitaNex to Scripts/Custom Systems/VitaNex/Core
+			//  but this path was not updated... does this cause problems on Windows?  --Sith
+			var root = FindRootDirectory("Scripts/VitaNex");
+			#else
+			var root = new DirectoryInfo(Core.BaseDirectory + @"/Scripts/Custom Systems/VitaNex/Core");
+			#endif
+			
 			if (root == null || !root.Exists)
 			{
 				return;
@@ -100,7 +107,6 @@ namespace VitaNex
 			
 			path = IOUtility.GetSafeDirectoryPath(path);
 
-			#if !MONO
 			var root = TryCatchGet(
 				() =>
 				{
@@ -114,9 +120,6 @@ namespace VitaNex
 					return dir;
 				},
 				ToConsole);
-			#else
-			var root = new DirectoryInfo(Core.BaseDirectory);
-			#endif
 
 			if (root == null || !root.Exists)
 			{
