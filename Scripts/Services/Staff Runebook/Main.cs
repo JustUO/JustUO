@@ -23,7 +23,7 @@ namespace Joeku.SR
 	#if !MONO
         public static string SavePath = "Saves\\Staff Runebook";// "ROOT\..."
 	#else
-	public static string SavePath = Core.BaseDirectory + @"Saves/Staff Runebook"; //sith
+	public static string SavePath = Core.BaseDirectory + @"/Saves/Staff Runebook"; //sith
 	#endif
 	public static string FileName = "Rune Accounts.xml";
         public static List<SR_RuneAccount> Info = new List<SR_RuneAccount>();
