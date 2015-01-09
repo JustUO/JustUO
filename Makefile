@@ -10,6 +10,17 @@ DFLAGS=-debug
 
 all: release
 
+help:
+	@echo "Targets:"
+	@echo "configure:  sets up client folder directory 'muls/'"
+	@echo "release:  compiles Server binary with optimization flags"
+	@echo "debug:  compiles Server binary with debugging symbols"
+	@echo "clean:  removes Server binary"
+
+configure:
+	mkdir muls
+	@echo "Folder muls/ created, you should put a copy of the client files here."
+
 release:
 	$(CC) $(CFLAGS) $(LDFLAGS) $(OPTFLAGS) $(RECURSE)
 
