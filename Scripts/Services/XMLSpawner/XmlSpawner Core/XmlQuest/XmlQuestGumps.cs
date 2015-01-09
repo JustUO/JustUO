@@ -286,7 +286,7 @@ namespace Server.Gumps
 				AddImageTiled( 134, height - 7, 159, 23, 0x52 );
 				AddImageTiled( 135, height - 6, 157, 21, 0xBBC );
 				AddHtmlLocalized(105, height - 7, 200, 30, 3002006, 0x7fff , false , false ); // Say:
-				AddTextEntry( 135, height - 7, 150, 21, 0, 99, null );
+				AddTextEntry( 135, height - 7, 150, 21, 0, 99, (string)null );
 
 				LocalAddHtml(maintext, 105, 159, 299, 182, 0xEFEF5A, false, true);
 			} 
