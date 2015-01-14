@@ -33,15 +33,21 @@ namespace VitaNex
 		{
 			_INITVersion = "2.2.0.0";
 
+			#if MONO
+			Version = _INITVersion;
+			#endif
+			
 			_INITQueue = new Queue<Tuple<string, string>>();
 			_INITHandlers = new Dictionary<string, Action<string>>();
 
-			if (!Directory.Exists("VitaNexCore"))
+			//ensuring simply "VitaNexCore" exists causes Mono to look in system root folder "/", so we
+			// concatenate to give path relative to Server.  --sith
+			if (!Directory.Exists(Core.BaseDirectory + "/VitaNexCore"))
 			{
 				FirstBoot = true;
 			}
 
-			BaseDirectory = IOUtility.EnsureDirectory("VitaNexCore");
+			BaseDirectory = IOUtility.EnsureDirectory(Core.BaseDirectory + "/VitaNexCore");
 
 			if (!File.Exists(BaseDirectory + "/FirstBoot.vnc"))
 			{
@@ -56,8 +62,15 @@ namespace VitaNex
 							 "file before starting the application.");
 			}
 
-			var root = FindRootDirectory("Scripts/VitaNex");
 
+			#if !MONO
+			// Someone moved VitaNex from Scripts/VitaNex to Scripts/Custom Systems/VitaNex/Core
+			//  but this path was not updated... does this cause problems on Windows?  --Sith
+			var root = FindRootDirectory("Scripts/VitaNex");
+			#else
+			var root = new DirectoryInfo(Core.BaseDirectory + @"/Scripts/Custom Systems/VitaNex/Core");
+			#endif
+			
 			if (root == null || !root.Exists)
 			{
 				return;
@@ -91,7 +104,7 @@ namespace VitaNex
 			{
 				return null;
 			}
-
+			
 			path = IOUtility.GetSafeDirectoryPath(path);
 
 			var root = TryCatchGet(

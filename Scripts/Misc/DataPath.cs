@@ -12,8 +12,12 @@ namespace Server.Misc
         * Example:
         *  private static string CustomPath = @"C:\Program Files\Ultima Online";
         */
-        private static readonly string CustomPath = StartupReader.GetClientPath();
-        /* The following is a list of files which a required for proper execution:
+	#if !MONO
+	private static readonly string CustomPath = StartupReader.GetClientPath();
+	#else
+        private static readonly string CustomPath = Core.BaseDirectory + "/muls";
+	#endif
+	/* The following is a list of files which a required for proper execution:
         * 
         * Multi.idx
         * Multi.mul
