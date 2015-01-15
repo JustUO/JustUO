@@ -256,13 +256,18 @@ namespace Server.Misc
                     {
                         BroadcastMessage(AccessLevel.Player, 0x35, String.Format("[Server] We are restarting..."));
                         AutoSave.Save();
+			// this really should call Core.Kill rather than Core.Process.Kill --sith
+			#if !MONO
                         Process.Start(Core.ExePath, Core.Arguments);
+			#endif
                         Core.Process.Kill();
                     }
                         break;
                     case "restart nosave":
                     {
+			#if !MONO
                         Process.Start(Core.ExePath, Core.Arguments);
+			#endif
                         Core.Process.Kill();
                     }
                         break;
