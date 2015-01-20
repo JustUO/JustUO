@@ -1,3 +1,4 @@
+#if !MONO
 #region References
 using System;
 using System.Collections;
@@ -256,19 +257,14 @@ namespace Server.Misc
                     {
                         BroadcastMessage(AccessLevel.Player, 0x35, String.Format("[Server] We are restarting..."));
                         AutoSave.Save();
-			// this really should call Core.Kill rather than Core.Process.Kill --sith
-			#if !MONO
-                        Process.Start(Core.ExePath, Core.Arguments);
-			#endif
-                        Core.Process.Kill();
+			// this really should call Core.Kill rather than Core.Process.Kill
+			//  to avoid duplicating logic --sith
+                        Core.Kill(true);
                     }
                         break;
                     case "restart nosave":
                     {
-			#if !MONO
-                        Process.Start(Core.ExePath, Core.Arguments);
-			#endif
-                        Core.Process.Kill();
+                        Core.Kill(true);
                     }
                         break;
                     case "online":
@@ -404,3 +400,4 @@ namespace Server.Misc
         }
     }
 }
+#endif
