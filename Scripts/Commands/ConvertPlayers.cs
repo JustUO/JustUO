@@ -55,11 +55,8 @@ namespace Server.Commands
                 
                 if (!Core.Service)
                     Console.ReadKey(true);
-		#if !MONO
+
                 Core.Kill(true);
-		#else
-		Core.Kill();
-		#endif
             }
             else
             {

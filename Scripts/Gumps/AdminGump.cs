@@ -3140,11 +3140,7 @@ namespace Server.Gumps
 
             if (save)
                 this.InvokeCommand("Save");
-	    #if !MONO
             Core.Kill(restart);
-	    #else
-	    Core.Kill();
-	    #endif
         }
 
         private void InvokeCommand(string c)
