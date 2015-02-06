@@ -2580,9 +2580,6 @@ namespace Server.Items
             #region Mondain's Legacy
             if (craftItem != null && !craftItem.ForceNonExceptional)
             {
-                if (Core.AOS && tool is BaseRunicTool)
-                    ((BaseRunicTool)tool).ApplyAttributesTo(this);
-
                 if (Core.ML)
                 {
                     CraftResourceInfo resInfo = CraftResources.GetInfo(this.m_Resource);
