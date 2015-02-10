@@ -2575,6 +2575,9 @@ namespace Server.Items
 
                     from.CheckSkill(SkillName.ArmsLore, 0, 100);
                 }
+
+                if (Core.SE && (this is HeavyPlateJingasa || this is LightPlateJingasa || this is PlateDo || this is PlateHaidate || this is PlateHiroSode || this is StuddedHiroSode || this is PlateMempo || this is PlateSuneate || this is StuddedSuneate || this is SmallPlateJingasa))
+                    this.m_AosArmorAttributes.MageArmor = 1;
             }
 
             #region Mondain's Legacy

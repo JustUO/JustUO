@@ -5389,7 +5389,7 @@ namespace Server
 			return null;
 		}
 
-		public Mobile FindMostTotalDamger(bool allowSelf)
+		public Mobile FindMostTotalDamager(bool allowSelf)
 		{
 			return GetDamagerFrom(FindMostTotalDamageEntry(allowSelf));
 		}
@@ -5420,7 +5420,7 @@ namespace Server
 			return mostTotal;
 		}
 
-		public Mobile FindLeastTotalDamger(bool allowSelf)
+		public Mobile FindLeastTotalDamager(bool allowSelf)
 		{
 			return GetDamagerFrom(FindLeastTotalDamageEntry(allowSelf));
 		}
