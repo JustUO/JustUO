@@ -190,8 +190,8 @@ namespace Server.Commands
                 this.DestroyTeleporter(5595, 1840, -14, map);
                 this.DestroyTeleporter(5595, 1840, -14, map);
 
-                this.CreateTeleporter(5594, 1840, -9, 5467, 1804, 7, map, false);
-                this.CreateTeleporter(5594, 1841, -9, 5467, 1805, 7, map, false);
+                this.CreateTeleporter(5594, 1840, -7, 5467, 1804, 7, map, false);
+                this.CreateTeleporter(5594, 1841, -7, 5467, 1805, 7, map, false);
 
                 // Wrong
                 this.CreateTeleporter(5824, 631, 5, 2041, 215, 14, map, true);
