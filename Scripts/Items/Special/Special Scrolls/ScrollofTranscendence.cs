@@ -60,10 +60,8 @@ namespace Server.Items
         {
             base.GetProperties(list);
 
-            if (this.Value == 1)
-                list.Add(1076759, "{0}\t{1}.0 Skill Points", this.GetName(), this.Value);
-            else
-                list.Add(1076759, "{0}\t{1} Skill Points", this.GetName(), this.Value);
+            string displayval = string.Format("{0:0.0}", Math.Truncate(Value * 10) / 10);
+            list.Add(1076759, "{0}\t{1} Skill Points", this.GetName(), displayval);
         }
 		
         public override bool CanUse(Mobile from)
