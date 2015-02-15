@@ -1618,6 +1618,7 @@
     <Compile Include="Items\Containers\FurnitureContainer.cs" />
     <Compile Include="Items\Containers\LockableContainer.cs" />
     <Compile Include="Items\Containers\MarkContainer.cs" />
+    <Compile Include="Items\Containers\More Bones.cs" />
     <Compile Include="Items\Containers\ParagonChest.cs" />
     <Compile Include="Items\Containers\SalvageBag.cs" />
     <Compile Include="Items\Containers\Strongbox.cs" />
