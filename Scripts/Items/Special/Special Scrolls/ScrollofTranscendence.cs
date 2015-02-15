@@ -1,4 +1,6 @@
 using System;
+
+using Server.Engines.Quests;
 using Server.Mobiles;
 
 namespace Server.Items
@@ -75,25 +77,25 @@ namespace Server.Items
                 return false;
 			
             #region Mondain's Legacy
-            /* to add when skillgain quests will be implemented
+
 			
             for (int i = pm.Quests.Count - 1; i >= 0; i--)
             {
-            BaseQuest quest = pm.Quests[i];
+                BaseQuest quest = pm.Quests[i];
 
-            for (int j = quest.Objectives.Count - 1; j >= 0; j--)
-            {
-            BaseObjective objective = quest.Objectives[j];
+                for (int j = quest.Objectives.Count - 1; j >= 0; j--)
+                {
+                    BaseObjective objective = quest.Objectives[j];
 
-            if (objective is ApprenticeObjective)
-            {
-            from.SendMessage("You are already under the effect of an enhanced skillgain quest.");
-            return false;
-            }
-            }
+                    if (objective is ApprenticeObjective)
+                    {
+                        from.SendMessage("You are already under the effect of an enhanced skillgain quest.");
+                        return false;
+                    }
+                }
             }
 			
-            */
+
             #endregion
 			
             #region Scroll of Alacrity

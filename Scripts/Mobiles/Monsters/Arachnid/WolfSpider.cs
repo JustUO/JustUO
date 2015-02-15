@@ -3,24 +3,24 @@ using Server.Items;
 
 namespace Server.Mobiles
 {
-    [CorpseName("a wolf spider spider corpse")]
+    [CorpseName("a wolf spider corpse")]
     public class WolfSpider : BaseCreature
     {
         [Constructable]
         public WolfSpider()
-            : base(AIType.AI_Melee, FightMode.Evil, 10, 1, 0.2, 0.4)
+            : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
             this.Name = "a Wolf spider";
-            this.Body = 737;
-            this.Hue = 1141;
+            this.Body = 736;
+            this.Hue = 0;
 
             this.SetStr(225, 268);
             this.SetDex(145, 165);
             this.SetInt(285, 310);
 
-            this.SetHits(150, 160);
-			this.SetMana(285, 310);
-			this.SetStam(145, 165);
+            this.SetHits(150, 200);
+	    this.SetMana(285, 310);
+	    this.SetStam(145, 165);
 
             this.SetDamage(15, 18);
 
@@ -38,8 +38,9 @@ namespace Server.Mobiles
             this.SetSkill(SkillName.Poisoning, 62.3, 77.2);
             this.SetSkill(SkillName.Tactics, 84.1, 95.9);
             this.SetSkill(SkillName.Wrestling, 80.2, 90.0);
-            this.SetSkill(SkillName.Hiding, 105.0, 110.0);
-            this.SetSkill(SkillName.Stealth, 105.0, 110.0);
+
+            this.Fame = 5000;
+            this.Karma = -5000;
 
             this.Tamable = true;
             this.ControlSlots = 2;
