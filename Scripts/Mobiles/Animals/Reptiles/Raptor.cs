@@ -9,34 +9,36 @@ namespace Server.Mobiles
         public Raptor()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            this.Name = "a raptor";
-            this.Body = 730; 
+            Name = "a raptor";
+            Body = 730; 
 
-            this.SetStr(401, 464);
-            this.SetDex(131, 154);
-            this.SetInt(102, 150);
+            SetStr(401, 464);
+            SetDex(131, 154);
+            SetInt(102, 150);
 
-            this.SetHits(342, 400);
-			this.SetMana(102, 150);
-			this.SetStam(131, 154);
+            SetHits(342, 400);
+			SetMana(102, 150);
+			SetStam(131, 154);
 
-            this.SetDamage(11, 17);
+            SetDamage(11, 17);
 
-            this.SetDamageType(ResistanceType.Physical, 100);
+            SetDamageType(ResistanceType.Physical, 100);
 
-            this.SetResistance(ResistanceType.Physical, 45, 50);
-            this.SetResistance(ResistanceType.Fire, 50, 60);
-            this.SetResistance(ResistanceType.Cold, 40, 50);
-            this.SetResistance(ResistanceType.Poison, 20, 30);
-            this.SetResistance(ResistanceType.Energy, 30, 40);
+            SetResistance(ResistanceType.Physical, 45, 50);
+            SetResistance(ResistanceType.Fire, 50, 60);
+            SetResistance(ResistanceType.Cold, 40, 50);
+            SetResistance(ResistanceType.Poison, 20, 30);
+            SetResistance(ResistanceType.Energy, 30, 40);
 
-            this.SetSkill(SkillName.MagicResist, 75.5, 89.0);
-            this.SetSkill(SkillName.Tactics, 80.3, 93.8);
-            this.SetSkill(SkillName.Wrestling, 66.9, 81.5);
+            SetSkill(SkillName.MagicResist, 75.5, 89.0);
+            SetSkill(SkillName.Tactics, 80.3, 93.8);
+            SetSkill(SkillName.Wrestling, 66.9, 81.5);
 
-            this.Tamable = true;
-            this.ControlSlots = 2;
-            this.MinTameSkill = 107.1;
+            Tamable = true;
+            ControlSlots = 2;
+            MinTameSkill = 107.1;
+
+            QLPoints = 20;
         }
 
         public Raptor(Serial serial)
@@ -67,7 +69,7 @@ namespace Server.Mobiles
         }
         public override void GenerateLoot()
         {
-            this.AddLoot(LootPack.Rich, 2);
+            AddLoot(LootPack.Rich, 2);
         }
 
         public override int GetIdleSound()

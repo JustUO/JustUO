@@ -2774,6 +2774,8 @@
     <Compile Include="Misc\Broadcasts.cs" />
     <Compile Include="Misc\BuffIcons.cs" />
     <Compile Include="Misc\CharacterCreation.cs" />
+    <Compile Include="Services\Loyalty System\LoyaltyRatingGump.cs" />
+    <Compile Include="Services\Loyalty System\LoyaltyRating.cs" />
     <Compile Include="Misc\Cleanup.cs" />
     <Compile Include="Misc\ClientVerification.cs" />
     <Compile Include="Misc\Console Utilities\Console Commands.cs" />

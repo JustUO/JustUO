@@ -9,31 +9,33 @@ namespace Server.Mobiles
         public Slith()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            this.Name = "a slith";
-            this.Body = 734; 
+            Name = "a slith";
+            Body = 734; 
 
-            this.SetStr(133, 146);
-            this.SetDex(59, 67);
-            this.SetInt(12, 20);
+            SetStr(133, 146);
+            SetDex(59, 67);
+            SetInt(12, 20);
 
-            this.SetHits(84, 94);
+            SetHits(84, 94);
 
-            this.SetDamage(6, 24);
+            SetDamage(6, 24);
 
-            this.SetDamageType(ResistanceType.Physical, 100);
+            SetDamageType(ResistanceType.Physical, 100);
 
-            this.SetResistance(ResistanceType.Physical, 35, 45);
-            this.SetResistance(ResistanceType.Fire, 30, 45);
-            this.SetResistance(ResistanceType.Poison, 25, 35);
-            this.SetResistance(ResistanceType.Energy, 25, 35);
+            SetResistance(ResistanceType.Physical, 35, 45);
+            SetResistance(ResistanceType.Fire, 30, 45);
+            SetResistance(ResistanceType.Poison, 25, 35);
+            SetResistance(ResistanceType.Energy, 25, 35);
 
-            this.SetSkill(SkillName.MagicResist, 59.2, 67.9);
-            this.SetSkill(SkillName.Tactics, 66.8, 78.4);
-            this.SetSkill(SkillName.Wrestling, 63.1, 77.6);
+            SetSkill(SkillName.MagicResist, 59.2, 67.9);
+            SetSkill(SkillName.Tactics, 66.8, 78.4);
+            SetSkill(SkillName.Wrestling, 63.1, 77.6);
 
-            this.Tamable = true;
-            this.ControlSlots = 1;
-            this.MinTameSkill = 80.7;
+            Tamable = true;
+            ControlSlots = 1;
+            MinTameSkill = 80.7;
+
+            QLPoints = 15;
         }
 
         public Slith(Serial serial)
@@ -64,7 +66,7 @@ namespace Server.Mobiles
         }
         public override void GenerateLoot()
         {
-            this.AddLoot(LootPack.Average, 2);
+            AddLoot(LootPack.Average, 2);
         }
 
         public override void Serialize(GenericWriter writer)

@@ -9,34 +9,36 @@ namespace Server.Mobiles
         public ToxicSlith()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            this.Name = "a toxic slith";
-            this.Body = 734; 
+            Name = "a toxic slith";
+            Body = 734; 
 
-            this.SetStr(219, 330);
-            this.SetDex(46, 65);
-            this.SetInt(25, 38);
+            SetStr(219, 330);
+            SetDex(46, 65);
+            SetInt(25, 38);
 
-            this.SetHits(182, 209);
-            this.SetStam(230, 279);
-			this.SetMana(0, 3);
+            SetHits(182, 209);
+            SetStam(230, 279);
+			SetMana(0, 3);
 
-            this.SetDamage(6, 24);
+            SetDamage(6, 24);
 
-            this.SetDamageType(ResistanceType.Physical, 100);
+            SetDamageType(ResistanceType.Physical, 100);
 
-            this.SetResistance(ResistanceType.Physical, 36, 44);
-            this.SetResistance(ResistanceType.Fire, 6, 10);
-            this.SetResistance(ResistanceType.Cold, 6, 10);
-            this.SetResistance(ResistanceType.Poison, 100, 100);
-            this.SetResistance(ResistanceType.Energy, 6, 10);
+            SetResistance(ResistanceType.Physical, 36, 44);
+            SetResistance(ResistanceType.Fire, 6, 10);
+            SetResistance(ResistanceType.Cold, 6, 10);
+            SetResistance(ResistanceType.Poison, 100, 100);
+            SetResistance(ResistanceType.Energy, 6, 10);
 
-            this.SetSkill(SkillName.MagicResist, 95.4, 98.9);
-            this.SetSkill(SkillName.Tactics, 84.3, 91.5);
-            this.SetSkill(SkillName.Wrestling, 89.3, 97.9);
+            SetSkill(SkillName.MagicResist, 95.4, 98.9);
+            SetSkill(SkillName.Tactics, 84.3, 91.5);
+            SetSkill(SkillName.Wrestling, 89.3, 97.9);
 
-            this.Tamable = false;
-            this.ControlSlots = 1;
-            this.MinTameSkill = 80.7;
+            Tamable = false;
+            ControlSlots = 1;
+            MinTameSkill = 80.7;
+
+            QLPoints = 30;
         }
 
         public ToxicSlith(Serial serial)
@@ -73,7 +75,7 @@ namespace Server.Mobiles
             //PackItem(SlithTongue);
             //PackItem(PotteryFragment);
             //PackItem(TatteredScroll);
-            this.AddLoot(LootPack.Average, 2);
+            AddLoot(LootPack.Average, 2);
         }
 
         public override void Serialize(GenericWriter writer)

@@ -10,40 +10,42 @@ namespace Server.Mobiles
         public WyvernRenowned()
             : base(AIType.AI_Mage)
         {
-            this.Name = "Wyvern";
-            this.Title = "[Renowned]";
-            this.Body = 62;
-            this.Hue = 243;
-            this.BaseSoundID = 362;
+            Name = "Wyvern";
+            Title = "[Renowned]";
+            Body = 62;
+            Hue = 243;
+            BaseSoundID = 362;
 
-            this.SetStr(1364, 1544);
-            this.SetDex(144, 160);
-            this.SetInt(861, 1081);
+            SetStr(1364, 1544);
+            SetDex(144, 160);
+            SetInt(861, 1081);
 
-            this.SetHits(2782, 2848);
+            SetHits(2782, 2848);
 
-            this.SetDamage(29, 35);
+            SetDamage(29, 35);
 
-            this.SetDamageType(ResistanceType.Physical, 75);
-            this.SetDamageType(ResistanceType.Fire, 25);
+            SetDamageType(ResistanceType.Physical, 75);
+            SetDamageType(ResistanceType.Fire, 25);
 
-            this.SetResistance(ResistanceType.Physical, 61, 66);
-            this.SetResistance(ResistanceType.Fire, 67, 89);
-            this.SetResistance(ResistanceType.Cold, 61, 77);
-            this.SetResistance(ResistanceType.Poison, 56, 62);
-            this.SetResistance(ResistanceType.Energy, 53, 63);
+            SetResistance(ResistanceType.Physical, 61, 66);
+            SetResistance(ResistanceType.Fire, 67, 89);
+            SetResistance(ResistanceType.Cold, 61, 77);
+            SetResistance(ResistanceType.Poison, 56, 62);
+            SetResistance(ResistanceType.Energy, 53, 63);
 
-            this.SetSkill(SkillName.Magery, 90.1, 94.3);
-            this.SetSkill(SkillName.Meditation, 64.1, 70.1);
-            this.SetSkill(SkillName.EvalInt, 90.1, 94.3);
+            SetSkill(SkillName.Magery, 90.1, 94.3);
+            SetSkill(SkillName.Meditation, 64.1, 70.1);
+            SetSkill(SkillName.EvalInt, 90.1, 94.3);
             //SetSkill( SkillName.Wrestling, 65.1, 80.0 );
 
-            this.Fame = 24000;
-            this.Karma = -24000;
+            Fame = 24000;
+            Karma = -24000;
 
-            this.VirtualArmor = 70;
+            QLPoints = 50;
+
+            VirtualArmor = 70;
 			
-            this.PackItem(new EssenceDiligence());
+            PackItem(new EssenceDiligence());
         }
 
         public WyvernRenowned(Serial serial)
@@ -130,8 +132,8 @@ namespace Server.Mobiles
         }
         public override void GenerateLoot()
         {
-            this.AddLoot(LootPack.FilthyRich, 3);
-            this.AddLoot(LootPack.Gems, 5);
+            AddLoot(LootPack.FilthyRich, 3);
+            AddLoot(LootPack.Gems, 5);
         }
 
         public override int GetAttackSound()

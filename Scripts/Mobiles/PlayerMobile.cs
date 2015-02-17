@@ -24,6 +24,7 @@ using Server.Movement;
 using Server.Multis;
 using Server.Network;
 using Server.Regions;
+using Server.Services.Loyalty_System;
 using Server.SkillHandlers;
 using Server.Spells;
 using Server.Spells.Bushido;
@@ -1761,6 +1762,15 @@ namespace Server.Mobiles
 					m_Quest.GetContextMenuEntries(list);
 				}
 
+			    if (Alive && IsPlayer())
+			    {
+			        PlayerMobile pm = from as PlayerMobile;
+			        if (pm != null)
+			        {
+			            list.Add(new LoyaltyRating(pm));
+			        }
+			    }
+
 				if (Alive && InsuranceEnabled)
 				{
 					list.Add(new CallbackEntry(6201, ToggleItemInsurance));
@@ -2837,43 +2847,6 @@ namespace Server.Mobiles
 
 			Mobile killer = FindMostRecentDamager(true);
 
-			#region QueensLoyaltySystem
-			if (killer is PlayerMobile)
-			{
-				m_Exp -= (m_LevelExp / 100);
-				if (m_Exp < 0)
-				{
-					if (m_Level == 0)
-					{
-						m_Exp = 0;
-					}
-					else
-					{
-						m_Exp += (long)(m_LevelExp / 1.4);
-						m_Level -= 1;
-						SendMessage("Due to your death you have lost a level of Loyalty to the Queen");
-					}
-				}
-			}
-			else
-			{
-				m_Exp -= (m_LevelExp / 50);
-				if (m_Exp < 0)
-				{
-					if (m_Level == 0)
-					{
-						Exp = 0;
-					}
-					else
-					{
-						m_Exp += (long)(m_LevelExp / 1.4);
-						m_Level -= 1;
-						SendMessage("Due to your death you have lost a level of Loyalty to the Queen");
-					}
-				}
-			}
-			#endregion                          // End Queen's Loyalty System
-
 			if (killer is BaseCreature)
 			{
 				BaseCreature bc = (BaseCreature)killer;
@@ -3636,11 +3609,11 @@ namespace Server.Mobiles
 			#region QueensLoyaltySystem
 			if (version < 29)
 			{
-				m_LevelExp = 1000;
-				m_Exp = -1000;
+				m_LevelExp = 2000;
+				m_Exp = 0;
 				m_Level = 0;
 
-				m_ExpTitle = "TerMur-guest";
+				m_ExpTitle = "Friend of TerMur";
 			}
 			#endregion
 
@@ -4060,10 +4033,13 @@ namespace Server.Mobiles
 			{
 				return;
 			}
-			else if (IsPlayer())
+            // Removed, this should be used only if using XMLpoints system.
+			/*
+            else if (IsPlayer())
 			{
 				list.Add(1070722, "Kills {0} / Deaths {1} : Rank={2}", a.Kills, a.Deaths, a.Rank);
 			}
+            */
 		}
 
 		public class PlayerPropertiesEventArgs : EventArgs
@@ -4145,125 +4121,6 @@ namespace Server.Mobiles
 						break;
 					}
 				}
-			}
-
-			if (IsPlayer())
-			{
-				#region QueensLoyaltySystem
-				if (m_Exp >= m_LevelExp)
-				{
-					while (m_Exp >= m_LevelExp)
-					{
-						m_Exp -= m_LevelExp;
-						m_Level += 1;
-						m_LevelExp = (long)(1000 * (Math.Pow(1.4, m_Level)));
-					}
-				}
-
-				if (m_Exp < 0)
-				{
-					while (m_Exp < 0)
-					{
-						if (m_Level == 0)
-						{
-							m_Exp = 0;
-						}
-						else
-						{
-							m_LevelExp = (long)(1000 * (Math.Pow(1.4, m_Level - 1)));
-							m_Exp += (m_LevelExp);
-							m_Level -= 1;
-						}
-					}
-				}
-
-				m_LevelExp = (long)(1000 * (Math.Pow(1.4, m_Level)));
-				if (m_Level == 0)
-				{
-					m_ExpTitle = "TerMur-guest";
-				}
-				else if (m_Level >= 1 && m_Level <= 5)
-				{
-					m_ExpTitle = "Friend of TerMur";
-				}
-				else if (m_Level >= 6 && m_Level <= 10)
-				{
-					m_ExpTitle = "Friend of TerMur";
-				}
-				else if (m_Level >= 11 && m_Level <= 15)
-				{
-					m_ExpTitle = "Friend of TerMur";
-				}
-				else if (m_Level >= 16 && m_Level <= 20)
-				{
-					m_ExpTitle = "Friend of TerMur";
-				}
-				else if (m_Level >= 21 && m_Level <= 25)
-				{
-					m_ExpTitle = "Friend of TerMur";
-				}
-				else if (m_Level >= 26 && m_Level <= 30)
-				{
-					m_ExpTitle = "A Citizen of TerMur";
-				}
-				else if (m_Level >= 31 && m_Level <= 35)
-				{
-					m_ExpTitle = "A Citizen of TerMur";
-				}
-				else if (m_Level >= 36 && m_Level <= 40)
-				{
-					m_ExpTitle = "A Citizen of TerMur";
-				}
-				else if (m_Level >= 41 && m_Level <= 45)
-				{
-					m_ExpTitle = "A Citizen of TerMur";
-				}
-				else if (m_Level >= 46 && m_Level <= 50)
-				{
-					m_ExpTitle = "A Citizen of TerMur";
-				}
-				else if (m_Level >= 51 && m_Level <= 60)
-				{
-					m_ExpTitle = "A Citizen of TerMur";
-				}
-				else if (m_Level >= 61 && m_Level <= 70)
-				{
-					m_ExpTitle = "A Noble of Termur";
-				}
-				else if (m_Level >= 71 && m_Level <= 80)
-				{
-					m_ExpTitle = "A Noble of Termur";
-				}
-				else if (m_Level >= 80 && m_Level <= 100)
-				{
-					m_ExpTitle = "A Noble of Termur";
-				}
-				else if (m_Level >= 101)
-				{
-					m_ExpTitle = "A Noble of Termur";
-				}
-
-				// Xml spawner 3.26c QueensLoyaltyTitle
-				XmlData QueenTitle = (XmlData)XmlAttach.FindAttachment(this, typeof(XmlData), "QueenTitle");
-
-				if (QueenTitle != null && QueenTitle.Data == "True")
-				{
-					return;
-				}
-				else
-				{
-					list.Add(
-						String.Concat(
-							"Queens Loyalty Level: ",
-							String.Format("<BASEFONT COLOR={0}>{1}", "#FF0000", m_Level),
-							"  ",
-							String.Format("<BASEFONT COLOR={0}>{1}", "#000FFF", (int)(100 * m_Exp / m_LevelExp)),
-							" %  ",
-							String.Format("<BASEFONT COLOR={0}>{1}", "#0FFF00", m_ExpTitle)));
-					InvalidateMyRunUO();
-				}
-				// Xml Spawner 3.26c QueensLoyaltyTitle
-				#endregion
 			}
 
 			if (AccessLevel > AccessLevel.Player)

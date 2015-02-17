@@ -10,32 +10,33 @@ namespace Server.Mobiles
         public FireAnt()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            this.Name = "a fire ant";
-            this.Body = 738; 
+            Name = "a fire ant";
+            Body = 738; 
 
-            this.SetStr(201, 246);
-            this.SetDex(103, 115);
-            this.SetInt(16, 29);
+            SetStr(201, 246);
+            SetDex(103, 115);
+            SetInt(16, 29);
 
-            this.SetHits(254, 289);
-			this.SetMana(16, 29);
-			this.SetStam(103, 121);
+            SetHits(254, 289);
+			SetMana(16, 29);
+			SetStam(103, 121);
 
-            this.SetDamage(15, 18);
+            SetDamage(15, 18);
 
-            this.SetDamageType(ResistanceType.Physical, 40);
-            this.SetDamageType(ResistanceType.Fire, 60);
+            SetDamageType(ResistanceType.Physical, 40);
+            SetDamageType(ResistanceType.Fire, 60);
 
-            this.SetResistance(ResistanceType.Physical, 45, 55);
-            this.SetResistance(ResistanceType.Fire, 95, 97);
-            this.SetResistance(ResistanceType.Cold, 36, 42);
-            this.SetResistance(ResistanceType.Poison, 37, 45);
-            this.SetResistance(ResistanceType.Energy, 36, 44);
+            SetResistance(ResistanceType.Physical, 45, 55);
+            SetResistance(ResistanceType.Fire, 95, 97);
+            SetResistance(ResistanceType.Cold, 36, 42);
+            SetResistance(ResistanceType.Poison, 37, 45);
+            SetResistance(ResistanceType.Energy, 36, 44);
 
-            this.SetSkill(SkillName.Anatomy, 0);
-            this.SetSkill(SkillName.MagicResist, 46.7, 58.2);
-            this.SetSkill(SkillName.Tactics, 71.9, 82.8);
-            this.SetSkill(SkillName.Wrestling, 71.5, 83.4);
+            SetSkill(SkillName.Anatomy, 0);
+            SetSkill(SkillName.MagicResist, 46.7, 58.2);
+            SetSkill(SkillName.Tactics, 71.9, 82.8);
+            SetSkill(SkillName.Wrestling, 71.5, 83.4);
+            QLPoints = 2;
         }
 
         public FireAnt(Serial serial)
@@ -45,7 +46,7 @@ namespace Server.Mobiles
 
         public override void GenerateLoot()
         {
-            this.AddLoot(LootPack.Average, 2);
+            AddLoot(LootPack.Average, 2);
         }
         public override void OnDeath(Container c)
         {

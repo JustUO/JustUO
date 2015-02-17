@@ -10,77 +10,79 @@ namespace Server.Mobiles
         public GrayGoblinKeeper()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            this.Name = "a Gray goblin keeper";
-            this.Body = 334;
-            this.BaseSoundID = 0x45A;
+            Name = "a Gray goblin keeper";
+            Body = 334;
+            BaseSoundID = 0x45A;
 
-            this.SetStr(326);
-            this.SetDex(79);
-            this.SetInt(114);
+            SetStr(326);
+            SetDex(79);
+            SetInt(114);
 
-            this.SetHits(186);
-            this.SetStam(79);
-            this.SetMana(114);
+            SetHits(186);
+            SetStam(79);
+            SetMana(114);
 
-            this.SetDamage(5, 7);
+            SetDamage(5, 7);
 
-            this.SetDamageType(ResistanceType.Physical, 100);
+            SetDamageType(ResistanceType.Physical, 100);
 
-            this.SetResistance(ResistanceType.Physical, 45);
-            this.SetResistance(ResistanceType.Fire, 33);
-            this.SetResistance(ResistanceType.Cold, 25);
-            this.SetResistance(ResistanceType.Poison, 20);
-            this.SetResistance(ResistanceType.Energy, 10);
+            SetResistance(ResistanceType.Physical, 45);
+            SetResistance(ResistanceType.Fire, 33);
+            SetResistance(ResistanceType.Cold, 25);
+            SetResistance(ResistanceType.Poison, 20);
+            SetResistance(ResistanceType.Energy, 10);
 
-            this.SetSkill(SkillName.MagicResist, 129.9);
-            this.SetSkill(SkillName.Tactics, 86.7);
-            this.SetSkill(SkillName.Anatomy, 86.6);
-            this.SetSkill(SkillName.Wrestling, 103.6);
+            SetSkill(SkillName.MagicResist, 129.9);
+            SetSkill(SkillName.Tactics, 86.7);
+            SetSkill(SkillName.Anatomy, 86.6);
+            SetSkill(SkillName.Wrestling, 103.6);
 
-            this.Fame = 1500;
-            this.Karma = -1500;
+            Fame = 1500;
+            Karma = -1500;
 
-            this.VirtualArmor = 28;
+            QLPoints = 8;
+
+            VirtualArmor = 28;
 
             switch ( Utility.Random(20) )
             {
                 case 0:
-                    this.PackItem(new Scimitar());
+                    PackItem(new Scimitar());
                     break;
                 case 1:
-                    this.PackItem(new Katana());
+                    PackItem(new Katana());
                     break;
                 case 2:
-                    this.PackItem(new WarMace());
+                    PackItem(new WarMace());
                     break;
                 case 3:
-                    this.PackItem(new WarHammer());
+                    PackItem(new WarHammer());
                     break;
                 case 4:
-                    this.PackItem(new Kryss());
+                    PackItem(new Kryss());
                     break;
                 case 5:
-                    this.PackItem(new Pitchfork());
+                    PackItem(new Pitchfork());
                     break;
             }
 
-            this.PackItem(new ThighBoots());
+            PackItem(new ThighBoots());
 
             switch ( Utility.Random(3) )
             {
                 case 0:
-                    this.PackItem(new Ribs());
+                    PackItem(new Ribs());
                     break;
                 case 1:
-                    this.PackItem(new Shaft());
+                    PackItem(new Shaft());
                     break;
                 case 2:
-                    this.PackItem(new Candle());
+                    PackItem(new Candle());
                     break;
             }
 
             if (0.2 > Utility.RandomDouble())
-                this.PackItem(new BolaBall());
+                PackItem(new BolaBall());
         }
 
         public GrayGoblinKeeper(Serial serial)
@@ -118,7 +120,7 @@ namespace Server.Mobiles
         }
         public override void GenerateLoot()
         {
-            this.AddLoot(LootPack.Meager);
+            AddLoot(LootPack.Meager);
         }
 
         public override void Serialize(GenericWriter writer)
