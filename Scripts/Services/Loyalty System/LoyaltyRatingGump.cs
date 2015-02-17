@@ -20,6 +20,8 @@ namespace Server.Services.Loyalty_System
             AddLabel(40, 230, 0, "Queen's Loyalty");
             AddLabel(60, 250, 33, GetQueenTitle(from));
             AddLabel(180, 250, 33, String.Format("[ {0} ]", from.Exp));
+            AddLabel(40, 300, 0, String.Format("Fame: {0}", from.Fame));
+            AddLabel(40, 320, 0, String.Format("Karma: {0}", from.Karma));
         }
 
         private static string GetQueenTitle(PlayerMobile from)
