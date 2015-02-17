@@ -1,23 +1,30 @@
 using System;
+
+using Server.Engines.Quests;
 using Server.Items;
 
-namespace Server.Engines.Quests
+namespace Server.Quests
 {
-    public class ABrokenVaseQuest : BaseQuest
+    public sealed class ABrokenVaseQuest : BaseQuest
     { 
         public ABrokenVaseQuest()
-            : base()
 
         {
-            this.AddObjective(new ObtainObjective(typeof(AncientPotteryFragments), "Ancient Pottery Fragments", 10, 0x223B));
+            AddObjective(new ObtainObjective(typeof(AncientPotteryFragments), "Ancient Pottery Fragments", 10, 0x223B));
 			
-            this.AddReward(new BaseReward(typeof(MeagerMuseumBag), 1112993));
+            AddReward(new BaseReward(typeof(MeagerMuseumBag), 1112993));
         }
 
-        // public override void GiveRewards()
-        // {
-        // if ( Owner is PlayerMobile ) 
-        // ((PlayerMobile)Owner).Exp += 50;
+        public override void GiveRewards()
+        {
+            if (Owner != null)
+            {
+                Owner.Exp += 5;
+                Owner.SendMessage("You have also been awarded 5 Queens Loyalty Points!");
+            }
+
+            base.GiveRewards();
+        }
 
         /*A Broken Vase */
         public override object Title
@@ -55,10 +62,7 @@ namespace Server.Engines.Quests
                 return 1112920;
             }
         }
-        //// Owner.SendMessage("You have also been awarded 5 Queens Loyalty Points!");
 
-        // base.GiveRewards();
-        // }
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
@@ -74,14 +78,24 @@ namespace Server.Engines.Quests
         }
     }
 
-    public class PuttingThePiecesTogetherQuest : BaseQuest
+    public sealed class PuttingThePiecesTogetherQuest : BaseQuest
     { 
         public PuttingThePiecesTogetherQuest()
-            : base()
         {
-            this.AddObjective(new ObtainObjective(typeof(TatteredAncientScroll), "Tattered Ancient Scrolls", 5, 0x2F5F));
+            AddObjective(new ObtainObjective(typeof(TatteredAncientScroll), "Tattered Ancient Scrolls", 5, 0x2F5F));
 			
-            this.AddReward(new BaseReward(typeof(DustyMuseumBag), 1112994));
+            AddReward(new BaseReward(typeof(DustyMuseumBag), 1112994));
+        }
+
+        public override void GiveRewards()
+        {
+            if (Owner != null)
+            {
+                Owner.Exp += 15;
+                Owner.SendMessage("You have also been awarded 15 Queens Loyalty Points!");
+            }
+
+            base.GiveRewards();
         }
 
         /* Putting The Pieces Together */
@@ -120,13 +134,7 @@ namespace Server.Engines.Quests
                 return 1112924;
             }
         }
-        // public override void GiveRewards()
-        // {
-        // if (Owner is PlayerMobile)
-        // ((PlayerMobile)Owner).Exp += 100;
-        // Owner.SendMessage("You have also been awarded 10 Queens Loyalty Points!");
-        // base.GiveRewards();
-        // }
+
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
@@ -142,14 +150,13 @@ namespace Server.Engines.Quests
         }
     }
 
-    public class YeOldeGargishQuest : BaseQuest
+    public sealed class YeOldeGargishQuest : BaseQuest
     { 
         public YeOldeGargishQuest()
-            : base()
         {
-            this.AddObjective(new ObtainObjective(typeof(UntransTome), "Untranslated Ancient Tome", 1, 0xEFA));
+            AddObjective(new ObtainObjective(typeof(UntransTome), "Untranslated Ancient Tome", 1, 0xEFA));
 					
-            this.AddReward(new BaseReward(typeof(BulgingMuseumBag), 1112995));
+            AddReward(new BaseReward(typeof(BulgingMuseumBag), 1112995));
         }
 
         /* Ye Olde Gargish */
@@ -188,14 +195,16 @@ namespace Server.Engines.Quests
                 return 1112928;
             }
         }
-        /// public override void GiveRewards()
+        public override void GiveRewards()
+        {
+            if (Owner != null)
+            {
+                Owner.Exp += 50;
+                Owner.SendMessage("You have also been awarded 50 Queens Loyalty Points!");
+            }
 
-        // {
-        // if (Owner is PlayerMobile)
-        // ((PlayerMobile)Owner).Exp += 500;
-        // Owner.SendMessage("You have also been awarded 50 Queens Loyalty Points!");
-        // base.GiveRewards();
-        // }
+            base.GiveRewards();
+        }
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
@@ -217,8 +226,8 @@ namespace Server.Engines.Quests
         public Axem()
             : base("Axem", "the Curator")
         { 
-            this.SetSkill(SkillName.Meditation, 60.0, 83.0);
-            this.SetSkill(SkillName.Focus, 60.0, 83.0);
+            SetSkill(SkillName.Meditation, 60.0, 83.0);
+            SetSkill(SkillName.Focus, 60.0, 83.0);
         }
 
         public Axem(Serial serial)
@@ -230,32 +239,32 @@ namespace Server.Engines.Quests
         { 
             get
             {
-                return new Type[] 
+                return new[] 
                 {
                     typeof(ABrokenVaseQuest),
                     typeof(PuttingThePiecesTogetherQuest),
-                    typeof(YeOldeGargishQuest),
+                    typeof(YeOldeGargishQuest)
                 };
             }
         }
         public override void InitBody()
         {
-            this.InitStats(100, 100, 25);
+            InitStats(100, 100, 25);
 
-            this.Female = false;
-            this.CantWalk = true;
-            this.Body = 666;
-            this.HairItemID = 16987;
-            this.HairHue = 1801;
+            Female = false;
+            CantWalk = true;
+            Body = 666;
+            HairItemID = 16987;
+            HairHue = 1801;
         }
 
         public override void InitOutfit()
         {
-            this.AddItem(new Backpack());
+            AddItem(new Backpack());
 
-            this.AddItem(new GargishClothChest(Utility.RandomNeutralHue()));
-            this.AddItem(new GargishClothKilt(Utility.RandomNeutralHue()));
-            this.AddItem(new GargishClothLegs(Utility.RandomNeutralHue()));
+            AddItem(new GargishClothChest(Utility.RandomNeutralHue()));
+            AddItem(new GargishClothKilt(Utility.RandomNeutralHue()));
+            AddItem(new GargishClothLegs(Utility.RandomNeutralHue()));
         }
 
         public override void Serialize(GenericWriter writer)
