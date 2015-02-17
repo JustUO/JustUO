@@ -1,9 +1,7 @@
 using System;
-
-using Server.Engines.Quests;
 using Server.Items;
 
-namespace Server.Quests
+namespace Server.Engines.Quests
 {
     public sealed class ABrokenVaseQuest : BaseQuest
     { 
