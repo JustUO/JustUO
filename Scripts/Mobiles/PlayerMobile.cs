@@ -1762,7 +1762,7 @@ namespace Server.Mobiles
 					m_Quest.GetContextMenuEntries(list);
 				}
 
-			    if (Alive && IsPlayer())
+			    if (Alive && IsPlayer() && Core.SA)
 			    {
 			        PlayerMobile pm = from as PlayerMobile;
 			        if (pm != null)
