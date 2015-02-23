@@ -1,18 +1,28 @@
-using System;
+using Server.Engines.Quests;
 using Server.Items;
 
-namespace Server.Engines.Quests
+namespace Server.Quests
 {
-    public class UnusualGoods : BaseQuest
+    public sealed class UnusualGoods : BaseQuest
     {
         public UnusualGoods()
-            : base()
         {
-            this.AddObjective(new ObtainObjective(typeof(PerfectEmerald), "Perfect Emerald", 2, 0x3194));
+            AddObjective(new ObtainObjective(typeof(PerfectEmerald), "Perfect Emerald", 2, 0x3194));
 
-            this.AddObjective(new ObtainObjective(typeof(CrystallineBlackrock), "Crystalline Blackrock", 1, 0x5732));
+            AddObjective(new ObtainObjective(typeof(CrystallineBlackrock), "Crystalline Blackrock", 1, 0x5732));
 
-            this.AddReward(new BaseReward(typeof(EssenceBox), "Essence Box"));
+            AddReward(new BaseReward(typeof(EssenceBox), "Essence Box"));
+        }
+
+        public override void GiveRewards()
+        {
+            if (Owner != null)
+            {
+                Owner.Exp += 75;
+                Owner.SendMessage("You have also been awarded 75 Queens Loyalty Points!");
+            }
+
+            base.GiveRewards();
         }
 
         /*Unusual Goods*/

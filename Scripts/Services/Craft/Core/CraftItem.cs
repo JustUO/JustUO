@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Server.Commands;
 using Server.Engines.Plants;
+using Server.Engines.Quests;
 using Server.Factions;
 using Server.Items;
 using Server.Mobiles;
@@ -1478,6 +1479,16 @@ namespace Server.Engines.Craft
 						(item).Hue = PlantHueInfo.GetInfo(m_PlantHue).Hue;
 					}
 					#endregion
+
+                    CraftContext context = craftSystem.GetContext(from); 
+
+                    if (context.QuestOption == CraftQuestOption.QuestItem) 
+                    { 
+                        PlayerMobile px = from as PlayerMobile; 
+
+                        if (!QuestHelper.CheckItem(px, item)) 
+                          from.SendLocalizedMessage(1072355, null, 0x23); // That item does not match any of your quest criteria	 
+                    } 
 
 					from.AddToBackpack(item);
 

@@ -247,6 +247,8 @@ namespace Server.Mobiles
 		private string m_CorpseNameOverride;
 
 		private int m_FailedReturnHome; /* return to home failure counter */
+
+	    private int m_QLPoints;
 		#endregion
 
 		public virtual InhumanSpeech SpeechType { get { return null; } }
@@ -282,6 +284,9 @@ namespace Server.Mobiles
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool IsPrisoner { get; set; }
+
+        [CommandProperty(AccessLevel.GameMaster)]
+        public int QLPoints { get { return m_QLPoints; } set { m_QLPoints = value; } }
 
 		protected DateTime SummonEnd { get { return m_SummonEnd; } set { m_SummonEnd = value; } }
 
@@ -1845,7 +1850,7 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.Write(19); // version
+			writer.Write(20); // version
 
 			writer.Write((int)m_CurrentAI);
 			writer.Write((int)m_DefaultAI);
@@ -1975,6 +1980,9 @@ namespace Server.Mobiles
 
 			// Mondain's Legacy version 19
 			writer.Write(m_Allured);
+
+            //Version 20 Queens Loyalty
+		    writer.Write(m_QLPoints);
 		}
 
 		private static readonly double[] m_StandardActiveSpeeds = new[] {0.175, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4, 0.5, 0.6, 0.8};
@@ -2245,6 +2253,11 @@ namespace Server.Mobiles
 			{
 				m_Allured = reader.ReadBool();
 			}
+
+		    if (version >= 20)
+		    {
+		        m_QLPoints = reader.ReadInt();
+		    }
 
 			if (version <= 14 && m_Paragon && Hue == 0x31)
 			{
@@ -5219,6 +5232,13 @@ namespace Server.Mobiles
 			{
 				GiveSAArtifact(mob);
 			}
+
+		    if (mob is PlayerMobile && mob.Map == Map.TerMur && m_QLPoints > 0)
+		    {
+		        PlayerMobile pm = mob as PlayerMobile;
+                pm.Exp += m_QLPoints;
+		        pm.SendMessage("You have been awarded {0} points for your loyalty to the Queen of TerMur!", m_QLPoints);
+		    }
 
 			EventSink.InvokeOnKilledBy(new OnKilledByEventArgs(this, mob));
 		}

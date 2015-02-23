@@ -163,7 +163,7 @@ namespace Server.Engines.Harvest
 
             // One sand per harvest action
             sand.ConsumedPerHarvest = 1;
-            sand.ConsumedPerFeluccaHarvest = 1;
+            sand.ConsumedPerFeluccaHarvest = 2;
 
             // The digging effect
             sand.EffectActions = new int[] { 11 };

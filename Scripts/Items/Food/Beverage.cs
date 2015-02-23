@@ -512,7 +512,7 @@ namespace Server.Items
         {
             get
             {
-                return Content == BeverageType.Water ? 40 : 5;
+                return 5;
             }
         }
 

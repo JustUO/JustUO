@@ -134,7 +134,7 @@ namespace Server.Items
             BaseRanged bow = from.Weapon as BaseRanged;
             BaseThrown trow = from.Weapon as BaseThrown;
 
-            if (bow == null || trow == null)
+            if (bow == null && trow == null)
             {
                 this.SendLocalizedMessageTo(from, 500593); // You must practice with ranged weapons on this.
                 return;
@@ -205,7 +205,7 @@ namespace Server.Items
 
             ScoreEntry se = this.GetEntryFor(from);
 
-            if (!from.CheckSkill(bow.Skill, this.m_MinSkill, this.m_MaxSkill))
+            if (bow !=null && !from.CheckSkill(bow.Skill, this.m_MinSkill, this.m_MaxSkill))
             {
                 from.PlaySound(bow.MissSound);
 
@@ -221,7 +221,7 @@ namespace Server.Items
                 return;
             }
             
-            else if (!from.CheckSkill(trow.Skill, this.m_MinSkill, this.m_MaxSkill))
+            else if (trow !=null && !from.CheckSkill(trow.Skill, this.m_MinSkill, this.m_MaxSkill))
             {
                 from.PlaySound(trow.MissSound);
  

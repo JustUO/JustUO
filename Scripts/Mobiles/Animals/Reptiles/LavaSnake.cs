@@ -11,37 +11,38 @@ namespace Server.Mobiles
         public LavaSnake()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            this.Name = "a lava snake";
-            this.Body = 52;
-            this.Hue = Utility.RandomList(0x647, 0x650, 0x659, 0x662, 0x66B, 0x674);
-            this.BaseSoundID = 0xDB;
+            Name = "a lava snake";
+            Body = 52;
+            Hue = Utility.RandomList(0x647, 0x650, 0x659, 0x662, 0x66B, 0x674);
+            BaseSoundID = 0xDB;
 
-            this.SetStr(43, 55);
-            this.SetDex(16, 25);
-            this.SetInt(6, 10);
+            SetStr(43, 55);
+            SetDex(16, 25);
+            SetInt(6, 10);
 
-            this.SetHits(28, 32);
-            this.SetMana(0);
+            SetHits(28, 32);
+            SetMana(0);
 
-            this.SetDamage(1, 8);
+            SetDamage(1, 8);
 
-            this.SetDamageType(ResistanceType.Physical, 100);
+            SetDamageType(ResistanceType.Physical, 100);
 
-            this.SetResistance(ResistanceType.Physical, 20, 25);
-            this.SetResistance(ResistanceType.Fire, 30, 40);
-            this.SetResistance(ResistanceType.Poison, 20, 30);
-            this.SetResistance(ResistanceType.Energy, 10, 20);
+            SetResistance(ResistanceType.Physical, 20, 25);
+            SetResistance(ResistanceType.Fire, 30, 40);
+            SetResistance(ResistanceType.Poison, 20, 30);
+            SetResistance(ResistanceType.Energy, 10, 20);
 
-            this.SetSkill(SkillName.MagicResist, 15.1, 20.0);
-            this.SetSkill(SkillName.Tactics, 19.3, 34.0);
-            this.SetSkill(SkillName.Wrestling, 19.3, 34.0);
+            SetSkill(SkillName.MagicResist, 15.1, 20.0);
+            SetSkill(SkillName.Tactics, 19.3, 34.0);
+            SetSkill(SkillName.Wrestling, 19.3, 34.0);
 
-            this.Fame = 600;
-            this.Karma = -600;
+            Fame = 600;
+            Karma = -600;
 
-            this.VirtualArmor = 24;
+            VirtualArmor = 24;
+            QLPoints = 2;
 
-            this.PackItem(new SulfurousAsh());
+            PackItem(new SulfurousAsh());
         }
 
         public LavaSnake(Serial serial)
@@ -72,7 +73,7 @@ namespace Server.Mobiles
         }
         public override void GenerateLoot()
         {
-            this.AddLoot(LootPack.Poor);
+            AddLoot(LootPack.Poor);
         }
         public override void OnDeath(Container c)
         {

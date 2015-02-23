@@ -11,36 +11,38 @@ namespace Server.Mobiles
         public Daemon()
             : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            this.Name = NameList.RandomName("daemon");
-            this.Body = 9;
-            this.BaseSoundID = 357;
+            Name = NameList.RandomName("daemon");
+            Body = 9;
+            BaseSoundID = 357;
 
-            this.SetStr(476, 505);
-            this.SetDex(76, 95);
-            this.SetInt(301, 325);
+            SetStr(476, 505);
+            SetDex(76, 95);
+            SetInt(301, 325);
 
-            this.SetHits(286, 303);
+            SetHits(286, 303);
 
-            this.SetDamage(7, 14);
+            SetDamage(7, 14);
 
-            this.SetDamageType(ResistanceType.Physical, 100);
+            SetDamageType(ResistanceType.Physical, 100);
 
-            this.SetResistance(ResistanceType.Physical, 45, 60);
-            this.SetResistance(ResistanceType.Fire, 50, 60);
-            this.SetResistance(ResistanceType.Cold, 30, 40);
-            this.SetResistance(ResistanceType.Poison, 20, 30);
-            this.SetResistance(ResistanceType.Energy, 30, 40);
+            SetResistance(ResistanceType.Physical, 45, 60);
+            SetResistance(ResistanceType.Fire, 50, 60);
+            SetResistance(ResistanceType.Cold, 30, 40);
+            SetResistance(ResistanceType.Poison, 20, 30);
+            SetResistance(ResistanceType.Energy, 30, 40);
 
-            this.SetSkill(SkillName.EvalInt, 70.1, 80.0);
-            this.SetSkill(SkillName.Magery, 70.1, 80.0);
-            this.SetSkill(SkillName.MagicResist, 85.1, 95.0);
-            this.SetSkill(SkillName.Tactics, 70.1, 80.0);
-            this.SetSkill(SkillName.Wrestling, 60.1, 80.0);
+            SetSkill(SkillName.EvalInt, 70.1, 80.0);
+            SetSkill(SkillName.Magery, 70.1, 80.0);
+            SetSkill(SkillName.MagicResist, 85.1, 95.0);
+            SetSkill(SkillName.Tactics, 70.1, 80.0);
+            SetSkill(SkillName.Wrestling, 60.1, 80.0);
 
-            this.Fame = 15000;
-            this.Karma = -15000;
+            Fame = 15000;
+            Karma = -15000;
 
-            this.VirtualArmor = 58;
+            QLPoints = 5;
+
+            VirtualArmor = 58;
 
 			switch (Utility.Random(20))
             {
@@ -52,7 +54,7 @@ namespace Server.Mobiles
 			}
 
 
-            this.ControlSlots = Core.SE ? 4 : 5;
+            ControlSlots = Core.SE ? 4 : 5;
         }
 
         public Daemon(Serial serial)
@@ -125,9 +127,9 @@ namespace Server.Mobiles
         }
         public override void GenerateLoot()
         {
-            this.AddLoot(LootPack.Rich);
-            this.AddLoot(LootPack.Average, 2);
-            this.AddLoot(LootPack.MedScrolls, 2);
+            AddLoot(LootPack.Rich);
+            AddLoot(LootPack.Average, 2);
+            AddLoot(LootPack.MedScrolls, 2);
         }
         public override void OnDeath(Container c)
         {

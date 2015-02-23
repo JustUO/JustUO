@@ -2575,14 +2575,14 @@ namespace Server.Items
 
                     from.CheckSkill(SkillName.ArmsLore, 0, 100);
                 }
+
+                if (Core.SE && (this is HeavyPlateJingasa || this is LightPlateJingasa || this is PlateDo || this is PlateHaidate || this is PlateHiroSode || this is StuddedHiroSode || this is PlateMempo || this is PlateSuneate || this is StuddedSuneate || this is SmallPlateJingasa))
+                    this.m_AosArmorAttributes.MageArmor = 1;
             }
 
             #region Mondain's Legacy
             if (craftItem != null && !craftItem.ForceNonExceptional)
             {
-                if (Core.AOS && tool is BaseRunicTool)
-                    ((BaseRunicTool)tool).ApplyAttributesTo(this);
-
                 if (Core.ML)
                 {
                     CraftResourceInfo resInfo = CraftResources.GetInfo(this.m_Resource);

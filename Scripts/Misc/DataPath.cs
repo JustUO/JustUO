@@ -41,8 +41,11 @@ namespace Server.Misc
             string pathSA = GetPath(@"Electronic Arts\EA Games\Ultima Online Stygian Abyss Classic", "InstallDir");
             string pathHS = GetPath(@"Electronic Arts\EA Games\Ultima Online Classic", "InstallDir");
 
-            if (CustomPath != null) 
-                Core.DataDirectories.Add(CustomPath); 
+            if (CustomPath != null)
+            {
+                Core.DataDirectories.Clear();
+                Core.DataDirectories.Add(CustomPath);
+            }
 
             if (pathUO != null) 
                 Core.DataDirectories.Add(pathUO); 

@@ -281,6 +281,14 @@ namespace Server.Mobiles
                 Polymorph(this);
         }
 
+        #region Spell Damage Abilties
+        public override void OnDamagedBySpell(Mobile from)
+        {
+            base.OnDamagedBySpell(from);
+
+            DoSpecialAbility(from);
+        } 
+        #endregion
         public override void OnGotMeleeAttack(Mobile attacker)
         {
             base.OnGotMeleeAttack(attacker);

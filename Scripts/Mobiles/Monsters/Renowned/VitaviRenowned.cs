@@ -41,6 +41,8 @@ namespace Server.Mobiles
             Fame = 7500;
             Karma = -7500;
 
+            QLPoints = 50;
+
             VirtualArmor = 44;
 
             PackItem(new EssenceBalance());

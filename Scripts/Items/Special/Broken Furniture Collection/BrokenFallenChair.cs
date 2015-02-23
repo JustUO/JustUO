@@ -1,12 +1,10 @@
-using System;
-
 namespace Server.Items
 {
-    [Flipable(0xC17, 0xC17)]
+    [Flipable(0xC19, 0xC1A)]
     public class BrokenFallenChairComponent : AddonComponent
     {
         public BrokenFallenChairComponent()
-            : base(0xC17)
+            : base(0xC19)
         {
         }
 
@@ -41,9 +39,8 @@ namespace Server.Items
     {
         [Constructable]
         public BrokenFallenChairAddon()
-            : base()
         {
-            this.AddComponent(new BrokenFallenChairComponent(), 0, 0, 0);
+            AddComponent(new BrokenFallenChairComponent(), 0, 0, 0);
         }
 
         public BrokenFallenChairAddon(Serial serial)
@@ -77,9 +74,8 @@ namespace Server.Items
     {
         [Constructable]
         public BrokenFallenChairDeed()
-            : base()
         {
-            this.LootType = LootType.Blessed;
+            LootType = LootType.Blessed;
         }
 
         public BrokenFallenChairDeed(Serial serial)

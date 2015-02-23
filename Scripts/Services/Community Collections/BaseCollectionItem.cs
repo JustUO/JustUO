@@ -186,6 +186,7 @@ namespace Server.Items
                 if (from.InRange(this.Location, 2) && from is PlayerMobile && this.CanDonate((PlayerMobile)from))
                 {
                     from.CloseGump(typeof(ComunityCollectionGump));
+                    from.CloseGump(typeof(ConfirmRewardGump));
                     from.SendGump(new ComunityCollectionGump((PlayerMobile)from, this, this.Location));
                 }
                 else
