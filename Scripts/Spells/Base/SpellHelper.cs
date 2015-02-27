@@ -1330,14 +1330,19 @@ namespace Server.Spells
                 caster.SendLocalizedMessage(1061632); // You can't do that while carrying the sigil.
                 return false;
             }
-            else if (!caster.CanBeginAction(typeof(PolymorphSpell)))
+            if (!caster.CanBeginAction(typeof(PolymorphSpell)))
             {
                 caster.SendLocalizedMessage(1061628); // You can't do that while polymorphed.
                 return false;
             }
-            else if (AnimalForm.UnderTransformation(caster))
+            if (AnimalForm.UnderTransformation(caster))
             {
                 caster.SendLocalizedMessage(1061091); // You cannot cast that spell in this form.
+                return false;
+            }
+            if (caster.Flying)
+            {
+                caster.SendLocalizedMessage(1113415); // You cannot use this ability while flying.
                 return false;
             }
 
