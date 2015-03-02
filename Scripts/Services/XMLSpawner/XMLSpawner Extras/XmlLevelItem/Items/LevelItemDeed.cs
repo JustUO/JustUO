@@ -39,7 +39,6 @@ namespace Server.Items
 					}
 					else
 					{
-						// mod to attach the XmlPoints attachment automatically to new chars
 						XmlAttach.AttachTo(item, new XmlLevelItem());
 
 						from.SendMessage( "You magically make the item levelable..." );

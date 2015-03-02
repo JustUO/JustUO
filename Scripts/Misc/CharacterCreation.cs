@@ -4,6 +4,7 @@ using Server.Engines.XmlSpawner2;
 using Server.Items;
 using Server.Mobiles;
 using Server.Network;
+using Server.XMLConfiguration;
 
 namespace Server.Misc
 {
@@ -749,8 +750,11 @@ namespace Server.Misc
 
             new WelcomeTimer(newChar).Start();
 
-            //XmlAttach.AttachTo(newChar, new XmlPoints());
-            //XmlAttach.AttachTo(newChar, new XmlMobFactions());
+            if (XmlConfig.XmlPointsEnabled)
+                XmlAttach.AttachTo(newChar, new XmlPoints());
+
+            if (XmlConfig.XmlMobFactionsEnabled)
+                XmlAttach.AttachTo(newChar, new XmlMobFactions());
         }
 
         private static CityInfo GetStartLocation(CharacterCreatedEventArgs args, bool isYoung)

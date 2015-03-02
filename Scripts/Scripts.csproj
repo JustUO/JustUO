@@ -658,6 +658,7 @@
     <Compile Include="Custom Systems\VitaNex\Core\VitaNex_Init.cs" />
     <Compile Include="Custom Systems\VitaNex\Core\VitaNex_Modules.cs" />
     <Compile Include="Custom Systems\VitaNex\Core\VitaNex_Services.cs" />
+    <Compile Include="Custom Systems\XMLConfiguration\XmlConfig.cs" />
     <Compile Include="Gumps\AddDoorGump.cs" />
     <Compile Include="Gumps\AddGump.cs" />
     <Compile Include="Gumps\AdminGump.cs" />

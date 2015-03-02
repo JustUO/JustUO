@@ -5,6 +5,7 @@ using Server.Engines.XmlSpawner2;
 using Server.Items;
 using Server.Mobiles;
 using Server.Targeting;
+using Server.XMLConfiguration;
 #endregion
 
 namespace Server.SkillHandlers
@@ -123,10 +124,13 @@ namespace Server.SkillHandlers
 						double diff = ((m_Instrument.GetDifficultyFor(m_Creature) + m_Instrument.GetDifficultyFor(creature)) * 0.5) - 5.0;
 						double music = from.Skills[SkillName.Musicianship].Value;
 
-						diff += (XmlMobFactions.GetScaledFaction(from, m_Creature, -25, 25, -0.001) +
-								 XmlMobFactions.GetScaledFaction(from, creature, -25, 25, -0.001)) * 0.5;
+					    if (XmlConfig.XmlMobFactionsEnabled)
+					    {
+					        diff += (XmlMobFactions.GetScaledFaction(from, m_Creature, -25, 25, -0.001) +
+					                 XmlMobFactions.GetScaledFaction(from, creature, -25, 25, -0.001)) * 0.5;
+					    }
 
-						if (music > 100.0)
+					    if (music > 100.0)
 						{
 							diff -= (music - 100.0) * 0.5;
 						}

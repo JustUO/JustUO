@@ -15,6 +15,7 @@ using Server.Regions;
 using Server.Spells;
 using Server.Spells.Spellweaving;
 using Server.Targets;
+using Server.XMLConfiguration;
 
 using MoveImpl = Server.Movement.MovementImpl;
 #endregion
@@ -2776,10 +2777,13 @@ namespace Server.Mobiles
 					}
 
 					// Xmlspawner faction check
-					//if (!Server.Engines.XmlSpawner2.XmlMobFactions.CheckAcquire(this.m_Mobile, m))
-					//continue;
+				    if (XmlConfig.XmlMobFactionsEnabled)
+				    {
+				        if (!Server.Engines.XmlSpawner2.XmlMobFactions.CheckAcquire(this.m_Mobile, m))
+				            continue;
+				    }
 
-					if (Core.AOS && m is BaseCreature && (m as BaseCreature).Summoned && !(m as BaseCreature).Controlled)
+				    if (Core.AOS && m is BaseCreature && (m as BaseCreature).Summoned && !(m as BaseCreature).Controlled)
 					{
 						continue;
 					}

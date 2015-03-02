@@ -5,6 +5,8 @@ using Server.Engines.Craft;
 using Server.Engines.XmlSpawner2;
 using Server.Factions;
 using Server.Network;
+using Server.XMLConfiguration;
+
 using AMA = Server.Items.ArmorMeditationAllowance;
 using AMT = Server.Items.ArmorMaterialType;
 
@@ -1892,7 +1894,8 @@ namespace Server.Items
             // the remainder will be 0 socket (31.4% in this case)
             // uncomment the next line to prevent artifacts from being socketed
             // if(ArtifactRarity == 0)
-            XmlSockets.ConfigureRandom(this, 2.0, 0.1, 0.5, 3.0, 15.0, 50.0);
+            if (XmlConfig.XmlSocketsEnabled) 
+                XmlSockets.ConfigureRandom(this, 2.0, 0.1, 0.5, 3.0, 15.0, 50.0);
         }
 
         public override bool AllowSecureTrade(Mobile from, Mobile to, Mobile newOwner, bool accepted)

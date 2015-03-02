@@ -36,6 +36,7 @@ using Server.Spells.Seventh;
 using Server.Spells.Sixth;
 using Server.Spells.Spellweaving;
 using Server.Targeting;
+using Server.XMLConfiguration;
 
 using RankDefinition = Server.Guilds.RankDefinition;
 #endregion
@@ -2656,7 +2657,7 @@ namespace Server.Mobiles
 
 			if (InsuranceEnabled && item.Insured)
 			{
-				if (XmlPoints.InsuranceIsFree(this, m_InsuranceAward))
+				if (XmlPoints.InsuranceIsFree(this, m_InsuranceAward) && XmlConfig.XmlPointsEnabled)
 				{
 					item.PayedInsurance = true;
 					return true;
@@ -4033,13 +4034,9 @@ namespace Server.Mobiles
 			{
 				return;
 			}
-            // Removed, this should be used only if using XMLpoints system.
-			/*
-            else if (IsPlayer())
-			{
+            
+            if (XmlConfig.XmlPointsEnabled)
 				list.Add(1070722, "Kills {0} / Deaths {1} : Rank={2}", a.Kills, a.Deaths, a.Rank);
-			}
-            */
 		}
 
 		public class PlayerPropertiesEventArgs : EventArgs

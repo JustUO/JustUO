@@ -17,6 +17,7 @@ using Server.Spells.Necromancy;
 using Server.Spells.Ninjitsu;
 using Server.Spells.Sixth;
 using Server.Spells.Spellweaving;
+using Server.XMLConfiguration;
 #endregion
 
 namespace Server.Items
@@ -4279,7 +4280,9 @@ namespace Server.Items
 			// the remainder will be 0 socket (31.4% in this case)
 			// uncomment the next line to prevent artifacts from being socketed
 			// if(ArtifactRarity == 0)
-			XmlSockets.ConfigureRandom(this, 2.0, 0.1, 0.5, 3.0, 15.0, 50.0);
+			
+            if (XmlConfig.XmlSocketsEnabled)
+                XmlSockets.ConfigureRandom(this, 2.0, 0.1, 0.5, 3.0, 15.0, 50.0);
 			// Xml Spawner XmlSockets - EOF
 		}
 

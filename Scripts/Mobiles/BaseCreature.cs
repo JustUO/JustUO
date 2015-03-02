@@ -23,6 +23,7 @@ using Server.Spells.Necromancy;
 using Server.Spells.Sixth;
 using Server.Spells.Spellweaving;
 using Server.Targeting;
+using Server.XMLConfiguration;
 #endregion
 
 namespace Server.Mobiles
@@ -1131,7 +1132,8 @@ namespace Server.Mobiles
 
 			chance -= (MaxLoyalty - m_Loyalty) * 10;
 
-			chance += (int)XmlMobFactions.GetScaledFaction(m, this, -250, 250, 0.001);
+            if (XmlConfig.XmlMobFactionsEnabled)
+                chance += (int)XmlMobFactions.GetScaledFaction(m, this, -250, 250, 0.001);
 
 			return ((double)chance / 1000);
 		}
