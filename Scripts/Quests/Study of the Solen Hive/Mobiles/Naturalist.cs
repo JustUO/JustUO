@@ -120,7 +120,20 @@ namespace Server.Engines.Quests.Naturalist
 
                             if (study.StudiedSpecialNest)
                             {
-                                reward = new Seed(type, PlantHue.FireRed, false);
+                                PlantHue specialhue;
+                                switch (Utility.Random(3))
+                                {
+                                    case 0:
+                                        specialhue = PlantHue.FireRed;
+                                        break;
+                                    case 1:
+                                        specialhue = PlantHue.Black;
+                                        break;
+                                    default:
+                                        specialhue = PlantHue.White;
+                                        break;
+                                }
+                                reward = new Seed(type, specialhue, false);
                             }
                             else
                             {
