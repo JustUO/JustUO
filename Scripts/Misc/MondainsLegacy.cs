@@ -33,7 +33,7 @@ namespace Server
             typeof(HelmOfSwiftness), typeof(PadsOfTheCuSidhe), typeof(QuiverOfRage), typeof(QuiverOfElements),
             typeof(RaedsGlory), typeof(RighteousAnger), typeof(RobeOfTheEclipse), typeof(RobeOfTheEquinox),
             typeof(SoulSeeker), typeof(TalonBite), typeof(TotemOfVoid), typeof(WildfireBow),
-            typeof(Windsong)
+            typeof(Windsong), typeof(FeyLeggingsHuman)
         };
         // true - dungeon is enabled, false - dungeon is disabled
         private static bool m_PalaceOfParoxysmus;

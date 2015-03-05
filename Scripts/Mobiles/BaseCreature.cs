@@ -5124,43 +5124,6 @@ namespace Server.Mobiles
 		public virtual bool GivesMLMinorArtifact { get { return false; } }
 		#endregion
 
-		private static readonly Type[] m_Artifacts = new[]
-		{
-			typeof(AegisOfGrace), typeof(BladeDance), typeof(Bonesmasher), typeof(FeyLeggings), typeof(FleshRipper),
-			typeof(HelmOfSwiftness), typeof(PadsOfTheCuSidhe), typeof(RaedsGlory), typeof(RighteousAnger),
-			typeof(RobeOfTheEclipse), typeof(RobeOfTheEquinox), typeof(SoulSeeker), typeof(TalonBite), typeof(BloodwoodSpirit),
-			typeof(TotemOfVoid), typeof(QuiverOfRage), typeof(QuiverOfElements), typeof(BrightsightLenses), typeof(Boomstick),
-			typeof(WildfireBow), typeof(Windsong), typeof(FeyLeggingsHuman)
-		};
-
-		public static void GiveMinorArtifact(Mobile m)
-		{
-			Item item = Activator.CreateInstance(m_Artifacts[Utility.Random(m_Artifacts.Length)]) as Item;
-
-			if (item == null)
-			{
-				return;
-			}
-
-			if (m.AddToBackpack(item))
-			{
-				m.SendLocalizedMessage(1062317);
-				// For your valor in combating the fallen beast, a special artifact has been bestowed on you.
-				m.SendLocalizedMessage(1072223); // An item has been placed in your backpack.
-			}
-			else if (m.BankBox != null && m.BankBox.TryDropItem(m, item, false))
-			{
-				m.SendLocalizedMessage(1062317);
-				// For your valor in combating the fallen beast, a special artifact has been bestowed on you.
-				m.SendLocalizedMessage(1072224); // An item has been placed in your bank box.
-			}
-			else
-			{
-				item.MoveToWorld(m.Location, m.Map);
-				m.SendLocalizedMessage(1072523); // You find an artifact, but your backpack and bank are too full to hold it.
-			}
-		}
-
 		public virtual bool GivesSAArtifact { get { return false; } }
 
 		private static readonly Type[] m_SAArtifacts = new[]
