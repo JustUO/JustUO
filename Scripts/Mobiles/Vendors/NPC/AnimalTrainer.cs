@@ -172,6 +172,11 @@ namespace Server.Mobiles
             if (vetern >= 100.0)
                 max += (int)((vetern - 90.0) / 10);
 
+            if (Core.SA)
+            {
+                max += 2;
+            }
+
             return max;
         }
 
@@ -462,6 +467,11 @@ namespace Server.Mobiles
                     this.Claim(e.Mobile, e.Speech.Substring(index).Trim());
                 else
                     this.Claim(e.Mobile);
+            }
+            else if (!e.Handled && e.Speech.Contains("stablecount") == true)
+            {
+                e.Handled = true;
+                e.Mobile.SendMessage("Your current stable count is: {0} / {1}", e.Mobile.Stabled.Count, GetMaxStabled(e.Mobile));
             }
             else
             {
