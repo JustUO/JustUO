@@ -1801,6 +1801,7 @@
     <Compile Include="Items\Minor Artifacts\ML\Boomstick.cs" />
     <Compile Include="Items\Minor Artifacts\ML\BrightsightLenses.cs" />
     <Compile Include="Items\Minor Artifacts\ML\FeyLeggings.cs" />
+    <Compile Include="Items\Minor Artifacts\ML\FeyLeggingsHuman.cs" />
     <Compile Include="Items\Minor Artifacts\ML\FleshRipper.cs" />
     <Compile Include="Items\Minor Artifacts\ML\HelmOfSwiftness.cs" />
     <Compile Include="Items\Minor Artifacts\ML\MelisandesCorrodedHatchet.cs" />
