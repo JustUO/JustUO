@@ -73,9 +73,11 @@ namespace Server.Spells.Spellweaving
                 this.Caster.PlaySound(0x5C6);
 
                 int range = 5 + this.FocusLevel;
-                int damage = 25 + this.FocusLevel;
+
 
                 double skill = this.Caster.Skills[SkillName.Spellweaving].Value;
+
+                double damage = 10 + this.FocusLevel + (((skill / 24) > 1) ? (skill / 240) : 1);
 
                 TimeSpan duration = TimeSpan.FromSeconds((int)(skill / 24) + this.FocusLevel);
 
