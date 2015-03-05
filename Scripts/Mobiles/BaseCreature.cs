@@ -5130,7 +5130,7 @@ namespace Server.Mobiles
 			typeof(HelmOfSwiftness), typeof(PadsOfTheCuSidhe), typeof(RaedsGlory), typeof(RighteousAnger),
 			typeof(RobeOfTheEclipse), typeof(RobeOfTheEquinox), typeof(SoulSeeker), typeof(TalonBite), typeof(BloodwoodSpirit),
 			typeof(TotemOfVoid), typeof(QuiverOfRage), typeof(QuiverOfElements), typeof(BrightsightLenses), typeof(Boomstick),
-			typeof(WildfireBow), typeof(Windsong)
+			typeof(WildfireBow), typeof(Windsong), typeof(FeyLeggingsHuman)
 		};
 
 		public static void GiveMinorArtifact(Mobile m)
