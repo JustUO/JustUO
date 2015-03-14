@@ -99,7 +99,7 @@ namespace Server
 			{
 				long start = bin.Position;
 
-				idx.Write(m.m_TypeRef);
+				idx.Write(m._TypeRef);
 				idx.Write(m.Serial);
 				idx.Write(start);
 

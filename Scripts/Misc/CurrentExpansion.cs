@@ -30,7 +30,7 @@ namespace Server
 				}
 
 				Mobile.ActionDelay = 1000;
-				Mobile.AOSStatusHandler = AOS.GetStatus;
+				Mobile.AosStatusHandler = AOS.GetStatus;
 			}
 		}
 	}

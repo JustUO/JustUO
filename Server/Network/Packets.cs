@@ -3493,7 +3493,7 @@ m_Stream.Write( (int) renderMode );
 			{
 				for (int i = 0; i < 15; ++i)
 				{
-					m_Stream.Write((short)m.GetAOSStatus(i));
+					m_Stream.Write((short)m.GetAosStatus(i));
 				}
 			}
 		}
@@ -3607,7 +3607,7 @@ m_Stream.Write( (int) renderMode );
 				{
 					for (int i = 0; i < 15; ++i)
 					{
-						m_Stream.Write((short)beheld.GetAOSStatus(i));
+						m_Stream.Write((short)beheld.GetAosStatus(i));
 					}
 				}
 			}
@@ -4722,7 +4722,8 @@ m_Stream.Write( (int) renderMode );
 		}
 	}
 
-	public enum AffixType : byte
+    [Flags]
+    public enum AffixType : byte
 	{
 		Append = 0x00,
 		Prepend = 0x01,
