@@ -33,6 +33,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -74,6 +75,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -115,6 +117,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -156,6 +159,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -197,6 +201,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -238,6 +243,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -279,6 +285,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -320,6 +327,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -361,6 +369,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -402,6 +411,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -443,6 +453,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -484,6 +495,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -525,6 +537,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -566,6 +579,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -607,6 +621,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -648,6 +663,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -689,6 +705,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -730,6 +747,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -771,6 +789,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -812,6 +831,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -853,6 +873,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -894,6 +915,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -935,6 +957,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -976,6 +999,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -1017,6 +1041,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -1058,6 +1083,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -1099,6 +1125,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -1140,6 +1167,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -1181,6 +1209,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -1222,6 +1251,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -1263,6 +1293,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -1304,6 +1335,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -1345,6 +1377,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -1386,6 +1419,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -1427,6 +1461,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -1468,6 +1503,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -1509,6 +1545,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -1550,6 +1587,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -1591,6 +1629,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -1632,6 +1671,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -1673,6 +1713,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -1714,6 +1755,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -1755,6 +1797,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -1796,6 +1839,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -1837,6 +1881,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -1878,6 +1923,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -1919,6 +1965,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -1960,6 +2007,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -2001,6 +2049,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -2042,6 +2091,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -2083,6 +2133,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -2124,6 +2175,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -2165,6 +2217,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -2206,6 +2259,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -2247,6 +2301,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -2288,6 +2343,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -2329,6 +2385,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -2370,6 +2427,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -2411,6 +2469,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -2452,6 +2511,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -2493,6 +2553,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -2534,6 +2595,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -2575,6 +2637,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -2616,6 +2679,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -2657,6 +2721,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -2698,6 +2763,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -2739,6 +2805,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -2780,6 +2847,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -2821,6 +2889,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -2862,6 +2931,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -2903,6 +2973,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -2944,6 +3015,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -2985,6 +3057,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -3026,6 +3099,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -3067,6 +3141,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -3108,6 +3183,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -3149,6 +3225,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -3190,6 +3267,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -3231,6 +3309,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -3272,6 +3351,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -3313,6 +3393,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -3354,6 +3435,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -3395,6 +3477,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -3436,6 +3519,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -3477,6 +3561,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -3518,6 +3603,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -3559,6 +3645,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -3600,6 +3687,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -3641,6 +3729,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -3682,6 +3771,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -3723,6 +3813,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -3764,6 +3855,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -3805,6 +3897,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -3846,6 +3939,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -3887,6 +3981,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -3928,6 +4023,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -3969,6 +4065,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -4010,6 +4107,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -4051,6 +4149,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -4092,6 +4191,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -4133,6 +4233,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -4174,6 +4275,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -4215,6 +4317,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -4256,6 +4359,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -4297,6 +4401,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -4338,6 +4443,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -4379,6 +4485,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -4420,6 +4527,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -4461,6 +4569,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -4502,6 +4611,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -4543,6 +4653,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -4584,6 +4695,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -4625,6 +4737,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -4666,6 +4779,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -4707,6 +4821,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -4748,6 +4863,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -4789,6 +4905,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -4830,6 +4947,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -4871,6 +4989,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -4912,6 +5031,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -4953,6 +5073,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -4994,6 +5115,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -5035,6 +5157,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -5076,6 +5199,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -5117,6 +5241,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -5158,6 +5283,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -5199,6 +5325,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -5240,6 +5367,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -5281,6 +5409,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -5322,6 +5451,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -5363,6 +5493,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -5404,6 +5535,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -5445,6 +5577,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -5486,6 +5619,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -5527,6 +5661,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -5568,6 +5703,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -5609,6 +5745,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -5650,6 +5787,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -5691,6 +5829,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -5732,6 +5871,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -5773,6 +5913,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -5814,6 +5955,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -5855,6 +5997,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -5896,6 +6039,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -5937,6 +6081,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -5978,6 +6123,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -6019,6 +6165,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -6060,6 +6207,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -6101,6 +6249,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -6142,6 +6291,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -6183,6 +6333,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -6224,6 +6375,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -6265,6 +6417,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -6306,6 +6459,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -6347,6 +6501,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -6388,6 +6543,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -6429,6 +6585,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -6470,6 +6627,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -6511,6 +6669,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -6552,6 +6711,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -6593,6 +6753,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -6634,6 +6795,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -6675,6 +6837,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -6716,6 +6879,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -6757,6 +6921,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -6798,6 +6963,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -6839,6 +7005,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -6880,6 +7047,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -6921,6 +7089,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -6962,6 +7131,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -7003,6 +7173,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -7044,6 +7215,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -7085,6 +7257,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -7126,6 +7299,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -7167,6 +7341,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -7208,6 +7383,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -7249,6 +7425,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -7290,6 +7467,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -7331,6 +7509,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -7372,6 +7551,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -7413,6 +7593,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -7454,6 +7635,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -7495,6 +7677,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -7536,6 +7719,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -7577,6 +7761,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -7618,6 +7803,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -7659,6 +7845,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -7700,6 +7887,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -7741,6 +7929,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -7782,6 +7971,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -7823,6 +8013,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -7864,6 +8055,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -7905,6 +8097,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -7946,6 +8139,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -7987,6 +8181,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -8028,6 +8223,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -8069,6 +8265,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -8110,6 +8307,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -8151,6 +8349,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -8192,6 +8391,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -8233,6 +8433,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -8274,6 +8475,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -8315,6 +8517,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -8356,6 +8559,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -8397,6 +8601,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -8438,6 +8643,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -8479,6 +8685,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -8520,6 +8727,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -8561,6 +8769,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -8602,6 +8811,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -8643,6 +8853,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -8684,6 +8895,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -8725,6 +8937,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -8766,6 +8979,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -8807,6 +9021,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -8848,6 +9063,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -8889,6 +9105,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -8930,6 +9147,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -8971,6 +9189,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -9012,6 +9231,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -9053,6 +9273,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -9094,6 +9315,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -9135,6 +9357,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -9176,6 +9399,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -9217,6 +9441,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -9258,6 +9483,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -9299,6 +9525,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -9340,6 +9567,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -9381,6 +9609,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -9422,6 +9651,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -9463,6 +9693,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -9504,6 +9735,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -9545,6 +9777,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -9586,6 +9819,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -9627,6 +9861,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -9668,6 +9903,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -9709,6 +9945,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -9750,6 +9987,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -9791,6 +10029,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -9832,6 +10071,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -9873,6 +10113,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -9914,6 +10155,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -9955,6 +10197,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -9996,6 +10239,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -10037,6 +10281,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -10078,6 +10323,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -10119,6 +10365,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -10160,6 +10407,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -10201,6 +10449,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -10242,6 +10491,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -10283,6 +10533,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -10324,6 +10575,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -10365,6 +10617,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -10406,6 +10659,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -10447,6 +10701,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -10488,6 +10743,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -10529,6 +10785,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -10570,6 +10827,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -10611,6 +10869,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -10652,6 +10911,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -10693,6 +10953,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -10734,6 +10995,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -10775,6 +11037,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -10816,6 +11079,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -10857,6 +11121,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -10898,6 +11163,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -10939,6 +11205,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -10980,6 +11247,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -11021,6 +11289,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -11062,6 +11331,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -11103,6 +11373,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -11144,6 +11415,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -11185,6 +11457,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -11226,6 +11499,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -11267,6 +11541,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -11308,6 +11583,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -11349,6 +11625,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -11390,6 +11667,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -11431,6 +11709,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -11472,6 +11751,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -11513,6 +11793,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -11554,6 +11835,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -11595,6 +11877,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -11636,6 +11919,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -11677,6 +11961,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -11718,6 +12003,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -11759,6 +12045,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -11800,6 +12087,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -11841,6 +12129,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -11882,6 +12171,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -11923,6 +12213,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -11964,6 +12255,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -12005,6 +12297,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -12046,6 +12339,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -12087,6 +12381,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -12128,6 +12423,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -12169,6 +12465,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -12210,6 +12507,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -12251,6 +12549,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -12292,6 +12591,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -12333,6 +12633,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -12374,6 +12675,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -12415,6 +12717,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -12456,6 +12759,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -12497,6 +12801,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -12538,6 +12843,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -12579,6 +12885,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -12620,6 +12927,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -12661,6 +12969,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -12702,6 +13011,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -12710,7 +13020,7 @@
     <Objects2>wanderinghealer:MX=2:SB=0:RT=0:TO=0:KL=0:RK=0:CA=1:DN=-1:DX=-1:SP=1:PR=-1</Objects2>
   </Points>
   <Points>
-    <Name>Spawner</Name>
+    <Name>Ansella Quest</Name>
     <UniqueId>58003d26-4341-4e5f-99bc-acb01610487b</UniqueId>
     <Map>Tokuno</Map>
     <X>761</X>
@@ -12742,7 +13052,8 @@
     <AllowGhostTriggering>False</AllowGhostTriggering>
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
-    <SmartSpawning>True</SmartSpawning>
+    <SmartSpawning>False</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -12784,6 +13095,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -12825,6 +13137,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -12866,6 +13179,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -12907,6 +13221,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -12948,6 +13263,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -12989,6 +13305,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -13030,6 +13347,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -13071,6 +13389,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -13112,6 +13431,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -13153,6 +13473,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -13194,6 +13515,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -13235,6 +13557,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -13276,6 +13599,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -13317,6 +13641,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -13358,6 +13683,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -13399,6 +13725,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -13440,6 +13767,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -13481,6 +13809,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -13522,6 +13851,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -13563,6 +13893,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -13604,6 +13935,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -13645,6 +13977,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -13686,6 +14019,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -13727,6 +14061,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -13768,6 +14103,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -13809,6 +14145,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -13850,6 +14187,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -13891,6 +14229,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -13932,6 +14271,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -13973,6 +14313,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -14014,6 +14355,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -14055,6 +14397,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -14096,6 +14439,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -14137,6 +14481,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -14178,6 +14523,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -14219,6 +14565,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -14260,6 +14607,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -14301,6 +14649,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -14342,6 +14691,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -14383,6 +14733,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -14424,6 +14775,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -14465,6 +14817,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -14506,6 +14859,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -14547,6 +14901,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -14588,6 +14943,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -14629,6 +14985,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -14670,6 +15027,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -14711,6 +15069,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -14752,6 +15111,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -14793,6 +15153,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -14834,6 +15195,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -14875,6 +15237,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -14916,6 +15279,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -14957,6 +15321,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -14998,6 +15363,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -15039,6 +15405,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -15080,6 +15447,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -15121,6 +15489,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -15162,6 +15531,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -15203,6 +15573,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -15244,6 +15615,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -15285,6 +15657,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -15326,6 +15699,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -15367,6 +15741,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -15408,6 +15783,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -15449,6 +15825,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -15490,6 +15867,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -15531,6 +15909,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -15572,6 +15951,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -15613,6 +15993,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -15654,6 +16035,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -15695,6 +16077,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -15736,6 +16119,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -15777,6 +16161,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -15818,6 +16203,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -15859,6 +16245,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -15900,6 +16287,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -15941,6 +16329,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -15982,6 +16371,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -16023,6 +16413,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -16064,6 +16455,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -16105,6 +16497,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -16146,6 +16539,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -16187,6 +16581,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -16228,6 +16623,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -16269,6 +16665,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -16310,6 +16707,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -16351,6 +16749,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -16392,6 +16791,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -16433,6 +16833,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -16474,6 +16875,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -16515,6 +16917,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -16556,6 +16959,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -16597,6 +17001,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -16638,6 +17043,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -16679,6 +17085,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -16720,6 +17127,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -16761,6 +17169,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -16802,6 +17211,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -16843,6 +17253,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -16884,6 +17295,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -16925,6 +17337,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -16966,6 +17379,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -17007,6 +17421,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -17048,6 +17463,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -17089,6 +17505,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -17130,6 +17547,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -17171,6 +17589,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -17212,6 +17631,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -17253,6 +17673,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -17294,6 +17715,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -17335,6 +17757,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -17376,6 +17799,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -17417,6 +17841,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -17458,6 +17883,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -17499,6 +17925,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -17540,6 +17967,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -17581,6 +18009,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -17622,6 +18051,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -17663,6 +18093,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -17704,6 +18135,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -17745,6 +18177,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -17786,6 +18219,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -17827,6 +18261,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -17868,6 +18303,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -17909,6 +18345,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -17950,6 +18387,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -17991,6 +18429,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -18032,6 +18471,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -18073,6 +18513,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -18114,6 +18555,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -18155,6 +18597,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -18196,6 +18639,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -18237,6 +18681,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -18278,6 +18723,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -18319,6 +18765,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -18360,6 +18807,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -18401,6 +18849,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -18442,6 +18891,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -18483,6 +18933,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -18524,6 +18975,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -18565,6 +19017,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -18606,6 +19059,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -18647,6 +19101,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -18688,6 +19143,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -18729,6 +19185,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -18770,6 +19227,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -18811,6 +19269,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -18852,6 +19311,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -18893,6 +19353,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -18934,6 +19395,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -18975,6 +19437,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -19016,6 +19479,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -19057,6 +19521,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -19098,6 +19563,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -19139,6 +19605,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -19180,6 +19647,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -19221,6 +19689,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -19262,6 +19731,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -19303,6 +19773,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -19344,6 +19815,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -19385,6 +19857,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -19426,6 +19899,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -19467,6 +19941,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>
@@ -19508,6 +19983,7 @@
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
     <SmartSpawning>True</SmartSpawning>
+    <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
     <IsGroup>False</IsGroup>

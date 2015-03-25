@@ -875,7 +875,7 @@
     <AllowGhostTriggering>False</AllowGhostTriggering>
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
-    <SmartSpawning>True</SmartSpawning>
+    <SmartSpawning>False</SmartSpawning>
     <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
@@ -917,7 +917,7 @@
     <AllowGhostTriggering>False</AllowGhostTriggering>
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
-    <SmartSpawning>True</SmartSpawning>
+    <SmartSpawning>False</SmartSpawning>
     <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
@@ -1043,7 +1043,7 @@
     <AllowGhostTriggering>False</AllowGhostTriggering>
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
-    <SmartSpawning>True</SmartSpawning>
+    <SmartSpawning>False</SmartSpawning>
     <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
@@ -3310,7 +3310,7 @@
     <TODMode>0</TODMode>
     <KillReset>1</KillReset>
     <ExternalTriggering>False</ExternalTriggering>
-    <SequentialSpawning>1</SequentialSpawning>
+    <SequentialSpawning>2</SequentialSpawning>
     <AllowGhostTriggering>False</AllowGhostTriggering>
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
@@ -3352,7 +3352,7 @@
     <TODMode>0</TODMode>
     <KillReset>1</KillReset>
     <ExternalTriggering>False</ExternalTriggering>
-    <SequentialSpawning>1</SequentialSpawning>
+    <SequentialSpawning>2</SequentialSpawning>
     <AllowGhostTriggering>False</AllowGhostTriggering>
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
@@ -3394,7 +3394,7 @@
     <TODMode>0</TODMode>
     <KillReset>1</KillReset>
     <ExternalTriggering>False</ExternalTriggering>
-    <SequentialSpawning>1</SequentialSpawning>
+    <SequentialSpawning>2</SequentialSpawning>
     <AllowGhostTriggering>False</AllowGhostTriggering>
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
@@ -3646,7 +3646,7 @@
     <TODMode>0</TODMode>
     <KillReset>1</KillReset>
     <ExternalTriggering>False</ExternalTriggering>
-    <SequentialSpawning>1</SequentialSpawning>
+    <SequentialSpawning>2</SequentialSpawning>
     <AllowGhostTriggering>False</AllowGhostTriggering>
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
@@ -5121,7 +5121,7 @@
     <AllowGhostTriggering>False</AllowGhostTriggering>
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
-    <SmartSpawning>True</SmartSpawning>
+    <SmartSpawning>False</SmartSpawning>
     <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
@@ -5247,7 +5247,7 @@
     <AllowGhostTriggering>False</AllowGhostTriggering>
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
-    <SmartSpawning>True</SmartSpawning>
+    <SmartSpawning>False</SmartSpawning>
     <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
@@ -5373,7 +5373,7 @@
     <AllowGhostTriggering>False</AllowGhostTriggering>
     <AllowNPCTriggering>True</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
-    <SmartSpawning>True</SmartSpawning>
+    <SmartSpawning>False</SmartSpawning>
     <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
@@ -5621,7 +5621,7 @@
     <TODMode>0</TODMode>
     <KillReset>1</KillReset>
     <ExternalTriggering>False</ExternalTriggering>
-    <SequentialSpawning>1</SequentialSpawning>
+    <SequentialSpawning>2</SequentialSpawning>
     <AllowGhostTriggering>False</AllowGhostTriggering>
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
@@ -5789,7 +5789,7 @@
     <TODMode>0</TODMode>
     <KillReset>1</KillReset>
     <ExternalTriggering>False</ExternalTriggering>
-    <SequentialSpawning>1</SequentialSpawning>
+    <SequentialSpawning>2</SequentialSpawning>
     <AllowGhostTriggering>False</AllowGhostTriggering>
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
@@ -6041,7 +6041,7 @@
     <TODMode>0</TODMode>
     <KillReset>1</KillReset>
     <ExternalTriggering>False</ExternalTriggering>
-    <SequentialSpawning>1</SequentialSpawning>
+    <SequentialSpawning>2</SequentialSpawning>
     <AllowGhostTriggering>False</AllowGhostTriggering>
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
@@ -6591,7 +6591,7 @@
     <AllowGhostTriggering>False</AllowGhostTriggering>
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
-    <SmartSpawning>True</SmartSpawning>
+    <SmartSpawning>False</SmartSpawning>
     <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
@@ -6927,7 +6927,7 @@
     <AllowGhostTriggering>False</AllowGhostTriggering>
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
-    <SmartSpawning>True</SmartSpawning>
+    <SmartSpawning>False</SmartSpawning>
     <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
@@ -7133,7 +7133,7 @@
     <TODMode>0</TODMode>
     <KillReset>1</KillReset>
     <ExternalTriggering>False</ExternalTriggering>
-    <SequentialSpawning>1</SequentialSpawning>
+    <SequentialSpawning>2</SequentialSpawning>
     <AllowGhostTriggering>False</AllowGhostTriggering>
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
@@ -7179,7 +7179,7 @@
     <AllowGhostTriggering>False</AllowGhostTriggering>
     <AllowNPCTriggering>False</AllowNPCTriggering>
     <SpawnOnTrigger>False</SpawnOnTrigger>
-    <SmartSpawning>True</SmartSpawning>
+    <SmartSpawning>False</SmartSpawning>
     <TickReset>False</TickReset>
     <Team>0</Team>
     <Amount>1</Amount>
