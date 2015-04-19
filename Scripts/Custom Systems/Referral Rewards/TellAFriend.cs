@@ -18,7 +18,7 @@ namespace Server
 {
     public class TellAFriend
     {
-        public const bool Enabled = false;
+        public static bool Enabled = false;
         private const string TAFShardName = "Your Shard Name";
 
         public static void Initialize()

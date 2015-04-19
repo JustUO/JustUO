@@ -43,7 +43,7 @@ namespace Server.Mobiles
 
             SolenHelper.PackPicnicBasket(this);
 
-            this.PackItem(new ZoogiFungus((0.05 > Utility.RandomDouble()) ? 16 : 4));
+            this.PackItem(new ZoogiFungus((0.05 > Utility.RandomDouble()) ? 4 : 16));
         }
 
         public BlackSolenInfiltratorQueen(Serial serial)

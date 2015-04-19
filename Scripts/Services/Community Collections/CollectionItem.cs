@@ -1,5 +1,6 @@
 using System;
 using Server.Items;
+using Server.Misc;
 using Server.Mobiles;
 
 namespace Server
@@ -26,7 +27,7 @@ namespace Server
             int mx, my;			
             mx = my = 0;
 			
-            Item.Measure(Item.GetBitmap(this.m_ItemID), out this.m_X, out this.m_Y, out mx, out my);
+            Item.Measure(OpenUOHelper.GetBitmap(this.m_ItemID), out this.m_X, out this.m_Y, out mx, out my);
 			
             this.m_Width = mx - this.m_X;
             this.m_Height = my - this.m_Y;

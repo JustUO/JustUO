@@ -1,9 +1,3 @@
-#region Header
-// **********
-// ServUO - SetListOptionGump.cs
-// **********
-#endregion
-
 #region References
 using System.Collections;
 using System.Reflection;

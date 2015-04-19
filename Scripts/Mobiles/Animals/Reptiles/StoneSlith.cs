@@ -10,35 +10,37 @@ namespace Server.Mobiles
         public StoneSlith()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            this.Name = "a stone slith";
-            this.Body = 734; 
+            Name = "a stone slith";
+            Body = 734; 
 
-            this.SetStr(250, 300);
-            this.SetDex(76, 94);
-            this.SetInt(56, 80);
+            SetStr(250, 300);
+            SetDex(76, 94);
+            SetInt(56, 80);
 
-            this.SetHits(157, 168);
-            this.SetStam(76, 94);
-            this.SetMana(45, 80);
+            SetHits(157, 168);
+            SetStam(76, 94);
+            SetMana(45, 80);
 
-            this.SetDamage(6, 24);
+            SetDamage(6, 24);
 
-            this.SetDamageType(ResistanceType.Physical, 100);
+            SetDamageType(ResistanceType.Physical, 100);
 
-            this.SetResistance(ResistanceType.Physical, 45, 55);
-            this.SetResistance(ResistanceType.Fire, 20, 30);
-            this.SetResistance(ResistanceType.Cold, 10, 20);
-            this.SetResistance(ResistanceType.Poison, 30, 40);
-            this.SetResistance(ResistanceType.Energy, 30, 40);
+            SetResistance(ResistanceType.Physical, 45, 55);
+            SetResistance(ResistanceType.Fire, 20, 30);
+            SetResistance(ResistanceType.Cold, 10, 20);
+            SetResistance(ResistanceType.Poison, 30, 40);
+            SetResistance(ResistanceType.Energy, 30, 40);
 
-            this.SetSkill(SkillName.MagicResist, 88.9, 96.7);
-            this.SetSkill(SkillName.Tactics, 84.5, 97.2);
-            this.SetSkill(SkillName.Wrestling, 76.3, 96.4);
-            this.SetSkill(SkillName.Anatomy, 0.0);
+            SetSkill(SkillName.MagicResist, 88.9, 96.7);
+            SetSkill(SkillName.Tactics, 84.5, 97.2);
+            SetSkill(SkillName.Wrestling, 76.3, 96.4);
+            SetSkill(SkillName.Anatomy, 0.0);
 
-            this.Tamable = true;
-            this.ControlSlots = 2;
-            this.MinTameSkill = 65.1;
+            Tamable = true;
+            ControlSlots = 2;
+            MinTameSkill = 65.1;
+
+            QLPoints = 20;
         }
 
         public StoneSlith(Serial serial)
@@ -80,7 +82,7 @@ namespace Server.Mobiles
             //PackItem(Gold(UtilityRandom(100, 200);
             //PackItem(SlithTongue);
             //PackItem(PotteryFragment);
-            this.AddLoot(LootPack.Average, 2);
+            AddLoot(LootPack.Average, 2);
         }
 
         public override WeaponAbility GetWeaponAbility()

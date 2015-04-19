@@ -5,6 +5,8 @@ using Server.Engines.Craft;
 using Server.Engines.XmlSpawner2;
 using Server.Factions;
 using Server.Network;
+using Server.XMLConfiguration;
+
 using AMA = Server.Items.ArmorMeditationAllowance;
 using AMT = Server.Items.ArmorMaterialType;
 
@@ -1892,7 +1894,8 @@ namespace Server.Items
             // the remainder will be 0 socket (31.4% in this case)
             // uncomment the next line to prevent artifacts from being socketed
             // if(ArtifactRarity == 0)
-            XmlSockets.ConfigureRandom(this, 2.0, 0.1, 0.5, 3.0, 15.0, 50.0);
+            if (XmlConfig.XmlSocketsEnabled) 
+                XmlSockets.ConfigureRandom(this, 2.0, 0.1, 0.5, 3.0, 15.0, 50.0);
         }
 
         public override bool AllowSecureTrade(Mobile from, Mobile to, Mobile newOwner, bool accepted)
@@ -2575,14 +2578,14 @@ namespace Server.Items
 
                     from.CheckSkill(SkillName.ArmsLore, 0, 100);
                 }
+
+                if (Core.SE && (this is HeavyPlateJingasa || this is LightPlateJingasa || this is PlateDo || this is PlateHaidate || this is PlateHiroSode || this is StuddedHiroSode || this is PlateMempo || this is PlateSuneate || this is StuddedSuneate || this is SmallPlateJingasa))
+                    this.m_AosArmorAttributes.MageArmor = 1;
             }
 
             #region Mondain's Legacy
             if (craftItem != null && !craftItem.ForceNonExceptional)
             {
-                if (Core.AOS && tool is BaseRunicTool)
-                    ((BaseRunicTool)tool).ApplyAttributesTo(this);
-
                 if (Core.ML)
                 {
                     CraftResourceInfo resInfo = CraftResources.GetInfo(this.m_Resource);

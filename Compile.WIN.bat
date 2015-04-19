@@ -32,13 +32,14 @@
 
 
 @ECHO:
-@ECHO: Ready to start JustUO
+@ECHO: The server core has been compiled. 
+@ECHO: If you have not run JustUOStartup.exe, you should run that now. 
+@ECHO: If you have already done this, you can just 
+@ECHO: run the JustUO.exe to start your server.
+@ECHO: 
+@ECHO: Thanks, and Enjoy!
 @ECHO:
 
 @PAUSE
 
-@CLS
-
-@ECHO OFF
-
-%CURPATH%JustUO.exe
+EXIT /B

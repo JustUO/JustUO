@@ -67,6 +67,14 @@ namespace Server.Items
                 return 255;
             }
         }
+        public override int LabelNumber
+        {
+            get
+            {
+                return 1113533;
+            }
+        } //Pillar of Strength
+
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);

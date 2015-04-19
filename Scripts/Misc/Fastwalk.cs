@@ -14,7 +14,7 @@ namespace Server.Misc
         {
             Mobile.FwdMaxSteps = MaxSteps;
             Mobile.FwdEnabled = Enabled;
-            Mobile.FwdUOTDOverride = UOTDOverride;
+            Mobile.FwdUotdOverride = UOTDOverride;
             Mobile.FwdAccessOverride = AccessOverride;
 
             if (Enabled)

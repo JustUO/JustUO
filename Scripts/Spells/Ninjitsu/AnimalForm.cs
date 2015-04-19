@@ -1,9 +1,3 @@
-#region Header
-// **********
-// ServUO - AnimalForm.cs
-// **********
-#endregion
-
 #region References
 using System;
 using System.Collections;
@@ -51,23 +45,28 @@ namespace Server.Spells.Ninjitsu
 
 		public override bool CheckCast()
 		{
-			if (!Caster.CanBeginAction(typeof(PolymorphSpell)))
+            if (Caster.Flying)
+            {
+                Caster.SendLocalizedMessage(1113415); // You cannot use this ability while flying.
+                return false;
+            }
+            if (!Caster.CanBeginAction(typeof(PolymorphSpell)))
 			{
 				Caster.SendLocalizedMessage(1061628); // You can't do that while polymorphed.
 				return false;
 			}
-			else if (TransformationSpellHelper.UnderTransformation(Caster))
-			{
-				Caster.SendLocalizedMessage(1063219); // You cannot mimic an animal while in that form.
-				return false;
-			}
-			else if (DisguiseTimers.IsDisguised(Caster))
-			{
-				Caster.SendLocalizedMessage(1061631); // You can't do that while disguised.
-				return false;
-			}
+		    if (TransformationSpellHelper.UnderTransformation(Caster))
+		    {
+		        Caster.SendLocalizedMessage(1063219); // You cannot mimic an animal while in that form.
+		        return false;
+		    }
+		    if (DisguiseTimers.IsDisguised(Caster))
+		    {
+		        Caster.SendLocalizedMessage(1061631); // You can't do that while disguised.
+		        return false;
+		    }
 
-			return base.CheckCast();
+		    return base.CheckCast();
 		}
 
 		public override bool CheckDisturb(DisturbType type, bool firstCircle, bool resistable)

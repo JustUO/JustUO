@@ -11,36 +11,37 @@ namespace Server.Mobiles
         public Rikktor()
             : base(AIType.AI_Melee)
         {
-            this.Body = 172;
-            this.Name = "Rikktor";
+            Body = 172;
+            Name = "Rikktor";
 
-            this.SetStr(701, 900);
-            this.SetDex(201, 350);
-            this.SetInt(51, 100);
+            SetStr(701, 900);
+            SetDex(201, 350);
+            SetInt(51, 100);
 
-            this.SetHits(3000);
-            this.SetStam(203, 650);
+            SetHits(3000);
+            SetStam(203, 650);
 
-            this.SetDamage(28, 55);
+            SetDamage(28, 55);
 
-            this.SetDamageType(ResistanceType.Physical, 25);
-            this.SetDamageType(ResistanceType.Fire, 50);
-            this.SetDamageType(ResistanceType.Energy, 25);
+            SetDamageType(ResistanceType.Physical, 25);
+            SetDamageType(ResistanceType.Fire, 50);
+            SetDamageType(ResistanceType.Energy, 25);
 
-            this.SetResistance(ResistanceType.Physical, 80, 90);
-            this.SetResistance(ResistanceType.Fire, 80, 90);
-            this.SetResistance(ResistanceType.Cold, 30, 40);
-            this.SetResistance(ResistanceType.Poison, 80, 90);
-            this.SetResistance(ResistanceType.Energy, 80, 90);
+            SetResistance(ResistanceType.Physical, 80, 90);
+            SetResistance(ResistanceType.Fire, 80, 90);
+            SetResistance(ResistanceType.Cold, 30, 40);
+            SetResistance(ResistanceType.Poison, 80, 90);
+            SetResistance(ResistanceType.Energy, 80, 90);
 
-            this.SetSkill(SkillName.Anatomy, 100.0);
-            this.SetSkill(SkillName.MagicResist, 140.2, 160.0);
-            this.SetSkill(SkillName.Tactics, 100.0);
+            SetSkill(SkillName.Anatomy, 100.0);
+            SetSkill(SkillName.MagicResist, 140.2, 160.0);
+            SetSkill(SkillName.Tactics, 100.0);
+            SetSkill(SkillName.Wrestling, 118.4, 123.9);
 
-            this.Fame = 22500;
-            this.Karma = -22500;
+            Fame = 22500;
+            Karma = -22500;
 
-            this.VirtualArmor = 130;
+            VirtualArmor = 130;
         }
 
         public Rikktor(Serial serial)
@@ -120,7 +121,7 @@ namespace Server.Mobiles
         }
         public override void GenerateLoot()
         {
-            this.AddLoot(LootPack.UltraRich, 4);
+            AddLoot(LootPack.UltraRich, 4);
         }
 
         public override void OnGaveMeleeAttack(Mobile defender)
@@ -128,30 +129,30 @@ namespace Server.Mobiles
             base.OnGaveMeleeAttack(defender);
 
             if (0.2 >= Utility.RandomDouble())
-                this.Earthquake();
+                Earthquake();
         }
 
         public void Earthquake()
         {
-            Map map = this.Map;
+            Map map = Map;
 
             if (map == null)
                 return;
 
             ArrayList targets = new ArrayList();
 
-            foreach (Mobile m in this.GetMobilesInRange(8))
+            foreach (Mobile m in GetMobilesInRange(8))
             {
-                if (m == this || !this.CanBeHarmful(m))
+                if (m == this || !CanBeHarmful(m))
                     continue;
 
-                if (m is BaseCreature && (((BaseCreature)m).Controlled || ((BaseCreature)m).Summoned || ((BaseCreature)m).Team != this.Team))
+                if (m is BaseCreature && (((BaseCreature)m).Controlled || ((BaseCreature)m).Summoned || ((BaseCreature)m).Team != Team))
                     targets.Add(m);
                 else if (m.Player)
                     targets.Add(m);
             }
 
-            this.PlaySound(0x2F3);
+            PlaySound(0x2F3);
 
             for (int i = 0; i < targets.Count; ++i)
             {
@@ -164,7 +165,7 @@ namespace Server.Mobiles
                 else if (damage > 75.0)
                     damage = 75.0;
 
-                this.DoHarmful(m);
+                DoHarmful(m);
 
                 AOS.Damage(m, this, (int)damage, 100, 0, 0, 0, 0);
 

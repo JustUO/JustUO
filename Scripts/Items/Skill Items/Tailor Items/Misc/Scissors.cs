@@ -1,9 +1,3 @@
-#region Header
-// **********
-// ServUO - Scissors.cs
-// **********
-#endregion
-
 #region References
 using Server.Targeting;
 #endregion

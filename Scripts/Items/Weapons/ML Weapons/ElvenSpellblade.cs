@@ -18,6 +18,14 @@ namespace Server.Items
         {
         }
 
+	public override SkillName DefSkill
+        {
+            get
+            {
+                return SkillName.Fencing;
+            }
+        }
+	
         public override WeaponAbility PrimaryAbility
         {
             get

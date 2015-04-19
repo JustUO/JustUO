@@ -53,7 +53,7 @@ namespace Server.Mobiles
             HairItemID = 0x203B; // Short Hair
             HairHue = 0x94;
 
-            m_SpecialSlayerMechanics = true;
+            _SpecialSlayerMechanics = true;
         }
 
         public Barracoon(Serial serial)
@@ -195,8 +195,8 @@ namespace Server.Mobiles
                 m.BodyMod = 42;
                 m.HueMod = 0;
                 if (m == this) { 
-                    m_SlayerVulnerabilities.Add("Vermin");
-                    m_SlayerVulnerabilities.Add("Repond");
+                    _SlayerVulnerabilities.Add("Vermin");
+                    _SlayerVulnerabilities.Add("Repond");
                 }
    
                 new ExpirePolymorphTimer(m).Start();
@@ -281,6 +281,14 @@ namespace Server.Mobiles
                 Polymorph(this);
         }
 
+        #region Spell Damage Abilties
+        public override void OnDamagedBySpell(Mobile from)
+        {
+            base.OnDamagedBySpell(from);
+
+            DoSpecialAbility(from);
+        } 
+        #endregion
         public override void OnGotMeleeAttack(Mobile attacker)
         {
             base.OnGotMeleeAttack(attacker);
@@ -308,7 +316,7 @@ namespace Server.Mobiles
 
             int version = reader.ReadInt();
 
-            m_SlayerVulnerabilities.Clear();
+            _SlayerVulnerabilities.Clear();
         }
 
         private class ExpirePolymorphTimer : Timer

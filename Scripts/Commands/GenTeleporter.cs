@@ -190,8 +190,8 @@ namespace Server.Commands
                 this.DestroyTeleporter(5595, 1840, -14, map);
                 this.DestroyTeleporter(5595, 1840, -14, map);
 
-                this.CreateTeleporter(5594, 1840, -9, 5467, 1804, 7, map, false);
-                this.CreateTeleporter(5594, 1841, -9, 5467, 1805, 7, map, false);
+                this.CreateTeleporter(5594, 1840, -7, 5467, 1804, 7, map, false);
+                this.CreateTeleporter(5594, 1841, -7, 5467, 1805, 7, map, false);
 
                 // Wrong
                 this.CreateTeleporter(5824, 631, 5, 2041, 215, 14, map, true);
@@ -245,12 +245,12 @@ namespace Server.Commands
                 this.CreateTeleporter(5522, 672, 32, 5573, 632, 22, map, false);
                 this.CreateTeleporter(5522, 673, 32, 5573, 633, 22, map, false);
                 this.CreateTeleporter(5522, 674, 32, 5573, 634, 22, map, false);
-                this.CreateTeleporter(5386, 756, -8, 5408, 859, 47, map, false);
-                this.CreateTeleporter(5386, 757, -8, 5408, 860, 47, map, false);
-                this.CreateTeleporter(5386, 755, -8, 5408, 858, 47, map, false);
-                this.CreateTeleporter(5409, 860, 52, 5387, 757, -3, map, false);
-                this.CreateTeleporter(5409, 858, 52, 5387, 755, -3, map, false);
-                this.CreateTeleporter(5409, 859, 52, 5387, 756, -3, map, false);
+                this.CreateTeleporter(5386, 756, -8, 5408, 859, 47, Map.Felucca, false);
+                this.CreateTeleporter(5386, 757, -8, 5408, 860, 47, Map.Felucca, false);
+                this.CreateTeleporter(5386, 755, -8, 5408, 858, 47, Map.Felucca, false);
+                this.CreateTeleporter(5409, 860, 52, 5387, 757, -3, Map.Felucca, false);
+                this.CreateTeleporter(5409, 858, 52, 5387, 755, -3, Map.Felucca, false);
+                this.CreateTeleporter(5409, 859, 52, 5387, 756, -3, Map.Felucca, false);
 
                 // Destard
                 this.CreateTeleporter(5242, 1007, 0, 1175, 2635, 0, map, true);

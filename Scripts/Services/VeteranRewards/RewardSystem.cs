@@ -15,7 +15,7 @@ namespace Server.Engines.VeteranRewards
     {
         public static bool Enabled = true;// change to true to enable vet rewards
         public static bool SkillCapRewards = true;// assuming vet rewards are enabled, should total skill cap bonuses be awarded? (720 skills total at 4th level)
-        public static TimeSpan RewardInterval = TimeSpan.FromDays(30.0);
+        public static TimeSpan RewardInterval = TimeSpan.FromDays(StartupReader.GetRewards());
         private static RewardCategory[] m_Categories;
         private static RewardList[] m_Lists;
         public static RewardCategory[] Categories
@@ -354,6 +354,8 @@ namespace Server.Engines.VeteranRewards
                     new RewardEntry(houseAddOns, 1072216, typeof(ContestMiniHouseDeed), Expansion.SE, MiniHouseType.ChurchAtNight),
                     new RewardEntry(miscellaneous, 1076155, typeof(RedSoulstone), Expansion.ML),
                     new RewardEntry(miscellaneous, 1080523, typeof(CommodityDeedBox), Expansion.ML),
+                    new RewardEntry(miscellaneous, 1113945, typeof(CrystalPortal), Expansion.SA),
+                    new RewardEntry(miscellaneous, 1150074, typeof(CorruptedCrystalPortal), Expansion.SA)
                 }),
                 new RewardList(RewardInterval, 2, new RewardEntry[]
                 {
@@ -480,6 +482,9 @@ namespace Server.Engines.VeteranRewards
         private static void EventSink_Login(LoginEventArgs e)
         {
             if (!e.Mobile.Alive)
+                return;
+
+            if (e.Mobile.AccessLevel >= AccessLevel.Counselor)
                 return;
 
             int cur, max, level;

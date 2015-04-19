@@ -1,9 +1,3 @@
-#region Header
-// **********
-// ServUO - ThiefAI.cs
-// **********
-#endregion
-
 #region References
 using System;
 

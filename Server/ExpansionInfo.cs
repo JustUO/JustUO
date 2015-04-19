@@ -90,7 +90,7 @@ namespace Server
 		None = 0x00000000,
 		Unk1 = 0x00000001,
 		OverwriteConfigButton = 0x00000002,
-		OneCharacterSlot = 0x00000004,
+		OneCharacterSlot = 0x00000014,
 		ContextMenus = 0x00000008,
 		SlotLimit = 0x00000010,
 		AOS = 0x00000020,

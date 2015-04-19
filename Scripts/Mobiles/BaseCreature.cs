@@ -1,9 +1,3 @@
-#region Header
-// **********
-// ServUO - BaseCreature.cs
-// **********
-#endregion
-
 #region References
 using System;
 using System.Collections.Generic;
@@ -29,6 +23,7 @@ using Server.Spells.Necromancy;
 using Server.Spells.Sixth;
 using Server.Spells.Spellweaving;
 using Server.Targeting;
+using Server.XMLConfiguration;
 #endregion
 
 namespace Server.Mobiles
@@ -253,6 +248,8 @@ namespace Server.Mobiles
 		private string m_CorpseNameOverride;
 
 		private int m_FailedReturnHome; /* return to home failure counter */
+
+	    private int m_QLPoints;
 		#endregion
 
 		public virtual InhumanSpeech SpeechType { get { return null; } }
@@ -289,6 +286,9 @@ namespace Server.Mobiles
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool IsPrisoner { get; set; }
 
+        [CommandProperty(AccessLevel.GameMaster)]
+        public int QLPoints { get { return m_QLPoints; } set { m_QLPoints = value; } }
+
 		protected DateTime SummonEnd { get { return m_SummonEnd; } set { m_SummonEnd = value; } }
 
 		public virtual Faction FactionAllegiance { get { return null; } }
@@ -298,7 +298,7 @@ namespace Server.Mobiles
 		public const bool BondingEnabled = true;
 
 		public virtual bool IsBondable { get { return (BondingEnabled && !Summoned); } }
-		public virtual TimeSpan BondingDelay { get { return TimeSpan.FromDays(7.0); } }
+		public virtual TimeSpan BondingDelay { get { return TimeSpan.FromDays(StartupReader.GetBonding()); } }
 		public virtual TimeSpan BondingAbandonDelay { get { return TimeSpan.FromDays(1.0); } }
 
 		public override bool CanRegenHits { get { return !m_IsDeadPet && base.CanRegenHits; } }
@@ -1132,7 +1132,8 @@ namespace Server.Mobiles
 
 			chance -= (MaxLoyalty - m_Loyalty) * 10;
 
-			chance += (int)XmlMobFactions.GetScaledFaction(m, this, -250, 250, 0.001);
+            if (XmlConfig.XmlMobFactionsEnabled)
+                chance += (int)XmlMobFactions.GetScaledFaction(m, this, -250, 250, 0.001);
 
 			return ((double)chance / 1000);
 		}
@@ -1851,7 +1852,7 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.Write(19); // version
+			writer.Write(20); // version
 
 			writer.Write((int)m_CurrentAI);
 			writer.Write((int)m_DefaultAI);
@@ -1981,6 +1982,9 @@ namespace Server.Mobiles
 
 			// Mondain's Legacy version 19
 			writer.Write(m_Allured);
+
+            //Version 20 Queens Loyalty
+		    writer.Write(m_QLPoints);
 		}
 
 		private static readonly double[] m_StandardActiveSpeeds = new[] {0.175, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4, 0.5, 0.6, 0.8};
@@ -2251,6 +2255,11 @@ namespace Server.Mobiles
 			{
 				m_Allured = reader.ReadBool();
 			}
+
+		    if (version >= 20)
+		    {
+		        m_QLPoints = reader.ReadInt();
+		    }
 
 			if (version <= 14 && m_Paragon && Hue == 0x31)
 			{
@@ -5115,43 +5124,6 @@ namespace Server.Mobiles
 		public virtual bool GivesMLMinorArtifact { get { return false; } }
 		#endregion
 
-		private static readonly Type[] m_Artifacts = new[]
-		{
-			typeof(AegisOfGrace), typeof(BladeDance), typeof(Bonesmasher), typeof(FeyLeggings), typeof(FleshRipper),
-			typeof(HelmOfSwiftness), typeof(PadsOfTheCuSidhe), typeof(RaedsGlory), typeof(RighteousAnger),
-			typeof(RobeOfTheEclipse), typeof(RobeOfTheEquinox), typeof(SoulSeeker), typeof(TalonBite), typeof(BloodwoodSpirit),
-			typeof(TotemOfVoid), typeof(QuiverOfRage), typeof(QuiverOfElements), typeof(BrightsightLenses), typeof(Boomstick),
-			typeof(WildfireBow), typeof(Windsong)
-		};
-
-		public static void GiveMinorArtifact(Mobile m)
-		{
-			Item item = Activator.CreateInstance(m_Artifacts[Utility.Random(m_Artifacts.Length)]) as Item;
-
-			if (item == null)
-			{
-				return;
-			}
-
-			if (m.AddToBackpack(item))
-			{
-				m.SendLocalizedMessage(1062317);
-				// For your valor in combating the fallen beast, a special artifact has been bestowed on you.
-				m.SendLocalizedMessage(1072223); // An item has been placed in your backpack.
-			}
-			else if (m.BankBox != null && m.BankBox.TryDropItem(m, item, false))
-			{
-				m.SendLocalizedMessage(1062317);
-				// For your valor in combating the fallen beast, a special artifact has been bestowed on you.
-				m.SendLocalizedMessage(1072224); // An item has been placed in your bank box.
-			}
-			else
-			{
-				item.MoveToWorld(m.Location, m.Map);
-				m.SendLocalizedMessage(1072523); // You find an artifact, but your backpack and bank are too full to hold it.
-			}
-		}
-
 		public virtual bool GivesSAArtifact { get { return false; } }
 
 		private static readonly Type[] m_SAArtifacts = new[]
@@ -5225,6 +5197,13 @@ namespace Server.Mobiles
 			{
 				GiveSAArtifact(mob);
 			}
+
+		    if (mob is PlayerMobile && mob.Map == Map.TerMur && m_QLPoints > 0)
+		    {
+		        PlayerMobile pm = mob as PlayerMobile;
+                pm.Exp += m_QLPoints;
+		        pm.SendMessage("You have been awarded {0} points for your loyalty to the Queen of TerMur!", m_QLPoints);
+		    }
 
 			EventSink.InvokeOnKilledBy(new OnKilledByEventArgs(this, mob));
 		}

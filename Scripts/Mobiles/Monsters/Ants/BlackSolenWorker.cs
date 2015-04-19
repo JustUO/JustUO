@@ -44,7 +44,7 @@ namespace Server.Mobiles
 
             SolenHelper.PackPicnicBasket(this);
 
-            this.PackItem(new ZoogiFungus());
+            this.PackItem(new ZoogiFungus((0.05 > Utility.RandomDouble()) ? 1 : 6));
         }
 
         public BlackSolenWorker(Serial serial)

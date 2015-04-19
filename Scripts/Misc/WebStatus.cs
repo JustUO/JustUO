@@ -30,10 +30,10 @@ namespace Server.Misc
             {
                 op.WriteLine("<html>");
                 op.WriteLine("   <head>");
-                op.WriteLine("      <title>ServUO Server Status</title>");
+                op.WriteLine("      <title>JustUO Server Status</title>");
                 op.WriteLine("   </head>");
                 op.WriteLine("   <body bgcolor=\"white\">");
-                op.WriteLine("      <h1>ServUO Server Status</h1>");
+                op.WriteLine("      <h1>JustUO Server Status</h1>");
                 op.WriteLine("      Online clients:<br>");
                 op.WriteLine("      <table width=\"100%\">");
                 op.WriteLine("         <tr>");

@@ -54,7 +54,7 @@ namespace Server.Spells.Sixth
                         if (m is Mobiles.ShadowKnight && (m.X != p.X || m.Y != p.Y))
                             continue;
 
-                        if (m.Hidden && (m.IsPlayer() || this.Caster.AccessLevel > m.AccessLevel) && CheckDifficulty(this.Caster, m))
+                        if (m.Hidden && (m.IsPlayer() || this.Caster.AccessLevel > m.AccessLevel) && CheckDifficulty(this.Caster, m) && m.CanBeRevealed)
                             targets.Add(m);
                     }
 

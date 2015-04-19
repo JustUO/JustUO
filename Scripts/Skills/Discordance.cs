@@ -1,9 +1,3 @@
-#region Header
-// **********
-// ServUO - Discordance.cs
-// **********
-#endregion
-
 #region References
 using System;
 using System.Collections;
@@ -12,6 +6,7 @@ using Server.Engines.XmlSpawner2;
 using Server.Items;
 using Server.Mobiles;
 using Server.Targeting;
+using Server.XMLConfiguration;
 #endregion
 
 namespace Server.SkillHandlers
@@ -143,7 +138,8 @@ namespace Server.SkillHandlers
 						double diff = m_Instrument.GetDifficultyFor(targ) - 10.0;
 						double music = from.Skills[SkillName.Musicianship].Value;
 
-						diff += XmlMobFactions.GetScaledFaction(from, targ, -25, 25, -0.001);
+                        if (XmlConfig.XmlMobFactionsEnabled) 
+                            diff += XmlMobFactions.GetScaledFaction(from, targ, -25, 25, -0.001);
 
 						if (music > 100.0)
 						{

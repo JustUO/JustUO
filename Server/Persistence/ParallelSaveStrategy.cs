@@ -232,7 +232,7 @@ namespace Server
 
 		private void Save(Mobile mob, BinaryMemoryWriter writer)
 		{
-			int length = writer.CommitTo(mobileData, mobileIndex, mob.m_TypeRef, mob.Serial);
+			int length = writer.CommitTo(mobileData, mobileIndex, mob._TypeRef, mob.Serial);
 
 			if (metrics != null)
 			{

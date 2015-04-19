@@ -4,6 +4,7 @@ using Server.Engines.XmlSpawner2;
 using Server.Items;
 using Server.Mobiles;
 using Server.Network;
+using Server.XMLConfiguration;
 
 namespace Server.Misc
 {
@@ -679,6 +680,8 @@ namespace Server.Misc
             newChar.Hue = newChar.Race.ClipSkinHue(args.Hue & 0x3FFF) | 0x8000;
 
             newChar.Hunger = 20;
+            newChar.SkillsCap = StartupReader.GetSkillcap();
+            newChar.StatCap = StartupReader.GetStatcap();
 
             bool young = false;
 
@@ -690,6 +693,9 @@ namespace Server.Misc
 
                 if (pm.IsPlayer() && ((Account)pm.Account).Young)
                     young = pm.Young = true;
+
+                if (pm.Race == Race.Gargoyle) // Gargoyles start with 2000 loyalty points
+                    pm.Exp = 2000;
             }
 
             SetName(newChar, args.Name);
@@ -744,8 +750,11 @@ namespace Server.Misc
 
             new WelcomeTimer(newChar).Start();
 
-            //XmlAttach.AttachTo(newChar, new XmlPoints());
-            //XmlAttach.AttachTo(newChar, new XmlMobFactions());
+            if (XmlConfig.XmlPointsEnabled)
+                XmlAttach.AttachTo(newChar, new XmlPoints());
+
+            if (XmlConfig.XmlMobFactionsEnabled)
+                XmlAttach.AttachTo(newChar, new XmlMobFactions());
         }
 
         private static CityInfo GetStartLocation(CharacterCreatedEventArgs args, bool isYoung)

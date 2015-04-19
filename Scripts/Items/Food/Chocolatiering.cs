@@ -1,9 +1,3 @@
-#region Header
-// **********
-// ServUO - Chocolatiering.cs
-// **********
-#endregion
-
 namespace Server.Items
 {
 	public class CocoaLiquor : Item

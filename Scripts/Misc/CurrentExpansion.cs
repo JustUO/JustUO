@@ -1,9 +1,3 @@
-#region Header
-// **********
-// ServUO - CurrentExpansion.cs
-// **********
-#endregion
-
 #region References
 using Server.Network;
 #endregion
@@ -36,7 +30,7 @@ namespace Server
 				}
 
 				Mobile.ActionDelay = 1000;
-				Mobile.AOSStatusHandler = AOS.GetStatus;
+				Mobile.AosStatusHandler = AOS.GetStatus;
 			}
 		}
 	}

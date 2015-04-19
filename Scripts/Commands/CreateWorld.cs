@@ -216,37 +216,37 @@ namespace Server.Gumps
 
                             if (Selections.Contains(117) == true)
                             {
-                                CommandSystem.Handle(from, String.Format("{0}XmlLoad felucca.xml", prefix));
+                                CommandSystem.Handle(from, String.Format("{0}XmlLoad Spawns\\felucca.xml", prefix));
                                 from.Say("Felucca spawned!");
                             }
 
                             if (Selections.Contains(118) == true)
                             {
-                                CommandSystem.Handle(from, String.Format("{0}XmlLoad trammel.xml", prefix));
+                                CommandSystem.Handle(from, String.Format("{0}XmlLoad Spawns\\trammel.xml", prefix));
                                 from.Say("Trammel spawned!");
                             }
 
                             if (Selections.Contains(119) == true)
                             {
-                                CommandSystem.Handle(from, String.Format("{0}XmlLoad ilshenar.xml", prefix));
+                                CommandSystem.Handle(from, String.Format("{0}XmlLoad Spawns\\ilshenar.xml", prefix));
                                 from.Say("Ilshenar spawned!");
                             }
 
                             if (Selections.Contains(120) == true)
                             {
-                                CommandSystem.Handle(from, String.Format("{0}XmlLoad malas.xml", prefix));
+                                CommandSystem.Handle(from, String.Format("{0}XmlLoad Spawns\\malas.xml", prefix));
                                 from.Say("Malas spawned!");
                             }
 
                             if (Selections.Contains(121) == true)
                             {
-                                CommandSystem.Handle(from, String.Format("{0}XmlLoad tokuno.xml", prefix));
+                                CommandSystem.Handle(from, String.Format("{0}XmlLoad Spawns\\tokuno.xml", prefix));
                                 from.Say("Tokuno spawned!");
                             }
 
                             if (Selections.Contains(122) == true)
                             {
-                                CommandSystem.Handle(from, String.Format("{0}XmlLoad termur.xml", prefix));
+                                CommandSystem.Handle(from, String.Format("{0}XmlLoad Spawns\\termur.xml", prefix));
                                 from.Say("TerMur spawned!");
                             }
                         }

@@ -117,7 +117,7 @@ namespace Server.Multis
         {
             get
             {
-                return TimeSpan.FromDays(5.0);
+                return TimeSpan.FromDays(StartupReader.GetHousedecay());
             }
         }
 

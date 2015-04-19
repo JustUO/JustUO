@@ -89,7 +89,13 @@ namespace Server.Items
                 from.SendLocalizedMessage(1072791); // You must upgrade to Mondain's Legacy in order to use that item.				
                 return;
             }
-			
+
+            if (!IsChildOf(from.Backpack) || Parent != from)
+            {
+                from.SendLocalizedMessage(1042001); // That must be in your pack for you to use it.
+                return;
+            }
+            
             if (this.m_UsesRemaining > 0)
             {
                 from.SendLocalizedMessage(1072357); // Select an object to engrave.

@@ -261,7 +261,7 @@ namespace Server.Engines.Quests
         private class InternalObjective : SlayObjective
         {
             public InternalObjective()
-                : base(typeof(SerpentsFangAssassin), "male serpent's fang assassins", 10, "Citadel")
+                : base(typeof(SerpentsFangAssassin), "male serpent's fang assassins", 10, "TheCitadel")
             {
             }
 
@@ -343,7 +343,7 @@ namespace Server.Engines.Quests
         private class InternalObjective : SlayObjective
         {
             public InternalObjective()
-                : base(typeof(DragonsFlameMage), "male dragon's flame mages", 10, "Citadel")
+                : base(typeof(DragonsFlameMage), "male dragon's flame mages", 10, "TheCitadel")
             {
             }
 
@@ -362,7 +362,7 @@ namespace Server.Engines.Quests
         public DeathToTheNinjaQuest()
             : base()
         { 
-            this.AddObjective(new SlayObjective(typeof(EliteNinja), "elite ninjas", 10, "Citadel"));
+            this.AddObjective(new SlayObjective(typeof(EliteNinja), "elite ninjas", 10, "TheCitadel"));
 			
             this.AddReward(new BaseReward(typeof(TreasureBag), 1072583));
         }
@@ -489,7 +489,7 @@ namespace Server.Engines.Quests
         private class InternalObjective : SlayObjective
         {
             public InternalObjective()
-                : base(typeof(TigersClawThief), "male tiger's claw thieves", 10, "Citadel")
+                : base(typeof(TigersClawThief), "male tiger's claw thieves", 10, "TheCitadel")
             {
             }
 

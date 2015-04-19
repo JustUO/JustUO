@@ -3140,7 +3140,6 @@ namespace Server.Gumps
 
             if (save)
                 this.InvokeCommand("Save");
-
             Core.Kill(restart);
         }
 
