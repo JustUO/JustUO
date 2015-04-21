@@ -656,6 +656,11 @@ namespace Server
 			m_Z = z;
 			m_Hue = hue;
 		}
+
+		public static implicit operator Point3D(StaticTile tile)
+		{
+			return new Point3D(tile.X, tile.Y, tile.Z);
+		}
 	}
 
 	public class UOPIndex

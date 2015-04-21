@@ -220,7 +220,7 @@ namespace Server
 		Update = 0x00000001,
 
 		/// <summary>
-		///     Resend the item only if it is equiped.
+		///     Resend the item only if it is equipped.
 		/// </summary>
 		EquipOnly = 0x00000002,
 
@@ -241,7 +241,7 @@ namespace Server
 		MoveToCorpse,
 
 		/// <summary>
-		///     The item should remain equiped.
+		///     The item should remain equipped.
 		/// </summary>
 		RemainEquiped,
 
@@ -567,7 +567,7 @@ namespace Server
 	{
 		public Map m_Map;
 		public Point3D m_Location, m_WorldLoc;
-		public object m_Parent;
+		public IEntity m_Parent;
 
 		public BounceInfo(Item item)
 		{
@@ -577,7 +577,7 @@ namespace Server
 			m_Parent = item.Parent;
 		}
 
-		private BounceInfo(Map map, Point3D loc, Point3D worldLoc, object parent)
+		private BounceInfo(Map map, Point3D loc, Point3D worldLoc, IEntity parent)
 		{
 			m_Map = map;
 			m_Location = loc;
@@ -593,17 +593,13 @@ namespace Server
 				Point3D loc = reader.ReadPoint3D();
 				Point3D worldLoc = reader.ReadPoint3D();
 
-				object parent;
+				IEntity parent;
 
 				Serial serial = reader.ReadInt();
 
-				if (serial.IsItem)
+				if (serial.IsValid)
 				{
-					parent = World.FindItem(serial);
-				}
-				else if (serial.IsMobile)
-				{
-					parent = World.FindMobile(serial);
+					parent = World.FindEntity(serial);
 				}
 				else
 				{
@@ -756,7 +752,7 @@ namespace Server
 		private int m_Hue;
 		private int m_Amount;
 		private Layer m_Layer;
-		private object m_Parent; // Mobile, Item, or null=World
+		private IEntity m_Parent; // Mobile, Item, or null=World
 		private Map m_Map;
 		private LootType m_LootType;
 		private DateTime m_LastMovedTime;
@@ -776,6 +772,7 @@ namespace Server
 		private ObjectPropertyList m_PropertyList;
 		#endregion
 
+		[CommandProperty( AccessLevel.Administrator, true )]
 		public int TempFlags
 		{
 			get
@@ -802,6 +799,7 @@ namespace Server
 			}
 		}
 
+		[CommandProperty( AccessLevel.Administrator, true )]
 		public int SavedFlags
 		{
 			get
@@ -991,7 +989,7 @@ namespace Server
 		{
 			if (this is Container)
 			{
-				return (this as Container).m_Items;
+				return ((Container)this).m_Items;
 			}
 
 			CompactInfo info = LookupCompactInfo();
@@ -1008,7 +1006,7 @@ namespace Server
 		{
 			if (this is Container)
 			{
-				var cont = this as Container;
+				var cont = (Container)this;
 
 				if (cont.m_Items == null)
 				{
@@ -1152,22 +1150,15 @@ namespace Server
 				{
 					info.m_Bounce = null;
 
-					if (bounce.m_Parent is Item)
+					if (bounce.m_Parent != null && !bounce.m_Parent.Deleted)
 					{
-						var parent = (Item)bounce.m_Parent;
-
-						if (!parent.Deleted)
+						if(bounce.m_Parent is Item)
 						{
-							parent.OnItemBounceCleared(this);
+							((Item)bounce.m_Parent).OnItemBounceCleared(this);
 						}
-					}
-					else if (bounce.m_Parent is Mobile)
-					{
-						var parent = (Mobile)bounce.m_Parent;
-
-						if (!parent.Deleted)
+						else if (bounce.m_Parent is Mobile)
 						{
-							parent.OnItemBounceCleared(this);
+							((Mobile)bounce.m_Parent).OnItemBounceCleared(this);
 						}
 					}
 
@@ -1233,7 +1224,7 @@ namespace Server
 		}
 
 		/// <summary>
-		///     Overridable. Adds the name of this item to the given <see cref="ObjectPropertyList" />. This method should be overriden if the item requires a complex naming format.
+		///     Overridable. Adds the name of this item to the given <see cref="ObjectPropertyList" />. This method should be overridden if the item requires a complex naming format.
 		/// </summary>
 		public virtual void AddNameProperty(ObjectPropertyList list)
 		{
@@ -1449,7 +1440,7 @@ namespace Server
 		///         cref="Mobile.GetChildProperties">
 		///         Mobile.GetChildProperties
 		///     </see>
-		///     . This method should be overriden to add any custom properties.
+		///     . This method should be overridden to add any custom properties.
 		/// </summary>
 		public virtual void GetProperties(ObjectPropertyList list)
 		{
@@ -1521,12 +1512,13 @@ namespace Server
 
 			if (bounce != null)
 			{
-				object parent = bounce.m_Parent;
+				IEntity parent = bounce.m_Parent;
 
-				if (parent is Item && !((Item)parent).Deleted)
+				if (parent is Item && !parent.Deleted)
 				{
 					var p = (Item)parent;
-					object root = p.RootParent;
+					var root = p.RootParent;
+
 					if (p.IsAccessibleTo(from) && (!(root is Mobile) || ((Mobile)root).CheckNonlocalDrop(from, this, p)))
 					{
 						Location = bounce.m_Location;
@@ -1537,7 +1529,7 @@ namespace Server
 						MoveToWorld(from.Location, from.Map);
 					}
 				}
-				else if (parent is Mobile && !((Mobile)parent).Deleted)
+				else if (parent is Mobile && !parent.Deleted)
 				{
 					if (!((Mobile)parent).EquipItem(this))
 					{
@@ -1558,7 +1550,7 @@ namespace Server
 		}
 
 		/// <summary>
-		///     Overridable. Method checked to see if this item may be equiped while casting a spell. By default, this returns false. It is overriden on spellbook and spell channeling weapons or shields.
+		///     Overridable. Method checked to see if this item may be equipped while casting a spell. By default, this returns false. It is overridden on spellbook and spell channeling weapons or shields.
 		/// </summary>
 		/// <returns>True if it may, false if not.</returns>
 		/// <example>
@@ -1570,7 +1562,7 @@ namespace Server
 		/// 		
 		/// 		return base.AllowEquipedCast( from );
 		///  }</code>
-		///     When placed in an Item script, the item may be cast when equiped if the <paramref name="from" /> has 100 or more intelligence. Otherwise, it will drop to their backpack.
+		///     When placed in an Item script, the item may be cast when equipped if the <paramref name="from" /> has 100 or more intelligence. Otherwise, it will drop to their backpack.
 		/// </example>
 		public virtual bool AllowEquipedCast(Mobile from)
 		{
@@ -1730,6 +1722,18 @@ namespace Server
 		public bool AtPoint(int x, int y)
 		{
 			return (m_Location.m_X == x && m_Location.m_Y == y);
+		}
+
+		public void MoveToWorldAndStack(Point3D location, Map map)
+		{
+			var eable = map.GetItemsInRange(location, 0);
+
+			if (eable.FirstOrDefault(item => item.StackWith(null, this, false)) == null)
+			{
+				MoveToWorld(location, map);
+			}
+
+			eable.Free();
 		}
 
 		/// <summary>
@@ -2040,6 +2044,8 @@ namespace Server
 							m_RemovePacket = new RemoveItem(this);
 							m_RemovePacket.SetStatic();
 						}
+
+						return m_RemovePacket;
 					}
 				}
 
@@ -2062,6 +2068,8 @@ namespace Server
 							m_OPLPacket = new OPLInfo(PropertyList);
 							m_OPLPacket.SetStatic();
 						}
+
+						return m_OPLPacket;
 					}
 				}
 
@@ -2168,6 +2176,8 @@ namespace Server
 							m_WorldPacket = new WorldItem(this);
 							m_WorldPacket.SetStatic();
 						}
+
+						return m_WorldPacket;
 					}
 				}
 
@@ -2196,6 +2206,8 @@ namespace Server
 							m_WorldPacketSA = new WorldItemSA(this);
 							m_WorldPacketSA.SetStatic();
 						}
+
+						return m_WorldPacketSA;
 					}
 				}
 
@@ -2224,6 +2236,8 @@ namespace Server
 							m_WorldPacketHS = new WorldItemHS(this);
 							m_WorldPacketHS.SetStatic();
 						}
+
+						return m_WorldPacketHS;
 					}
 				}
 
@@ -2237,6 +2251,9 @@ namespace Server
 			Packet.Release(ref m_WorldPacketSA);
 			Packet.Release(ref m_WorldPacketHS);
 		}
+
+		[CommandProperty(AccessLevel.Decorator)]
+		public bool GhostVisible { get; set; }
 
 		[CommandProperty(AccessLevel.Decorator)]
 		public bool Visible
@@ -2330,10 +2347,10 @@ namespace Server
 		public virtual void OnMapChange()
 		{ }
 
-		public virtual void OnRemoved(object parent)
+		public virtual void OnRemoved(IEntity parent)
 		{ }
 
-		public virtual void OnAdded(object parent)
+		public virtual void OnAdded(IEntity parent)
 		{ }
 
 		[CommandProperty(AccessLevel.Counselor, AccessLevel.Decorator)]
@@ -2411,7 +2428,8 @@ namespace Server
 			HeldBy = 0x00800000,
 			IntWeight = 0x01000000,
 			SavedFlags = 0x02000000,
-			NullWeight = 0x04000000
+			NullWeight = 0x04000000,
+			GhostVisible = 0x08000000
 		}
 
 		private static void SetSaveFlag(ref SaveFlag flags, SaveFlag toSet, bool setIf)
@@ -2474,56 +2492,70 @@ namespace Server
 			{
 				flags |= SaveFlag.Direction;
 			}
+
 			if (info != null && info.m_Bounce != null)
 			{
 				flags |= SaveFlag.Bounce;
 			}
+
 			if (m_LootType != LootType.Regular)
 			{
 				flags |= SaveFlag.LootType;
 			}
+
 			if (m_ItemID != 0)
 			{
 				flags |= SaveFlag.ItemID;
 			}
+
 			if (m_Hue != 0)
 			{
 				flags |= SaveFlag.Hue;
 			}
+
 			if (m_Amount != 1)
 			{
 				flags |= SaveFlag.Amount;
 			}
+
 			if (m_Layer != Layer.Invalid)
 			{
 				flags |= SaveFlag.Layer;
 			}
+
 			if (info != null && info.m_Name != null)
 			{
 				flags |= SaveFlag.Name;
 			}
+
 			if (m_Parent != null)
 			{
 				flags |= SaveFlag.Parent;
 			}
+
 			if (items != null && items.Count > 0)
 			{
 				flags |= SaveFlag.Items;
 			}
-			if (m_Map != Map.Internal)
+
+			if (m_Map != null && m_Map != Map.Internal)
 			{
 				flags |= SaveFlag.Map;
 			}
+
 			//if ( m_InsuredFor != null && !m_InsuredFor.Deleted )
 			//flags |= SaveFlag.InsuredFor;
+
 			if (info != null && info.m_BlessedFor != null && !info.m_BlessedFor.Deleted)
 			{
 				flags |= SaveFlag.BlessedFor;
 			}
+
 			if (info != null && info.m_HeldBy != null && !info.m_HeldBy.Deleted)
 			{
 				flags |= SaveFlag.HeldBy;
 			}
+
 			if (info != null && info.m_SavedFlags != 0)
 			{
 				flags |= SaveFlag.SavedFlags;
@@ -2552,6 +2584,11 @@ namespace Server
 				}
 			}
 
+			if (GhostVisible)
+			{
+				flags |= SaveFlag.GhostVisible;
+			}
+
 			ImplFlag implFlags = (m_Flags &
 								  (ImplFlag.Visible | ImplFlag.Movable | ImplFlag.Stackable | ImplFlag.Insured | ImplFlag.PayedInsurance |
 								   ImplFlag.QuestItem));
@@ -2575,14 +2612,7 @@ namespace Server
 			}
 			catch
 			{
-				if (ticks < now)
-				{
-					d = TimeSpan.MaxValue;
-				}
-				else
-				{
-					d = TimeSpan.MaxValue;
-				}
+				d = TimeSpan.MaxValue;
 			}
 
 			double minutes = -d.TotalMinutes;
@@ -2666,13 +2696,9 @@ namespace Server
 
 			if (GetSaveFlag(flags, SaveFlag.Parent))
 			{
-				if (m_Parent is Mobile && !((Mobile)m_Parent).Deleted)
+				if (m_Parent != null && !m_Parent.Deleted)
 				{
-					writer.Write(((Mobile)m_Parent).Serial);
-				}
-				else if (m_Parent is Item && !((Item)m_Parent).Deleted)
-				{
-					writer.Write(((Item)m_Parent).Serial);
+					writer.Write(m_Parent.Serial);
 				}
 				else
 				{
@@ -2692,6 +2718,11 @@ namespace Server
 			else if (GetSaveFlag(flags, SaveFlag.WeightNot1or0))
 			{
 				writer.Write(info.m_Weight);
+			}
+
+			if (GetSaveFlag(flags, SaveFlag.GhostVisible))
+			{
+				writer.Write(GhostVisible);
 			}
 
 			if (GetSaveFlag(flags, SaveFlag.Map))
@@ -3022,7 +3053,7 @@ namespace Server
 
 							if (this is Container)
 							{
-								(this as Container).m_Items = items;
+								((Container)this).m_Items = items;
 							}
 							else
 							{
@@ -3055,6 +3086,15 @@ namespace Server
 							{
 								AcquireCompactInfo().m_Weight = weight;
 							}
+						}
+
+						if (GetSaveFlag(flags, SaveFlag.GhostVisible))
+						{
+							GhostVisible = reader.ReadBool();
+						}
+						else
+						{
+							GhostVisible = true;
 						}
 
 						if (GetSaveFlag(flags, SaveFlag.Map))
@@ -3211,7 +3251,7 @@ namespace Server
 
 							if (this is Container)
 							{
-								(this as Container).m_Items = items;
+								((Container)this).m_Items = items;
 							}
 							else
 							{
@@ -3355,7 +3395,7 @@ namespace Server
 
 							if (this is Container)
 							{
-								(this as Container).m_Items = items;
+								((Container)this).m_Items = items;
 							}
 							else
 							{
@@ -3403,7 +3443,6 @@ namespace Server
 				Timer.DelayCall(TimeSpan.Zero, FixHolding_Sandbox);
 			}
 
-			//if ( version < 9 )
 			VerifyCompactInfo();
 		}
 
@@ -3480,15 +3519,15 @@ namespace Server
 			{
 				if (m_Parent is Item)
 				{
-					(m_Parent as Item).UpdateTotal(sender, type, delta);
+					((Item)m_Parent).UpdateTotal(sender, type, delta);
 				}
 				else if (m_Parent is Mobile)
 				{
-					(m_Parent as Mobile).UpdateTotal(sender, type, delta);
+					((Mobile)m_Parent).UpdateTotal(sender, type, delta);
 				}
 				else if (HeldBy != null)
 				{
-					(HeldBy).UpdateTotal(sender, type, delta);
+					HeldBy.UpdateTotal(sender, type, delta);
 				}
 			}
 		}
@@ -3504,10 +3543,8 @@ namespace Server
 				{
 					return 1020000 + m_ItemID;
 				}
-				else
-				{
-					return 1078872 + m_ItemID;
-				}
+
+				return 1078872 + m_ItemID;
 			}
 		}
 
@@ -3643,11 +3680,11 @@ namespace Server
 			}
 		}
 
-		public object RootParent
+		public IEntity RootParent
 		{
 			get
 			{
-				object p = m_Parent;
+				IEntity p = m_Parent;
 
 				while (p is Item)
 				{
@@ -3669,7 +3706,7 @@ namespace Server
 
 		public bool ParentsContain<T>() where T : Item
 		{
-			object p = m_Parent;
+			IEntity p = m_Parent;
 
 			while (p is Item)
 			{
@@ -4132,7 +4169,7 @@ namespace Server
 			}
 		}
 
-		public virtual void OnParentDeleted(object parent)
+		public virtual void OnParentDeleted(IEntity parent)
 		{
 			Delete();
 		}
@@ -4175,13 +4212,13 @@ namespace Server
 
 			SetFlag(ImplFlag.Deleted, true);
 
-			if (Parent is Mobile)
+			if (m_Parent is Mobile)
 			{
-				((Mobile)Parent).RemoveItem(this);
+				((Mobile)m_Parent).RemoveItem(this);
 			}
-			else if (Parent is Item)
+			else if (m_Parent is Item)
 			{
-				((Item)Parent).RemoveItem(this);
+				((Item)m_Parent).RemoveItem(this);
 			}
 
 			ClearBounce();
@@ -4192,6 +4229,7 @@ namespace Server
 				{
 					m_Map.OnLeave(this);
 				}
+
 				m_Map = null;
 			}
 
@@ -4361,29 +4399,7 @@ namespace Server
 
 		[CommandProperty(AccessLevel.Counselor)]
 		public Serial Serial { get { return m_Serial; } }
-
-		[CommandProperty(AccessLevel.GameMaster)]
-		public IEntity ParentEntity
-		{
-			get
-			{
-				var p = Parent as IEntity;
-
-				return p;
-			}
-		}
-
-		[CommandProperty(AccessLevel.GameMaster)]
-		public IEntity RootParentEntity
-		{
-			get
-			{
-				var p = RootParent as IEntity;
-
-				return p;
-			}
-		}
-
+		
 		#region Location Location Location!
 		public virtual void OnLocationChange(Point3D oldLocation)
 		{ }
@@ -4541,7 +4557,7 @@ namespace Server
 			}
 		}
 
-		public virtual object Parent
+		public virtual IEntity Parent
 		{
 			get { return m_Parent; }
 			set
@@ -4551,7 +4567,7 @@ namespace Server
 					return;
 				}
 
-				object oldParent = m_Parent;
+				IEntity oldParent = m_Parent;
 
 				m_Parent = value;
 
@@ -4744,7 +4760,7 @@ namespace Server
 				return false;
 			}
 
-			object root = target.RootParent;
+			var root = target.RootParent;
 
 			if (from.AccessLevel < AccessLevel.GameMaster && !from.InRange(target.GetWorldLocation(), 2))
 			{
@@ -5108,7 +5124,7 @@ namespace Server
 
 		public Point3D GetWorldLocation()
 		{
-			object root = RootParent;
+			IEntity root = RootParent;
 
 			if (root == null)
 			{
@@ -5126,7 +5142,7 @@ namespace Server
 
 		public Point3D GetSurfaceTop()
 		{
-			object root = RootParent;
+			IEntity root = RootParent;
 
 			if (root == null)
 			{
@@ -5134,13 +5150,13 @@ namespace Server
 			}
 			else
 			{
-				return ((IEntity)root).Location;
+				return root.Location;
 			}
 		}
 
 		public Point3D GetWorldTop()
 		{
-			object root = RootParent;
+			IEntity root = RootParent;
 
 			if (root == null)
 			{
@@ -5148,7 +5164,7 @@ namespace Server
 			}
 			else
 			{
-				return ((IEntity)root).Location;
+				return root.Location;
 			}
 		}
 
@@ -5215,7 +5231,7 @@ namespace Server
 
 		public SecureTradeContainer GetSecureTradeCont()
 		{
-			object p = this;
+			IEntity p = this;
 
 			while (p is Item)
 			{
@@ -5335,14 +5351,14 @@ namespace Server
             return true;*/
 		}
 
-		public bool IsChildOf(object o)
+		public bool IsChildOf(IEntity o)
 		{
 			return IsChildOf(o, false);
 		}
 
-		public bool IsChildOf(object o, bool allowNull)
+		public bool IsChildOf(IEntity o, bool allowNull)
 		{
-			object p = m_Parent;
+			IEntity p = m_Parent;
 
 			if ((p == null || o == null) && !allowNull)
 			{
@@ -5376,7 +5392,8 @@ namespace Server
 			return false;
 		}
 
-		public ItemData ItemData { get { return TileData.ItemTable[m_ItemID & TileData.MaxItemValue]; } }
+		[CommandProperty(AccessLevel.GameMaster)]
+		public ItemData ItemData { get { return TileData.ItemTable[m_ItemID & TileData.MaxItemValue]; } set { } }
 
 		public virtual void OnItemUsed(Mobile from, Item item)
 		{
@@ -5536,7 +5553,7 @@ namespace Server
 
 			int ourHue = Hue;
 			Map thisMap = Map;
-			object thisParent = m_Parent;
+			IEntity thisParent = m_Parent;
 			Point3D worldLoc = GetWorldLocation();
 			LootType type = LootType;
 
@@ -5609,6 +5626,7 @@ namespace Server
 			}
 		}
 
+		[CommandProperty(AccessLevel.GameMaster)]
 		public bool Insured
 		{
 			get { return GetFlag(ImplFlag.Insured); }
@@ -5619,6 +5637,7 @@ namespace Server
 			}
 		}
 
+		[CommandProperty(AccessLevel.GameMaster)]
 		public bool PayedInsurance { get { return GetFlag(ImplFlag.PayedInsurance); } set { SetFlag(ImplFlag.PayedInsurance, value); } }
 
 		public Mobile BlessedFor
@@ -5649,7 +5668,7 @@ namespace Server
 			}
 		}
 
-		public virtual bool CheckBlessed(object obj)
+		public virtual bool CheckBlessed(IEntity obj)
 		{
 			return CheckBlessed(obj as Mobile);
 		}
@@ -5696,6 +5715,7 @@ namespace Server
 			m_Serial = Serial.NewItem;
 
 			//m_Items = new ArrayList( 1 );
+			GhostVisible = true;
 			Visible = true;
 			Movable = true;
 			Amount = 1;

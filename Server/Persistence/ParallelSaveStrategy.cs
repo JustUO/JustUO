@@ -28,14 +28,18 @@ namespace Server
 	public sealed class ParallelSaveStrategy : SaveStrategy
 	{
 		private readonly int processorCount;
+
 		private readonly Queue<Item> _decayQueue;
 		private SaveMetrics metrics;
+
 		private SequentialFileWriter itemData, itemIndex;
 		private SequentialFileWriter mobileData, mobileIndex;
 		private SequentialFileWriter guildData, guildIndex;
 		private SequentialFileWriter customData, customIndex;
+
 		private Consumer[] consumers;
 		private int cycle;
+
 		private bool finished;
 
 		public ParallelSaveStrategy(int processorCount)
@@ -354,7 +358,9 @@ namespace Server
 		{
 			public readonly ManualResetEvent completionEvent;
 			public readonly ConsumableEntry[] buffer;
+
 			public int head, done, tail;
+
 			private readonly ParallelSaveStrategy owner;
 			private readonly Thread thread;
 

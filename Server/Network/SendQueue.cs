@@ -143,6 +143,7 @@ namespace Server.Network
 			Gram gram = _buffered;
 			_pending.Enqueue(_buffered);
 			_buffered = null;
+
 			return gram;
 		}
 

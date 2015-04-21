@@ -21,12 +21,12 @@ namespace Server
 	public class QuestArrow
 	{
 		private readonly Mobile m_Mobile;
-		private readonly Mobile m_Target;
+		private readonly IEntity m_Target;
 		private bool m_Running;
 
 		public Mobile Mobile { get { return m_Mobile; } }
 
-		public Mobile Target { get { return m_Target; } }
+		public IEntity Target { get { return m_Target; } }
 
 		public bool Running { get { return m_Running; } }
 
@@ -97,14 +97,14 @@ namespace Server
 		public virtual void OnClick(bool rightClick)
 		{ }
 
-		public QuestArrow(Mobile m, Mobile t)
+		public QuestArrow(Mobile m, IEntity t)
 		{
 			m_Running = true;
 			m_Mobile = m;
 			m_Target = t;
 		}
 
-		public QuestArrow(Mobile m, Mobile t, int x, int y)
+		public QuestArrow(Mobile m, IEntity t, int x, int y)
 			: this(m, t)
 		{
 			Update(x, y);

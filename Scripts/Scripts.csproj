@@ -17,7 +17,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Output\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;JustUO, Framework_4_0, NEWENTITY</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;JustUO, NEWPARENT, NEWTIMERS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -28,7 +28,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>Output\</OutputPath>
-    <DefineConstants>TRACE;JustUO, Framework_4_0, NEWENTITY</DefineConstants>
+    <DefineConstants>TRACE;JustUO, NEWPARENT, NEWTIMERS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -44,7 +44,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>Output\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;JustUO, Framework_4_0, NEWENTITY</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;JustUO, NEWPARENT, NEWTIMERS</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>false</Optimize>
     <DebugType>full</DebugType>
@@ -55,7 +55,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <OutputPath>Output\</OutputPath>
-    <DefineConstants>TRACE;JustUO, Framework_4_0, NEWENTITY</DefineConstants>
+    <DefineConstants>TRACE;JustUO, NEWPARENT, NEWTIMERS</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -5247,9 +5247,6 @@
     <None Include="Services\XMLSpawner\XMLSpawner Extras\XmlQuestNPC\winthrop.npc" />
     <None Include="Services\XMLSpawner\XMLSpawner Support\Container.cs.2.4" />
     <None Include="Services\XMLSpawner\XMLSpawner Support\Stealing.cs.2.4" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Server\Server.csproj">

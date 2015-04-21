@@ -301,7 +301,7 @@ namespace Server.Items
             {
                 if (Core.ML)
                 {
-                    Mobile m = this.ParentEntity as Mobile;
+                    Mobile m = this.Parent as Mobile;
                     if (m != null && m.Player && m.Backpack == this)
                     {
                         return 550;

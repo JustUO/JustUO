@@ -111,7 +111,7 @@ namespace Server.Network
 			Register(0x83, 39, false, DeleteCharacter);
 			Register(0x91, 65, false, GameLogin);
 			Register(0x95, 9, true, HuePickerResponse);
-			Register(0x96, 0, true, GameCentralMoniter);
+			Register(0x96, 0, true, GameCentralMonitor);
 			Register(0x98, 0, true, MobileNameRequest);
 			Register(0x9A, 0, true, AsciiPromptResponse);
 			Register(0x9B, 258, true, HelpRequest);
@@ -126,7 +126,7 @@ namespace Server.Network
 			Register(0xB6, 9, true, ObjectHelpRequest);
 			Register(0xB8, 0, true, ProfileReq);
 			Register(0xBB, 9, false, AccountID);
-			Register(0xBD, 0, true, ClientVersion);
+			Register(0xBD, 0, false, ClientVersion);
 			Register(0xBE, 0, true, AssistVersion);
 			Register(0xBF, 0, true, ExtendedCommand);
 			Register(0xC2, 0, true, UnicodePromptResponse);
@@ -514,14 +514,14 @@ namespace Server.Network
 			{ }
 		}
 
-		public static void GameCentralMoniter(NetState state, PacketReader pvSrc)
+		public static void GameCentralMonitor(NetState state, PacketReader pvSrc)
 		{
 			if (VerifyGC(state))
 			{
 				int type = pvSrc.ReadByte();
 				int num1 = pvSrc.ReadInt32();
 
-				Console.WriteLine("God Client: {0}: Game central moniter", state);
+				Console.WriteLine("God Client: {0}: Game central monitor", state);
 				Console.WriteLine(" - Type: {0}", type);
 				Console.WriteLine(" - Number: {0}", num1);
 
@@ -856,6 +856,18 @@ namespace Server.Network
 
 						break;
 					}
+				case 0x2F: // Old scroll double click
+					{
+						/*
+						 * This command is still sent for items 0xEF3 - 0xEF9
+						 *
+						 * Command is one of three, depending on the item ID of the scroll:
+						 * - [scroll serial]
+						 * - [scroll serial] [target serial]
+						 * - [scroll serial] [x] [y] [z]
+						 */
+						break;
+					}
 				case 0x58: // Open door
 					{
 						EventSink.InvokeOpenDoorMacroUsed(new OpenDoorMacroEventArgs(m));
@@ -876,18 +888,6 @@ namespace Server.Network
 
 						EventSink.InvokeVirtueMacroRequest(new VirtueMacroRequestEventArgs(m, virtueID));
 
-						break;
-					}
-				case 0x2F: // Old scroll double click
-					{
-						/*
-					 * This command is still sent for items 0xEF3 - 0xEF9
-					 *
-					 * Command is one of three, depending on the item ID of the scroll:
-					 * - [scroll serial]
-					 * - [scroll serial] [target serial]
-					 * - [scroll serial] [x] [y] [z]
-					 */
 						break;
 					}
 				default:
@@ -1123,7 +1123,7 @@ namespace Server.Network
 
 		public static void DropReq6017(NetState state, PacketReader pvSrc)
 		{
-			pvSrc.ReadInt32(); // serial, ignored
+			Serial serial = pvSrc.ReadInt32();
 			int x = pvSrc.ReadInt16();
 			int y = pvSrc.ReadInt16();
 			int z = pvSrc.ReadSByte();
@@ -1133,29 +1133,38 @@ namespace Server.Network
 			var loc = new Point3D(x, y, z);
 
 			Mobile from = state.Mobile;
+			Item item = World.FindItem(serial);
+
+			if (item == null)
+			{
+				return;
+			}
 
 			if (dest.IsMobile)
 			{
-				from.Drop(World.FindMobile(dest), loc);
+				if (!from.Drop(World.FindMobile(dest), loc) && item.RootParent == null)
+				{
+					item.SendInfoTo(state); // vanishing item fix 
+				}
 			}
 			else if (dest.IsItem)
 			{
-				Item item = World.FindItem(dest);
+				Item target = World.FindItem(dest);
 
-				if (item is BaseMulti && ((BaseMulti)item).AllowsRelativeDrop)
+				if (target is BaseMulti && ((BaseMulti)target).AllowsRelativeDrop)
 				{
-					loc.m_X += item.X;
-					loc.m_Y += item.Y;
+					loc.m_X += target.X;
+					loc.m_Y += target.Y;
 					from.Drop(loc);
 				}
-				else
+				else if (!from.Drop(target, loc) && item.RootParent == null)
 				{
-					from.Drop(item, loc);
-				}
+					item.SendInfoTo(state); // vanishing item fix 
+				}				
 			}
-			else
+			else if (!from.Drop(loc) && item.RootParent == null)
 			{
-				from.Drop(loc);
+				item.SendInfoTo(state); // vanishing item fix
 			}
 		}
 
@@ -1583,9 +1592,7 @@ namespace Server.Network
 			}
 		}
 
-		private static bool m_SingleClickProps;
-
-		public static bool SingleClickProps { get { return m_SingleClickProps; } set { m_SingleClickProps = value; } }
+		public static bool SingleClickProps { get; set; }
 
 		public static void LookReq(NetState state, PacketReader pvSrc)
 		{
@@ -1599,7 +1606,7 @@ namespace Server.Network
 
 				if (m != null && from.CanSee(m) && Utility.InUpdateRange(from, m))
 				{
-					if (m_SingleClickProps)
+					if (SingleClickProps)
 					{
 						m.OnAosSingleClick(from);
 					}
@@ -1619,7 +1626,7 @@ namespace Server.Network
 				if (item != null && !item.Deleted && from.CanSee(item) &&
 					Utility.InUpdateRange(from.Location, item.GetWorldLocation()))
 				{
-					if (m_SingleClickProps)
+					if (SingleClickProps)
 					{
 						item.OnAosSingleClick(from);
 					}
@@ -2223,7 +2230,7 @@ namespace Server.Network
 				{
 					Stop();
 				}
-				if (m_State.Version != null)
+				else if (m_State.Version != null)
 				{
 					m_State.BlockAllPackets = false;
 					DoLogin(m_State, m_Mobile);
@@ -2275,6 +2282,7 @@ namespace Server.Network
 			if (ThirdPartyHackedCallback != null)
 			{
 				pvSrc.Seek(-2, SeekOrigin.Current);
+
 				if (pvSrc.ReadUInt16() == 0xDEAD)
 				{
 					ThirdPartyHackedCallback(state, true);

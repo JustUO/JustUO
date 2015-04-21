@@ -105,17 +105,17 @@ private DateTime m_NextTunnel;
 				this.Freeze( TimeSpan.FromSeconds( 2 ) ); //freeze for animation 
 				this.Animate( 12, 5, 1, true, false, 0 ); //animation 
 				this.PlaySound( GetAngerSound() ); // Sound 
-				new PoisonTimer( this, combatant, (int)this.Hits ).Start(); // start timer with saved current hits value 
+				new InternalPoisonTimer( this, combatant ).Start(); // start timer
 			} 
 		}
   
-		private class PoisonTimer : Timer 
+		private class InternalPoisonTimer : Timer 
 		{ 
 			private Mobile m_Mobile; 
 			private Mobile a_Mobile; 
-			private int m_hits; 
 
-			public PoisonTimer( Mobile mobile, Mobile attacker, int hits ) : base( TimeSpan.FromSeconds( 1.5 ) ) 
+			public InternalPoisonTimer(Mobile mobile, Mobile attacker)
+				: base(TimeSpan.FromSeconds(1.5)) 
 			{ 
 				Priority = TimerPriority.FiftyMS; 
 				m_Mobile = mobile;

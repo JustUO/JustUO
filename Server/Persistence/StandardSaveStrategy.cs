@@ -95,6 +95,7 @@ namespace Server
 			}
 
 			idx.Write(mobiles.Count);
+
 			foreach (Mobile m in mobiles.Values)
 			{
 				long start = bin.Position;
@@ -149,6 +150,7 @@ namespace Server
 			}
 
 			idx.Write(items.Count);
+
 			foreach (Item item in items.Values)
 			{
 				if (item.Decays && item.Parent == null && item.Map != Map.Internal &&
@@ -176,6 +178,7 @@ namespace Server
 			}
 
 			tdb.Write(World.m_ItemTypes.Count);
+
 			foreach (Type t in World.m_ItemTypes)
 			{
 				tdb.Write(t.FullName);

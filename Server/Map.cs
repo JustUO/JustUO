@@ -881,6 +881,7 @@ namespace Server
 				for (int y = cy - SectorActiveRange; y <= cy + SectorActiveRange; ++y)
 				{
 					Sector sect = GetRealSector(x, y);
+
 					if (sect != _InvalidSector)
 					{
 						sect.Activate();
@@ -896,6 +897,7 @@ namespace Server
 				for (int y = cy - SectorActiveRange; y <= cy + SectorActiveRange; ++y)
 				{
 					Sector sect = GetRealSector(x, y);
+
 					if (sect != _InvalidSector && !PlayersInRange(sect, SectorActiveRange))
 					{
 						sect.Deactivate();
@@ -911,6 +913,7 @@ namespace Server
 				for (int y = sect.Y - range; y <= sect.Y + range; ++y)
 				{
 					Sector check = GetRealSector(x, y);
+
 					if (check != _InvalidSector && check.Players.Count > 0)
 					{
 						return true;
@@ -2323,6 +2326,7 @@ namespace Server
 
 				LandTile landTile = Tiles.GetLandTile(point.X, point.Y);
 				int landZ = 0, landAvg = 0, landTop = 0;
+
 				GetAverageZ(point.m_X, point.m_Y, ref landZ, ref landAvg, ref landTop);
 
 				if (landZ <= pointTop && landTop >= point.m_Z &&

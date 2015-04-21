@@ -17,6 +17,8 @@ using System.Linq;
 using Server.Gumps;
 #endregion
 
+#pragma warning disable 109
+
 namespace VitaNex.SuperGumps
 {
 	public abstract partial class SuperGump

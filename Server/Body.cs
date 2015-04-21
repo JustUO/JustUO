@@ -104,12 +104,10 @@ namespace Server
 			{
 				return (m_BodyID >= 0 && m_BodyID < m_Types.Length && m_Types[m_BodyID] == BodyType.Human && m_BodyID != 402 &&
 						m_BodyID != 403 && m_BodyID != 607 && m_BodyID != 608 && m_BodyID != 970)
-
-					   #region Stygian Abyss
+				#region Stygian Abyss
 					   || m_BodyID == 694 || m_BodyID == 695
-					#endregion
-
-					;
+				#endregion
+						;
 			}
 		}
 
@@ -119,12 +117,10 @@ namespace Server
 			{
 				return m_BodyID == 183 || m_BodyID == 185 || m_BodyID == 400 || m_BodyID == 402 || m_BodyID == 605 ||
 					   m_BodyID == 607 || m_BodyID == 750
-
-					   #region Stygian Abyss
+				#region Stygian Abyss
 					   || m_BodyID == 666 || m_BodyID == 694
-					#endregion
-
-					;
+				#endregion
+						;
 			}
 		}
 
@@ -134,16 +130,13 @@ namespace Server
 			{
 				return m_BodyID == 184 || m_BodyID == 186 || m_BodyID == 401 || m_BodyID == 403 || m_BodyID == 606 ||
 					   m_BodyID == 608 || m_BodyID == 751
-
-					   #region Stygian Abyss
+				#region Stygian Abyss
 					   || m_BodyID == 667 || m_BodyID == 695
-					   #endregion
-
-					   #region High Seas
+				#endregion
+				#region High Seas
 					   || m_BodyID == 1253
-					#endregion
-
-					;
+				#endregion
+						;
 			}
 		}
 
@@ -152,11 +145,9 @@ namespace Server
 			get
 			{
 				return m_BodyID == 402 || m_BodyID == 403 || m_BodyID == 607 || m_BodyID == 608 || m_BodyID == 970
-
-					   #region Stygian Abyss
+				#region Stygian Abyss
 					   || m_BodyID == 694 || m_BodyID == 695
-					#endregion
-
+				#endregion
 					;
 			}
 		}

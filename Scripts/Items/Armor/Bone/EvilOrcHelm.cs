@@ -56,7 +56,7 @@ namespace Server.Items
             return base.OnEquip(from);
         }
 
-        public override void OnRemoved(object parent)
+		public override void OnRemoved(IEntity parent)
         {
             base.OnRemoved(parent);
 

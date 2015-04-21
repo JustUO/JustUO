@@ -266,7 +266,7 @@ namespace VitaNex.Modules.AutoPvP
 				return true;
 			}
 
-#if NEWENTITY
+#if NEWPARENT
 			return e == null || e.Deleted || Options.Rules.CanMoveThrough;
 #else
 			return e == null || (e is Mobile && ((Mobile)e).Deleted) || (e is Item && ((Item)e).Deleted) ||

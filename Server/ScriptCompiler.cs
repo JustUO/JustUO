@@ -74,7 +74,7 @@ namespace Server
 				AppendCompilerOption(ref sb, "/optimize");
 			}
 
-#if MONO
+			#if MONO
 			AppendCompilerOption( ref sb, "/d:MONO" );
             #endif
 
@@ -85,10 +85,18 @@ namespace Server
 
 			AppendCompilerOption(ref sb, "/d:Framework_4_0"); // Legacy Support
 
+			#if NEWPARENT
+			AppendCompilerOption(ref sb, "/d:NEWPARENT");
+			#endif
+
+			#if NEWTIMERS
+			AppendCompilerOption(ref sb, "/d:NEWTIMERS");
+			#endif
+
 			return (sb == null ? null : sb.ToString());
 		}
 
-		private static void AppendCompilerOption(ref StringBuilder sb, string define)
+		public static void AppendCompilerOption(ref StringBuilder sb, string define)
 		{
 			if (sb == null)
 			{
@@ -233,9 +241,9 @@ namespace Server
 				CompilerResults results = provider.CompileAssemblyFromFile(parms, files);
 #else
 				parms.CompilerOptions = String.Format( "{0} /nowarn:169,219,414,618,429,162,252,849,1717,612,108,109,649 /recurse:Scripts/*.cs", parms.CompilerOptions );
-				CompilerResults results = provider.CompileAssemblyFromFile( parms, "" );
+				CompilerResults results = provider.CompileAssemblyFromFile( parms, String.Empty );
 #endif
-                m_AdditionalReferences.Add(path);
+				m_AdditionalReferences.Add(path);
 
 				Display(results);
 
@@ -629,11 +637,11 @@ namespace Server
 
 			Utility.PushColor(ConsoleColor.Green);
 			Console.WriteLine(
-				"Finished ({0} items, {1} mobiles, {3} customs) ({2:F2} seconds)",
+				"Finished ({0} items, {1} mobiles, {2} customs) ({3:F2} seconds)",
 				Core.ScriptItems,
 				Core.ScriptMobiles,
-				watch.Elapsed.TotalSeconds,
-				Core.ScriptCustoms);
+				Core.ScriptCustoms,
+				watch.Elapsed.TotalSeconds);
 			Utility.PopColor();
 
 			return true;
@@ -748,9 +756,14 @@ namespace Server
 
 		public static string[] GetScripts(string filter)
 		{
+			return GetScripts("Scripts", filter);
+		}
+
+		public static string[] GetScripts(string path, string filter)
+		{
 			var list = new List<string>();
 
-			GetScripts(list, Path.Combine(Core.BaseDirectory, "Scripts"), filter);
+			GetScripts(list, Path.Combine(Core.BaseDirectory, path), filter);
 
 			return list.ToArray();
 		}

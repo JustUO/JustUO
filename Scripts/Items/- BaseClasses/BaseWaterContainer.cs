@@ -59,7 +59,7 @@
 
                     if (!this.IsEmpty)
                     {
-                        IEntity rootParent = this.RootParentEntity;
+                        IEntity rootParent = this.RootParent;
 
                         if (rootParent != null && rootParent.Map != null && rootParent.Map != Map.Internal)
                             this.MoveToWorld(rootParent.Location, rootParent.Map);

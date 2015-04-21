@@ -74,7 +74,7 @@ namespace Server.Engines.XmlSpawner2
 		    m.SendMessage(String.Format("You are no longer eligable for referral rewards."));
 		}
 
-        public static void Initialize()
+        public static void Configure()
         {
             // Register our event handler
             EventSink.CharacterCreated += new CharacterCreatedEventHandler(EventSink_CharacterCreated);

@@ -550,7 +550,7 @@ namespace Server.Network
 			EquipInfoAttribute[] attrs = info.Attributes;
 
 			EnsureCapacity(
-				17 + (info.Crafter == null ? 0 : 6 + info.Crafter.Name == null ? 0 : info.Crafter.Name.Length) +
+				17 + (info.Crafter == null ? 0 : 6 + info.Crafter.RawName == null ? 0 : info.Crafter.RawName.Length) +
 				(info.Unidentified ? 4 : 0) + (attrs.Length * 6));
 
 			m_Stream.Write((short)0x10);
@@ -560,7 +560,7 @@ namespace Server.Network
 
 			if (info.Crafter != null)
 			{
-				string name = info.Crafter.Name;
+				string name = info.Crafter.RawName;
 
 				m_Stream.Write(-3);
 
@@ -1261,11 +1261,6 @@ namespace Server.Network
 				m_Stream.Write((short)itemID);
 
 				m_Stream.Write((byte)0);
-				/*} else if (  ) {
-			m_Stream.Write( (byte) 0x01 );
-			m_Stream.Write( (int) item.Serial );
-			m_Stream.Write( (short) itemID ); 
-			m_Stream.Write( (byte) item.Direction );*/
 			}
 			else
 			{
@@ -1317,11 +1312,6 @@ namespace Server.Network
 				m_Stream.Write((ushort)itemID);
 
 				m_Stream.Write((byte)0);
-				/*} else if (  ) {
-			m_Stream.Write( (byte) 0x01 );
-			m_Stream.Write( (int) item.Serial );
-			m_Stream.Write( (ushort) itemID ); 
-			m_Stream.Write( (byte) item.Direction );*/
 			}
 			else
 			{
@@ -2423,11 +2413,6 @@ m_Stream.Write( (int) renderMode );
 			m_Stream.Write((ushort)skill.BaseFixedPoint);
 			m_Stream.Write((byte)skill.Lock);
 			m_Stream.Write((ushort)skill.CapFixedPoint);
-			/*m_Stream.Write( (short) skill.Info.SkillID );
-	m_Stream.Write( (short) (skill.Value * 10.0) );
-	m_Stream.Write( (short) (skill.Base * 10.0) );
-	m_Stream.Write( (byte) skill.Lock );
-	m_Stream.Write( (short) skill.CapFixedPoint );*/
 		}
 	}
 
@@ -2804,6 +2789,7 @@ m_Stream.Write( (int) renderMode );
 			wantLength &= ~4095;
 
 			byte[] m_PackBuffer;
+
 			lock (m_PackBuffers)
 				m_PackBuffer = m_PackBuffers.AcquireBuffer();
 
@@ -4539,7 +4525,6 @@ m_Stream.Write( (int) renderMode );
 			{
 				flags |= (CharacterListFlags.SeventhCharacterSlot | CharacterListFlags.SixthCharacterSlot);
 			}
-				// 7th Character Slot - TODO: Is SixthCharacterSlot Required?
 			else if (count == 6)
 			{
 				flags |= CharacterListFlags.SixthCharacterSlot; // 6th Character Slot
@@ -4643,7 +4628,6 @@ m_Stream.Write( (int) renderMode );
 			{
 				flags |= (CharacterListFlags.SeventhCharacterSlot | CharacterListFlags.SixthCharacterSlot);
 			}
-				// 7th Character Slot - TODO: Is SixthCharacterSlot Required?
 			else if (count == 6)
 			{
 				flags |= CharacterListFlags.SixthCharacterSlot; // 6th Character Slot
@@ -4668,6 +4652,7 @@ m_Stream.Write( (int) renderMode );
 
 				byte[] hashCode = m_MD5Provider.ComputeHash(
 					m_Stream.UnderlyingStream.GetBuffer(), 0, (int)m_Stream.UnderlyingStream.Length);
+
 				var buffer = new byte[28];
 
 				for (int i = 0; i < count; ++i)
@@ -4723,7 +4708,7 @@ m_Stream.Write( (int) renderMode );
 	}
 
     [Flags]
-    public enum AffixType : byte
+	public enum AffixType : byte
 	{
 		Append = 0x00,
 		Prepend = 0x01,
@@ -4749,10 +4734,12 @@ m_Stream.Write( (int) renderMode );
 			{
 				name = "";
 			}
+
 			if (affix == null)
 			{
 				affix = "";
 			}
+
 			if (args == null)
 			{
 				args = "";
@@ -5133,6 +5120,7 @@ m_Stream.Write( (int) renderMode );
 			if (compress)
 			{
 				byte[] buffer;
+
 				lock (m_CompressorBuffers)
 					buffer = m_CompressorBuffers.AcquireBuffer();
 
@@ -5145,6 +5133,7 @@ m_Stream.Write( (int) renderMode );
 						m_PacketID,
 						GetType().Name,
 						length);
+
 					using (var op = new StreamWriter("compression_overflow.log", true))
 					{
 						op.WriteLine(
@@ -5168,6 +5157,7 @@ m_Stream.Write( (int) renderMode );
 					{
 						lock (m_Buffers)
 							m_CompiledBuffer = m_Buffers.AcquireBuffer();
+
 						m_State |= State.Buffered;
 					}
 
@@ -5180,6 +5170,7 @@ m_Stream.Write( (int) renderMode );
 			else if (length > 0)
 			{
 				byte[] old = m_CompiledBuffer;
+
 				m_CompiledLength = length;
 
 				if (length > BufferSize || (m_State & State.Static) != 0)
