@@ -828,7 +828,7 @@ namespace Server.Gumps
 
             Item sign = this.m_House.Sign;
 
-            if (sign == null || from.Map != sign.Map || !from.InRange(sign.GetWorldLocation(), 18))
+            if (sign == null || from.Map != sign.Map || !from.InRange(sign.GetWorldLocation(), Core.GlobalUpdateRange))
                 return;
 
             HouseFoundation foundation = this.m_House as HouseFoundation;

@@ -21,7 +21,7 @@ namespace Server.Commands.Generic
             if (impl == null)
                 return;
 
-            impl.Process(18, from, command, args);
+            impl.Process(Core.GlobalUpdateRange, from, command, args);
         }
     }
 }

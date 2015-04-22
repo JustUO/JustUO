@@ -152,14 +152,9 @@ namespace Server.Multis
         {
             int w = this.CurrentState.Components.Width;
             int h = this.CurrentState.Components.Height - 1;
-            int v = 18 + ((w > h ? w : h) / 2);
+            int v = Core.GlobalUpdateRange + ((w > h ? w : h) / 2);
 
-            if (v > 24)
-                v = 24;
-            else if (v < 18)
-                v = 18;
-
-            return v;
+	        return Math.Max(Core.GlobalUpdateRange, Math.Min(Core.GlobalMaxUpdateRange, v));
         }
 
         public DesignState CurrentState

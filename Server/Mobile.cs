@@ -5112,7 +5112,7 @@ namespace Server
 					break;
 				case MessageType.Yell:
 					_YellHue = hue;
-					range = 18;
+					range = Core.GlobalUpdateRange; //18
 					break;
 				default:
 					type = MessageType.Regular;
@@ -11940,7 +11940,8 @@ namespace Server
 		}
 
 		/// <summary>
-		///     Overridable. Virtual event invoked when the Mobile is double clicked by someone who is over 18 tiles away.
+		///     Overridable. Virtual event invoked when the Mobile is double clicked by someone who is over N tiles away, where N == Core.GlobalUpdateRange.
+		///		<seealso cref="Core.GlobalUpdateRange" />
 		///     <seealso cref="OnDoubleClick" />
 		/// </summary>
 		public virtual void OnDoubleClickOutOfRange(Mobile from)

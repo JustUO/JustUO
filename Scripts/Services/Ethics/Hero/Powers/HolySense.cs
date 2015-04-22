@@ -31,7 +31,7 @@ namespace Server.Ethics.Hero
                 if (mob == null || mob.Map != from.Mobile.Map || !mob.Alive)
                     continue;
 
-                if (!mob.InRange(from.Mobile, Math.Max(18, maxRange - pl.Power)))
+                if (!mob.InRange(from.Mobile, Math.Max(Core.GlobalUpdateRange, maxRange - pl.Power)))
                     continue;
 
                 if (primary == null || pl.Power > primary.Power)

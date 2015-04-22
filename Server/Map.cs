@@ -228,14 +228,7 @@ namespace Server
 		#region Get*InRange/Bounds
 		public IPooledEnumerable<IEntity> GetObjectsInRange(Point3D p)
 		{
-			if (this == Internal)
-			{
-				return NullEnumerable<IEntity>.Instance;
-			}
-
-			return
-				PooledEnumerable<IEntity>.Instantiate(
-					EntityEnumerator.Instantiate(this, new Rectangle2D(p.m_X - 18, p.m_Y - 18, 37, 37)));
+			return GetObjectsInRange(p, Core.GlobalUpdateRange);
 		}
 
 		public IPooledEnumerable<IEntity> GetObjectsInRange(Point3D p, int range)
@@ -262,14 +255,7 @@ namespace Server
 
 		public IPooledEnumerable<NetState> GetClientsInRange(Point3D p)
 		{
-			if (this == Internal)
-			{
-				return NullEnumerable<NetState>.Instance;
-			}
-
-			return
-				PooledEnumerable<NetState>.Instantiate(
-					ClientEnumerator.Instantiate(this, new Rectangle2D(p.m_X - 18, p.m_Y - 18, 37, 37)));
+			return GetClientsInRange(p, Core.GlobalUpdateRange);
 		}
 
 		public IPooledEnumerable<NetState> GetClientsInRange(Point3D p, int range)
@@ -296,14 +282,7 @@ namespace Server
 
 		public IPooledEnumerable<Item> GetItemsInRange(Point3D p)
 		{
-			if (this == Internal)
-			{
-				return NullEnumerable<Item>.Instance;
-			}
-
-			return
-				PooledEnumerable<Item>.Instantiate(
-					ItemEnumerator.Instantiate(this, new Rectangle2D(p.m_X - 18, p.m_Y - 18, 37, 37)));
+			return GetItemsInRange(p, Core.GlobalUpdateRange);
 		}
 
 		public IPooledEnumerable<Item> GetItemsInRange(Point3D p, int range)
@@ -330,14 +309,7 @@ namespace Server
 
 		public IPooledEnumerable<Mobile> GetMobilesInRange(Point3D p)
 		{
-			if (this == Internal)
-			{
-				return NullEnumerable<Mobile>.Instance;
-			}
-
-			return
-				PooledEnumerable<Mobile>.Instantiate(
-					MobileEnumerator.Instantiate(this, new Rectangle2D(p.m_X - 18, p.m_Y - 18, 37, 37)));
+			return GetMobilesInRange(p, Core.GlobalUpdateRange);
 		}
 
 		public IPooledEnumerable<Mobile> GetMobilesInRange(Point3D p, int range)

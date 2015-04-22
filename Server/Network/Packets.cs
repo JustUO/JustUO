@@ -990,7 +990,7 @@ namespace Server.Network
 
 				if (range == -1)
 				{
-					range = 18;
+					range = Core.GlobalUpdateRange; //18
 				}
 
 				CMEFlags flags = (e.Enabled && menu.From.InRange(p, range)) ? CMEFlags.None : CMEFlags.Disabled;
@@ -1048,7 +1048,7 @@ namespace Server.Network
 
 				if (range == -1)
 				{
-					range = 18;
+					range = Core.GlobalUpdateRange; //18
 				}
 
 				CMEFlags flags = (e.Enabled && menu.From.InRange(p, range)) ? CMEFlags.None : CMEFlags.Disabled;
