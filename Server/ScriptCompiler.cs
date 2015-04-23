@@ -240,7 +240,7 @@ namespace Server
 #if !MONO
 				CompilerResults results = provider.CompileAssemblyFromFile(parms, files);
 #else
-				parms.CompilerOptions = String.Format( "{0} /nowarn:169,219,414,618,429,162,252,849,1717,612,108,109,649 /recurse:Scripts/*.cs", parms.CompilerOptions );
+				parms.CompilerOptions = String.Format( "{0} /nowarn:618,169,219,414,618,429,162,252,849,1717,612,108,109,649 /recurse:Scripts/*.cs", parms.CompilerOptions );
 				CompilerResults results = provider.CompileAssemblyFromFile( parms, String.Empty );
 #endif
 				m_AdditionalReferences.Add(path);
