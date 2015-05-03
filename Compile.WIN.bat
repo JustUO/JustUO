@@ -9,7 +9,7 @@
 ::##########
 
 @ECHO:
-@ECHO: Ready to Compile JustUO
+@ECHO: Ready to Compile JustUO (WIN)
 @ECHO:
 
 @PAUSE
@@ -18,7 +18,7 @@
 
 @ECHO ON
 
-%CSCPATH%csc.exe /win32icon:"%SRVPATH%justuo.ico" /r:"%CURPATH%OpenUO.Core.dll" /r:"%CURPATH%OpenUO.Ultima.dll" /r:"%CURPATH%OpenUO.Ultima.Windows.Forms.dll" /r:"%CURPATH%SevenZipSharp.dll" /target:exe /out:"%CURPATH%JustUO.exe" /recurse:"%SRVPATH%*.cs" /d:Framework_4_0 /d:JustUO /nowarn:0618 /debug /nologo /optimize /unsafe
+%CSCPATH%csc.exe /win32icon:"%SRVPATH%justuo.ico" /r:"%CURPATH%OpenUO.Core.dll" /r:"%CURPATH%OpenUO.Ultima.dll" /r:"%CURPATH%OpenUO.Ultima.Windows.Forms.dll" /r:"%CURPATH%SevenZipSharp.dll" /target:exe /out:"%CURPATH%JustUO.exe" /recurse:"%SRVPATH%*.cs" /d:JustUO /d:Framework_4_0 /d:NEWTIMERS /d:NEWPARENT /nowarn:618 /debug /nologo /optimize /unsafe
 
 @ECHO OFF
 

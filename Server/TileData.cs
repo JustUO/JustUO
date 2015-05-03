@@ -20,6 +20,7 @@ using System.Text;
 
 namespace Server
 {
+	[PropertyObject]
 	public struct LandData
 	{
 		private string m_Name;
@@ -31,11 +32,14 @@ namespace Server
 			m_Flags = flags;
 		}
 
+		[CommandProperty(AccessLevel.GameMaster, true)]
 		public string Name { get { return m_Name; } set { m_Name = value; } }
 
+		[CommandProperty(AccessLevel.GameMaster, true)]
 		public TileFlag Flags { get { return m_Flags; } set { m_Flags = value; } }
 	}
 
+	[PropertyObject]
 	public struct ItemData
 	{
 		private string m_Name;
@@ -57,10 +61,13 @@ namespace Server
 			m_Height = (byte)height;
 		}
 
+		[CommandProperty(AccessLevel.GameMaster, true)]
 		public string Name { get { return m_Name; } set { m_Name = value; } }
 
+		[CommandProperty(AccessLevel.GameMaster, true)]
 		public TileFlag Flags { get { return m_Flags; } set { m_Flags = value; } }
 
+		[CommandProperty(AccessLevel.GameMaster, true)]
 		public bool Bridge
 		{
 			get { return (m_Flags & TileFlag.Bridge) != 0; }
@@ -77,6 +84,7 @@ namespace Server
 			}
 		}
 
+		[CommandProperty(AccessLevel.GameMaster, true)]
 		public bool Impassable
 		{
 			get { return (m_Flags & TileFlag.Impassable) != 0; }
@@ -93,6 +101,7 @@ namespace Server
 			}
 		}
 
+		[CommandProperty(AccessLevel.GameMaster, true)]
 		public bool Surface
 		{
 			get { return (m_Flags & TileFlag.Surface) != 0; }
@@ -109,16 +118,22 @@ namespace Server
 			}
 		}
 
+		[CommandProperty(AccessLevel.GameMaster, true)]
 		public int Weight { get { return m_Weight; } set { m_Weight = (byte)value; } }
 
+		[CommandProperty(AccessLevel.GameMaster, true)]
 		public int Quality { get { return m_Quality; } set { m_Quality = (byte)value; } }
 
+		[CommandProperty(AccessLevel.GameMaster, true)]
 		public int Quantity { get { return m_Quantity; } set { m_Quantity = (byte)value; } }
 
+		[CommandProperty(AccessLevel.GameMaster, true)]
 		public int Value { get { return m_Value; } set { m_Value = (byte)value; } }
 
+		[CommandProperty(AccessLevel.GameMaster, true)]
 		public int Height { get { return m_Height; } set { m_Height = (byte)value; } }
 
+		[CommandProperty(AccessLevel.GameMaster, true)]
 		public int CalcHeight
 		{
 			get

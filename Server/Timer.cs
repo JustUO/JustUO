@@ -328,6 +328,7 @@ namespace Server
 					for (i = 0; i < m_Timers.Length; i++)
 					{
 						now = Core.TickCount;
+
 						if (now < m_NextPriorities[i])
 						{
 							break;
@@ -419,7 +420,7 @@ namespace Server
 
 		public virtual bool DefRegCreation { get { return true; } }
 
-		public void RegCreation()
+		public virtual void RegCreation()
 		{
 			TimerProfile prof = GetProfile();
 

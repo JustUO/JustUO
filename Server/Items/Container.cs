@@ -122,7 +122,11 @@ namespace Server.Items
 		}
 
 		public virtual Rectangle2D Bounds { get { return ContainerData.Bounds; } }
+
+		[CommandProperty(AccessLevel.GameMaster)]
 		public virtual int DefaultGumpID { get { return ContainerData.GumpID; } }
+
+		[CommandProperty(AccessLevel.GameMaster)]
 		public virtual int DefaultDropSound { get { return ContainerData.DropSound; } }
 
 		public virtual int DefaultMaxItems { get { return m_GlobalMaxItems; } }
@@ -373,7 +377,7 @@ namespace Server.Items
 								callback(item, theirAmount);
 							}
 
-							item.Delete();
+							item.Consume(theirAmount);
 							need -= theirAmount;
 						}
 						else
@@ -492,7 +496,7 @@ namespace Server.Items
 									callback(item, theirAmount);
 								}
 
-								item.Delete();
+								item.Consume(theirAmount);
 								need -= theirAmount;
 							}
 							else
@@ -611,7 +615,7 @@ namespace Server.Items
 									callback(item, theirAmount);
 								}
 
-								item.Delete();
+								item.Consume(theirAmount);
 								need -= theirAmount;
 							}
 							else
@@ -686,7 +690,7 @@ namespace Server.Items
 							callback(item, theirAmount);
 						}
 
-						item.Delete();
+						item.Consume(theirAmount);
 						need -= theirAmount;
 					}
 					else
@@ -757,7 +761,7 @@ namespace Server.Items
 							callback(item, theirAmount);
 						}
 
-						item.Delete();
+						item.Consume(theirAmount);
 						need -= theirAmount;
 					}
 					else
@@ -817,7 +821,7 @@ namespace Server.Items
 							callback(item, theirAmount);
 						}
 
-						item.Delete();
+						item.Consume(theirAmount);
 						need -= theirAmount;
 					}
 					else
@@ -1616,17 +1620,13 @@ namespace Server.Items
 			m_TotalItems = 0;
 			m_TotalWeight = 0;
 
-			List<Item> items = m_Items;
-
-			if (items == null)
+			if (m_Items == null)
 			{
 				return;
 			}
 
-			for (int i = 0; i < items.Count; ++i)
+			foreach (Item item in m_Items)
 			{
-				Item item = items[i];
-
 				item.UpdateTotals();
 
 				if (item.IsVirtualItem)
@@ -1711,7 +1711,7 @@ namespace Server.Items
 
 		public virtual void DropItem(Item dropped)
 		{
-			if (dropped == null)
+			if (dropped == null || dropped.Deleted)
 			{
 				return;
 			}
@@ -1803,7 +1803,11 @@ namespace Server.Items
 
 			if (CheckContentDisplay(from))
 			{
-				LabelTo(from, "({0} items, {1} stones)", TotalItems, TotalWeight);
+				LabelTo(from, "({0} item{1}, {2} stone{3})", 
+						TotalItems, 
+						TotalItems != 1 ? "s" : String.Empty, 
+						TotalWeight, 
+						TotalWeight != 1 ? "s" : String.Empty);
 			}
 		}
 

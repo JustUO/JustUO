@@ -141,7 +141,7 @@ namespace Server.Gumps
 
 					y += y_inc;
 
-					int texthue = 1149;
+					//int texthue = 1149;
 
 					// add the selection button
 					AddButton(width - 33, y, 22153, 22155, 2000 + i, GumpButtonType.Reply, 0);

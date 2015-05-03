@@ -225,6 +225,7 @@ namespace Server.Network
 		public bool ContainerGridLines { get { return ((_ProtocolChanges & ProtocolChanges.ContainerGridLines) != 0); } }
 		public bool ExtendedSupportedFeatures { get { return ((_ProtocolChanges & ProtocolChanges.ExtendedSupportedFeatures) != 0); } }
 		public bool StygianAbyss { get { return ((_ProtocolChanges & ProtocolChanges.StygianAbyss) != 0); } }
+		public bool NewMobileAnimation { get { return ((_ProtocolChanges & ProtocolChanges.Version7000) != 0); } }
 		public bool HighSeas { get { return ((_ProtocolChanges & ProtocolChanges.HighSeas) != 0); } }
 		public bool NewCharacterList { get { return ((_ProtocolChanges & ProtocolChanges.NewCharacterList) != 0); } }
 		public bool NewCharacterCreation { get { return ((_ProtocolChanges & ProtocolChanges.NewCharacterCreation) != 0); } }
@@ -595,8 +596,8 @@ namespace Server.Network
 						{
 							_sending = true;
 #if NewAsyncSockets
-						m_SendEventArgs.SetBuffer( gram.Buffer, 0, gram.Length );
-						Send_Start();
+							m_SendEventArgs.SetBuffer( gram.Buffer, 0, gram.Length );
+							Send_Start();
 #else
 							try
 							{
@@ -807,28 +808,28 @@ namespace Server.Network
 
 		public bool Flush() {
 			if ( m_Socket == null )
-					return false;
+				return false;
 
 			lock (_sendL) {
 				if (_sending)
-				return false;
+					return false;
 
-			SendQueue.Gram gram;
-
-			lock ( m_SendQueue ) {
+				SendQueue.Gram gram;
+	
+				lock ( m_SendQueue ) {
 					if (!m_SendQueue.IsFlushReady)
 						return false;
-
-				gram = m_SendQueue.CheckFlushReady();
-			}
-
-			if ( gram != null ) {
+	
+					gram = m_SendQueue.CheckFlushReady();
+				}
+	
+				if ( gram != null ) {
 					_sending = true;
-				m_SendEventArgs.SetBuffer( gram.Buffer, 0, gram.Length );
-				Send_Start();
+					m_SendEventArgs.SetBuffer( gram.Buffer, 0, gram.Length );
+					Send_Start();
+				}
 			}
-			}
-
+	
 			return false;
 		}
 
@@ -1124,7 +1125,6 @@ namespace Server.Network
 			Utility.PopColor();
 
 			Dispose();
-			return;
 		}
 
 		public static void TraceException(Exception ex)
@@ -1210,7 +1210,7 @@ namespace Server.Network
 #if NewAsyncSockets
 			m_ReceiveEventArgs = null;
 			m_SendEventArgs = null;
-            #else
+#else
 			m_OnReceive = null;
 			m_OnSend = null;
 #endif
@@ -1267,6 +1267,7 @@ namespace Server.Network
 				while (breakout < 200 && m_Disposed.Count > 0)
 				{
 					++breakout;
+				
 					NetState ns = m_Disposed.Dequeue();
 
 					Mobile m = ns.m_Mobile;

@@ -42,25 +42,20 @@ namespace Server
 					new CounterCreationData(
 						//
 						"Save - Count", "Number of world saves.", PerformanceCounterType.NumberOfItems32),
-
 					new CounterCreationData(
 						//
 						"Save - Items/sec", "Number of items saved per second.", PerformanceCounterType.RateOfCountsPerSecond32),
-
 					new CounterCreationData(
 						//
 						"Save - Mobiles/sec", "Number of mobiles saved per second.", PerformanceCounterType.RateOfCountsPerSecond32),
-
 					new CounterCreationData(
 						//
 						"Save - Customs/sec", "Number of cores saved per second.", PerformanceCounterType.RateOfCountsPerSecond32),
-
 					new CounterCreationData(
 						//
 						"Save - Serialized bytes/sec",
 						"Amount of world-save bytes serialized per second.",
 						PerformanceCounterType.RateOfCountsPerSecond32),
-
 					new CounterCreationData(
 						//
 						"Save - Written bytes/sec",

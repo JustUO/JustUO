@@ -9,7 +9,7 @@ namespace Server.Items
 
         [CommandProperty( AccessLevel.Administrator )]
         public int BodyInit
-	{ 
+		{ 
             get 
             { 
                 return m_BodyInit;
@@ -22,14 +22,18 @@ namespace Server.Items
         }
         
         public override bool OnEquip( Mobile from )
-	{
-            BodyInit = from.BodyValue;
-            from.BodyValue = 723;
+		{
+			BodyInit = from.BodyValue;
+			from.BodyValue = 723;
 
-	    return base.OnEquip( from );
-	}
+			return base.OnEquip( from );
+		}
 
-	public override void OnRemoved( object parent )
+#if NEWPARENT
+		public override void OnRemoved( IEntity parent )
+#else
+		public override void OnRemoved( object parent )
+#endif
         {
             base.OnRemoved( parent );
 
@@ -39,7 +43,8 @@ namespace Server.Items
                 
                 m.BodyValue = BodyInit;
             }
-        }        
+        }   
+     
 		public override int LabelNumber{ get{ return 1095066; } }  
 		        
         [Constructable]

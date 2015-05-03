@@ -121,8 +121,10 @@ namespace Server.Items
                 return true;
             }
         }
-        public override void OnAdded(object parent)
-        {
+		public override void OnAdded(IEntity parent)
+		{
+			base.OnAdded(parent);
+
             if (parent is Mobile)
             {
                 this.ItemID = 0x0311;

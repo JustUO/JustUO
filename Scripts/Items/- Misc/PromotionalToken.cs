@@ -51,8 +51,14 @@ namespace Server.Items
             }
         }
 
+#if NEWPARENT
+		public override void OnRemoved(IEntity parent)
+#else
         public override void OnRemoved(object parent)
+#endif
         {
+			base.OnRemoved(parent);
+
             Mobile m = null;
 
             if (parent is Item)

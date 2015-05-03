@@ -2743,11 +2743,11 @@ namespace Server.Mobiles
 			}
 		}
 
-		public override void RevealingAction()
+		public override void RevealingAction(bool disruptive)
 		{
 			InvisibilitySpell.RemoveTimer(this);
 
-			base.RevealingAction();
+			base.RevealingAction(disruptive);
 		}
 
 		public void RemoveFollowers()

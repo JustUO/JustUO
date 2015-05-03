@@ -20,6 +20,23 @@ namespace Server.Items
 {
 	public class BaseMulti : Item
 	{
+		public static BaseMulti FindMultiAt(IPoint2D loc, Map map)
+		{
+			Sector sector = map.GetSector(loc);
+
+			for (int i = 0; i < sector.Multis.Count; i++)
+			{
+				BaseMulti multi = sector.Multis[i];
+
+				if (multi != null && multi.Contains(loc.X, loc.Y))
+				{
+					return multi;
+				}
+			}
+
+			return null;
+		}
+
 		[Constructable]
 		public BaseMulti(int itemID)
 			: base(itemID)
@@ -99,12 +116,12 @@ namespace Server.Items
 
 		public override int GetMaxUpdateRange()
 		{
-			return 22;
+			return base.GetMaxUpdateRange() + 4;
 		}
 
 		public override int GetUpdateRange(Mobile m)
 		{
-			return 22;
+			return base.GetUpdateRange(m) + 4;
 		}
 
 		public virtual MultiComponentList Components { get { return MultiData.GetComponents(ItemID); } }
@@ -171,12 +188,9 @@ namespace Server.Items
 
 			int version = reader.ReadInt();
 
-			if (version == 0)
+			if (version == 0 && ItemID >= 0x4000)
 			{
-				if (ItemID >= 0x4000)
-				{
-					ItemID -= 0x4000;
-				}
+				ItemID -= 0x4000;
 			}
 		}
 	}

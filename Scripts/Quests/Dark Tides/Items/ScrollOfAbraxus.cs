@@ -36,7 +36,7 @@ namespace Server.Engines.Quests.Necro
             return false;
         }
 
-        public override void OnAdded(object parent)
+		public override void OnAdded(IEntity parent)
         {
             base.OnAdded(parent);
 

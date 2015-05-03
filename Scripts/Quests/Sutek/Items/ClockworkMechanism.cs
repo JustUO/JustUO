@@ -143,8 +143,8 @@ namespace Server.Items
             if (this.m_Lifespan <= 0)
             {
                 this.StopTimer();
-                if (this.RootParentEntity is Mobile)
-                    ((Mobile)this.RootParentEntity).SendLocalizedMessage(1112822); // You fail to find the next ingredient in time. Your clockwork assembly crumbles.
+                if (this.RootParent is Mobile)
+                    ((Mobile)this.RootParent).SendLocalizedMessage(1112822); // You fail to find the next ingredient in time. Your clockwork assembly crumbles.
                 this.Delete();
             }
         }

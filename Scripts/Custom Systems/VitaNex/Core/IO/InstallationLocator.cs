@@ -1,5 +1,4 @@
-﻿#if !MONO
-#region Header
+﻿#region Header
 //   Vorspire    _,-'/-'/  InstallationLocator.cs
 //   .      __,-; ,'( '/
 //    \.    `-.__`-._`:_,-._       _ , . ``
@@ -9,6 +8,8 @@
 //  {o)xxx|===============-   #   -===============|xxx(o}
 //        #        The MIT License (MIT)          #
 #endregion
+
+#if !MONO
 
 #region References
 using System;

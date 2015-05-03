@@ -1177,31 +1177,59 @@ namespace Server.Accounting
 
 		public override string ToString()
 		{
-			return this.m_Username;
+			return m_Username;
 		}
 
-		public int CompareTo(Account other)
+		public virtual int CompareTo(Account other)
 		{
 			if (other == null)
 				return 1;
 
-			return this.m_Username.CompareTo(other.m_Username);
+			return String.Compare(m_Username, other.m_Username, StringComparison.Ordinal);
 		}
 
-		public int CompareTo(IAccount other)
+		public virtual int CompareTo(IAccount other)
 		{
 			if (other == null)
 				return 1;
 
-			return this.m_Username.CompareTo(other.Username);
+			return String.Compare(m_Username, other.Username, StringComparison.Ordinal);
 		}
 
-		public int CompareTo(object obj)
+		public virtual int CompareTo(object obj)
 		{
 			if (obj is Account)
-				return this.CompareTo((Account)obj);
+				return CompareTo((Account)obj);
 
 			throw new ArgumentException();
+		}
+
+		public override bool Equals(object obj)
+		{
+			if (obj is Account)
+				return Equals((Account)obj);
+
+			throw new ArgumentException();
+		}
+
+		public virtual bool Equals(IAccount other)
+		{
+			return !ReferenceEquals(other, null) && m_Username.Equals(other.Username);
+		}
+
+		public virtual bool Equals(Account other)
+		{
+			return !ReferenceEquals(other, null) && m_Username.Equals(other.m_Username);
+		}
+
+		public override int GetHashCode()
+		{
+			unchecked
+			{
+				int hash = Username.Length;
+				hash = (hash * 397) ^ Username.GetHashCode();
+				return hash;
+			}
 		}
 
 		private static void EventSink_Connected(ConnectedEventArgs e)

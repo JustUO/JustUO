@@ -575,6 +575,24 @@ namespace Server
 			}
 		}
 
+		public static double GetXMLDouble(string doubleString, double defaultValue)
+		{
+			try
+			{
+				return XmlConvert.ToDouble(doubleString);
+			}
+			catch
+			{
+				double val;
+				if (double.TryParse(doubleString, out val))
+				{
+					return val;
+				}
+
+				return defaultValue;
+			}
+		}
+
 		public static DateTime GetXMLDateTime(string dateTimeString, DateTime defaultValue)
 		{
 			try
@@ -673,27 +691,14 @@ namespace Server
 		#endregion
 
 		#region In[...]Range
-		public static bool InRange(Point3D p1, Point3D p2, int range)
+		public static bool InRange(IPoint2D p1, IPoint2D p2, int range)
 		{
-			return (p1.m_X >= (p2.m_X - range)) && (p1.m_X <= (p2.m_X + range)) && (p1.m_Y >= (p2.m_Y - range)) &&
-				   (p1.m_Y <= (p2.m_Y + range));
-		}
-
-		public static bool InUpdateRange(Point3D p1, Point3D p2)
-		{
-			return (p1.m_X >= (p2.m_X - 18)) && (p1.m_X <= (p2.m_X + 18)) && (p1.m_Y >= (p2.m_Y - 18)) &&
-				   (p1.m_Y <= (p2.m_Y + 18));
-		}
-
-		public static bool InUpdateRange(Point2D p1, Point2D p2)
-		{
-			return (p1.m_X >= (p2.m_X - 18)) && (p1.m_X <= (p2.m_X + 18)) && (p1.m_Y >= (p2.m_Y - 18)) &&
-				   (p1.m_Y <= (p2.m_Y + 18));
+			return (p1.X >= (p2.X - range)) && (p1.X <= (p2.X + range)) && (p1.Y >= (p2.Y - range)) && (p1.Y <= (p2.Y + range));
 		}
 
 		public static bool InUpdateRange(IPoint2D p1, IPoint2D p2)
 		{
-			return (p1.X >= (p2.X - 18)) && (p1.X <= (p2.X + 18)) && (p1.Y >= (p2.Y - 18)) && (p1.Y <= (p2.Y + 18));
+			return InRange(p1, p2, Core.GlobalUpdateRange);
 		}
 		#endregion
 
@@ -751,54 +756,56 @@ namespace Server
 			}
 		}
 
-		/* Should probably be rewritten to use an ITile interface
+		/* Should probably be rewritten to use an ITile interface */
+		/*
+		public static bool CanMobileFit(int z, StaticTile[] tiles)
+		{
+			int checkHeight = 15;
+			int checkZ = z;
 
-        public static bool CanMobileFit( int z, StaticTile[] tiles )
-        {
-        int checkHeight = 15;
-        int checkZ = z;
+			for (int i = 0; i < tiles.Length; ++i)
+			{
+				StaticTile tile = tiles[i];
 
-        for ( int i = 0; i < tiles.Length; ++i )
-        {
-        StaticTile tile = tiles[i];
+				if (((checkZ + checkHeight) > tile.Z && checkZ < (tile.Z + tile.Height))
+					// || (tile.Z < (checkZ + checkHeight) && (tile.Z + tile.Height) > checkZ)
+					)
+				{
+					return false;
+				}
+				else if (checkHeight == 0 && tile.Height == 0 && checkZ == tile.Z)
+				{
+					return false;
+				}
+			}
 
-        if ( ((checkZ + checkHeight) > tile.Z && checkZ < (tile.Z + tile.Height))*/
-		/* || (tile.Z < (checkZ + checkHeight) && (tile.Z + tile.Height) > checkZ)*/ /* )
-        {
-        return false;
-        }
-        else if ( checkHeight == 0 && tile.Height == 0 && checkZ == tile.Z )
-        {
-        return false;
-        }
-        }
+			return true;
+		}
 
-        return true;
-        }
+		public static bool IsInContact(StaticTile check, StaticTile[] tiles)
+		{
+			int checkHeight = check.Height;
+			int checkZ = check.Z;
 
-        public static bool IsInContact( StaticTile check, StaticTile[] tiles )
-        {
-        int checkHeight = check.Height;
-        int checkZ = check.Z;
+			for (int i = 0; i < tiles.Length; ++i)
+			{
+				StaticTile tile = tiles[i];
 
-        for ( int i = 0; i < tiles.Length; ++i )
-        {
-        StaticTile tile = tiles[i];
+				if (((checkZ + checkHeight) > tile.Z && checkZ < (tile.Z + tile.Height))
+					// || (tile.Z < (checkZ + checkHeight) && (tile.Z + tile.Height) > checkZ)
+					)
+				{
+					return true;
+				}
+				else if (checkHeight == 0 && tile.Height == 0 && checkZ == tile.Z)
+				{
+					return true;
+				}
+			}
 
-        if ( ((checkZ + checkHeight) > tile.Z && checkZ < (tile.Z + tile.Height))*/
-		/* || (tile.Z < (checkZ + checkHeight) && (tile.Z + tile.Height) > checkZ)*/ /* )
-        {
-        return true;
-        }
-        else if ( checkHeight == 0 && tile.Height == 0 && checkZ == tile.Z )
-        {
-        return true;
-        }
-        }
-
-        return false;
-        }
-        */
+			return false;
+		}
+		*/
 
 		public static object GetArrayCap(Array array, int index)
 		{
@@ -844,6 +851,21 @@ namespace Server
 		public static int RandomList(params int[] list)
 		{
 			return list[RandomImpl.Next(list.Length)];
+		}
+
+		public static T RandomList<T>(params T[] list)
+		{
+			return list[RandomImpl.Next(list.Length)];
+		}
+
+		public static T RandomList<T>(List<T> list)
+		{
+			return list[RandomImpl.Next(list.Count)];
+		}
+
+		public static object RandomList(ArrayList list)
+		{
+			return list[RandomImpl.Next(list.Count)];
 		}
 
 		public static bool RandomBool()

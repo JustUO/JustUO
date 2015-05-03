@@ -15,9 +15,8 @@ namespace Server.Items
         [Constructable]
         public WarningItem(int itemID, int range, int warning)
             : base(itemID)
-        {
-            if (range > 18)
-                range = 18;
+		{
+			range = Math.Max(0, Math.Min(Core.GlobalUpdateRange, range));
 
             this.Movable = false;
 
@@ -28,9 +27,8 @@ namespace Server.Items
         [Constructable]
         public WarningItem(int itemID, int range, string warning)
             : base(itemID)
-        {
-            if (range > 18)
-                range = 18;
+		{
+			range = Math.Max(0, Math.Min(Core.GlobalUpdateRange, range));
 
             this.Movable = false;
 
@@ -76,9 +74,7 @@ namespace Server.Items
             }
             set
             {
-                if (value > 18)
-                    value = 18;
-                this.m_Range = value;
+                this.m_Range = Math.Max(0, Math.Min(Core.GlobalUpdateRange, value));
             }
         }
         [CommandProperty(AccessLevel.GameMaster)]

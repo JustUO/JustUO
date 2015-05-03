@@ -847,17 +847,7 @@ namespace Server
 		{
 			if (tidy)
 			{
-				for (int i = 0; i < list.Count;)
-				{
-					if (list[i].Deleted)
-					{
-						list.RemoveAt(i);
-					}
-					else
-					{
-						++i;
-					}
-				}
+				list.RemoveAll(item => (item == null || item.Deleted));
 			}
 
 			Write(list.Count);
@@ -877,17 +867,7 @@ namespace Server
 		{
 			if (tidy)
 			{
-				for (int i = 0; i < list.Count;)
-				{
-					if (list[i].Deleted)
-					{
-						list.RemoveAt(i);
-					}
-					else
-					{
-						++i;
-					}
-				}
+				list.RemoveAll(t => (t == null || t.Deleted));
 			}
 
 			Write(list.Count);
@@ -907,7 +887,7 @@ namespace Server
 		{
 			if (tidy)
 			{
-				set.RemoveWhere(item => item.Deleted);
+				set.RemoveWhere(item => (item == null || item.Deleted));
 			}
 
 			Write(set.Count);
@@ -927,7 +907,7 @@ namespace Server
 		{
 			if (tidy)
 			{
-				set.RemoveWhere(item => item.Deleted);
+				set.RemoveWhere(item => (item == null || item.Deleted));
 			}
 
 			Write(set.Count);
@@ -947,17 +927,7 @@ namespace Server
 		{
 			if (tidy)
 			{
-				for (int i = 0; i < list.Count;)
-				{
-					if (list[i].Deleted)
-					{
-						list.RemoveAt(i);
-					}
-					else
-					{
-						++i;
-					}
-				}
+				list.RemoveAll(mob => (mob == null || mob.Deleted));
 			}
 
 			Write(list.Count);
@@ -977,17 +947,7 @@ namespace Server
 		{
 			if (tidy)
 			{
-				for (int i = 0; i < list.Count;)
-				{
-					if (list[i].Deleted)
-					{
-						list.RemoveAt(i);
-					}
-					else
-					{
-						++i;
-					}
-				}
+				list.RemoveAll(t => (t == null || t.Deleted));
 			}
 
 			Write(list.Count);
@@ -1007,7 +967,7 @@ namespace Server
 		{
 			if (tidy)
 			{
-				set.RemoveWhere(mobile => mobile.Deleted);
+				set.RemoveWhere(mob => (mob == null || mob.Deleted));
 			}
 
 			Write(set.Count);
@@ -1027,7 +987,7 @@ namespace Server
 		{
 			if (tidy)
 			{
-				set.RemoveWhere(mob => mob.Deleted);
+				set.RemoveWhere(mob => (mob == null || mob.Deleted));
 			}
 
 			Write(set.Count);
@@ -1047,17 +1007,7 @@ namespace Server
 		{
 			if (tidy)
 			{
-				for (int i = 0; i < list.Count;)
-				{
-					if (list[i].Disbanded)
-					{
-						list.RemoveAt(i);
-					}
-					else
-					{
-						++i;
-					}
-				}
+				list.RemoveAll(guild => (guild == null || guild.Disbanded));
 			}
 
 			Write(list.Count);
@@ -1077,17 +1027,7 @@ namespace Server
 		{
 			if (tidy)
 			{
-				for (int i = 0; i < list.Count;)
-				{
-					if (list[i].Disbanded)
-					{
-						list.RemoveAt(i);
-					}
-					else
-					{
-						++i;
-					}
-				}
+				list.RemoveAll(t => (t == null || t.Disbanded));
 			}
 
 			Write(list.Count);
@@ -1107,7 +1047,7 @@ namespace Server
 		{
 			if (tidy)
 			{
-				set.RemoveWhere(guild => guild.Disbanded);
+				set.RemoveWhere(guild => (guild == null || guild.Disbanded));
 			}
 
 			Write(set.Count);
@@ -1127,7 +1067,7 @@ namespace Server
 		{
 			if (tidy)
 			{
-				set.RemoveWhere(guild => guild.Disbanded);
+				set.RemoveWhere(guild => (guild == null || guild.Disbanded));
 			}
 
 			Write(set.Count);
@@ -2367,17 +2307,7 @@ namespace Server
 		{
 			if (tidy)
 			{
-				for (int i = 0; i < list.Count;)
-				{
-					if (list[i].Deleted)
-					{
-						list.RemoveAt(i);
-					}
-					else
-					{
-						++i;
-					}
-				}
+				list.RemoveAll(item => (item == null || item.Deleted));
 			}
 
 			Write(list.Count);
@@ -2397,17 +2327,7 @@ namespace Server
 		{
 			if (tidy)
 			{
-				for (int i = 0; i < list.Count;)
-				{
-					if (list[i].Deleted)
-					{
-						list.RemoveAt(i);
-					}
-					else
-					{
-						++i;
-					}
-				}
+				list.RemoveAll(item => (item == null || item.Deleted));
 			}
 
 			Write(list.Count);
@@ -2427,7 +2347,7 @@ namespace Server
 		{
 			if (tidy)
 			{
-				set.RemoveWhere(item => item.Deleted);
+				set.RemoveWhere(item => (item == null || item.Deleted));
 			}
 
 			Write(set.Count);
@@ -2447,7 +2367,7 @@ namespace Server
 		{
 			if (tidy)
 			{
-				set.RemoveWhere(item => item.Deleted);
+				set.RemoveWhere(item => (item == null || item.Deleted));
 			}
 
 			Write(set.Count);
@@ -2467,17 +2387,7 @@ namespace Server
 		{
 			if (tidy)
 			{
-				for (int i = 0; i < list.Count;)
-				{
-					if (list[i].Deleted)
-					{
-						list.RemoveAt(i);
-					}
-					else
-					{
-						++i;
-					}
-				}
+				list.RemoveAll(mob => (mob == null || mob.Deleted));
 			}
 
 			Write(list.Count);
@@ -2497,17 +2407,7 @@ namespace Server
 		{
 			if (tidy)
 			{
-				for (int i = 0; i < list.Count;)
-				{
-					if (list[i].Deleted)
-					{
-						list.RemoveAt(i);
-					}
-					else
-					{
-						++i;
-					}
-				}
+				list.RemoveAll(mob => (mob == null || mob.Deleted));
 			}
 
 			Write(list.Count);
@@ -2527,7 +2427,7 @@ namespace Server
 		{
 			if (tidy)
 			{
-				set.RemoveWhere(mobile => mobile.Deleted);
+				set.RemoveWhere(mob => (mob == null || mob.Deleted));
 			}
 
 			Write(set.Count);
@@ -2547,7 +2447,7 @@ namespace Server
 		{
 			if (tidy)
 			{
-				set.RemoveWhere(mob => mob.Deleted);
+				set.RemoveWhere(mob => (mob == null || mob.Deleted));
 			}
 
 			Write(set.Count);
@@ -2567,17 +2467,7 @@ namespace Server
 		{
 			if (tidy)
 			{
-				for (int i = 0; i < list.Count;)
-				{
-					if (list[i].Disbanded)
-					{
-						list.RemoveAt(i);
-					}
-					else
-					{
-						++i;
-					}
-				}
+				list.RemoveAll(guild => (guild == null || guild.Disbanded));
 			}
 
 			Write(list.Count);
@@ -2597,17 +2487,7 @@ namespace Server
 		{
 			if (tidy)
 			{
-				for (int i = 0; i < list.Count;)
-				{
-					if (list[i].Disbanded)
-					{
-						list.RemoveAt(i);
-					}
-					else
-					{
-						++i;
-					}
-				}
+				list.RemoveAll(guild => (guild == null || guild.Disbanded));
 			}
 
 			Write(list.Count);
@@ -2627,7 +2507,7 @@ namespace Server
 		{
 			if (tidy)
 			{
-				set.RemoveWhere(guild => guild.Disbanded);
+				set.RemoveWhere(guild => (guild == null || guild.Disbanded));
 			}
 
 			Write(set.Count);
@@ -2647,7 +2527,7 @@ namespace Server
 		{
 			if (tidy)
 			{
-				set.RemoveWhere(guild => guild.Disbanded);
+				set.RemoveWhere(guild => (guild == null || guild.Disbanded));
 			}
 
 			Write(set.Count);
@@ -2764,5 +2644,6 @@ namespace Server
 		int TypeReference { get; }
 		int SerialIdentity { get; }
 		void Serialize(GenericWriter writer);
+		void Deserialize(GenericReader reader);
 	}
 }

@@ -51,7 +51,7 @@ namespace Server.SkillHandlers
 			{
 				Item stolen = null;
 
-				object root = toSteal.RootParent;
+				IEntity root = toSteal.RootParent;
 
 				StealableArtifactsSpawner.StealableInstance si = null;
 				if (toSteal.Parent == null || !toSteal.Movable)
@@ -87,7 +87,7 @@ namespace Server.SkillHandlers
 				{
 					m_Thief.SendLocalizedMessage(1048147); // Your backpack can't hold anything else.
 				}
-					#region Sigils
+				#region Sigils
 				else if (toSteal is Sigil)
 				{
 					PlayerState pl = PlayerState.Find(m_Thief);
@@ -176,7 +176,7 @@ namespace Server.SkillHandlers
 						m_Thief.SendLocalizedMessage(1005588); //	You must join a faction to do that
 					}
 				}
-					#endregion
+				#endregion
 
 				else if (si == null && (toSteal.Parent == null || !toSteal.Movable) && !ItemFlags.GetStealable(toSteal))
 				{

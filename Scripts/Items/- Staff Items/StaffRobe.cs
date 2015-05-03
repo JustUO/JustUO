@@ -158,8 +158,14 @@ namespace Server.Items
             int version = reader.ReadInt();
         }
 
+#if NEWPARENT
+		public override void OnRemoved(IEntity parent)
+#else
         public override void OnRemoved(object parent)
-        {
+#endif
+		{
+			base.OnRemoved(parent);
+
             if (this.ItemID == 0x204F)
                 this.ItemID = 0x2683;
 
