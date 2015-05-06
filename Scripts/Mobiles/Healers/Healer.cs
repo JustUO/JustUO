@@ -79,6 +79,14 @@ namespace Server.Mobiles
             return true;
         }
 
+        public override bool HealsPlayers
+        {
+            get
+            {
+                return true;
+            }
+        }
+
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);

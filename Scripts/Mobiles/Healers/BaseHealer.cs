@@ -86,6 +86,13 @@ namespace Server.Mobiles
                 return true;
             }
         }
+        public virtual bool HealsPlayers
+        {
+            get
+            {
+                return false;
+            }
+        }
         protected override List<SBInfo> SBInfos
         {
             get
@@ -162,6 +169,10 @@ namespace Server.Mobiles
                     }
                 }
                 else if (this.HealsYoungPlayers && m.Hits < m.HitsMax && m is PlayerMobile && ((PlayerMobile)m).Young)
+                {
+                    this.OfferHeal((PlayerMobile)m);
+                }
+                else if (this.HealsPlayers && m.Hits < m.HitsMax && m is PlayerMobile)
                 {
                     this.OfferHeal((PlayerMobile)m);
                 }

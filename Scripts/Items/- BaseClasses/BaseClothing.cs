@@ -86,11 +86,11 @@ namespace Server.Items
         [CommandProperty(AccessLevel.GameMaster)]
         public int HitPoints
         {
-            get 
+            get
             {
                 return this.m_HitPoints;
             }
-            set 
+            set
             {
                 if (value != this.m_HitPoints && this.MaxHitPoints > 0)
                 {
@@ -160,7 +160,7 @@ namespace Server.Items
                 this.m_PlayerConstructed = value;
             }
         }
-		
+
         #region Imbuing
         [CommandProperty(AccessLevel.GameMaster)]
         public int TimesImbued
@@ -338,7 +338,7 @@ namespace Server.Items
                 return 0;
             }
         }
-        
+
         #region Mondain's Legacy Sets
         public override int PhysicalResistance
         {
@@ -655,7 +655,7 @@ namespace Server.Items
             return this.m_AosClothingAttributes.LowerStatReq;
         }
 
-		public override void OnAdded(IEntity parent)
+        public override void OnAdded(IEntity parent)
         {
             Mobile mob = parent as Mobile;
 
@@ -684,7 +684,7 @@ namespace Server.Items
             base.OnAdded(parent);
         }
 
-		public override void OnRemoved(IEntity parent)
+        public override void OnRemoved(IEntity parent)
         {
             Mobile mob = parent as Mobile;
 
@@ -716,7 +716,7 @@ namespace Server.Items
 
             damageTaken -= Absorbed;
 
-            if (damageTaken < 0) 
+            if (damageTaken < 0)
                 damageTaken = 0;
 
             if (25 > Utility.Random(100)) // 25% chance to lower durability
@@ -874,7 +874,7 @@ namespace Server.Items
         {
             int oreType;
 
-            switch ( this.m_Resource )
+            switch (this.m_Resource)
             {
                 case CraftResource.DullCopper:
                     oreType = 1053108;
@@ -948,152 +948,161 @@ namespace Server.Items
             if (this.m_TimesImbued > 0)
                 list.Add(1080418); // (Imbued)
             #endregion
-			
+
             if (this.m_Crafter != null)
                 list.Add(1050043, this.m_Crafter.Name); // crafted by ~1_NAME~
 
-            #region Factions
-            if (this.m_FactionState != null)
-                list.Add(1041350); // faction item
-            #endregion
-
-            #region Mondain's Legacy Sets
-            if (this.IsSetItem)
+            #region ItemID Modifications
+            if (base.Identified)
             {
-                if (this.MixedSet)
-                    list.Add(1073491, this.Pieces.ToString()); // Part of a Weapon/Armor Set (~1_val~ pieces)
-                else
-                    list.Add(1072376, this.Pieces.ToString()); // Part of an Armor Set (~1_val~ pieces)
+                #region Factions
+                if (this.m_FactionState != null)
+                    list.Add(1041350); // faction item
+                #endregion
 
-                if (this.m_SetEquipped)
+                #region Mondain's Legacy Sets
+                if (this.IsSetItem)
                 {
                     if (this.MixedSet)
-                        list.Add(1073492); // Full Weapon/Armor Set Present
+                        list.Add(1073491, this.Pieces.ToString()); // Part of a Weapon/Armor Set (~1_val~ pieces)
                     else
-                        list.Add(1072377); // Full Armor Set Present
+                        list.Add(1072376, this.Pieces.ToString()); // Part of an Armor Set (~1_val~ pieces)
 
+                    if (this.m_SetEquipped)
+                    {
+                        if (this.MixedSet)
+                            list.Add(1073492); // Full Weapon/Armor Set Present
+                        else
+                            list.Add(1072377); // Full Armor Set Present
+
+                        this.GetSetProperties(list);
+                    }
+                }
+                #endregion
+
+                if (this.m_Quality == ClothingQuality.Exceptional)
+                    list.Add(1060636); // exceptional
+
+                if (this.RequiredRace == Race.Elf)
+                    list.Add(1075086); // Elves Only
+                #region Stygian Abyss
+                else if (this.RequiredRace == Race.Gargoyle)
+                    list.Add(1111709); // Gargoyles Only
+                #endregion
+
+                if (this.m_AosSkillBonuses != null)
+                    this.m_AosSkillBonuses.GetProperties(list);
+
+                int prop;
+
+                if ((prop = this.ArtifactRarity) > 0)
+                    list.Add(1061078, prop.ToString()); // artifact rarity ~1_val~
+
+                if ((prop = this.m_AosAttributes.WeaponDamage) != 0)
+                    list.Add(1060401, prop.ToString()); // damage increase ~1_val~%
+
+                if ((prop = this.m_AosAttributes.DefendChance) != 0)
+                    list.Add(1060408, prop.ToString()); // defense chance increase ~1_val~%
+
+                if ((prop = this.m_AosAttributes.BonusDex) != 0)
+                    list.Add(1060409, prop.ToString()); // dexterity bonus ~1_val~
+
+                if ((prop = this.m_AosAttributes.EnhancePotions) != 0)
+                    list.Add(1060411, prop.ToString()); // enhance potions ~1_val~%
+
+                if ((prop = this.m_AosAttributes.CastRecovery) != 0)
+                    list.Add(1060412, prop.ToString()); // faster cast recovery ~1_val~
+
+                if ((prop = this.m_AosAttributes.CastSpeed) != 0)
+                    list.Add(1060413, prop.ToString()); // faster casting ~1_val~
+
+                if ((prop = this.m_AosAttributes.AttackChance) != 0)
+                    list.Add(1060415, prop.ToString()); // hit chance increase ~1_val~%
+
+                if ((prop = this.m_AosAttributes.BonusHits) != 0)
+                    list.Add(1060431, prop.ToString()); // hit point increase ~1_val~
+
+                if ((prop = this.m_AosAttributes.BonusInt) != 0)
+                    list.Add(1060432, prop.ToString()); // intelligence bonus ~1_val~
+
+                if ((prop = this.m_AosAttributes.LowerManaCost) != 0)
+                    list.Add(1060433, prop.ToString()); // lower mana cost ~1_val~%
+
+                if ((prop = this.m_AosAttributes.LowerRegCost) != 0)
+                    list.Add(1060434, prop.ToString()); // lower reagent cost ~1_val~%
+
+                if ((prop = this.m_AosClothingAttributes.LowerStatReq) != 0)
+                    list.Add(1060435, prop.ToString()); // lower requirements ~1_val~%
+
+                if ((prop = this.m_AosAttributes.Luck) != 0)
+                    list.Add(1060436, prop.ToString()); // luck ~1_val~
+
+                if ((prop = this.m_AosClothingAttributes.MageArmor) != 0)
+                    list.Add(1060437); // mage armor
+
+                if ((prop = this.m_AosAttributes.BonusMana) != 0)
+                    list.Add(1060439, prop.ToString()); // mana increase ~1_val~
+
+                if ((prop = this.m_AosAttributes.RegenMana) != 0)
+                    list.Add(1060440, prop.ToString()); // mana regeneration ~1_val~
+
+                if ((prop = this.m_AosAttributes.NightSight) != 0)
+                    list.Add(1060441); // night sight
+
+                if ((prop = this.m_AosAttributes.ReflectPhysical) != 0)
+                    list.Add(1060442, prop.ToString()); // reflect physical damage ~1_val~%
+
+                if ((prop = this.m_AosAttributes.RegenStam) != 0)
+                    list.Add(1060443, prop.ToString()); // stamina regeneration ~1_val~
+
+                if ((prop = this.m_AosAttributes.RegenHits) != 0)
+                    list.Add(1060444, prop.ToString()); // hit point regeneration ~1_val~
+
+                if ((prop = this.m_AosClothingAttributes.SelfRepair) != 0)
+                    list.Add(1060450, prop.ToString()); // self repair ~1_val~
+
+                if ((prop = this.m_AosAttributes.SpellChanneling) != 0)
+                    list.Add(1060482); // spell channeling
+
+                if ((prop = this.m_AosAttributes.SpellDamage) != 0)
+                    list.Add(1060483, prop.ToString()); // spell damage increase ~1_val~%
+
+                if ((prop = this.m_AosAttributes.BonusStam) != 0)
+                    list.Add(1060484, prop.ToString()); // stamina increase ~1_val~
+
+                if ((prop = this.m_AosAttributes.BonusStr) != 0)
+                    list.Add(1060485, prop.ToString()); // strength bonus ~1_val~
+
+                if ((prop = this.m_AosAttributes.WeaponSpeed) != 0)
+                    list.Add(1060486, prop.ToString()); // swing speed increase ~1_val~%
+
+                if (Core.ML && (prop = this.m_AosAttributes.IncreasedKarmaLoss) != 0)
+                    list.Add(1075210, prop.ToString()); // Increased Karma Loss ~1val~%
+
+                base.AddResistanceProperties(list);
+
+                if ((prop = this.m_AosClothingAttributes.DurabilityBonus) > 0)
+                    list.Add(1060410, prop.ToString()); // durability ~1_val~%
+
+                if ((prop = this.ComputeStatReq(StatType.Str)) > 0)
+                    list.Add(1061170, prop.ToString()); // strength requirement ~1_val~
+
+                if (this.m_HitPoints >= 0 && this.m_MaxHitPoints > 0)
+                    list.Add(1060639, "{0}\t{1}", this.m_HitPoints, this.m_MaxHitPoints); // durability ~1_val~ / ~2_val~
+
+                #region Mondain's Legacy Sets
+                if (this.IsSetItem && !this.m_SetEquipped)
+                {
+                    list.Add(1072378); // <br>Only when full set is present:				
                     this.GetSetProperties(list);
                 }
+                #endregion
             }
-            #endregion
-
-            if (this.m_Quality == ClothingQuality.Exceptional)
-                list.Add(1060636); // exceptional
-
-            if (this.RequiredRace == Race.Elf)
-                list.Add(1075086); // Elves Only
-            #region Stygian Abyss
-            else if (this.RequiredRace == Race.Gargoyle)
-                list.Add(1111709); // Gargoyles Only
-            #endregion
-
-            if (this.m_AosSkillBonuses != null)
-                this.m_AosSkillBonuses.GetProperties(list);
-
-            int prop;
-
-            if ((prop = this.ArtifactRarity) > 0)
-                list.Add(1061078, prop.ToString()); // artifact rarity ~1_val~
-
-            if ((prop = this.m_AosAttributes.WeaponDamage) != 0)
-                list.Add(1060401, prop.ToString()); // damage increase ~1_val~%
-
-            if ((prop = this.m_AosAttributes.DefendChance) != 0)
-                list.Add(1060408, prop.ToString()); // defense chance increase ~1_val~%
-
-            if ((prop = this.m_AosAttributes.BonusDex) != 0)
-                list.Add(1060409, prop.ToString()); // dexterity bonus ~1_val~
-
-            if ((prop = this.m_AosAttributes.EnhancePotions) != 0)
-                list.Add(1060411, prop.ToString()); // enhance potions ~1_val~%
-
-            if ((prop = this.m_AosAttributes.CastRecovery) != 0)
-                list.Add(1060412, prop.ToString()); // faster cast recovery ~1_val~
-
-            if ((prop = this.m_AosAttributes.CastSpeed) != 0)
-                list.Add(1060413, prop.ToString()); // faster casting ~1_val~
-
-            if ((prop = this.m_AosAttributes.AttackChance) != 0)
-                list.Add(1060415, prop.ToString()); // hit chance increase ~1_val~%
-
-            if ((prop = this.m_AosAttributes.BonusHits) != 0)
-                list.Add(1060431, prop.ToString()); // hit point increase ~1_val~
-
-            if ((prop = this.m_AosAttributes.BonusInt) != 0)
-                list.Add(1060432, prop.ToString()); // intelligence bonus ~1_val~
-
-            if ((prop = this.m_AosAttributes.LowerManaCost) != 0)
-                list.Add(1060433, prop.ToString()); // lower mana cost ~1_val~%
-
-            if ((prop = this.m_AosAttributes.LowerRegCost) != 0)
-                list.Add(1060434, prop.ToString()); // lower reagent cost ~1_val~%
-
-            if ((prop = this.m_AosClothingAttributes.LowerStatReq) != 0)
-                list.Add(1060435, prop.ToString()); // lower requirements ~1_val~%
-
-            if ((prop = this.m_AosAttributes.Luck) != 0)
-                list.Add(1060436, prop.ToString()); // luck ~1_val~
-
-            if ((prop = this.m_AosClothingAttributes.MageArmor) != 0)
-                list.Add(1060437); // mage armor
-
-            if ((prop = this.m_AosAttributes.BonusMana) != 0)
-                list.Add(1060439, prop.ToString()); // mana increase ~1_val~
-
-            if ((prop = this.m_AosAttributes.RegenMana) != 0)
-                list.Add(1060440, prop.ToString()); // mana regeneration ~1_val~
-
-            if ((prop = this.m_AosAttributes.NightSight) != 0)
-                list.Add(1060441); // night sight
-
-            if ((prop = this.m_AosAttributes.ReflectPhysical) != 0)
-                list.Add(1060442, prop.ToString()); // reflect physical damage ~1_val~%
-
-            if ((prop = this.m_AosAttributes.RegenStam) != 0)
-                list.Add(1060443, prop.ToString()); // stamina regeneration ~1_val~
-
-            if ((prop = this.m_AosAttributes.RegenHits) != 0)
-                list.Add(1060444, prop.ToString()); // hit point regeneration ~1_val~
-
-            if ((prop = this.m_AosClothingAttributes.SelfRepair) != 0)
-                list.Add(1060450, prop.ToString()); // self repair ~1_val~
-
-            if ((prop = this.m_AosAttributes.SpellChanneling) != 0)
-                list.Add(1060482); // spell channeling
-
-            if ((prop = this.m_AosAttributes.SpellDamage) != 0)
-                list.Add(1060483, prop.ToString()); // spell damage increase ~1_val~%
-
-            if ((prop = this.m_AosAttributes.BonusStam) != 0)
-                list.Add(1060484, prop.ToString()); // stamina increase ~1_val~
-
-            if ((prop = this.m_AosAttributes.BonusStr) != 0)
-                list.Add(1060485, prop.ToString()); // strength bonus ~1_val~
-
-            if ((prop = this.m_AosAttributes.WeaponSpeed) != 0)
-                list.Add(1060486, prop.ToString()); // swing speed increase ~1_val~%
-
-            if (Core.ML && (prop = this.m_AosAttributes.IncreasedKarmaLoss) != 0)
-                list.Add(1075210, prop.ToString()); // Increased Karma Loss ~1val~%
-
-            base.AddResistanceProperties(list);
-
-            if ((prop = this.m_AosClothingAttributes.DurabilityBonus) > 0)
-                list.Add(1060410, prop.ToString()); // durability ~1_val~%
-
-            if ((prop = this.ComputeStatReq(StatType.Str)) > 0)
-                list.Add(1061170, prop.ToString()); // strength requirement ~1_val~
-
-            if (this.m_HitPoints >= 0 && this.m_MaxHitPoints > 0)
-                list.Add(1060639, "{0}\t{1}", this.m_HitPoints, this.m_MaxHitPoints); // durability ~1_val~ / ~2_val~
-
-            #region Mondain's Legacy Sets
-            if (this.IsSetItem && !this.m_SetEquipped)
+            else
             {
-                list.Add(1072378); // <br>Only when full set is present:				
-                this.GetSetProperties(list);
+                list.Add(1038000); // Unidentified
             }
-            #endregion
+            #endregion //ItemID Modifications
         }
 
         public override void OnSingleClick(Mobile from)
@@ -1322,7 +1331,7 @@ namespace Server.Items
 
             int version = reader.ReadInt();
 
-            switch ( version )
+            switch (version)
             {
                 case 6:
                     {
@@ -1566,7 +1575,7 @@ namespace Server.Items
         {
             for (int i = 0; i < amount; ++i)
             {
-                switch ( Utility.Random(5) )
+                switch (Utility.Random(5))
                 {
                     case 0:
                         ++this.m_AosResistances.Physical;

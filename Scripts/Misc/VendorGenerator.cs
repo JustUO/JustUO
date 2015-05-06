@@ -138,7 +138,7 @@ namespace Server
             m_ShopList = new ArrayList();
 
             World.Broadcast(0x35, true, "Generating vendor spawns for {0}, please wait.", map);
-			
+
             for (int i = 0; i < regions.Length; ++i)
                 for (int x = 0; x < map.Width; ++x)
                     for (int y = 0; y < map.Height; ++y)

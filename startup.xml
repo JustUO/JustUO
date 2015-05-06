@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <startupinfo>
-  <shardname>My Shard</shardname>
-  <clientpath>C:\Program Files (x86)\Electronic Arts\Ultima Online Classic</clientpath>
+  <shardname>JustZH</shardname>
+  <clientpath>D:\Ultima Online Classic</clientpath>
   <saves>15</saves>
   <rewards>30</rewards>
-  <skillcap>7000</skillcap>
-  <statcap>225</statcap>
+  <skillcap>99999</skillcap>
+  <statcap>390</statcap>
   <housedecay>5</housedecay>
   <bonding>7</bonding>
 </startupinfo>

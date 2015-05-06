@@ -286,7 +286,7 @@ namespace Server.Misc
 
         public static bool CanLower(Mobile from, Stat stat)
         {
-            switch ( stat )
+            switch (stat)
             {
                 case Stat.Str:
                     return (from.StrLock == StatLockType.Down && from.RawStr > 10);
@@ -307,7 +307,7 @@ namespace Server.Misc
                     return false;
             }
 
-            switch ( stat )
+            switch (stat)
             {
                 case Stat.Str:
                     return (from.StrLock == StatLockType.Up && from.RawStr < 125);
@@ -324,7 +324,7 @@ namespace Server.Misc
         {
             atrophy = atrophy || (from.RawStatTotal >= from.StatCap);
 
-            switch ( stat )
+            switch (stat)
             {
                 case Stat.Str:
                     {
@@ -379,7 +379,7 @@ namespace Server.Misc
 
         public static void GainStat(Mobile from, Stat stat)
         {
-            switch( stat )
+            switch (stat)
             {
                 case Stat.Str:
                     {

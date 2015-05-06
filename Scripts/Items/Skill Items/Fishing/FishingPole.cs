@@ -38,10 +38,20 @@ namespace Server.Items
             BaseHarvestTool.AddContextMenuEntries(from, this, list, Fishing.System);
         }
 
+        /* if (Server.ItemExtUtility.IsEquipped(this) == item is Dagger)
+                {
+                    m.SendLocalizedMessage(1116415);
+                    
+                    return false;
+                }
+            */
+
         public override bool CheckConflictingLayer(Mobile m, Item item, Layer layer)
         {
             if (base.CheckConflictingLayer(m, item, layer))
+            {
                 return true;
+            }
 
             if (layer == Layer.OneHanded)
             {

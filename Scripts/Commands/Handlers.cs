@@ -439,8 +439,8 @@ namespace Server.Commands
             BroadcastMessage(AccessLevel.Player, 0x482, e.ArgString);
         }
 
-        public static void BroadcastMessage(AccessLevel ac, int hue, string message) 
-        { 
+        public static void BroadcastMessage(AccessLevel ac, int hue, string message)
+        {
             foreach (NetState state in NetState.Instances)
             {
                 Mobile m = state.Mobile;

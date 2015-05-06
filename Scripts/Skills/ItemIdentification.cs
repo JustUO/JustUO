@@ -38,6 +38,10 @@ namespace Server.Items
                             ((BaseWeapon)o).Identified = true;
                         else if (o is BaseArmor)
                             ((BaseArmor)o).Identified = true;
+                        else if (o is BaseJewel)
+                            ((BaseJewel)o).Identified = true;
+                        else if (o is BaseClothing)
+                            ((BaseClothing)o).Identified = true;
 
                         if (!Core.AOS)
                             ((Item)o).OnSingleClick(from);

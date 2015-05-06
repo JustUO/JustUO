@@ -58,7 +58,8 @@ namespace Server.Items
         private ArmorDurabilityLevel m_Durability;
         private ArmorProtectionLevel m_Protection;
         private CraftResource m_Resource;
-        private bool m_Identified, m_PlayerConstructed;
+        private bool m_PlayerConstructed;
+        //private bool m_Identified;
         private int m_PhysicalBonus, m_FireBonus, m_ColdBonus, m_PoisonBonus, m_EnergyBonus;
         private int m_TimesImbued;
 
@@ -330,9 +331,9 @@ namespace Server.Items
                     return this.m_ArmorBase;
             }
             set
-            { 
+            {
                 this.m_ArmorBase = value;
-                this.Invalidate(); 
+                this.Invalidate();
             }
         }
 
@@ -353,7 +354,7 @@ namespace Server.Items
                 if (this.m_Protection != ArmorProtectionLevel.Regular)
                     ar += 10 + (5 * (int)this.m_Protection);
 
-                switch ( this.m_Resource )
+                switch (this.m_Resource)
                 {
                     case CraftResource.DullCopper:
                         ar += 2;
@@ -501,19 +502,19 @@ namespace Server.Items
             }
         }
 
-        [CommandProperty(AccessLevel.GameMaster)]
-        public bool Identified
-        {
-            get
-            {
-                return this.m_Identified;
-            }
-            set
-            {
-                this.m_Identified = value;
-                this.InvalidateProperties();
-            }
-        }
+        //[CommandProperty(AccessLevel.GameMaster)]
+        //public bool Identified
+        //{
+        //    get
+        //    {
+        //        return this.m_Identified;
+        //    }
+        //    set
+        //    {
+        //        this.m_Identified = value;
+        //        this.InvalidateProperties();
+        //    }
+        //}
 
         [CommandProperty(AccessLevel.GameMaster)]
         public bool PlayerConstructed
@@ -589,11 +590,11 @@ namespace Server.Items
         [CommandProperty(AccessLevel.GameMaster)]
         public int HitPoints
         {
-            get 
+            get
             {
                 return this.m_HitPoints;
             }
-            set 
+            set
             {
                 if (value != this.m_HitPoints && this.MaxHitPoints > 0)
                 {
@@ -924,7 +925,7 @@ namespace Server.Items
         {
             get
             {
-                switch ( this.Layer )
+                switch (this.Layer)
                 {
                     default:
                     case Layer.Neck:
@@ -955,7 +956,7 @@ namespace Server.Items
         {
             for (int i = 0; i < amount; ++i)
             {
-                switch ( Utility.Random(5) )
+                switch (Utility.Random(5))
                 {
                     case 0:
                         ++this.m_PhysicalBonus;
@@ -990,7 +991,7 @@ namespace Server.Items
 
         public int GetProtOffset()
         {
-            switch ( this.m_Protection )
+            switch (this.m_Protection)
             {
                 case ArmorProtectionLevel.Guarding:
                     return 1;
@@ -1030,7 +1031,7 @@ namespace Server.Items
             if (this.m_Quality == ArmorQuality.Exceptional)
                 bonus += 20;
 
-            switch ( this.m_Durability )
+            switch (this.m_Durability)
             {
                 case ArmorDurabilityLevel.Durable:
                     bonus += 20;
@@ -1196,7 +1197,7 @@ namespace Server.Items
             return v;
         }
 
-		public override void OnAdded(IEntity parent)
+        public override void OnAdded(IEntity parent)
         {
             if (parent is Mobile)
             {
@@ -1387,7 +1388,7 @@ namespace Server.Items
             SetSaveFlag(ref flags, SaveFlag.ColdBonus, this.m_ColdBonus != 0);
             SetSaveFlag(ref flags, SaveFlag.PoisonBonus, this.m_PoisonBonus != 0);
             SetSaveFlag(ref flags, SaveFlag.EnergyBonus, this.m_EnergyBonus != 0);
-            SetSaveFlag(ref flags, SaveFlag.Identified, this.m_Identified != false);
+            //SetSaveFlag(ref flags, SaveFlag.Identified, this.m_Identified != false);
             SetSaveFlag(ref flags, SaveFlag.MaxHitPoints, this.m_MaxHitPoints != 0);
             SetSaveFlag(ref flags, SaveFlag.HitPoints, this.m_HitPoints != 0);
             SetSaveFlag(ref flags, SaveFlag.Crafter, this.m_Crafter != null);
@@ -1489,7 +1490,7 @@ namespace Server.Items
 
             int version = reader.ReadInt();
 
-            switch ( version )
+            switch (version)
             {
                 case 8:
                     {
@@ -1571,8 +1572,8 @@ namespace Server.Items
                         if (GetSaveFlag(flags, SaveFlag.EnergyBonus))
                             this.m_EnergyBonus = reader.ReadEncodedInt();
 
-                        if (GetSaveFlag(flags, SaveFlag.Identified))
-                            this.m_Identified = (version >= 7 || reader.ReadBool());
+                        //if (GetSaveFlag(flags, SaveFlag.Identified))
+                        //    this.m_Identified = (version >= 7 || reader.ReadBool());
 
                         if (GetSaveFlag(flags, SaveFlag.MaxHitPoints))
                             this.m_MaxHitPoints = reader.ReadEncodedInt();
@@ -1686,7 +1687,7 @@ namespace Server.Items
                 case 2:
                 case 1:
                     {
-                        this.m_Identified = reader.ReadBool();
+                        //this.m_Identified = reader.ReadBool();
                         goto case 0;
                     }
                 case 0:
@@ -1704,7 +1705,8 @@ namespace Server.Items
                         if (this.m_ArmorBase == this.RevertArmorBase)
                             this.m_ArmorBase = -1;
 
-                        /*m_BodyPos = (ArmorBodyType)*/reader.ReadInt();
+                        /*m_BodyPos = (ArmorBodyType)*/
+                        reader.ReadInt();
 
                         if (version < 4)
                         {
@@ -1723,7 +1725,7 @@ namespace Server.Items
                         {
                             OreInfo info;
 
-                            switch ( reader.ReadInt() )
+                            switch (reader.ReadInt())
                             {
                                 default:
                                 case 0:
@@ -1894,7 +1896,7 @@ namespace Server.Items
             // the remainder will be 0 socket (31.4% in this case)
             // uncomment the next line to prevent artifacts from being socketed
             // if(ArtifactRarity == 0)
-            if (XmlConfig.XmlSocketsEnabled) 
+            if (XmlConfig.XmlSocketsEnabled)
                 XmlSockets.ConfigureRandom(this, 2.0, 0.1, 0.5, 3.0, 15.0, 50.0);
         }
 
@@ -2042,7 +2044,7 @@ namespace Server.Items
             return base.OnEquip(from);
         }
 
-		public override void OnRemoved(IEntity parent)
+        public override void OnRemoved(IEntity parent)
         {
             if (parent is Mobile)
             {
@@ -2076,7 +2078,7 @@ namespace Server.Items
             int Absorbed = (int)(HalfAr + HalfAr * Utility.RandomDouble());
 
             damageTaken -= Absorbed;
-            if (damageTaken < 0) 
+            if (damageTaken < 0)
                 damageTaken = 0;
 
             if (Absorbed < 2)
@@ -2159,7 +2161,7 @@ namespace Server.Items
         {
             int oreType;
 
-            switch ( this.m_Resource )
+            switch (this.m_Resource)
             {
                 case CraftResource.DullCopper:
                     oreType = 1053108;
@@ -2213,7 +2215,7 @@ namespace Server.Items
                     oreType = 1060815;
                     break; // blue
                 case CraftResource.OakWood:
-                    oreType = 1072533; 
+                    oreType = 1072533;
                     break; // oak
                 case CraftResource.AshWood:
                     oreType = 1072534;
@@ -2289,175 +2291,184 @@ namespace Server.Items
             if (this.m_Crafter != null)
                 list.Add(1050043, this.m_Crafter.Name); // crafted by ~1_NAME~
 
-            #region Factions
-            if (this.m_FactionState != null)
-                list.Add(1041350); // faction item
-            #endregion
-
-            #region Mondain's Legacy Sets
-            if (this.IsSetItem)
+            #region ItemID Modifications
+            if (base.Identified)
             {
-                if (this.MixedSet)
-                    list.Add(1073491, this.Pieces.ToString()); // Part of a Weapon/Armor Set (~1_val~ pieces)
-                else
-                    list.Add(1072376, this.Pieces.ToString()); // Part of an Armor Set (~1_val~ pieces)
+                #region Factions
+                if (this.m_FactionState != null)
+                    list.Add(1041350); // faction item
+                #endregion
 
-                if (this.m_SetEquipped)
+                #region Mondain's Legacy Sets
+                if (this.IsSetItem)
                 {
                     if (this.MixedSet)
-                        list.Add(1073492); // Full Weapon/Armor Set Present
+                        list.Add(1073491, this.Pieces.ToString()); // Part of a Weapon/Armor Set (~1_val~ pieces)
                     else
-                        list.Add(1072377); // Full Armor Set Present
+                        list.Add(1072376, this.Pieces.ToString()); // Part of an Armor Set (~1_val~ pieces)
 
+                    if (this.m_SetEquipped)
+                    {
+                        if (this.MixedSet)
+                            list.Add(1073492); // Full Weapon/Armor Set Present
+                        else
+                            list.Add(1072377); // Full Armor Set Present
+
+                        this.GetSetProperties(list);
+                    }
+                }
+                #endregion
+
+                if (this.RequiredRace == Race.Elf)
+                    list.Add(1075086); // Elves Only
+                else if (this.RequiredRace == Race.Gargoyle)
+                    list.Add(1111709); // Gargoyles Only
+
+                this.m_AosSkillBonuses.GetProperties(list);
+
+                int prop;
+
+                if ((prop = this.ArtifactRarity) > 0)
+                    list.Add(1061078, prop.ToString()); // artifact rarity ~1_val~
+
+                if ((prop = this.m_AosAttributes.WeaponDamage) != 0)
+                    list.Add(1060401, prop.ToString()); // damage increase ~1_val~%
+
+                if ((prop = this.m_AosAttributes.DefendChance) != 0)
+                    list.Add(1060408, prop.ToString()); // defense chance increase ~1_val~%
+
+                if ((prop = this.m_AosAttributes.BonusDex) != 0)
+                    list.Add(1060409, prop.ToString()); // dexterity bonus ~1_val~
+
+                if ((prop = this.m_AosAttributes.EnhancePotions) != 0)
+                    list.Add(1060411, prop.ToString()); // enhance potions ~1_val~%
+
+                if ((prop = this.m_AosAttributes.CastRecovery) != 0)
+                    list.Add(1060412, prop.ToString()); // faster cast recovery ~1_val~
+
+                if ((prop = this.m_AosAttributes.CastSpeed) != 0)
+                    list.Add(1060413, prop.ToString()); // faster casting ~1_val~
+
+                if ((prop = this.m_AosAttributes.AttackChance) != 0)
+                    list.Add(1060415, prop.ToString()); // hit chance increase ~1_val~%
+
+                if ((prop = this.m_AosAttributes.BonusHits) != 0)
+                    list.Add(1060431, prop.ToString()); // hit point increase ~1_val~
+
+                if ((prop = this.m_AosAttributes.BonusInt) != 0)
+                    list.Add(1060432, prop.ToString()); // intelligence bonus ~1_val~
+
+                if ((prop = this.m_AosAttributes.LowerManaCost) != 0)
+                    list.Add(1060433, prop.ToString()); // lower mana cost ~1_val~%
+
+                if ((prop = this.m_AosAttributes.LowerRegCost) != 0)
+                    list.Add(1060434, prop.ToString()); // lower reagent cost ~1_val~%
+
+                if ((prop = this.GetLowerStatReq()) != 0)
+                    list.Add(1060435, prop.ToString()); // lower requirements ~1_val~%
+
+                if ((prop = (this.GetLuckBonus() + this.m_AosAttributes.Luck)) != 0)
+                    list.Add(1060436, prop.ToString()); // luck ~1_val~
+
+                if ((prop = this.m_AosArmorAttributes.MageArmor) != 0)
+                    list.Add(1060437); // mage armor
+
+                if ((prop = this.m_AosAttributes.BonusMana) != 0)
+                    list.Add(1060439, prop.ToString()); // mana increase ~1_val~
+
+                if ((prop = this.m_AosAttributes.RegenMana) != 0)
+                    list.Add(1060440, prop.ToString()); // mana regeneration ~1_val~
+
+                if ((prop = this.m_AosAttributes.NightSight) != 0)
+                    list.Add(1060441); // night sight
+
+                if ((prop = this.m_AosAttributes.ReflectPhysical) != 0)
+                    list.Add(1060442, prop.ToString()); // reflect physical damage ~1_val~%
+
+                if ((prop = this.m_AosAttributes.RegenStam) != 0)
+                    list.Add(1060443, prop.ToString()); // stamina regeneration ~1_val~
+
+                if ((prop = this.m_AosAttributes.RegenHits) != 0)
+                    list.Add(1060444, prop.ToString()); // hit point regeneration ~1_val~
+
+                if ((prop = this.m_AosArmorAttributes.SelfRepair) != 0)
+                    list.Add(1060450, prop.ToString()); // self repair ~1_val~
+
+                if ((prop = this.m_AosAttributes.SpellChanneling) != 0)
+                    list.Add(1060482); // spell channeling
+
+                if ((prop = this.m_AosAttributes.SpellDamage) != 0)
+                    list.Add(1060483, prop.ToString()); // spell damage increase ~1_val~%
+
+                if ((prop = this.m_AosAttributes.BonusStam) != 0)
+                    list.Add(1060484, prop.ToString()); // stamina increase ~1_val~
+
+                if ((prop = this.m_AosAttributes.BonusStr) != 0)
+                    list.Add(1060485, prop.ToString()); // strength bonus ~1_val~
+
+                if ((prop = this.m_AosAttributes.WeaponSpeed) != 0)
+                    list.Add(1060486, prop.ToString()); // swing speed increase ~1_val~%
+
+                if (Core.ML && (prop = this.m_AosAttributes.IncreasedKarmaLoss) != 0)
+                    list.Add(1075210, prop.ToString()); // Increased Karma Loss ~1val~%
+
+                if ((prop = this.m_SAAbsorptionAttributes.EaterFire) != 0)
+                    list.Add(1113593, prop.ToString()); // Fire Eater ~1_Val~%
+
+                if ((prop = this.m_SAAbsorptionAttributes.EaterCold) != 0)
+                    list.Add(1113594, prop.ToString()); // Cold Eater ~1_Val~%
+
+                if ((prop = this.m_SAAbsorptionAttributes.EaterPoison) != 0)
+                    list.Add(1113595, prop.ToString()); // Poison Eater ~1_Val~%
+
+                if ((prop = this.m_SAAbsorptionAttributes.EaterEnergy) != 0)
+                    list.Add(1113596, prop.ToString()); // Energy Eater ~1_Val~%
+
+                if ((prop = this.m_SAAbsorptionAttributes.EaterKinetic) != 0)
+                    list.Add(1113597, prop.ToString()); // Kinetic Eater ~1_Val~%
+
+                if ((prop = this.m_SAAbsorptionAttributes.EaterDamage) != 0)
+                    list.Add(1113598, prop.ToString()); // Damage Eater ~1_Val~%
+
+                if ((prop = this.m_SAAbsorptionAttributes.ResonanceFire) != 0)
+                    list.Add(1113691, prop.ToString()); // Fire Resonance ~1_val~%
+
+                if ((prop = this.m_SAAbsorptionAttributes.ResonanceCold) != 0)
+                    list.Add(1113692, prop.ToString()); // Cold Resonance ~1_val~%
+
+                if ((prop = this.m_SAAbsorptionAttributes.ResonancePoison) != 0)
+                    list.Add(1113693, prop.ToString()); // Poison Resonance ~1_val~%
+
+                if ((prop = this.m_SAAbsorptionAttributes.ResonanceEnergy) != 0)
+                    list.Add(1113694, prop.ToString()); // Energy Resonance ~1_val~%
+
+                if ((prop = this.m_SAAbsorptionAttributes.ResonanceKinetic) != 0)
+                    list.Add(1113695, prop.ToString()); // Kinetic Resonance ~1_val~%
+
+                base.AddResistanceProperties(list);
+
+                if ((prop = this.GetDurabilityBonus()) > 0)
+                    list.Add(1060410, prop.ToString()); // durability ~1_val~%
+
+                if ((prop = this.ComputeStatReq(StatType.Str)) > 0)
+                    list.Add(1061170, prop.ToString()); // strength requirement ~1_val~
+
+                if (this.m_HitPoints >= 0 && this.m_MaxHitPoints > 0)
+                    list.Add(1060639, "{0}\t{1}", this.m_HitPoints, this.m_MaxHitPoints); // durability ~1_val~ / ~2_val~
+
+                Server.Engines.XmlSpawner2.XmlAttach.AddAttachmentProperties(this, list);
+
+                if (this.IsSetItem && !this.m_SetEquipped)
+                {
+                    list.Add(1072378); // <br>Only when full set is present:				
                     this.GetSetProperties(list);
                 }
             }
-            #endregion
-
-            if (this.RequiredRace == Race.Elf)
-                list.Add(1075086); // Elves Only
-            else if (this.RequiredRace == Race.Gargoyle)
-                list.Add(1111709); // Gargoyles Only
-
-            this.m_AosSkillBonuses.GetProperties(list);
-
-            int prop;
-
-            if ((prop = this.ArtifactRarity) > 0)
-                list.Add(1061078, prop.ToString()); // artifact rarity ~1_val~
-
-            if ((prop = this.m_AosAttributes.WeaponDamage) != 0)
-                list.Add(1060401, prop.ToString()); // damage increase ~1_val~%
-
-            if ((prop = this.m_AosAttributes.DefendChance) != 0)
-                list.Add(1060408, prop.ToString()); // defense chance increase ~1_val~%
-
-            if ((prop = this.m_AosAttributes.BonusDex) != 0)
-                list.Add(1060409, prop.ToString()); // dexterity bonus ~1_val~
-
-            if ((prop = this.m_AosAttributes.EnhancePotions) != 0)
-                list.Add(1060411, prop.ToString()); // enhance potions ~1_val~%
-
-            if ((prop = this.m_AosAttributes.CastRecovery) != 0)
-                list.Add(1060412, prop.ToString()); // faster cast recovery ~1_val~
-
-            if ((prop = this.m_AosAttributes.CastSpeed) != 0)
-                list.Add(1060413, prop.ToString()); // faster casting ~1_val~
-
-            if ((prop = this.m_AosAttributes.AttackChance) != 0)
-                list.Add(1060415, prop.ToString()); // hit chance increase ~1_val~%
-
-            if ((prop = this.m_AosAttributes.BonusHits) != 0)
-                list.Add(1060431, prop.ToString()); // hit point increase ~1_val~
-
-            if ((prop = this.m_AosAttributes.BonusInt) != 0)
-                list.Add(1060432, prop.ToString()); // intelligence bonus ~1_val~
-
-            if ((prop = this.m_AosAttributes.LowerManaCost) != 0)
-                list.Add(1060433, prop.ToString()); // lower mana cost ~1_val~%
-
-            if ((prop = this.m_AosAttributes.LowerRegCost) != 0)
-                list.Add(1060434, prop.ToString()); // lower reagent cost ~1_val~%
-
-            if ((prop = this.GetLowerStatReq()) != 0)
-                list.Add(1060435, prop.ToString()); // lower requirements ~1_val~%
-
-            if ((prop = (this.GetLuckBonus() + this.m_AosAttributes.Luck)) != 0)
-                list.Add(1060436, prop.ToString()); // luck ~1_val~
-
-            if ((prop = this.m_AosArmorAttributes.MageArmor) != 0)
-                list.Add(1060437); // mage armor
-
-            if ((prop = this.m_AosAttributes.BonusMana) != 0)
-                list.Add(1060439, prop.ToString()); // mana increase ~1_val~
-
-            if ((prop = this.m_AosAttributes.RegenMana) != 0)
-                list.Add(1060440, prop.ToString()); // mana regeneration ~1_val~
-
-            if ((prop = this.m_AosAttributes.NightSight) != 0)
-                list.Add(1060441); // night sight
-
-            if ((prop = this.m_AosAttributes.ReflectPhysical) != 0)
-                list.Add(1060442, prop.ToString()); // reflect physical damage ~1_val~%
-
-            if ((prop = this.m_AosAttributes.RegenStam) != 0)
-                list.Add(1060443, prop.ToString()); // stamina regeneration ~1_val~
-
-            if ((prop = this.m_AosAttributes.RegenHits) != 0)
-                list.Add(1060444, prop.ToString()); // hit point regeneration ~1_val~
-
-            if ((prop = this.m_AosArmorAttributes.SelfRepair) != 0)
-                list.Add(1060450, prop.ToString()); // self repair ~1_val~
-
-            if ((prop = this.m_AosAttributes.SpellChanneling) != 0)
-                list.Add(1060482); // spell channeling
-
-            if ((prop = this.m_AosAttributes.SpellDamage) != 0)
-                list.Add(1060483, prop.ToString()); // spell damage increase ~1_val~%
-
-            if ((prop = this.m_AosAttributes.BonusStam) != 0)
-                list.Add(1060484, prop.ToString()); // stamina increase ~1_val~
-
-            if ((prop = this.m_AosAttributes.BonusStr) != 0)
-                list.Add(1060485, prop.ToString()); // strength bonus ~1_val~
-
-            if ((prop = this.m_AosAttributes.WeaponSpeed) != 0)
-                list.Add(1060486, prop.ToString()); // swing speed increase ~1_val~%
-
-            if (Core.ML && (prop = this.m_AosAttributes.IncreasedKarmaLoss) != 0)
-                list.Add(1075210, prop.ToString()); // Increased Karma Loss ~1val~%
-
-            if ((prop = this.m_SAAbsorptionAttributes.EaterFire) != 0)
-                list.Add(1113593, prop.ToString()); // Fire Eater ~1_Val~%
-
-            if ((prop = this.m_SAAbsorptionAttributes.EaterCold) != 0)
-                list.Add(1113594, prop.ToString()); // Cold Eater ~1_Val~%
-
-            if ((prop = this.m_SAAbsorptionAttributes.EaterPoison) != 0)
-                list.Add(1113595, prop.ToString()); // Poison Eater ~1_Val~%
-
-            if ((prop = this.m_SAAbsorptionAttributes.EaterEnergy) != 0)
-                list.Add(1113596, prop.ToString()); // Energy Eater ~1_Val~%
-
-            if ((prop = this.m_SAAbsorptionAttributes.EaterKinetic) != 0)
-                list.Add(1113597, prop.ToString()); // Kinetic Eater ~1_Val~%
-
-            if ((prop = this.m_SAAbsorptionAttributes.EaterDamage) != 0)
-                list.Add(1113598, prop.ToString()); // Damage Eater ~1_Val~%
-
-            if ((prop = this.m_SAAbsorptionAttributes.ResonanceFire) != 0)
-                list.Add(1113691, prop.ToString()); // Fire Resonance ~1_val~%
-
-            if ((prop = this.m_SAAbsorptionAttributes.ResonanceCold) != 0)
-                list.Add(1113692, prop.ToString()); // Cold Resonance ~1_val~%
-
-            if ((prop = this.m_SAAbsorptionAttributes.ResonancePoison) != 0)
-                list.Add(1113693, prop.ToString()); // Poison Resonance ~1_val~%
-
-            if ((prop = this.m_SAAbsorptionAttributes.ResonanceEnergy) != 0)
-                list.Add(1113694, prop.ToString()); // Energy Resonance ~1_val~%
-
-            if ((prop = this.m_SAAbsorptionAttributes.ResonanceKinetic) != 0)
-                list.Add(1113695, prop.ToString()); // Kinetic Resonance ~1_val~%
-
-            base.AddResistanceProperties(list);
-
-            if ((prop = this.GetDurabilityBonus()) > 0)
-                list.Add(1060410, prop.ToString()); // durability ~1_val~%
-
-            if ((prop = this.ComputeStatReq(StatType.Str)) > 0)
-                list.Add(1061170, prop.ToString()); // strength requirement ~1_val~
-
-            if (this.m_HitPoints >= 0 && this.m_MaxHitPoints > 0)
-                list.Add(1060639, "{0}\t{1}", this.m_HitPoints, this.m_MaxHitPoints); // durability ~1_val~ / ~2_val~
-
-            Server.Engines.XmlSpawner2.XmlAttach.AddAttachmentProperties(this, list);
-
-            if (this.IsSetItem && !this.m_SetEquipped)
+            else
             {
-                list.Add(1072378); // <br>Only when full set is present:				
-                this.GetSetProperties(list);
+                list.Add(1038000); // Unidentified
             }
+            #endregion //ItemID Modifications
         }
 
         public override void OnSingleClick(Mobile from)
@@ -2480,7 +2491,7 @@ namespace Server.Items
             if (this.m_Quality == ArmorQuality.Exceptional)
                 attrs.Add(new EquipInfoAttribute(1018305 - (int)this.m_Quality));
 
-            if (this.m_Identified || from.AccessLevel >= AccessLevel.GameMaster)
+            if (base.Identified || from.AccessLevel >= AccessLevel.GameMaster)
             {
                 if (this.m_Durability != ArmorDurabilityLevel.Regular)
                     attrs.Add(new EquipInfoAttribute(1038000 + (int)this.m_Durability));
@@ -2556,7 +2567,7 @@ namespace Server.Items
 
                     for (int i = 0; i < bonus; i++)
                     {
-                        switch( Utility.Random(5) )
+                        switch (Utility.Random(5))
                         {
                             case 0:
                                 this.m_PhysicalBonus++;

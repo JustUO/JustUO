@@ -27,7 +27,7 @@ namespace Server.Spells.Seventh
         }
 
         public PolymorphSpell(Mobile caster, Item scroll)
-            : this(caster,scroll,0)
+            : this(caster, scroll, 0)
         {
         }
 
@@ -82,7 +82,7 @@ namespace Server.Spells.Seventh
             {
                 if (Core.ML)
                     EndPolymorph(Caster);
-                else 
+                else
                     Caster.SendLocalizedMessage(1005559); // This spell is already in effect.
                 return false;
             }
@@ -174,6 +174,7 @@ namespace Server.Spells.Seventh
                 else
                 {
                     Caster.SendLocalizedMessage(1005559); // This spell is already in effect.
+                    // Caster.SendMessage("This spell is already in effect."); // test
                 }
             }
 

@@ -18,106 +18,106 @@ using Server;
 
 namespace VitaNex.Modules.AutoPvP
 {
-	[PropertyObject]
-	public class PvPBattleItemRestrictions : PvPBattleRestrictionsBase<Type>
-	{
-		private static readonly Type _TypeOf = typeof(Item);
+    [PropertyObject]
+    public class PvPBattleItemRestrictions : PvPBattleRestrictionsBase<Type>
+    {
+        private static readonly Type _TypeOf = typeof(Item);
 
-		public PvPBattleItemRestrictions()
-		{ }
+        public PvPBattleItemRestrictions()
+        { }
 
-		public PvPBattleItemRestrictions(GenericReader reader)
-			: base(reader)
-		{ }
+        public PvPBattleItemRestrictions(GenericReader reader)
+            : base(reader)
+        { }
 
-		private static Type FindType(string name, bool full = false, bool ignoreCase = true)
-		{
-			return Type.GetType(name, false, ignoreCase) ??
-				   (full ? ScriptCompiler.FindTypeByFullName(name, ignoreCase) : ScriptCompiler.FindTypeByName(name, ignoreCase));
-		}
+        private static Type FindType(string name, bool full = false, bool ignoreCase = true)
+        {
+            return Type.GetType(name, false, ignoreCase) ??
+                   (full ? ScriptCompiler.FindTypeByFullName(name, ignoreCase) : ScriptCompiler.FindTypeByName(name, ignoreCase));
+        }
 
-		public override void Invalidate()
-		{ }
+        public override void Invalidate()
+        { }
 
-		public virtual void SetRestricted(Item item, bool restrict)
-		{
-			if (item != null)
-			{
-				SetRestricted(item.GetType(), restrict);
-			}
-		}
+        public virtual void SetRestricted(Item item, bool restrict)
+        {
+            if (item != null)
+            {
+                SetRestricted(item.GetType(), restrict);
+            }
+        }
 
-		public virtual void SetRestricted(string item, bool restrict)
-		{
-			if (!String.IsNullOrWhiteSpace(item))
-			{
-				SetRestricted(FindType(item), restrict);
-			}
-		}
+        public virtual void SetRestricted(string item, bool restrict)
+        {
+            if (!String.IsNullOrWhiteSpace(item))
+            {
+                SetRestricted(FindType(item), restrict);
+            }
+        }
 
-		public override void SetRestricted(Type key, bool val)
-		{
-			if (key == null)
-			{
-				return;
-			}
+        public override void SetRestricted(Type key, bool val)
+        {
+            if (key == null)
+            {
+                return;
+            }
 
-			if (key.IsEqualOrChildOf(_TypeOf))
-			{
-				base.SetRestricted(key, val);
-			}
-		}
+            if (key.IsEqualOrChildOf(_TypeOf))
+            {
+                base.SetRestricted(key, val);
+            }
+        }
 
-		public virtual bool IsRestricted(Item item)
-		{
-			return item != null && IsRestricted(item.GetType());
-		}
+        public virtual bool IsRestricted(Item item)
+        {
+            return item != null && IsRestricted(item.GetType());
+        }
 
-		public override bool IsRestricted(Type key)
-		{
-			if (key == null)
-			{
-				return false;
-			}
+        public override bool IsRestricted(Type key)
+        {
+            if (key == null)
+            {
+                return false;
+            }
 
-			if (key.IsEqualOrChildOf(_TypeOf))
-			{
-				return base.IsRestricted(_TypeOf) || base.IsRestricted(key);
-			}
+            if (key.IsEqualOrChildOf(_TypeOf))
+            {
+                return base.IsRestricted(_TypeOf) || base.IsRestricted(key);
+            }
 
-			return false;
-		}
+            return false;
+        }
 
-		public override string ToString()
-		{
-			return "Item Restrictions";
-		}
+        public override string ToString()
+        {
+            return "Item Restrictions";
+        }
 
-		public override void Serialize(GenericWriter writer)
-		{
-			base.Serialize(writer);
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
 
-			writer.SetVersion(0);
-		}
+            writer.SetVersion(0);
+        }
 
-		public override void Deserialize(GenericReader reader)
-		{
-			base.Deserialize(reader);
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
 
-			reader.GetVersion();
-		}
+            reader.GetVersion();
+        }
 
-		public override void SerializeEntry(GenericWriter writer, Type key, bool val)
-		{
-			writer.WriteType(key);
-			writer.Write(val);
-		}
+        public override void SerializeEntry(GenericWriter writer, Type key, bool val)
+        {
+            writer.WriteType(key);
+            writer.Write(val);
+        }
 
-		public override KeyValuePair<Type, bool> DeserializeEntry(GenericReader reader)
-		{
-			Type k = reader.ReadType();
-			bool v = reader.ReadBool();
-			return new KeyValuePair<Type, bool>(k, v);
-		}
-	}
+        public override KeyValuePair<Type, bool> DeserializeEntry(GenericReader reader)
+        {
+            Type k = reader.ReadType();
+            bool v = reader.ReadBool();
+            return new KeyValuePair<Type, bool>(k, v);
+        }
+    }
 }

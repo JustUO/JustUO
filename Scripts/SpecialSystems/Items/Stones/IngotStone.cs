@@ -28,6 +28,10 @@ namespace Server.Items
         {
             BagOfingots ingotBag = new BagOfingots(5000);
 
+            //            from.SetAllSkills(1300);
+
+
+
             if (!from.AddToBackpack(ingotBag))
                 ingotBag.Delete();
         }

@@ -11,7 +11,7 @@ namespace Server.Misc
 
     public class WeightOverloading
     {
-        public const int OverloadAllowance = 4;// We can be four stones overweight without getting fatigued
+        public const int OverloadAllowance = int.MaxValue;// We can be four stones overweight without getting fatigued
         private static DFAlgorithm m_DFA;
         public static DFAlgorithm DFA
         {
@@ -33,7 +33,7 @@ namespace Server.Misc
         {
             double fatigue = 0.0;
 
-            switch ( m_DFA )
+            switch (m_DFA)
             {
                 case DFAlgorithm.Standard:
                     {
@@ -77,33 +77,33 @@ namespace Server.Misc
 
             if (overWeight > 0)
             {
-                from.Stam -= GetStamLoss(from, overWeight, (e.Direction & Direction.Running) != 0);
+                // from.Stam -= GetStamLoss(from, overWeight, (e.Direction & Direction.Running) != 0);
 
                 if (from.Stam == 0)
                 {
-                    from.SendLocalizedMessage(500109); // You are too fatigued to move, because you are carrying too much weight!
-                    e.Blocked = true;
+                    //  from.SendLocalizedMessage(500109); // You are too fatigued to move, because you are carrying too much weight!
+                    e.Blocked = false;
                     return;
                 }
             }
 
             if (((from.Stam * 100) / Math.Max(from.StamMax, 1)) < 10)
-                --from.Stam;
+                // --from.Stam;
 
-            if (from.Stam == 0)
-            {
-                from.SendLocalizedMessage(500110); // You are too fatigued to move.
-                e.Blocked = true;
-                return;
-            }
+                if (from.Stam == 0)
+                {
+                    // from.SendLocalizedMessage(500110); // You are too fatigued to move.
+                    e.Blocked = false;
+                    return;
+                }
 
             if (from is PlayerMobile)
             {
                 int amt = (from.Mounted ? 48 : 16);
                 PlayerMobile pm = (PlayerMobile)from;
 
-                if ((++pm.StepsTaken % amt) == 0)
-                    --from.Stam;
+                //  if ((++pm.StepsTaken % amt) == 0)
+                //--from.Stam;
             }
 
             Spells.Ninjitsu.DeathStrike.AddStep(from);
@@ -119,7 +119,7 @@ namespace Server.Misc
             if (running)
                 loss *= 2;
 
-            return loss;
+            return 0;
         }
 
         public static bool IsOverloaded(Mobile m)
