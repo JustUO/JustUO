@@ -61,7 +61,7 @@ namespace VitaNex
 
 			// HACK: See FindRootDirectory summary.
 			var root = FindRootDirectory(Core.BaseDirectory + "/Scripts/VitaNex");
-			
+
 			if (root == null || !root.Exists)
 			{
 				return;
@@ -103,7 +103,7 @@ namespace VitaNex
 			{
 				return null;
 			}
-			
+
 			path = IOUtility.GetSafeDirectoryPath(path);
 
 			var root = TryCatchGet(
@@ -147,7 +147,11 @@ namespace VitaNex
 				string corePath = IOUtility.GetSafeDirectoryPath(Core.BaseDirectory);
 				string rootPath = IOUtility.GetSafeDirectoryPath(root.FullName.Replace(corePath, String.Empty));
 
+				#if !MONO
 				root = new DirectoryInfo(rootPath);
+				#else
+				root = new DirectoryInfo(IOUtility.GetSafeDirectoryPath(corePath + rootPath));
+				#endif
 			}
 
 			return root;
