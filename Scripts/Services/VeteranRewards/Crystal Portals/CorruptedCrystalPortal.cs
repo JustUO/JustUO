@@ -119,8 +119,8 @@ namespace Server.Items
 	    Effects.SendLocationEffect( m.Location, m.Map, 0x3728, 10, 10 );
 	    Effects.PlaySound( m.Location, m.Map, 0x1FE );
 		    
-	    BaseCreature.TeleportPets( m, loc, map );
-	    m.MoveToWorld( new Point3D(x, y, z), map );
+	    BaseCreature.TeleportPets( m, dest, map );
+	    m.MoveToWorld( dest, map );
 
 	    Effects.SendLocationEffect( m.Location, m.Map, 0x3728, 10, 10 );
 	    Effects.PlaySound( m.Location, m.Map, 0x1FE );
@@ -139,7 +139,7 @@ namespace Server.Items
 
 	    ResolveDest(e.Speech.Trim(), ref dest, ref map); //we want exclusivity in teleporting ergo use a switch not multiple ifs
 
-	    if (dest == Point3D.Zero || map == null, map == Map.Internal) {
+	    if (dest == Point3D.Zero || map == null || map == Map.Internal) {
 		return;
 	    }
 	    
@@ -353,7 +353,7 @@ namespace Server.Items
 		return false;
 	    }
 
-	    if (Sigil.ExistsOn(m)) {
+	    if (Factions.Sigil.ExistsOn(m)) {
 		if (message) {
 		    m.SendLocalizedMessage(1061632); // You can't do that while carrying the sigil.
 		}
@@ -361,7 +361,7 @@ namespace Server.Items
 		return false;
 	    }
 
-	    if (WeightOverloading.IsOverloaded(m)) {
+	    if (Server.Misc.WeightOverloading.IsOverloaded(m)) {
 		if (message) {
 		    m.SendLocalizedMessage(502359, "", 0x22); // Thou art too encumbered to move.
 		}
@@ -377,7 +377,7 @@ namespace Server.Items
 		return false;
 	    }
 	    
-	    if (SpellHelper.CheckCombat(m)) {
+	    if (Server.Spells.SpellHelper.CheckCombat(m)) {
 		if (message) {
 		    m.SendLocalizedMessage(1005564, "", 0x22); // Wouldst thou flee during the heat of battle??
 		}
