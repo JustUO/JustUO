@@ -4,7 +4,7 @@
 CC=mcs
 LDFLAGS=-r:System.Drawing,OpenUO.Core.dll,OpenUO.Ultima.dll,OpenUO.Ultima.Windows.Forms.dll,SevenZipSharp.dll
 OPTFLAGS=-optimize+
-CFLAGS=-sdk:4 -d:MONO -unsafe -nowarn:219,414 -out:Server.exe
+CFLAGS=-sdk:4 -d:MONO,NEWTIMERS,NEWPARENT -unsafe -nowarn:219,414 -out:Server.exe
 RECURSE=-recurse:'Server/*.cs'
 DFLAGS=-debug
 
