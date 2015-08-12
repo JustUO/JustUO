@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Linq;
 
 namespace Server.Items
 {
@@ -881,8 +882,8 @@ namespace Server.Items
 
         private static void ApplySkillBonus(AosSkillBonuses attrs, int min, int max, int index, int low, int high)
         {
-            SkillName[] possibleSkills = (attrs.Owner is Spellbook ? m_PossibleSpellbookSkills : m_PossibleBonusSkills);
-            int count = (Core.SE ? possibleSkills.Length : possibleSkills.Length - 2);
+            var possibleSkills = (attrs.Owner is Spellbook ? m_PossibleSpellbookSkills : m_PossibleBonusSkills).ToList();
+            var count = (Core.SE ? possibleSkills.Count : possibleSkills.Count - 2);
 
             SkillName sk, check;
             double bonus;
@@ -893,10 +894,15 @@ namespace Server.Items
                 found = false;
                 sk = possibleSkills[Utility.Random(count)];
 
-                for (int i = 0; !found && i < 5; ++i)
+                for (var i = 0; !found && i < 5; ++i)
+                {
                     found = (attrs.GetValues(i, out check, out bonus) && check == sk);
+                }
+
+                possibleSkills.Remove(sk);
+                --count;
             }
-            while (found);
+            while (found && count > 0);
 
             attrs.SetValues(index, sk, Scale(min, max, low, high));
         }
