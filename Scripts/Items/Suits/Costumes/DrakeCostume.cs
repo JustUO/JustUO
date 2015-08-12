@@ -1,0 +1,30 @@
+namespace Server.Items
+{
+    public class DrakeCostume : BaseCostume
+    {
+        [Constructable]
+        public DrakeCostume()
+        {
+            Name = "a drake halloween costume";
+            CostumeBody = 60;
+        }
+
+        public DrakeCostume(Serial serial) : base(serial)
+        {
+        }
+
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
+
+            writer.Write(0);
+        }
+
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
+
+            var version = reader.ReadInt();
+        }
+    }
+}
