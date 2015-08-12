@@ -1,4 +1,3 @@
-using System;
 using Server.Gumps;
 using Server.Items;
 using Server.Mobiles;
@@ -20,30 +19,30 @@ namespace Server.Engines.Quests.Haven
 
         public override void InitBody()
         {
-            this.InitStats(100, 100, 25);
+            InitStats(100, 100, 25);
 
-            this.Hue = 0x83F3;
+            Hue = 0x83F3;
 
-            this.Female = false;
-            this.Body = 0x190;
-            this.Name = "Uzeraan";
+            Female = false;
+            Body = 0x190;
+            Name = "Uzeraan";
         }
 
         public override void InitOutfit()
         {
-            this.AddItem(new Robe(0x4DD));
-            this.AddItem(new WizardsHat(0x8A5));
-            this.AddItem(new Shoes(0x8A5));
+            AddItem(new Robe(0x4DD));
+            AddItem(new WizardsHat(0x8A5));
+            AddItem(new Shoes(0x8A5));
 
-            this.HairItemID = 0x203C;
-            this.HairHue = 0x455;
+            HairItemID = 0x203C;
+            HairHue = 0x455;
 
-            this.FacialHairItemID = 0x203E;
-            this.FacialHairHue = 0x455;
+            FacialHairItemID = 0x203E;
+            FacialHairHue = 0x455;
 
-            BlackStaff staff = new BlackStaff();
+            var staff = new BlackStaff();
             staff.Movable = false;
-            this.AddItem(staff);
+            AddItem(staff);
         }
 
         public override int GetAutoTalkRange(PlayerMobile pm)
@@ -58,7 +57,7 @@ namespace Server.Engines.Quests.Haven
 
         public override void OnTalk(PlayerMobile player, bool contextMenu)
         {
-            QuestSystem qs = player.Quest;
+            var qs = player.Quest;
 
             if (qs is UzeraanTurmoilQuest)
             {
@@ -82,23 +81,23 @@ namespace Server.Engines.Quests.Haven
                 {
                     if (player.Profession == 2) // magician
                     {
-                        Container backpack = player.Backpack;
+                        var backpack = player.Backpack;
 
                         if (backpack == null ||
-                            backpack.GetAmount(typeof(BlackPearl)) < 30 ||
-                            backpack.GetAmount(typeof(Bloodmoss)) < 30 ||
-                            backpack.GetAmount(typeof(Garlic)) < 30 ||
-                            backpack.GetAmount(typeof(Ginseng)) < 30 ||
-                            backpack.GetAmount(typeof(MandrakeRoot)) < 30 ||
-                            backpack.GetAmount(typeof(Nightshade)) < 30 ||
-                            backpack.GetAmount(typeof(SulfurousAsh)) < 30 ||
-                            backpack.GetAmount(typeof(SpidersSilk)) < 30)
+                            backpack.GetAmount(typeof (BlackPearl)) < 30 ||
+                            backpack.GetAmount(typeof (Bloodmoss)) < 30 ||
+                            backpack.GetAmount(typeof (Garlic)) < 30 ||
+                            backpack.GetAmount(typeof (Ginseng)) < 30 ||
+                            backpack.GetAmount(typeof (MandrakeRoot)) < 30 ||
+                            backpack.GetAmount(typeof (Nightshade)) < 30 ||
+                            backpack.GetAmount(typeof (SulfurousAsh)) < 30 ||
+                            backpack.GetAmount(typeof (SpidersSilk)) < 30)
                         {
                             qs.AddConversation(new FewReagentsConversation());
                         }
                     }
 
-                    QuestObjective obj = qs.FindObjective(typeof(FindUzeraanBeginObjective));
+                    var obj = qs.FindObjective(typeof (FindUzeraanBeginObjective));
 
                     if (obj != null && !obj.Completed)
                     {
@@ -106,7 +105,7 @@ namespace Server.Engines.Quests.Haven
                     }
                     else
                     {
-                        obj = qs.FindObjective(typeof(FindUzeraanFirstTaskObjective));
+                        obj = qs.FindObjective(typeof (FindUzeraanFirstTaskObjective));
 
                         if (obj != null && !obj.Completed)
                         {
@@ -114,17 +113,17 @@ namespace Server.Engines.Quests.Haven
                         }
                         else
                         {
-                            obj = qs.FindObjective(typeof(FindUzeraanAboutReportObjective));
+                            obj = qs.FindObjective(typeof (FindUzeraanAboutReportObjective));
 
                             if (obj != null && !obj.Completed)
                             {
-                                Container cont = GetNewContainer();
+                                var cont = GetNewContainer();
 
                                 if (player.Profession == 2) // magician
                                 {
                                     cont.DropItem(new MarkScroll(5));
                                     cont.DropItem(new RecallScroll(5));
-                                    for (int i = 0; i < 5; i++)
+                                    for (var i = 0; i < 5; i++)
                                     {
                                         cont.DropItem(new RecallRune());
                                     }
@@ -132,7 +131,7 @@ namespace Server.Engines.Quests.Haven
                                 else
                                 {
                                     cont.DropItem(new Gold(300));
-                                    for (int i = 0; i < 6; i++)
+                                    for (var i = 0; i < 6; i++)
                                     {
                                         cont.DropItem(new NightSightPotion());
                                         cont.DropItem(new LesserHealPotion());
@@ -142,7 +141,8 @@ namespace Server.Engines.Quests.Haven
                                 if (!player.PlaceInBackpack(cont))
                                 {
                                     cont.Delete();
-                                    player.SendLocalizedMessage(1046260); // You need to clear some space in your inventory to continue with the quest.  Come back here when you have more space in your inventory.
+                                    player.SendLocalizedMessage(1046260);
+                                        // You need to clear some space in your inventory to continue with the quest.  Come back here when you have more space in your inventory.
                                 }
                                 else
                                 {
@@ -151,43 +151,43 @@ namespace Server.Engines.Quests.Haven
                             }
                             else
                             {
-                                obj = qs.FindObjective(typeof(ReturnScrollOfPowerObjective));
+                                obj = qs.FindObjective(typeof (ReturnScrollOfPowerObjective));
 
                                 if (obj != null && !obj.Completed)
                                 {
-                                    this.FocusTo(player);
-                                    this.SayTo(player, 1049378); // Hand me the scroll, if you have it.
+                                    FocusTo(player);
+                                    SayTo(player, 1049378); // Hand me the scroll, if you have it.
                                 }
                                 else
                                 {
-                                    obj = qs.FindObjective(typeof(ReturnFertileDirtObjective));
+                                    obj = qs.FindObjective(typeof (ReturnFertileDirtObjective));
 
                                     if (obj != null && !obj.Completed)
                                     {
-                                        this.FocusTo(player);
-                                        this.SayTo(player, 1049381); // Hand me the Fertile Dirt, if you have it.
+                                        FocusTo(player);
+                                        SayTo(player, 1049381); // Hand me the Fertile Dirt, if you have it.
                                     }
                                     else
                                     {
-                                        obj = qs.FindObjective(typeof(ReturnDaemonBloodObjective));
+                                        obj = qs.FindObjective(typeof (ReturnDaemonBloodObjective));
 
                                         if (obj != null && !obj.Completed)
                                         {
-                                            this.FocusTo(player);
-                                            this.SayTo(player, 1049379); // Hand me the Vial of Blood, if you have it.
+                                            FocusTo(player);
+                                            SayTo(player, 1049379); // Hand me the Vial of Blood, if you have it.
                                         }
                                         else
                                         {
-                                            obj = qs.FindObjective(typeof(ReturnDaemonBoneObjective));
+                                            obj = qs.FindObjective(typeof (ReturnDaemonBoneObjective));
 
                                             if (obj != null && !obj.Completed)
                                             {
-                                                this.FocusTo(player);
-                                                this.SayTo(player, 1049380); // Hand me the Daemon Bone, if you have it.
+                                                FocusTo(player);
+                                                SayTo(player, 1049380); // Hand me the Daemon Bone, if you have it.
                                             }
                                             else
                                             {
-                                                this.SayTo(player, 1049357); // I have nothing more for you at this time.
+                                                SayTo(player, 1049357); // I have nothing more for you at this time.
                                             }
                                         }
                                     }
@@ -201,11 +201,11 @@ namespace Server.Engines.Quests.Haven
 
         public override bool OnDragDrop(Mobile from, Item dropped)
         {
-            PlayerMobile player = from as PlayerMobile;
+            var player = from as PlayerMobile;
 
             if (player != null)
             {
-                QuestSystem qs = player.Quest;
+                var qs = player.Quest;
 
                 if (qs is UzeraanTurmoilQuest)
                 {
@@ -213,16 +213,16 @@ namespace Server.Engines.Quests.Haven
                     {
                         if (player.Young)
                         {
-                            UzeraanTurmoilHorn horn = (UzeraanTurmoilHorn)dropped;
+                            var horn = (UzeraanTurmoilHorn) dropped;
 
                             if (horn.Charges < 10)
                             {
-                                this.SayTo(from, 1049384); // I have recharged the item for you.
+                                SayTo(from, 1049384); // I have recharged the item for you.
                                 horn.Charges = 10;
                             }
                             else
                             {
-                                this.SayTo(from, 1049385); // That doesn't need recharging yet.
+                                SayTo(from, 1049385); // That doesn't need recharging yet.
                             }
                         }
                         else
@@ -235,11 +235,11 @@ namespace Server.Engines.Quests.Haven
 
                     if (dropped is SchmendrickScrollOfPower)
                     {
-                        QuestObjective obj = qs.FindObjective(typeof(ReturnScrollOfPowerObjective));
+                        var obj = qs.FindObjective(typeof (ReturnScrollOfPowerObjective));
 
                         if (obj != null && !obj.Completed)
                         {
-                            Container cont = GetNewContainer();
+                            var cont = GetNewContainer();
 
                             cont.DropItem(new TreasureMap(player.Young ? 0 : 1, Map.Trammel));
                             cont.DropItem(new Shovel());
@@ -248,24 +248,22 @@ namespace Server.Engines.Quests.Haven
                             if (!player.PlaceInBackpack(cont))
                             {
                                 cont.Delete();
-                                player.SendLocalizedMessage(1046260); // You need to clear some space in your inventory to continue with the quest.  Come back here when you have more space in your inventory.
+                                player.SendLocalizedMessage(1046260);
+                                    // You need to clear some space in your inventory to continue with the quest.  Come back here when you have more space in your inventory.
                                 return false;
                             }
-                            else
-                            {
-                                dropped.Delete();
-                                obj.Complete();
-                                return true;
-                            }
+                            dropped.Delete();
+                            obj.Complete();
+                            return true;
                         }
                     }
                     else if (dropped is QuestFertileDirt)
                     {
-                        QuestObjective obj = qs.FindObjective(typeof(ReturnFertileDirtObjective));
+                        var obj = qs.FindObjective(typeof (ReturnFertileDirtObjective));
 
                         if (obj != null && !obj.Completed)
                         {
-                            Container cont = GetNewContainer();
+                            var cont = GetNewContainer();
 
                             if (player.Profession == 2) // magician
                             {
@@ -278,7 +276,7 @@ namespace Server.Engines.Quests.Haven
                                 cont.DropItem(new SulfurousAsh(20));
                                 cont.DropItem(new SpidersSilk(20));
 
-                                for (int i = 0; i < 3; i++)
+                                for (var i = 0; i < 3; i++)
                                     cont.DropItem(Loot.RandomScroll(0, 23, SpellbookType.Regular));
                             }
                             else
@@ -286,27 +284,25 @@ namespace Server.Engines.Quests.Haven
                                 cont.DropItem(new Gold(300));
                                 cont.DropItem(new Bandage(25));
 
-                                for (int i = 0; i < 5; i++)
+                                for (var i = 0; i < 5; i++)
                                     cont.DropItem(new LesserHealPotion());
                             }
 
                             if (!player.PlaceInBackpack(cont))
                             {
                                 cont.Delete();
-                                player.SendLocalizedMessage(1046260); // You need to clear some space in your inventory to continue with the quest.  Come back here when you have more space in your inventory.
+                                player.SendLocalizedMessage(1046260);
+                                    // You need to clear some space in your inventory to continue with the quest.  Come back here when you have more space in your inventory.
                                 return false;
                             }
-                            else
-                            {
-                                dropped.Delete();
-                                obj.Complete();
-                                return true;
-                            }
+                            dropped.Delete();
+                            obj.Complete();
+                            return true;
                         }
                     }
                     else if (dropped is QuestDaemonBlood)
                     {
-                        QuestObjective obj = qs.FindObjective(typeof(ReturnDaemonBloodObjective));
+                        var obj = qs.FindObjective(typeof (ReturnDaemonBloodObjective));
 
                         if (obj != null && !obj.Completed)
                         {
@@ -314,7 +310,7 @@ namespace Server.Engines.Quests.Haven
 
                             if (player.Profession == 2) // magician
                             {
-                                Container cont = GetNewContainer();
+                                var cont = GetNewContainer();
 
                                 cont.DropItem(new ExplosionScroll(4));
                                 cont.DropItem(new MagicWizardsHat());
@@ -324,7 +320,7 @@ namespace Server.Engines.Quests.Haven
                             else
                             {
                                 BaseWeapon weapon;
-                                switch ( Utility.Random(6) )
+                                switch (Utility.Random(6))
                                 {
                                     case 0:
                                         weapon = new Broadsword();
@@ -352,9 +348,9 @@ namespace Server.Engines.Quests.Haven
                                 }
                                 else
                                 {
-                                    weapon.DamageLevel = (WeaponDamageLevel)BaseCreature.RandomMinMaxScaled(2, 4);
-                                    weapon.AccuracyLevel = (WeaponAccuracyLevel)BaseCreature.RandomMinMaxScaled(2, 4);
-                                    weapon.DurabilityLevel = (WeaponDurabilityLevel)BaseCreature.RandomMinMaxScaled(2, 4);
+                                    weapon.DamageLevel = (WeaponDamageLevel) RandomMinMaxScaled(2, 4);
+                                    weapon.AccuracyLevel = (WeaponAccuracyLevel) RandomMinMaxScaled(2, 4);
+                                    weapon.DurabilityLevel = (WeaponDurabilityLevel) RandomMinMaxScaled(2, 4);
                                 }
 
                                 weapon.Slayer = SlayerName.Silver;
@@ -365,39 +361,35 @@ namespace Server.Engines.Quests.Haven
                             if (!player.PlaceInBackpack(reward))
                             {
                                 reward.Delete();
-                                player.SendLocalizedMessage(1046260); // You need to clear some space in your inventory to continue with the quest.  Come back here when you have more space in your inventory.
+                                player.SendLocalizedMessage(1046260);
+                                    // You need to clear some space in your inventory to continue with the quest.  Come back here when you have more space in your inventory.
                                 return false;
                             }
-                            else
-                            {
-                                dropped.Delete();
-                                obj.Complete();
-                                return true;
-                            }
+                            dropped.Delete();
+                            obj.Complete();
+                            return true;
                         }
                     }
                     else if (dropped is QuestDaemonBone)
                     {
-                        QuestObjective obj = qs.FindObjective(typeof(ReturnDaemonBoneObjective));
+                        var obj = qs.FindObjective(typeof (ReturnDaemonBoneObjective));
 
                         if (obj != null && !obj.Completed)
                         {
-                            Container cont = GetNewContainer();
+                            var cont = GetNewContainer();
                             cont.DropItem(new BankCheck(2000));
                             cont.DropItem(new EnchantedSextant());
 
                             if (!player.PlaceInBackpack(cont))
                             {
                                 cont.Delete();
-                                player.SendLocalizedMessage(1046260); // You need to clear some space in your inventory to continue with the quest.  Come back here when you have more space in your inventory.
+                                player.SendLocalizedMessage(1046260);
+                                    // You need to clear some space in your inventory to continue with the quest.  Come back here when you have more space in your inventory.
                                 return false;
                             }
-                            else
-                            {
-                                dropped.Delete();
-                                obj.Complete();
-                                return true;
-                            }
+                            dropped.Delete();
+                            obj.Complete();
+                            return true;
                         }
                     }
                 }
@@ -410,7 +402,7 @@ namespace Server.Engines.Quests.Haven
         {
             base.OnMovement(m, oldLocation);
 
-            if (m is PlayerMobile && !m.Frozen && !m.Alive && this.InRange(m, 4) && !this.InRange(oldLocation, 4) && this.InLOS(m))
+            if (m is PlayerMobile && !m.Frozen && !m.Alive && InRange(m, 4) && !InRange(oldLocation, 4) && InLOS(m))
             {
                 if (m.Map == null || !m.Map.CanFit(m.Location, 16, false, false))
                 {
@@ -418,12 +410,12 @@ namespace Server.Engines.Quests.Haven
                 }
                 else
                 {
-                    this.Direction = this.GetDirectionTo(m);
+                    Direction = GetDirectionTo(m);
 
                     m.PlaySound(0x214);
                     m.FixedEffect(0x376A, 10, 16);
 
-                    m.CloseGump(typeof(ResurrectGump));
+                    m.CloseGump(typeof (ResurrectGump));
                     m.SendGump(new ResurrectGump(m, ResurrectMessage.Healer));
                 }
             }
@@ -433,14 +425,14 @@ namespace Server.Engines.Quests.Haven
         {
             base.Serialize(writer);
 
-            writer.Write((int)0); // version
+            writer.Write(0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

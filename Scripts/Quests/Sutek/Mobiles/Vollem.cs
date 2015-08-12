@@ -1,5 +1,3 @@
-using System;
-
 namespace Server.Mobiles
 {
     [CorpseName("a vollem corpse")]
@@ -9,36 +7,36 @@ namespace Server.Mobiles
         public Vollem()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.4, 0.8)
         {
-            this.Name = "a vollem";
-            this.Body = 293;
+            Name = "a vollem";
+            Body = 293;
             //			BaseSoundID = 397;
 
-            this.SetStr(225, 245);
-            this.SetDex(80, 100);
-            this.SetInt(30, 40);
+            SetStr(225, 245);
+            SetDex(80, 100);
+            SetInt(30, 40);
 
-            this.SetHits(151, 210);
+            SetHits(151, 210);
 
-            this.SetDamage(5, 10);
+            SetDamage(5, 10);
 
-            this.SetDamageType(ResistanceType.Physical, 60);
-            this.SetDamageType(ResistanceType.Poison, 40);
+            SetDamageType(ResistanceType.Physical, 60);
+            SetDamageType(ResistanceType.Poison, 40);
 
-            this.SetResistance(ResistanceType.Physical, 80, 100);
-            this.SetResistance(ResistanceType.Fire, 20, 30);
-            this.SetResistance(ResistanceType.Cold, 60, 80);
-            this.SetResistance(ResistanceType.Poison, 100);
-            this.SetResistance(ResistanceType.Energy, 10, 25);
+            SetResistance(ResistanceType.Physical, 80, 100);
+            SetResistance(ResistanceType.Fire, 20, 30);
+            SetResistance(ResistanceType.Cold, 60, 80);
+            SetResistance(ResistanceType.Poison, 100);
+            SetResistance(ResistanceType.Energy, 10, 25);
 
-            this.SetSkill(SkillName.MagicResist, 30.1, 50.0);
-            this.SetSkill(SkillName.Poisoning, 95.1, 100.0);
-            this.SetSkill(SkillName.Tactics, 70.1, 90.0);
-            this.SetSkill(SkillName.Wrestling, 50.1, 80.0);
+            SetSkill(SkillName.MagicResist, 30.1, 50.0);
+            SetSkill(SkillName.Poisoning, 95.1, 100.0);
+            SetSkill(SkillName.Tactics, 70.1, 90.0);
+            SetSkill(SkillName.Wrestling, 50.1, 80.0);
 
-            this.Fame = 3500;
-            this.Karma = -3500;
+            Fame = 3500;
+            Karma = -3500;
 
-            this.ControlSlots = 1;
+            ControlSlots = 1;
         }
 
         public Vollem(Serial serial)
@@ -48,70 +46,52 @@ namespace Server.Mobiles
 
         public override bool IsScaredOfScaryThings
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
+
         public override bool IsScaryToPets
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override bool IsBondable
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
+
         public override FoodType FavoriteFood
         {
-            get
-            {
-                return FoodType.Meat;
-            }
+            get { return FoodType.Meat; }
         }
+
         public override bool DeleteOnRelease
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override bool AutoDispel
         {
-            get
-            {
-                return !this.Controlled;
-            }
+            get { return !Controlled; }
         }
+
         public override bool BleedImmune
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override bool BardImmune
         {
-            get
-            {
-                return !Core.AOS || this.Controlled;
-            }
+            get { return !Core.AOS || Controlled; }
         }
+
         public override Poison PoisonImmune
         {
-            get
-            {
-                return Poison.Lethal;
-            }
+            get { return Poison.Lethal; }
         }
+
         public override void GenerateLoot()
         {
-            this.AddLoot(LootPack.Meager, 2);
+            AddLoot(LootPack.Meager, 2);
         }
 
         public override int GetAngerSound()
@@ -121,7 +101,7 @@ namespace Server.Mobiles
 
         public override int GetIdleSound()
         {
-            if (!this.Controlled)
+            if (!Controlled)
                 return 542;
 
             return base.GetIdleSound();
@@ -129,7 +109,7 @@ namespace Server.Mobiles
 
         public override int GetDeathSound()
         {
-            if (!this.Controlled)
+            if (!Controlled)
                 return 545;
 
             return base.GetDeathSound();
@@ -142,7 +122,7 @@ namespace Server.Mobiles
 
         public override int GetHurtSound()
         {
-            if (this.Controlled)
+            if (Controlled)
                 return 320;
 
             return base.GetHurtSound();
@@ -173,16 +153,17 @@ namespace Server.Mobiles
         }
         }
         */
+
         public override void OnDamage(int amount, Mobile from, bool willKill)
         {
-            if (this.Controlled || this.Summoned)
+            if (Controlled || Summoned)
             {
-                Mobile master = (this.ControlMaster);
+                var master = (ControlMaster);
 
                 if (master == null)
-                    master = this.SummonMaster;
+                    master = SummonMaster;
 
-                if (master != null && master.Player && master.Map == this.Map && master.InRange(this.Location, 20))
+                if (master != null && master.Player && master.Map == Map && master.InRange(Location, 20))
                 {
                     if (master.Mana >= amount)
                     {
@@ -203,13 +184,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write((int)0);
+            writer.Write(0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

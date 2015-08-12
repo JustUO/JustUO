@@ -1,10 +1,6 @@
 using System;
-using Server;
-using Server.Network;
-using Server.Regions;
 using Server.Mobiles;
-using Server.Items;
-using Server.Targeting;
+using Server.Network;
 
 namespace Server.Items
 {
@@ -14,14 +10,11 @@ namespace Server.Items
         public CreepyWeeds()
             : base(0x0CB8)
         {
-            this.Name = "Creepy Weeds";
-            this.Weight = 1;
-			this.Movable = false;	
+            Name = "Creepy Weeds";
+            Weight = 1;
+            Movable = false;
 
-                        Timer.DelayCall(TimeSpan.FromMinutes(10.0), delegate()
-                        {
-                            this.Delete();                                       
-                        });
+            Timer.DelayCall(TimeSpan.FromMinutes(10.0), delegate { this.Delete(); });
         }
 
         public CreepyWeeds(Serial serial)
@@ -31,21 +24,21 @@ namespace Server.Items
 
         public override void OnDoubleClick(Mobile from)
         {
-            if (!this.CheckUse(from))
+            if (!CheckUse(from))
                 return;
-            Map map = this.Map;
-            Point3D loc = this.Location;
+            var map = Map;
+            var loc = Location;
 
             if (from.InRange(loc, 1) || from.InLOS(this))
             {
                 (this).Delete();
 
-                Snake snake = new Snake();
-                Mongbat mongbat = new Mongbat();
-                SilverSerpent silverserpent = new SilverSerpent();
-                Raptor raptor = new Raptor();
-                Ballem ballem = new Ballem();
-                FNPitchfork fnpitchfork = new FNPitchfork();
+                var snake = new Snake();
+                var mongbat = new Mongbat();
+                var silverserpent = new SilverSerpent();
+                var raptor = new Raptor();
+                var ballem = new Ballem();
+                var fnpitchfork = new FNPitchfork();
 
                 switch (Utility.Random(18))
                 {
@@ -64,15 +57,18 @@ namespace Server.Items
                     case 4:
                         ballem.MoveToWorld(loc, map);
                         break;
-                    case 5: case 10: case 15:
-						if (Utility.RandomDouble() < 0.20)
+                    case 5:
+                    case 10:
+                    case 15:
+                        if (Utility.RandomDouble() < 0.20)
                         {
                             fnpitchfork.MoveToWorld(loc, map);
-                            from.SendMessage("You find Farmer Nash's pitchfork under one of the brambles of weeds. You pick up the pitchfork and put it in your backpack."); 
+                            from.SendMessage(
+                                "You find Farmer Nash's pitchfork under one of the brambles of weeds. You pick up the pitchfork and put it in your backpack.");
                         }
-						break;
-                  }
-             }
+                        break;
+                }
+            }
         }
 
         public override void Serialize(GenericWriter writer)
@@ -86,26 +82,23 @@ namespace Server.Items
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadEncodedInt();
+            var version = reader.ReadEncodedInt();
         }
 
         protected virtual bool CheckUse(Mobile from)
         {
-            PlayerMobile pm = from as PlayerMobile;
+            var pm = from as PlayerMobile;
 
-            if (this.Deleted || !this.IsAccessibleTo(from))
+            if (Deleted || !IsAccessibleTo(from))
             {
                 return false;
             }
-            else if (from.Map != this.Map || !from.InRange(this.GetWorldLocation(), 1))
+            if (@from.Map != Map || !@from.InRange(GetWorldLocation(), 1))
             {
-                from.LocalOverheadMessage(MessageType.Regular, 0x3B2, 1019045); // I can't reach that.
+                @from.LocalOverheadMessage(MessageType.Regular, 0x3B2, 1019045); // I can't reach that.
                 return false;
             }
-            else
-            {
-                return true;
-            }
+            return true;
         }
     }
 }

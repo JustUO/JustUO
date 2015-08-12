@@ -1,4 +1,3 @@
-using System;
 using Server.Items;
 using Server.Mobiles;
 using Server.Network;
@@ -7,16 +6,16 @@ namespace Server.Engines.Quests.Ninja
 {
     public class HiddenFigure : BaseQuester
     {
-        public static int[] Messages = new int[]
+        public static int[] Messages =
         {
             1063191, // They won’t find me here.
-            1063192  // Ah, a quiet hideout.
+            1063192 // Ah, a quiet hideout.
         };
-        private int m_Message;
+
         [Constructable]
         public HiddenFigure()
         {
-            this.m_Message = Utility.RandomList(Messages);
+            Message = Utility.RandomList(Messages);
         }
 
         public HiddenFigure(Serial serial)
@@ -25,41 +24,30 @@ namespace Server.Engines.Quests.Ninja
         }
 
         [CommandProperty(AccessLevel.GameMaster)]
-        public int Message
-        {
-            get
-            {
-                return this.m_Message;
-            }
-            set
-            {
-                this.m_Message = value;
-            }
-        }
+        public int Message { get; set; }
+
         public override int TalkNumber
         {
-            get
-            {
-                return -1;
-            }
+            get { return -1; }
         }
+
         public override void InitBody()
         {
-            this.InitStats(100, 100, 25);
+            InitStats(100, 100, 25);
 
-            this.Hue = Utility.RandomSkinHue();
+            Hue = Utility.RandomSkinHue();
 
-            this.Female = Utility.RandomBool();
+            Female = Utility.RandomBool();
 
-            if (this.Female)
+            if (Female)
             {
-                this.Body = 0x191;
-                this.Name = NameList.RandomName("female");
+                Body = 0x191;
+                Name = NameList.RandomName("female");
             }
             else
             {
-                this.Body = 0x190;
-                this.Name = NameList.RandomName("male");
+                Body = 0x190;
+                Name = NameList.RandomName("male");
             }
         }
 
@@ -67,14 +55,14 @@ namespace Server.Engines.Quests.Ninja
         {
             Utility.AssignRandomHair(this);
 
-            this.AddItem(new TattsukeHakama(this.GetRandomHue()));
-            this.AddItem(new Kasa());
-            this.AddItem(new HakamaShita(this.GetRandomHue()));
+            AddItem(new TattsukeHakama(GetRandomHue()));
+            AddItem(new Kasa());
+            AddItem(new HakamaShita(GetRandomHue()));
 
             if (Utility.RandomBool())
-                this.AddItem(new Shoes(this.GetShoeHue()));
+                AddItem(new Shoes(GetShoeHue()));
             else
-                this.AddItem(new Sandals(this.GetShoeHue()));
+                AddItem(new Sandals(GetShoeHue()));
         }
 
         public override int GetAutoTalkRange(PlayerMobile pm)
@@ -84,7 +72,7 @@ namespace Server.Engines.Quests.Ninja
 
         public override void OnTalk(PlayerMobile player, bool contextMenu)
         {
-            this.PrivateOverheadMessage(MessageType.Regular, 0x3B2, this.m_Message, player.NetState);
+            PrivateOverheadMessage(MessageType.Regular, 0x3B2, Message, player.NetState);
         }
 
         public override void Serialize(GenericWriter writer)
@@ -93,16 +81,16 @@ namespace Server.Engines.Quests.Ninja
 
             writer.WriteEncodedInt(0); // version
 
-            writer.Write((int)this.m_Message);
+            writer.Write(Message);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadEncodedInt();
+            var version = reader.ReadEncodedInt();
 
-            this.m_Message = reader.ReadInt();
+            Message = reader.ReadInt();
         }
     }
 }

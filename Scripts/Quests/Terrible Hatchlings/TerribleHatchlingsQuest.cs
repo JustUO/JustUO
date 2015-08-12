@@ -5,17 +5,18 @@ namespace Server.Engines.Quests.Zento
 {
     public class TerribleHatchlingsQuest : QuestSystem
     {
-        private static readonly Type[] m_TypeReferenceTable = new Type[]
+        private static readonly Type[] m_TypeReferenceTable =
         {
-            typeof(AcceptConversation),
-            typeof(DirectionConversation),
-            typeof(TakeCareConversation),
-            typeof(EndConversation),
-            typeof(FirstKillObjective),
-            typeof(SecondKillObjective),
-            typeof(ThirdKillObjective),
-            typeof(ReturnObjective)
+            typeof (AcceptConversation),
+            typeof (DirectionConversation),
+            typeof (TakeCareConversation),
+            typeof (EndConversation),
+            typeof (FirstKillObjective),
+            typeof (SecondKillObjective),
+            typeof (ThirdKillObjective),
+            typeof (ReturnObjective)
         };
+
         public TerribleHatchlingsQuest(PlayerMobile from)
             : base(from)
         {
@@ -28,11 +29,9 @@ namespace Server.Engines.Quests.Zento
 
         public override Type[] TypeReferenceTable
         {
-            get
-            {
-                return m_TypeReferenceTable;
-            }
+            get { return m_TypeReferenceTable; }
         }
+
         public override object Name
         {
             get
@@ -41,6 +40,7 @@ namespace Server.Engines.Quests.Zento
                 return 1063314;
             }
         }
+
         public override object OfferMessage
         {
             get
@@ -56,32 +56,27 @@ namespace Server.Engines.Quests.Zento
                 return 1063315;
             }
         }
+
         public override TimeSpan RestartDelay
         {
-            get
-            {
-                return TimeSpan.MaxValue;
-            }
+            get { return TimeSpan.MaxValue; }
         }
+
         public override bool IsTutorial
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override int Picture
         {
-            get
-            {
-                return 0x15CF;
-            }
+            get { return 0x15CF; }
         }
+
         public override void Accept()
         {
             base.Accept();
 
-            this.AddConversation(new AcceptConversation());
+            AddConversation(new AcceptConversation());
         }
     }
 }

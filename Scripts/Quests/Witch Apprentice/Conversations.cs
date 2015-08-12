@@ -1,13 +1,7 @@
-using System;
-
 namespace Server.Engines.Quests.Hag
 {
     public class DontOfferConversation : QuestConversation
     {
-        public DontOfferConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -31,21 +25,15 @@ namespace Server.Engines.Quests.Hag
                 return 1055000;
             }
         }
+
         public override bool Logged
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
     }
 
     public class AcceptConversation : QuestConversation
     {
-        public AcceptConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -69,18 +57,15 @@ namespace Server.Engines.Quests.Hag
                 return 1055002;
             }
         }
+
         public override void OnRead()
         {
-            this.System.AddObjective(new FindApprenticeObjective(true));
+            System.AddObjective(new FindApprenticeObjective(true));
         }
     }
 
     public class HagDuringCorpseSearchConversation : QuestConversation
     {
-        public HagDuringCorpseSearchConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -95,21 +80,15 @@ namespace Server.Engines.Quests.Hag
                 return 1055003;
             }
         }
+
         public override bool Logged
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
     }
 
     public class ApprenticeCorpseConversation : QuestConversation
     {
-        public ApprenticeCorpseConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -128,18 +107,15 @@ namespace Server.Engines.Quests.Hag
                 return 1055004;
             }
         }
+
         public override void OnRead()
         {
-            this.System.AddObjective(new FindGrizeldaAboutMurderObjective());
+            System.AddObjective(new FindGrizeldaAboutMurderObjective());
         }
     }
 
     public class MurderConversation : QuestConversation
     {
-        public MurderConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -175,18 +151,15 @@ namespace Server.Engines.Quests.Hag
                 return 1055005;
             }
         }
+
         public override void OnRead()
         {
-            this.System.AddObjective(new KillImpsObjective(true));
+            System.AddObjective(new KillImpsObjective(true));
         }
     }
 
     public class HagDuringImpSearchConversation : QuestConversation
     {
-        public HagDuringImpSearchConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -203,21 +176,20 @@ namespace Server.Engines.Quests.Hag
                 return 1055006;
             }
         }
+
         public override bool Logged
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
     }
 
     public class ImpDeathConversation : QuestConversation
     {
         private Point3D m_ImpLocation;
+
         public ImpDeathConversation(Point3D impLocation)
         {
-            this.m_ImpLocation = impLocation;
+            m_ImpLocation = impLocation;
         }
 
         public ImpDeathConversation()
@@ -251,32 +223,29 @@ namespace Server.Engines.Quests.Hag
                 return 1055007;
             }
         }
+
         public override void OnRead()
         {
-            this.System.AddObjective(new FindZeefzorpulObjective(this.m_ImpLocation));
+            System.AddObjective(new FindZeefzorpulObjective(m_ImpLocation));
         }
 
         public override void ChildDeserialize(GenericReader reader)
         {
-            int version = reader.ReadEncodedInt();
+            var version = reader.ReadEncodedInt();
 
-            this.m_ImpLocation = reader.ReadPoint3D();
+            m_ImpLocation = reader.ReadPoint3D();
         }
 
         public override void ChildSerialize(GenericWriter writer)
         {
-            writer.WriteEncodedInt((int)0); // version
+            writer.WriteEncodedInt(0); // version
 
-            writer.Write((Point3D)this.m_ImpLocation);
+            writer.Write(m_ImpLocation);
         }
     }
 
     public class ZeefzorpulConversation : QuestConversation
     {
-        public ZeefzorpulConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -312,18 +281,15 @@ namespace Server.Engines.Quests.Hag
                 return 1055008;
             }
         }
+
         public override void OnRead()
         {
-            this.System.AddObjective(new ReturnRecipeObjective());
+            System.AddObjective(new ReturnRecipeObjective());
         }
     }
 
     public class RecipeConversation : QuestConversation
     {
-        public RecipeConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -349,18 +315,15 @@ namespace Server.Engines.Quests.Hag
                 return 1055009;
             }
         }
+
         public override void OnRead()
         {
-            this.System.AddObjective(new FindIngredientObjective(new Ingredient[0]));
+            System.AddObjective(new FindIngredientObjective(new Ingredient[0]));
         }
     }
 
     public class HagDuringIngredientsConversation : QuestConversation
     {
-        public HagDuringIngredientsConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -386,21 +349,15 @@ namespace Server.Engines.Quests.Hag
                 return 1055012;
             }
         }
+
         public override bool Logged
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
     }
 
     public class BlackheartFirstConversation : QuestConversation
     {
-        public BlackheartFirstConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -436,23 +393,25 @@ namespace Server.Engines.Quests.Hag
                 return 1055010;
             }
         }
+
         public override void OnRead()
         {
-            FindIngredientObjective obj = this.System.FindObjective(typeof(FindIngredientObjective)) as FindIngredientObjective;
+            var obj = System.FindObjective(typeof (FindIngredientObjective)) as FindIngredientObjective;
 
             if (obj != null)
-                this.System.AddObjective(new FindIngredientObjective(obj.Ingredients, true));
+                System.AddObjective(new FindIngredientObjective(obj.Ingredients, true));
         }
     }
 
     public class BlackheartNoPirateConversation : QuestConversation
     {
-        private bool m_Tricorne;
         private bool m_Drunken;
+        private bool m_Tricorne;
+
         public BlackheartNoPirateConversation(bool tricorne, bool drunken)
         {
-            this.m_Tricorne = tricorne;
-            this.m_Drunken = drunken;
+            m_Tricorne = tricorne;
+            m_Drunken = drunken;
         }
 
         public BlackheartNoPirateConversation()
@@ -463,9 +422,9 @@ namespace Server.Engines.Quests.Hag
         {
             get
             {
-                if (this.m_Tricorne)
+                if (m_Tricorne)
                 {
-                    if (this.m_Drunken)
+                    if (m_Drunken)
                     {
                         /* <I>The filthy Captain flashes a pleased grin at you as he looks you up
                         * and down.</I><BR><BR>Well that's more like it, me little deck swabber!
@@ -483,9 +442,7 @@ namespace Server.Engines.Quests.Hag
                         */
                         return 1055059;
                     }
-                    else
-                    {
-                        /* <I>Captain Blackheart looks up from polishing his cutlass, glaring at
+                    /* <I>Captain Blackheart looks up from polishing his cutlass, glaring at
                         * you with red-rimmed eyes.</I><BR><BR>
                         * 
                         * Well, well.  Lookit the wee little deck swabby.  Aren't ye a cute lil'
@@ -505,14 +462,11 @@ namespace Server.Engines.Quests.Hag
                         * <I>The drunken pirate captain leans back in his chair, taking another gulp of
                         * his drink before he starts in on another bawdy pirate song.</I>
                         */
-                        return 1055057;
-                    }
+                    return 1055057;
                 }
-                else
+                if (m_Drunken)
                 {
-                    if (this.m_Drunken)
-                    {
-                        /* <I>The inebriated pirate looks up at you with a wry grin.</I><BR><BR>
+                    /* <I>The inebriated pirate looks up at you with a wry grin.</I><BR><BR>
                         * 
                         * Well hello again, me little matey.  I see ye have a belly full of rotgut
                         * in ye.  I bet ye think you're a right hero, ready te face the world.  But
@@ -528,11 +482,9 @@ namespace Server.Engines.Quests.Hag
                         * <I>Captain Blackheart shoves you aside, banging his cutlass against the
                         * table as he calls to the waitress for another round.</I>
                         */
-                        return 1055056;
-                    }
-                    else
-                    {
-                        /* <I>Captain Blackheart looks up from his drink, almost tipping over
+                    return 1055056;
+                }
+                /* <I>Captain Blackheart looks up from his drink, almost tipping over
                         * his chair as he looks you up and down.</I><BR><BR>
                         * 
                         * You again?  I thought I told ye te get lost?  Go on with ye!  Ye ain't
@@ -545,41 +497,39 @@ namespace Server.Engines.Quests.Hag
                         * <I>The inebriated pirate bolts back another mug of ale and brushes you
                         * off with a wave of his hand.</I>
                         */
-                        return 1055058;
-                    }
-                }
+                return 1055058;
             }
         }
+
         public override bool Logged
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
+
         public override void ChildDeserialize(GenericReader reader)
         {
-            int version = reader.ReadEncodedInt();
+            var version = reader.ReadEncodedInt();
 
-            this.m_Tricorne = reader.ReadBool();
-            this.m_Drunken = reader.ReadBool();
+            m_Tricorne = reader.ReadBool();
+            m_Drunken = reader.ReadBool();
         }
 
         public override void ChildSerialize(GenericWriter writer)
         {
-            writer.WriteEncodedInt((int)0); // version
+            writer.WriteEncodedInt(0); // version
 
-            writer.Write((bool)this.m_Tricorne);
-            writer.Write((bool)this.m_Drunken);
+            writer.Write(m_Tricorne);
+            writer.Write(m_Drunken);
         }
     }
 
     public class BlackheartPirateConversation : QuestConversation
     {
         private bool m_FirstMet;
+
         public BlackheartPirateConversation(bool firstMet)
         {
-            this.m_FirstMet = firstMet;
+            m_FirstMet = firstMet;
         }
 
         public BlackheartPirateConversation()
@@ -590,7 +540,7 @@ namespace Server.Engines.Quests.Hag
         {
             get
             {
-                if (this.m_FirstMet)
+                if (m_FirstMet)
                 {
                     /* <I>The bawdy old pirate captain looks up from his bottle of Wild Harpy
                     * whiskey, as drunk as any man you've ever seen.</I><BR><BR>
@@ -611,9 +561,7 @@ namespace Server.Engines.Quests.Hag
                     */
                     return 1055054;
                 }
-                else
-                {
-                    /* <I>The drunken pirate, Captain Blackheart, looks up from his bottle
+                /* <I>The drunken pirate, Captain Blackheart, looks up from his bottle
                     * of whiskey with a pleased expression.</I><BR><BR>
                     * 
                     * Well looky here!  I didn't think a landlubber like yourself had the pirate
@@ -633,13 +581,13 @@ namespace Server.Engines.Quests.Hag
                     * <I>Captain Blackheart hands you a jug of his famous Whiskey. You think it best
                     * to return it to the Hag, rather than drink any of the noxious swill.</I>
                     */
-                    return 1055011;
-                }
+                return 1055011;
             }
         }
+
         public override void OnRead()
         {
-            FindIngredientObjective obj = this.System.FindObjective(typeof(FindIngredientObjective)) as FindIngredientObjective;
+            var obj = System.FindObjective(typeof (FindIngredientObjective)) as FindIngredientObjective;
 
             if (obj != null)
                 obj.NextStep();
@@ -647,25 +595,21 @@ namespace Server.Engines.Quests.Hag
 
         public override void ChildDeserialize(GenericReader reader)
         {
-            int version = reader.ReadEncodedInt();
+            var version = reader.ReadEncodedInt();
 
-            this.m_FirstMet = reader.ReadBool();
+            m_FirstMet = reader.ReadBool();
         }
 
         public override void ChildSerialize(GenericWriter writer)
         {
-            writer.WriteEncodedInt((int)0); // version
+            writer.WriteEncodedInt(0); // version
 
-            writer.Write((bool)this.m_FirstMet);
+            writer.Write(m_FirstMet);
         }
     }
 
     public class EndConversation : QuestConversation
     {
-        public EndConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -706,18 +650,15 @@ namespace Server.Engines.Quests.Hag
                 return 1055013;
             }
         }
+
         public override void OnRead()
         {
-            this.System.Complete();
+            System.Complete();
         }
     }
 
     public class RecentlyFinishedConversation : QuestConversation
     {
-        public RecentlyFinishedConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -737,12 +678,10 @@ namespace Server.Engines.Quests.Hag
                 return 1055064;
             }
         }
+
         public override bool Logged
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
     }
 }

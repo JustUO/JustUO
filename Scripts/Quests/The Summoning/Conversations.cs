@@ -1,14 +1,9 @@
-using System;
 using Server.Mobiles;
 
 namespace Server.Engines.Quests.Doom
 {
     public class AcceptConversation : QuestConversation
     {
-        public AcceptConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -27,18 +22,15 @@ namespace Server.Engines.Quests.Doom
                 return 1050027;
             }
         }
+
         public override void OnRead()
         {
-            this.System.AddObjective(new CollectBonesObjective());
+            System.AddObjective(new CollectBonesObjective());
         }
     }
 
     public class VanquishDaemonConversation : QuestConversation
     {
-        public VanquishDaemonConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -50,38 +42,39 @@ namespace Server.Engines.Quests.Doom
                 return 1050021;
             }
         }
+
         public override void OnRead()
         {
-            Victoria victoria = ((TheSummoningQuest)this.System).Victoria;
+            var victoria = ((TheSummoningQuest) System).Victoria;
 
             if (victoria == null)
             {
-                this.System.From.SendMessage("Internal error: unable to find Victoria. Quest unable to continue.");
-                this.System.Cancel();
+                System.From.SendMessage("Internal error: unable to find Victoria. Quest unable to continue.");
+                System.Cancel();
             }
             else
             {
-                SummoningAltar altar = victoria.Altar;
+                var altar = victoria.Altar;
 
                 if (altar == null)
                 {
-                    this.System.From.SendMessage("Internal error: unable to find summoning altar. Quest unable to continue.");
-                    this.System.Cancel();
+                    System.From.SendMessage("Internal error: unable to find summoning altar. Quest unable to continue.");
+                    System.Cancel();
                 }
                 else if (altar.Daemon == null || !altar.Daemon.Alive)
                 {
-                    BoneDemon daemon = new BoneDemon();
+                    var daemon = new BoneDemon();
 
                     daemon.MoveToWorld(altar.Location, altar.Map);
                     altar.Daemon = daemon;
 
-                    this.System.AddObjective(new VanquishDaemonObjective(daemon));
+                    System.AddObjective(new VanquishDaemonObjective(daemon));
                 }
                 else
                 {
-                    victoria.SayTo(this.System.From, "The devourer has already been summoned.");
+                    victoria.SayTo(System.From, "The devourer has already been summoned.");
 
-                    ((TheSummoningQuest)this.System).WaitForSummon = true;
+                    ((TheSummoningQuest) System).WaitForSummon = true;
                 }
             }
         }

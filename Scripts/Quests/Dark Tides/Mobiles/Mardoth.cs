@@ -1,4 +1,3 @@
-using System;
 using Server.Gumps;
 using Server.Items;
 using Server.Mobiles;
@@ -20,21 +19,21 @@ namespace Server.Engines.Quests.Necro
 
         public override void InitBody()
         {
-            this.InitStats(100, 100, 25);
+            InitStats(100, 100, 25);
 
-            this.Hue = 0x8849;
-            this.Body = 0x190;
+            Hue = 0x8849;
+            Body = 0x190;
 
-            this.Name = "Mardoth";
+            Name = "Mardoth";
         }
 
         public override bool OnDragDrop(Mobile from, Item dropped)
         {
-            PlayerMobile player = from as PlayerMobile;
+            var player = from as PlayerMobile;
 
             if (player != null)
             {
-                QuestSystem qs = player.Quest;
+                var qs = player.Quest;
 
                 if (qs is DarkTidesQuest)
                 {
@@ -42,16 +41,16 @@ namespace Server.Engines.Quests.Necro
                     {
                         if (player.Young)
                         {
-                            DarkTidesHorn horn = (DarkTidesHorn)dropped;
+                            var horn = (DarkTidesHorn) dropped;
 
                             if (horn.Charges < 10)
                             {
-                                this.SayTo(from, 1049384); // I have recharged the item for you.
+                                SayTo(from, 1049384); // I have recharged the item for you.
                                 horn.Charges = 10;
                             }
                             else
                             {
-                                this.SayTo(from, 1049385); // That doesn't need recharging yet.
+                                SayTo(from, 1049385); // That doesn't need recharging yet.
                             }
                         }
                         else
@@ -69,24 +68,24 @@ namespace Server.Engines.Quests.Necro
 
         public override void InitOutfit()
         {
-            this.AddItem(new Sandals(0x1));
-            this.AddItem(new Robe(0x66D));
-            this.AddItem(new BlackStaff());
-            this.AddItem(new WizardsHat(0x1));
+            AddItem(new Sandals(0x1));
+            AddItem(new Robe(0x66D));
+            AddItem(new BlackStaff());
+            AddItem(new WizardsHat(0x1));
 
-            this.FacialHairItemID = 0x2041;
-            this.FacialHairHue = 0x482;
+            FacialHairItemID = 0x2041;
+            FacialHairHue = 0x482;
 
-            this.HairItemID = 0x203C;
-            this.HairHue = 0x482;
+            HairItemID = 0x203C;
+            HairHue = 0x482;
 
             Item gloves = new BoneGloves();
             gloves.Hue = 0x66D;
-            this.AddItem(gloves);
+            AddItem(gloves);
 
             Item gorget = new PlateGorget();
             gorget.Hue = 0x1;
-            this.AddItem(gorget);
+            AddItem(gorget);
         }
 
         public override int GetAutoTalkRange(PlayerMobile m)
@@ -96,17 +95,17 @@ namespace Server.Engines.Quests.Necro
 
         public override bool CanTalkTo(PlayerMobile to)
         {
-            DarkTidesQuest qs = to.Quest as DarkTidesQuest;
+            var qs = to.Quest as DarkTidesQuest;
 
             if (qs == null)
-                return (to.Quest == null && QuestSystem.CanOfferQuest(to, typeof(DarkTidesQuest)));
+                return (to.Quest == null && QuestSystem.CanOfferQuest(to, typeof (DarkTidesQuest)));
 
-            return (qs.FindObjective(typeof(FindMardothAboutVaultObjective)) != null);
+            return (qs.FindObjective(typeof (FindMardothAboutVaultObjective)) != null);
         }
 
         public override void OnTalk(PlayerMobile player, bool contextMenu)
         {
-            QuestSystem qs = player.Quest;
+            var qs = player.Quest;
 
             if (qs is DarkTidesQuest)
             {
@@ -116,7 +115,7 @@ namespace Server.Engines.Quests.Necro
                 }
                 else
                 {
-                    QuestObjective obj = qs.FindObjective(typeof(FindMardothAboutVaultObjective));
+                    var obj = qs.FindObjective(typeof (FindMardothAboutVaultObjective));
 
                     if (obj != null && !obj.Completed)
                     {
@@ -124,7 +123,7 @@ namespace Server.Engines.Quests.Necro
                     }
                     else
                     {
-                        obj = qs.FindObjective(typeof(FindMardothAboutKronusObjective));
+                        obj = qs.FindObjective(typeof (FindMardothAboutKronusObjective));
 
                         if (obj != null && !obj.Completed)
                         {
@@ -132,11 +131,11 @@ namespace Server.Engines.Quests.Necro
                         }
                         else
                         {
-                            obj = qs.FindObjective(typeof(FindMardothEndObjective));
+                            obj = qs.FindObjective(typeof (FindMardothEndObjective));
 
                             if (obj != null && !obj.Completed)
                             {
-                                Container cont = GetNewContainer();
+                                var cont = GetNewContainer();
 
                                 cont.DropItem(new PigIron(20));
                                 cont.DropItem(new NoxCrystal(20));
@@ -154,9 +153,9 @@ namespace Server.Engines.Quests.Necro
                                 }
                                 else
                                 {
-                                    weapon.DamageLevel = (WeaponDamageLevel)BaseCreature.RandomMinMaxScaled(2, 4);
-                                    weapon.AccuracyLevel = (WeaponAccuracyLevel)BaseCreature.RandomMinMaxScaled(2, 4);
-                                    weapon.DurabilityLevel = (WeaponDurabilityLevel)BaseCreature.RandomMinMaxScaled(2, 4);
+                                    weapon.DamageLevel = (WeaponDamageLevel) RandomMinMaxScaled(2, 4);
+                                    weapon.AccuracyLevel = (WeaponAccuracyLevel) RandomMinMaxScaled(2, 4);
+                                    weapon.DurabilityLevel = (WeaponDurabilityLevel) RandomMinMaxScaled(2, 4);
                                 }
 
                                 cont.DropItem(weapon);
@@ -167,7 +166,8 @@ namespace Server.Engines.Quests.Necro
                                 if (!player.PlaceInBackpack(cont))
                                 {
                                     cont.Delete();
-                                    player.SendLocalizedMessage(1046260); // You need to clear some space in your inventory to continue with the quest.  Come back here when you have more space in your inventory.
+                                    player.SendLocalizedMessage(1046260);
+                                        // You need to clear some space in your inventory to continue with the quest.  Come back here when you have more space in your inventory.
                                 }
                                 else
                                 {
@@ -176,14 +176,14 @@ namespace Server.Engines.Quests.Necro
                             }
                             else if (contextMenu)
                             {
-                                this.FocusTo(player);
+                                FocusTo(player);
                                 player.SendLocalizedMessage(1061821); // Mardoth has nothing more for you at this time.
                             }
                         }
                     }
                 }
             }
-            else if (qs == null && QuestSystem.CanOfferQuest(player, typeof(DarkTidesQuest)))
+            else if (qs == null && QuestSystem.CanOfferQuest(player, typeof (DarkTidesQuest)))
             {
                 new DarkTidesQuest(player).SendOffer();
             }
@@ -193,7 +193,7 @@ namespace Server.Engines.Quests.Necro
         {
             base.OnMovement(m, oldLocation);
 
-            if (m is PlayerMobile && !m.Frozen && !m.Alive && this.InRange(m, 4) && !this.InRange(oldLocation, 4) && this.InLOS(m))
+            if (m is PlayerMobile && !m.Frozen && !m.Alive && InRange(m, 4) && !InRange(oldLocation, 4) && InLOS(m))
             {
                 if (m.Map == null || !m.Map.CanFit(m.Location, 16, false, false))
                 {
@@ -201,12 +201,12 @@ namespace Server.Engines.Quests.Necro
                 }
                 else
                 {
-                    this.Direction = this.GetDirectionTo(m);
+                    Direction = GetDirectionTo(m);
 
                     m.PlaySound(0x214);
                     m.FixedEffect(0x376A, 10, 16);
 
-                    m.CloseGump(typeof(ResurrectGump));
+                    m.CloseGump(typeof (ResurrectGump));
                     m.SendGump(new ResurrectGump(m, ResurrectMessage.Healer));
                 }
             }
@@ -216,14 +216,14 @@ namespace Server.Engines.Quests.Necro
         {
             base.Serialize(writer);
 
-            writer.Write((int)0); // version
+            writer.Write(0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

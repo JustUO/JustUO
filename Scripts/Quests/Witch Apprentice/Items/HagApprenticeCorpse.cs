@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Server.Items;
 using Server.Misc;
@@ -13,11 +12,11 @@ namespace Server.Engines.Quests.Hag
         public HagApprenticeCorpse()
             : base(GetOwner(), GetEquipment())
         {
-            this.Direction = Direction.South;
+            Direction = Direction.South;
 
-            foreach (Item item in this.EquipItems)
+            foreach (var item in EquipItems)
             {
-                this.DropItem(item);
+                DropItem(item);
             }
         }
 
@@ -33,36 +32,37 @@ namespace Server.Engines.Quests.Hag
 
         public override void OnSingleClick(Mobile from)
         {
-            int hue = Notoriety.GetHue(NotorietyHandlers.CorpseNotoriety(from, this));
+            var hue = Notoriety.GetHue(NotorietyHandlers.CorpseNotoriety(from, this));
 
-            from.Send(new AsciiMessage(this.Serial, this.ItemID, MessageType.Label, hue, 3, "", "a charred corpse"));
+            from.Send(new AsciiMessage(Serial, ItemID, MessageType.Label, hue, 3, "", "a charred corpse"));
         }
 
         public override void Open(Mobile from, bool checkSelfLoot)
         {
-            if (!from.InRange(this.GetWorldLocation(), 2))
+            if (!from.InRange(GetWorldLocation(), 2))
                 return;
 
-            PlayerMobile player = from as PlayerMobile;
+            var player = from as PlayerMobile;
 
             if (player != null)
             {
-                QuestSystem qs = player.Quest;
+                var qs = player.Quest;
 
                 if (qs is WitchApprenticeQuest)
                 {
-                    FindApprenticeObjective obj = qs.FindObjective(typeof(FindApprenticeObjective)) as FindApprenticeObjective;
+                    var obj = qs.FindObjective(typeof (FindApprenticeObjective)) as FindApprenticeObjective;
 
                     if (obj != null && !obj.Completed)
                     {
                         if (obj.Corpse == this)
                         {
                             obj.Complete();
-                            this.Delete();
+                            Delete();
                         }
                         else
                         {
-                            this.SendLocalizedMessageTo(from, 1055047); // You examine the corpse, but it doesn't fit the description of the particular apprentice the Hag tasked you with finding.
+                            SendLocalizedMessageTo(from, 1055047);
+                                // You examine the corpse, but it doesn't fit the description of the particular apprentice the Hag tasked you with finding.
                         }
 
                         return;
@@ -70,26 +70,26 @@ namespace Server.Engines.Quests.Hag
                 }
             }
 
-            this.SendLocalizedMessageTo(from, 1055048); // You examine the corpse, but find nothing of interest.
+            SendLocalizedMessageTo(from, 1055048); // You examine the corpse, but find nothing of interest.
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write((int)0); // version
+            writer.Write(0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
 
         private static Mobile GetOwner()
         {
-            Mobile apprentice = new Mobile();
+            var apprentice = new Mobile();
 
             apprentice.Hue = Utility.RandomSkinHue();
             apprentice.Female = false;

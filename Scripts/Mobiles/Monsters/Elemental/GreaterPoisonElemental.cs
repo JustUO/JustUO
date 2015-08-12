@@ -84,16 +84,6 @@ namespace Server.Mobiles
             AddLoot(LootPack.MedScrolls);
         }
 
-        public override void OnDeath(Container c)
-        {
-            base.OnDeath(c);
-
-            if (Utility.RandomDouble() < 0.03)
-            {
-                c.DropItem(new LuckyCoin());
-            }
-        }
-
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);

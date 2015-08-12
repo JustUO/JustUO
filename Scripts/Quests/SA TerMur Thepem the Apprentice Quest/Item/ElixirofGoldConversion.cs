@@ -1,4 +1,20 @@
-using System;
+/*                                                             .---.
+/  .  \
+|\_/|   |
+|   |  /|
+.----------------------------------------------------------------' |
+/  .-.                                                              |
+|  /   \         Contribute To The Orbsydia SA Project               |
+| |\_.  |                                                            |
+|\|  | /|                        By Lotar84                          |
+| `---' |                                                            |
+|       |       (Orbanised by Orb SA Core Development Team)          | 
+|       |                                                           /
+|       |----------------------------------------------------------'
+\       |
+\     /
+`---'
+*/
 
 namespace Server.Items
 {
@@ -8,8 +24,8 @@ namespace Server.Items
         public ElixirofGoldConversion()
             : base(0x99B)
         {
-            this.Hue = 2213;
-            this.Movable = true;
+            Hue = 2213;
+            Movable = true;
         }
 
         public ElixirofGoldConversion(Serial serial)
@@ -19,29 +35,27 @@ namespace Server.Items
 
         public override int LabelNumber
         {
-            get
-            {
-                return 1113007;
-            }
+            get { return 1113007; }
         }
+
         public override void OnDoubleClick(Mobile from)
         {
-            Container backpack = from.Backpack;
+            var backpack = from.Backpack;
 
-            DullCopperIngot item1 = (DullCopperIngot)backpack.FindItemByType(typeof(DullCopperIngot));   
-               
-            if (item1 != null)                
-            { 
-                BaseIngot m_Ore1 = item1 as BaseIngot;
+            var item1 = (DullCopperIngot) backpack.FindItemByType(typeof (DullCopperIngot));
 
-                int toConsume = m_Ore1.Amount;
+            if (item1 != null)
+            {
+                BaseIngot m_Ore1 = item1;
 
-                if ((m_Ore1.Amount > 499) && (m_Ore1.Amount < 501)) 
+                var toConsume = m_Ore1.Amount;
+
+                if ((m_Ore1.Amount > 499) && (m_Ore1.Amount < 501))
                 {
                     m_Ore1.Delete();
-                    from.SendMessage("You've successfully converted the Metal.");                    
-                    from.AddToBackpack(new GoldIngot(500)); 
-                    this.Delete();
+                    from.SendMessage("You've successfully converted the Metal.");
+                    from.AddToBackpack(new GoldIngot(500));
+                    Delete();
                 }
                 else if ((m_Ore1.Amount < 500) || (m_Ore1.Amount > 500))
                 {
@@ -58,14 +72,14 @@ namespace Server.Items
         {
             base.Serialize(writer);
 
-            writer.Write((int)0); // version
+            writer.Write(0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

@@ -1,13 +1,7 @@
-using System;
-
 namespace Server.Engines.Quests.Collector
 {
     public class DontOfferConversation : QuestConversation
     {
-        public DontOfferConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -19,21 +13,15 @@ namespace Server.Engines.Quests.Collector
                 return 1055080;
             }
         }
+
         public override bool Logged
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
     }
 
     public class DeclineConversation : QuestConversation
     {
-        public DeclineConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -50,21 +38,15 @@ namespace Server.Engines.Quests.Collector
                 return 1055082;
             }
         }
+
         public override bool Logged
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
     }
 
     public class AcceptConversation : QuestConversation
     {
-        public AcceptConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -101,18 +83,15 @@ namespace Server.Engines.Quests.Collector
                 return 1055083;
             }
         }
+
         public override void OnRead()
         {
-            this.System.AddObjective(new FishPearlsObjective());
+            System.AddObjective(new FishPearlsObjective());
         }
     }
 
     public class ElwoodDuringFishConversation : QuestConversation
     {
-        public ElwoodDuringFishConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -126,21 +105,15 @@ namespace Server.Engines.Quests.Collector
                 return 1055089;
             }
         }
+
         public override bool Logged
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
     }
 
     public class ReturnPearlsConversation : QuestConversation
     {
-        public ReturnPearlsConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -165,18 +138,15 @@ namespace Server.Engines.Quests.Collector
                 return 1055090;
             }
         }
+
         public override void OnRead()
         {
-            this.System.AddObjective(new FindAlbertaObjective());
+            System.AddObjective(new FindAlbertaObjective());
         }
     }
 
     public class AlbertaPaintingConversation : QuestConversation
     {
-        public AlbertaPaintingConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -197,18 +167,15 @@ namespace Server.Engines.Quests.Collector
                 return 1055092;
             }
         }
+
         public override void OnRead()
         {
-            this.System.AddObjective(new SitOnTheStoolObjective());
+            System.AddObjective(new SitOnTheStoolObjective());
         }
     }
 
     public class AlbertaStoolConversation : QuestConversation
     {
-        public AlbertaStoolConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -224,21 +191,15 @@ namespace Server.Engines.Quests.Collector
                 return 1055096;
             }
         }
+
         public override bool Logged
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
     }
 
     public class AlbertaEndPaintingConversation : QuestConversation
     {
-        public AlbertaEndPaintingConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -258,18 +219,15 @@ namespace Server.Engines.Quests.Collector
                 return 1055098;
             }
         }
+
         public override void OnRead()
         {
-            this.System.AddObjective(new ReturnPaintingObjective());
+            System.AddObjective(new ReturnPaintingObjective());
         }
     }
 
     public class AlbertaAfterPaintingConversation : QuestConversation
     {
-        public AlbertaAfterPaintingConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -282,21 +240,15 @@ namespace Server.Engines.Quests.Collector
                 return 1055102;
             }
         }
+
         public override bool Logged
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
     }
 
     public class ElwoodDuringPainting1Conversation : QuestConversation
     {
-        public ElwoodDuringPainting1Conversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -313,21 +265,15 @@ namespace Server.Engines.Quests.Collector
                 return 1055094;
             }
         }
+
         public override bool Logged
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
     }
 
     public class ElwoodDuringPainting2Conversation : QuestConversation
     {
-        public ElwoodDuringPainting2Conversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -350,21 +296,15 @@ namespace Server.Engines.Quests.Collector
                 return 1055097;
             }
         }
+
         public override bool Logged
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
     }
 
     public class ReturnPaintingConversation : QuestConversation
     {
-        public ReturnPaintingConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -394,18 +334,15 @@ namespace Server.Engines.Quests.Collector
                 return 1055100;
             }
         }
+
         public override void OnRead()
         {
-            this.System.AddObjective(new FindGabrielObjective());
+            System.AddObjective(new FindGabrielObjective());
         }
     }
 
     public class GabrielAutographConversation : QuestConversation
     {
-        public GabrielAutographConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -430,18 +367,15 @@ namespace Server.Engines.Quests.Collector
                 return 1055103;
             }
         }
+
         public override void OnRead()
         {
-            this.System.AddObjective(new FindSheetMusicObjective(true));
+            System.AddObjective(new FindSheetMusicObjective(true));
         }
     }
 
     public class GabrielNoSheetMusicConversation : QuestConversation
     {
-        public GabrielNoSheetMusicConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -454,21 +388,15 @@ namespace Server.Engines.Quests.Collector
                 return 1055111;
             }
         }
+
         public override bool Logged
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
     }
 
     public class NoSheetMusicConversation : QuestConversation
     {
-        public NoSheetMusicConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -480,21 +408,15 @@ namespace Server.Engines.Quests.Collector
                 return 1055106;
             }
         }
+
         public override bool Logged
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
     }
 
     public class GetSheetMusicConversation : QuestConversation
     {
-        public GetSheetMusicConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -503,18 +425,15 @@ namespace Server.Engines.Quests.Collector
                 return 1055109;
             }
         }
+
         public override void OnRead()
         {
-            this.System.AddObjective(new ReturnSheetMusicObjective());
+            System.AddObjective(new ReturnSheetMusicObjective());
         }
     }
 
     public class GabrielSheetMusicConversation : QuestConversation
     {
-        public GabrielSheetMusicConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -529,18 +448,15 @@ namespace Server.Engines.Quests.Collector
                 return 1055113;
             }
         }
+
         public override void OnRead()
         {
-            this.System.AddObjective(new ReturnAutographObjective());
+            System.AddObjective(new ReturnAutographObjective());
         }
     }
 
     public class GabrielIgnoreConversation : QuestConversation
     {
-        public GabrielIgnoreConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -549,21 +465,15 @@ namespace Server.Engines.Quests.Collector
                 return 1055118;
             }
         }
+
         public override bool Logged
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
     }
 
     public class ElwoodDuringAutograph1Conversation : QuestConversation
     {
-        public ElwoodDuringAutograph1Conversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -586,21 +496,15 @@ namespace Server.Engines.Quests.Collector
                 return 1055105;
             }
         }
+
         public override bool Logged
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
     }
 
     public class ElwoodDuringAutograph2Conversation : QuestConversation
     {
-        public ElwoodDuringAutograph2Conversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -619,21 +523,15 @@ namespace Server.Engines.Quests.Collector
                 return 1055112;
             }
         }
+
         public override bool Logged
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
     }
 
     public class ElwoodDuringAutograph3Conversation : QuestConversation
     {
-        public ElwoodDuringAutograph3Conversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -647,21 +545,15 @@ namespace Server.Engines.Quests.Collector
                 return 1055115;
             }
         }
+
         public override bool Logged
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
     }
 
     public class ReturnAutographConversation : QuestConversation
     {
-        public ReturnAutographConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -682,18 +574,15 @@ namespace Server.Engines.Quests.Collector
                 return 1055116;
             }
         }
+
         public override void OnRead()
         {
-            this.System.AddObjective(new FindTomasObjective());
+            System.AddObjective(new FindTomasObjective());
         }
     }
 
     public class TomasToysConversation : QuestConversation
     {
-        public TomasToysConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -714,18 +603,15 @@ namespace Server.Engines.Quests.Collector
                 return 1055119;
             }
         }
+
         public override void OnRead()
         {
-            this.System.AddObjective(new CaptureImagesObjective(true));
+            System.AddObjective(new CaptureImagesObjective(true));
         }
     }
 
     public class TomasDuringCollectingConversation : QuestConversation
     {
-        public TomasDuringCollectingConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -740,21 +626,15 @@ namespace Server.Engines.Quests.Collector
                 return 1055129;
             }
         }
+
         public override bool Logged
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
     }
 
     public class ReturnImagesConversation : QuestConversation
     {
-        public ReturnImagesConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -771,18 +651,15 @@ namespace Server.Engines.Quests.Collector
                 return 1055131;
             }
         }
+
         public override void OnRead()
         {
-            this.System.AddObjective(new ReturnToysObjective());
+            System.AddObjective(new ReturnToysObjective());
         }
     }
 
     public class ElwoodDuringToys1Conversation : QuestConversation
     {
-        public ElwoodDuringToys1Conversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -800,21 +677,15 @@ namespace Server.Engines.Quests.Collector
                 return 1055123;
             }
         }
+
         public override bool Logged
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
     }
 
     public class ElwoodDuringToys2Conversation : QuestConversation
     {
-        public ElwoodDuringToys2Conversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -834,21 +705,15 @@ namespace Server.Engines.Quests.Collector
                 return 1055130;
             }
         }
+
         public override bool Logged
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
     }
 
     public class ElwoodDuringToys3Conversation : QuestConversation
     {
-        public ElwoodDuringToys3Conversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -865,21 +730,15 @@ namespace Server.Engines.Quests.Collector
                 return 1055133;
             }
         }
+
         public override bool Logged
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
     }
 
     public class EndConversation : QuestConversation
     {
-        public EndConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -900,23 +759,25 @@ namespace Server.Engines.Quests.Collector
                 return 1055134;
             }
         }
+
         public override void OnRead()
         {
-            this.System.Complete();
+            System.Complete();
         }
     }
 
     public class FullEndConversation : QuestConversation
     {
         private readonly bool m_Logged;
+
         public FullEndConversation(bool logged)
         {
-            this.m_Logged = logged;
+            m_Logged = logged;
         }
 
         public FullEndConversation()
         {
-            this.m_Logged = true;
+            m_Logged = true;
         }
 
         public override object Message
@@ -933,17 +794,16 @@ namespace Server.Engines.Quests.Collector
                 return 1055135;
             }
         }
+
         public override bool Logged
         {
-            get
-            {
-                return this.m_Logged;
-            }
+            get { return m_Logged; }
         }
+
         public override void OnRead()
         {
-            if (this.m_Logged)
-                this.System.AddObjective(new MakeRoomObjective());
+            if (m_Logged)
+                System.AddObjective(new MakeRoomObjective());
         }
     }
 }

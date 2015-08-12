@@ -10,9 +10,9 @@ namespace Server.Engines.Quests.Samurai
         [Constructable]
         public HaochisTreasureChest()
         {
-            this.Movable = false;
+            Movable = false;
 
-            this.GenerateTreasure();
+            GenerateTreasure();
         }
 
         public HaochisTreasureChest(Serial serial)
@@ -22,11 +22,9 @@ namespace Server.Engines.Quests.Samurai
 
         public override bool IsDecoContainer
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
+
         public override bool CheckHold(Mobile m, Item item, bool message, bool checkItems, int plusItems, int plusWeight)
         {
             return false;
@@ -42,16 +40,17 @@ namespace Server.Engines.Quests.Samurai
             if (from.AccessLevel >= AccessLevel.GameMaster)
                 return true;
 
-            PlayerMobile player = from as PlayerMobile;
+            var player = from as PlayerMobile;
 
             if (player != null && player.Quest is HaochisTrialsQuest)
             {
-                FifthTrialIntroObjective obj = player.Quest.FindObjective(typeof(FifthTrialIntroObjective)) as FifthTrialIntroObjective;
+                var obj = player.Quest.FindObjective(typeof (FifthTrialIntroObjective)) as FifthTrialIntroObjective;
 
                 if (obj != null)
                 {
                     if (obj.StolenTreasure)
-                        from.SendLocalizedMessage(1063247); // The guard is watching you carefully!  It would be unwise to remove another item from here.
+                        from.SendLocalizedMessage(1063247);
+                            // The guard is watching you carefully!  It would be unwise to remove another item from here.
                     else
                         return true;
                 }
@@ -62,17 +61,17 @@ namespace Server.Engines.Quests.Samurai
 
         public override void OnItemLifted(Mobile from, Item item)
         {
-            PlayerMobile player = from as PlayerMobile;
+            var player = from as PlayerMobile;
 
             if (player != null && player.Quest is HaochisTrialsQuest)
             {
-                FifthTrialIntroObjective obj = player.Quest.FindObjective(typeof(FifthTrialIntroObjective)) as FifthTrialIntroObjective;
+                var obj = player.Quest.FindObjective(typeof (FifthTrialIntroObjective)) as FifthTrialIntroObjective;
 
                 if (obj != null)
                     obj.StolenTreasure = true;
             }
 
-            Timer.DelayCall(TimeSpan.FromMinutes(2.0), new TimerCallback(GenerateTreasure));
+            Timer.DelayCall(TimeSpan.FromMinutes(2.0), GenerateTreasure);
         }
 
         public override void Serialize(GenericWriter writer)
@@ -86,28 +85,28 @@ namespace Server.Engines.Quests.Samurai
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadEncodedInt();
+            var version = reader.ReadEncodedInt();
 
-            Timer.DelayCall(TimeSpan.Zero, new TimerCallback(GenerateTreasure));
+            Timer.DelayCall(TimeSpan.Zero, GenerateTreasure);
         }
 
         private void GenerateTreasure()
         {
-            for (int i = this.Items.Count - 1; i >= 0; i--)
-                this.Items[i].Delete();
+            for (var i = Items.Count - 1; i >= 0; i--)
+                Items[i].Delete();
 
-            for (int i = 0; i < 75; i++)
+            for (var i = 0; i < 75; i++)
             {
-                switch ( Utility.Random(3) )
+                switch (Utility.Random(3))
                 {
                     case 0:
-                        this.DropItem(new GoldBracelet());
+                        DropItem(new GoldBracelet());
                         break;
                     case 1:
-                        this.DropItem(new GoldRing());
+                        DropItem(new GoldRing());
                         break;
                     case 2:
-                        this.DropItem(Loot.RandomGem());
+                        DropItem(Loot.RandomGem());
                         break;
                 }
             }

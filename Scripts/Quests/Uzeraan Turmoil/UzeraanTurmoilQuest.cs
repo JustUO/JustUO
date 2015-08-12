@@ -1,48 +1,49 @@
 using System;
-using Server.Items;
 using Server.Mobiles;
 
 namespace Server.Engines.Quests.Haven
 {
     public class UzeraanTurmoilQuest : QuestSystem
     {
-        private static readonly Type[] m_TypeReferenceTable = new Type[]
+        private static readonly Type[] m_TypeReferenceTable =
         {
-            typeof(Haven.AcceptConversation),
-            typeof(Haven.UzeraanTitheConversation),
-            typeof(Haven.UzeraanFirstTaskConversation),
-            typeof(Haven.UzeraanReportConversation),
-            typeof(Haven.SchmendrickConversation),
-            typeof(Haven.UzeraanScrollOfPowerConversation),
-            typeof(Haven.DryadConversation),
-            typeof(Haven.UzeraanFertileDirtConversation),
-            typeof(Haven.UzeraanDaemonBloodConversation),
-            typeof(Haven.UzeraanDaemonBoneConversation),
-            typeof(Haven.BankerConversation),
-            typeof(Haven.RadarConversation),
-            typeof(Haven.LostScrollOfPowerConversation),
-            typeof(Haven.LostFertileDirtConversation),
-            typeof(Haven.DryadAppleConversation),
-            typeof(Haven.LostDaemonBloodConversation),
-            typeof(Haven.LostDaemonBoneConversation),
-            typeof(Haven.FindUzeraanBeginObjective),
-            typeof(Haven.TitheGoldObjective),
-            typeof(Haven.FindUzeraanFirstTaskObjective),
-            typeof(Haven.KillHordeMinionsObjective),
-            typeof(Haven.FindUzeraanAboutReportObjective),
-            typeof(Haven.FindSchmendrickObjective),
-            typeof(Haven.FindApprenticeObjective),
-            typeof(Haven.ReturnScrollOfPowerObjective),
-            typeof(Haven.FindDryadObjective),
-            typeof(Haven.ReturnFertileDirtObjective),
-            typeof(Haven.GetDaemonBloodObjective),
-            typeof(Haven.ReturnDaemonBloodObjective),
-            typeof(Haven.GetDaemonBoneObjective),
-            typeof(Haven.ReturnDaemonBoneObjective),
-            typeof(Haven.CashBankCheckObjective),
-            typeof(Haven.FewReagentsConversation)
+            typeof (AcceptConversation),
+            typeof (UzeraanTitheConversation),
+            typeof (UzeraanFirstTaskConversation),
+            typeof (UzeraanReportConversation),
+            typeof (SchmendrickConversation),
+            typeof (UzeraanScrollOfPowerConversation),
+            typeof (DryadConversation),
+            typeof (UzeraanFertileDirtConversation),
+            typeof (UzeraanDaemonBloodConversation),
+            typeof (UzeraanDaemonBoneConversation),
+            typeof (BankerConversation),
+            typeof (RadarConversation),
+            typeof (LostScrollOfPowerConversation),
+            typeof (LostFertileDirtConversation),
+            typeof (DryadAppleConversation),
+            typeof (LostDaemonBloodConversation),
+            typeof (LostDaemonBoneConversation),
+            typeof (FindUzeraanBeginObjective),
+            typeof (TitheGoldObjective),
+            typeof (FindUzeraanFirstTaskObjective),
+            typeof (KillHordeMinionsObjective),
+            typeof (FindUzeraanAboutReportObjective),
+            typeof (FindSchmendrickObjective),
+            typeof (FindApprenticeObjective),
+            typeof (ReturnScrollOfPowerObjective),
+            typeof (FindDryadObjective),
+            typeof (ReturnFertileDirtObjective),
+            typeof (GetDaemonBloodObjective),
+            typeof (ReturnDaemonBloodObjective),
+            typeof (GetDaemonBoneObjective),
+            typeof (ReturnDaemonBoneObjective),
+            typeof (CashBankCheckObjective),
+            typeof (FewReagentsConversation)
         };
+
         private bool m_HasLeftTheMansion;
+
         public UzeraanTurmoilQuest(PlayerMobile from)
             : base(from)
         {
@@ -55,11 +56,9 @@ namespace Server.Engines.Quests.Haven
 
         public override Type[] TypeReferenceTable
         {
-            get
-            {
-                return m_TypeReferenceTable;
-            }
+            get { return m_TypeReferenceTable; }
         }
+
         public override object Name
         {
             get
@@ -68,6 +67,7 @@ namespace Server.Engines.Quests.Haven
                 return 1049007;
             }
         }
+
         public override object OfferMessage
         {
             get
@@ -94,25 +94,22 @@ namespace Server.Engines.Quests.Haven
                 return 1049008;
             }
         }
+
         public override TimeSpan RestartDelay
         {
-            get
-            {
-                return TimeSpan.MaxValue;
-            }
+            get { return TimeSpan.MaxValue; }
         }
+
         public override bool IsTutorial
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override int Picture
         {
             get
             {
-                switch ( this.From.Profession )
+                switch (From.Profession)
                 {
                     case 1:
                         return 0x15C9; // warrior
@@ -123,22 +120,23 @@ namespace Server.Engines.Quests.Haven
                 }
             }
         }
+
         public static bool HasLostScrollOfPower(Mobile from)
         {
-            PlayerMobile pm = from as PlayerMobile;
+            var pm = from as PlayerMobile;
 
             if (pm == null)
                 return false;
 
-            QuestSystem qs = pm.Quest;
+            var qs = pm.Quest;
 
             if (qs is UzeraanTurmoilQuest)
             {
-                if (qs.IsObjectiveInProgress(typeof(ReturnScrollOfPowerObjective)))
+                if (qs.IsObjectiveInProgress(typeof (ReturnScrollOfPowerObjective)))
                 {
-                    Container pack = from.Backpack;
+                    var pack = from.Backpack;
 
-                    return (pack == null || pack.FindItemByType(typeof(SchmendrickScrollOfPower)) == null);
+                    return (pack == null || pack.FindItemByType(typeof (SchmendrickScrollOfPower)) == null);
                 }
             }
 
@@ -147,20 +145,20 @@ namespace Server.Engines.Quests.Haven
 
         public static bool HasLostFertileDirt(Mobile from)
         {
-            PlayerMobile pm = from as PlayerMobile;
+            var pm = from as PlayerMobile;
 
             if (pm == null)
                 return false;
 
-            QuestSystem qs = pm.Quest;
+            var qs = pm.Quest;
 
             if (qs is UzeraanTurmoilQuest)
             {
-                if (qs.IsObjectiveInProgress(typeof(ReturnFertileDirtObjective)))
+                if (qs.IsObjectiveInProgress(typeof (ReturnFertileDirtObjective)))
                 {
-                    Container pack = from.Backpack;
+                    var pack = from.Backpack;
 
-                    return (pack == null || pack.FindItemByType(typeof(QuestFertileDirt)) == null);
+                    return (pack == null || pack.FindItemByType(typeof (QuestFertileDirt)) == null);
                 }
             }
 
@@ -169,20 +167,20 @@ namespace Server.Engines.Quests.Haven
 
         public static bool HasLostDaemonBlood(Mobile from)
         {
-            PlayerMobile pm = from as PlayerMobile;
+            var pm = from as PlayerMobile;
 
             if (pm == null)
                 return false;
 
-            QuestSystem qs = pm.Quest;
+            var qs = pm.Quest;
 
             if (qs is UzeraanTurmoilQuest)
             {
-                if (qs.IsObjectiveInProgress(typeof(ReturnDaemonBloodObjective)))
+                if (qs.IsObjectiveInProgress(typeof (ReturnDaemonBloodObjective)))
                 {
-                    Container pack = from.Backpack;
+                    var pack = from.Backpack;
 
-                    return (pack == null || pack.FindItemByType(typeof(QuestDaemonBlood)) == null);
+                    return (pack == null || pack.FindItemByType(typeof (QuestDaemonBlood)) == null);
                 }
             }
 
@@ -191,20 +189,20 @@ namespace Server.Engines.Quests.Haven
 
         public static bool HasLostDaemonBone(Mobile from)
         {
-            PlayerMobile pm = from as PlayerMobile;
+            var pm = from as PlayerMobile;
 
             if (pm == null)
                 return false;
 
-            QuestSystem qs = pm.Quest;
+            var qs = pm.Quest;
 
             if (qs is UzeraanTurmoilQuest)
             {
-                if (qs.IsObjectiveInProgress(typeof(ReturnDaemonBoneObjective)))
+                if (qs.IsObjectiveInProgress(typeof (ReturnDaemonBoneObjective)))
                 {
-                    Container pack = from.Backpack;
+                    var pack = from.Backpack;
 
-                    return (pack == null || pack.FindItemByType(typeof(QuestDaemonBone)) == null);
+                    return (pack == null || pack.FindItemByType(typeof (QuestDaemonBone)) == null);
                 }
             }
 
@@ -213,10 +211,11 @@ namespace Server.Engines.Quests.Haven
 
         public override void Slice()
         {
-            if (!this.m_HasLeftTheMansion && (this.From.Map != Map.Trammel || this.From.X < 3573 || this.From.X > 3611 || this.From.Y < 2568 || this.From.Y > 2606))
+            if (!m_HasLeftTheMansion &&
+                (From.Map != Map.Trammel || From.X < 3573 || From.X > 3611 || From.Y < 2568 || From.Y > 2606))
             {
-                this.m_HasLeftTheMansion = true;
-                this.AddConversation(new RadarConversation());
+                m_HasLeftTheMansion = true;
+                AddConversation(new RadarConversation());
             }
 
             base.Slice();
@@ -226,21 +225,21 @@ namespace Server.Engines.Quests.Haven
         {
             base.Accept();
 
-            this.AddConversation(new AcceptConversation());
+            AddConversation(new AcceptConversation());
         }
 
         public override void ChildDeserialize(GenericReader reader)
         {
-            int version = reader.ReadEncodedInt();
+            var version = reader.ReadEncodedInt();
 
-            this.m_HasLeftTheMansion = reader.ReadBool();
+            m_HasLeftTheMansion = reader.ReadBool();
         }
 
         public override void ChildSerialize(GenericWriter writer)
         {
-            writer.WriteEncodedInt((int)0); // version
+            writer.WriteEncodedInt(0); // version
 
-            writer.Write((bool)this.m_HasLeftTheMansion);
+            writer.Write(m_HasLeftTheMansion);
         }
     }
 }

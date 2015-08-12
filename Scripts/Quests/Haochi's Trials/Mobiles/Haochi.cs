@@ -1,4 +1,3 @@
-using System;
 using Server.Items;
 using Server.Mobiles;
 
@@ -19,35 +18,33 @@ namespace Server.Engines.Quests.Samurai
 
         public override int TalkNumber
         {
-            get
-            {
-                return -1;
-            }
+            get { return -1; }
         }
+
         public override void InitBody()
         {
-            this.InitStats(100, 100, 25);
+            InitStats(100, 100, 25);
 
-            this.Hue = 0x8403;
+            Hue = 0x8403;
 
-            this.Female = false;
-            this.Body = 0x190;
-            this.Name = "Daimyo Haochi";
+            Female = false;
+            Body = 0x190;
+            Name = "Daimyo Haochi";
         }
 
         public override void InitOutfit()
         {
-            this.HairItemID = 0x204A;
-            this.HairHue = 0x901;
+            HairItemID = 0x204A;
+            HairHue = 0x901;
 
-            this.AddItem(new SamuraiTabi());
-            this.AddItem(new JinBaori());
+            AddItem(new SamuraiTabi());
+            AddItem(new JinBaori());
 
-            this.AddItem(new PlateHaidate());
-            this.AddItem(new StandardPlateKabuto());
-            this.AddItem(new PlateMempo());
-            this.AddItem(new PlateDo());
-            this.AddItem(new PlateHiroSode());
+            AddItem(new PlateHaidate());
+            AddItem(new StandardPlateKabuto());
+            AddItem(new PlateMempo());
+            AddItem(new PlateDo());
+            AddItem(new PlateHiroSode());
         }
 
         public override int GetAutoTalkRange(PlayerMobile pm)
@@ -57,7 +54,7 @@ namespace Server.Engines.Quests.Samurai
 
         public override void OnTalk(PlayerMobile player, bool contextMenu)
         {
-            QuestSystem qs = player.Quest;
+            var qs = player.Quest;
 
             if (qs is HaochisTrialsQuest)
             {
@@ -67,7 +64,7 @@ namespace Server.Engines.Quests.Samurai
                     return;
                 }
 
-                QuestObjective obj = qs.FindObjective(typeof(FindHaochiObjective));
+                var obj = qs.FindObjective(typeof (FindHaochiObjective));
 
                 if (obj != null && !obj.Completed)
                 {
@@ -75,7 +72,7 @@ namespace Server.Engines.Quests.Samurai
                     return;
                 }
 
-                obj = qs.FindObjective(typeof(FirstTrialReturnObjective));
+                obj = qs.FindObjective(typeof (FirstTrialReturnObjective));
 
                 if (obj != null && !obj.Completed)
                 {
@@ -84,18 +81,18 @@ namespace Server.Engines.Quests.Samurai
                     return;
                 }
 
-                obj = qs.FindObjective(typeof(SecondTrialReturnObjective));
+                obj = qs.FindObjective(typeof (SecondTrialReturnObjective));
 
                 if (obj != null && !obj.Completed)
                 {
-                    if (((SecondTrialReturnObjective)obj).Dragon)
+                    if (((SecondTrialReturnObjective) obj).Dragon)
                         player.AddToBackpack(new LeatherSuneate());
 
                     obj.Complete();
                     return;
                 }
 
-                obj = qs.FindObjective(typeof(ThirdTrialReturnObjective));
+                obj = qs.FindObjective(typeof (ThirdTrialReturnObjective));
 
                 if (obj != null && !obj.Completed)
                 {
@@ -104,13 +101,13 @@ namespace Server.Engines.Quests.Samurai
                     return;
                 }
 
-                obj = qs.FindObjective(typeof(FourthTrialReturnObjective));
+                obj = qs.FindObjective(typeof (FourthTrialReturnObjective));
 
                 if (obj != null && !obj.Completed)
                 {
-                    if (!((FourthTrialReturnObjective)obj).KilledCat)
+                    if (!((FourthTrialReturnObjective) obj).KilledCat)
                     {
-                        Container cont = GetNewContainer();
+                        var cont = GetNewContainer();
                         cont.DropItem(new LeatherHiroSode());
                         cont.DropItem(new JinBaori());
                         player.AddToBackpack(cont);
@@ -120,21 +117,21 @@ namespace Server.Engines.Quests.Samurai
                     return;
                 }
 
-                obj = qs.FindObjective(typeof(FifthTrialReturnObjective));
+                obj = qs.FindObjective(typeof (FifthTrialReturnObjective));
 
                 if (obj != null && !obj.Completed)
                 {
-                    Container pack = player.Backpack;
+                    var pack = player.Backpack;
                     if (pack != null)
                     {
-                        Item katana = pack.FindItemByType(typeof(HaochisKatana));
+                        var katana = pack.FindItemByType(typeof (HaochisKatana));
                         if (katana != null)
                         {
                             katana.Delete();
                             obj.Complete();
 
-                            obj = qs.FindObjective(typeof(FifthTrialIntroObjective));
-                            if (obj != null && ((FifthTrialIntroObjective)obj).StolenTreasure)
+                            obj = qs.FindObjective(typeof (FifthTrialIntroObjective));
+                            if (obj != null && ((FifthTrialIntroObjective) obj).StolenTreasure)
                                 qs.AddConversation(new SixthTrialIntroConversation(true));
                             else
                                 qs.AddConversation(new SixthTrialIntroConversation(false));
@@ -144,7 +141,7 @@ namespace Server.Engines.Quests.Samurai
                     return;
                 }
 
-                obj = qs.FindObjective(typeof(SixthTrialReturnObjective));
+                obj = qs.FindObjective(typeof (SixthTrialReturnObjective));
 
                 if (obj != null && !obj.Completed)
                 {
@@ -152,7 +149,7 @@ namespace Server.Engines.Quests.Samurai
                     return;
                 }
 
-                obj = qs.FindObjective(typeof(SeventhTrialReturnObjective));
+                obj = qs.FindObjective(typeof (SeventhTrialReturnObjective));
 
                 if (obj != null && !obj.Completed)
                 {
@@ -165,7 +162,6 @@ namespace Server.Engines.Quests.Samurai
                     player.AddToBackpack(armor);
 
                     obj.Complete();
-                    return;
                 }
             }
         }
@@ -174,14 +170,14 @@ namespace Server.Engines.Quests.Samurai
         {
             base.Serialize(writer);
 
-            writer.Write((int)0); // version
+            writer.Write(0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

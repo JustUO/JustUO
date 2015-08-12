@@ -1,4 +1,3 @@
-using System;
 using Server.Mobiles;
 
 namespace Server.Items
@@ -9,7 +8,7 @@ namespace Server.Items
         public MechanicalLifeManual()
             : base(0xFBE)
         {
-            this.Weight = 2.0;
+            Weight = 2.0;
         }
 
         public MechanicalLifeManual(Serial serial)
@@ -19,30 +18,28 @@ namespace Server.Items
 
         public override int LabelNumber
         {
-            get
-            {
-                return 1112874;
-            }// Mechanical Life Manual
+            get { return 1112874; } // Mechanical Life Manual
         }
+
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write((int)0); // version
+            writer.Write(0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
 
         public override void OnDoubleClick(Mobile from)
         {
-            PlayerMobile pm = from as PlayerMobile;
+            var pm = from as PlayerMobile;
 
-            if (!this.IsChildOf(from.Backpack))
+            if (!IsChildOf(from.Backpack))
             {
                 from.SendLocalizedMessage(1042001); // That must be in your pack for you to use it.
             }
@@ -58,7 +55,7 @@ namespace Server.Items
             {
                 pm.MechanicalLife = true;
                 pm.SendLocalizedMessage(1112942); // You have learned how to build mechanical companions.
-                this.Delete();
+                Delete();
             }
         }
     }

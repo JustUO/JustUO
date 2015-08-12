@@ -1,4 +1,3 @@
-using System;
 using Server.Mobiles;
 
 namespace Server.Engines.Quests.Necro
@@ -9,7 +8,7 @@ namespace Server.Engines.Quests.Necro
         public CrystalCaveBarrier()
             : base(0x3967)
         {
-            this.Movable = false;
+            Movable = false;
         }
 
         public CrystalCaveBarrier(Serial serial)
@@ -22,25 +21,26 @@ namespace Server.Engines.Quests.Necro
             if (m.IsStaff())
                 return true;
 
-            bool sendMessage = m.Player;
+            var sendMessage = m.Player;
 
             if (m is BaseCreature)
-                m = ((BaseCreature)m).ControlMaster;
+                m = ((BaseCreature) m).ControlMaster;
 
-            PlayerMobile pm = m as PlayerMobile;
+            var pm = m as PlayerMobile;
 
             if (pm != null)
             {
-                QuestSystem qs = pm.Quest;
+                var qs = pm.Quest;
 
                 if (qs is DarkTidesQuest)
                 {
-                    QuestObjective obj = qs.FindObjective(typeof(SpeakCavePasswordObjective));
+                    var obj = qs.FindObjective(typeof (SpeakCavePasswordObjective));
 
                     if (obj != null && obj.Completed)
                     {
                         if (sendMessage)
-                            m.SendLocalizedMessage(1060648); // With Horus' permission, you are able to pass through the barrier.
+                            m.SendLocalizedMessage(1060648);
+                                // With Horus' permission, you are able to pass through the barrier.
 
                         return true;
                     }
@@ -48,7 +48,8 @@ namespace Server.Engines.Quests.Necro
             }
 
             if (sendMessage)
-                m.SendLocalizedMessage(1060649, "", 0x66D); // Without the permission of the guardian Horus, the magic of the barrier prevents your passage.
+                m.SendLocalizedMessage(1060649, "", 0x66D);
+                    // Without the permission of the guardian Horus, the magic of the barrier prevents your passage.
 
             return false;
         }
@@ -57,14 +58,14 @@ namespace Server.Engines.Quests.Necro
         {
             base.Serialize(writer);
 
-            writer.Write((int)0); // version
+            writer.Write(0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

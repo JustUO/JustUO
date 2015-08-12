@@ -1,18 +1,15 @@
-using System;
 using Server.Items;
 using Server.Mobiles;
+using Server.Spells.Necromancy;
 
 namespace Server.Engines.Quests.Necro
 {
     public class AnimateMaabusCorpseObjective : QuestObjective
     {
-        private static readonly QuestItemInfo[] m_Info = new QuestItemInfo[]
+        private static readonly QuestItemInfo[] m_Info =
         {
-            new QuestItemInfo(1023643, 8787)// spellbook
+            new QuestItemInfo(1023643, 8787) // spellbook
         };
-        public AnimateMaabusCorpseObjective()
-        {
-        }
 
         public override object Message
         {
@@ -24,25 +21,20 @@ namespace Server.Engines.Quests.Necro
                 return 1060102;
             }
         }
+
         public override QuestItemInfo[] Info
         {
-            get
-            {
-                return m_Info;
-            }
+            get { return m_Info; }
         }
+
         public override void OnComplete()
         {
-            this.System.AddConversation(new MaabasConversation());
+            System.AddConversation(new MaabasConversation());
         }
     }
 
     public class FindCrystalCaveObjective : QuestObjective
     {
-        public FindCrystalCaveObjective()
-        {
-        }
-
         public override object Message
         {
             get
@@ -53,18 +45,15 @@ namespace Server.Engines.Quests.Necro
                 return 1060104;
             }
         }
+
         public override void OnComplete()
         {
-            this.System.AddConversation(new HorusConversation());
+            System.AddConversation(new HorusConversation());
         }
     }
 
     public class FindMardothAboutVaultObjective : QuestObjective
     {
-        public FindMardothAboutVaultObjective()
-        {
-        }
-
         public override object Message
         {
             get
@@ -75,18 +64,15 @@ namespace Server.Engines.Quests.Necro
                 return 1060106;
             }
         }
+
         public override void OnComplete()
         {
-            this.System.AddConversation(new MardothVaultConversation());
+            System.AddConversation(new MardothVaultConversation());
         }
     }
 
     public class FindMaabusTombObjective : QuestObjective
     {
-        public FindMaabusTombObjective()
-        {
-        }
-
         public override object Message
         {
             get
@@ -97,24 +83,21 @@ namespace Server.Engines.Quests.Necro
                 return 1060124;
             }
         }
+
         public override void CheckProgress()
         {
-            if (this.System.From.Map == Map.Malas && this.System.From.InRange(new Point3D(2024, 1240, -90), 3))
-                this.Complete();
+            if (System.From.Map == Map.Malas && System.From.InRange(new Point3D(2024, 1240, -90), 3))
+                Complete();
         }
 
         public override void OnComplete()
         {
-            this.System.AddObjective(new FindMaabusCorpseObjective());
+            System.AddObjective(new FindMaabusCorpseObjective());
         }
     }
 
     public class FindMaabusCorpseObjective : QuestObjective
     {
-        public FindMaabusCorpseObjective()
-        {
-        }
-
         public override object Message
         {
             get
@@ -125,24 +108,21 @@ namespace Server.Engines.Quests.Necro
                 return 1061142;
             }
         }
+
         public override void CheckProgress()
         {
-            if (this.System.From.Map == Map.Malas && this.System.From.InRange(new Point3D(2024, 1223, -90), 3))
-                this.Complete();
+            if (System.From.Map == Map.Malas && System.From.InRange(new Point3D(2024, 1223, -90), 3))
+                Complete();
         }
 
         public override void OnComplete()
         {
-            this.System.AddObjective(new AnimateMaabusCorpseObjective());
+            System.AddObjective(new AnimateMaabusCorpseObjective());
         }
     }
 
     public class FindCityOfLightObjective : QuestObjective
     {
-        public FindCityOfLightObjective()
-        {
-        }
-
         public override object Message
         {
             get
@@ -153,27 +133,25 @@ namespace Server.Engines.Quests.Necro
                 return 1060108;
             }
         }
+
         public override void CheckProgress()
         {
-            if (this.System.From.Map == Map.Malas && this.System.From.InRange(new Point3D(1076, 519, -90), 5))
-                this.Complete();
+            if (System.From.Map == Map.Malas && System.From.InRange(new Point3D(1076, 519, -90), 5))
+                Complete();
         }
 
         public override void OnComplete()
         {
-            this.System.AddObjective(new FindVaultOfSecretsObjective());
+            System.AddObjective(new FindVaultOfSecretsObjective());
         }
     }
 
     public class FindVaultOfSecretsObjective : QuestObjective
     {
-        private static readonly QuestItemInfo[] m_Info = new QuestItemInfo[]
+        private static readonly QuestItemInfo[] m_Info =
         {
-            new QuestItemInfo(1023676, 3679)// glowing rune
+            new QuestItemInfo(1023676, 3679) // glowing rune
         };
-        public FindVaultOfSecretsObjective()
-        {
-        }
 
         public override object Message
         {
@@ -187,31 +165,26 @@ namespace Server.Engines.Quests.Necro
                 return 1060109;
             }
         }
+
         public override QuestItemInfo[] Info
         {
-            get
-            {
-                return m_Info;
-            }
+            get { return m_Info; }
         }
+
         public override void CheckProgress()
         {
-            if (this.System.From.Map == Map.Malas && this.System.From.InRange(new Point3D(1072, 455, -90), 1))
-                this.Complete();
+            if (System.From.Map == Map.Malas && System.From.InRange(new Point3D(1072, 455, -90), 1))
+                Complete();
         }
 
         public override void OnComplete()
         {
-            this.System.AddConversation(new VaultOfSecretsConversation());
+            System.AddConversation(new VaultOfSecretsConversation());
         }
     }
 
     public class FetchAbraxusScrollObjective : QuestObjective
     {
-        public FetchAbraxusScrollObjective()
-        {
-        }
-
         public override object Message
         {
             get
@@ -220,15 +193,17 @@ namespace Server.Engines.Quests.Necro
                 return 1060196;
             }
         }
+
         public override void CheckProgress()
         {
-            if (this.System.From.Map == Map.Malas && this.System.From.InRange(new Point3D(1076, 450, -84), 5))
+            if (System.From.Map == Map.Malas && System.From.InRange(new Point3D(1076, 450, -84), 5))
             {
-                HordeMinionFamiliar hmf = Spells.Necromancy.SummonFamiliarSpell.Table[this.System.From] as HordeMinionFamiliar;
+                var hmf = SummonFamiliarSpell.Table[System.From] as HordeMinionFamiliar;
 
-                if (hmf != null && hmf.InRange(this.System.From, 5) && hmf.TargetLocation == null)
+                if (hmf != null && hmf.InRange(System.From, 5) && hmf.TargetLocation == null)
                 {
-                    this.System.From.SendLocalizedMessage(1060113); // You instinctively will your familiar to fetch the scroll for you.
+                    System.From.SendLocalizedMessage(1060113);
+                        // You instinctively will your familiar to fetch the scroll for you.
                     hmf.TargetLocation = new Point2D(1076, 450);
                 }
             }
@@ -236,16 +211,12 @@ namespace Server.Engines.Quests.Necro
 
         public override void OnComplete()
         {
-            this.System.AddObjective(new RetrieveAbraxusScrollObjective());
+            System.AddObjective(new RetrieveAbraxusScrollObjective());
         }
     }
 
     public class RetrieveAbraxusScrollObjective : QuestObjective
     {
-        public RetrieveAbraxusScrollObjective()
-        {
-        }
-
         public override object Message
         {
             get
@@ -256,18 +227,15 @@ namespace Server.Engines.Quests.Necro
                 return 1060199;
             }
         }
+
         public override void OnComplete()
         {
-            this.System.AddConversation(new ReadAbraxusScrollConversation());
+            System.AddConversation(new ReadAbraxusScrollConversation());
         }
     }
 
     public class ReadAbraxusScrollObjective : QuestObjective
     {
-        public ReadAbraxusScrollObjective()
-        {
-        }
-
         public override object Message
         {
             get
@@ -279,21 +247,19 @@ namespace Server.Engines.Quests.Necro
                 return 1060125;
             }
         }
+
         public override void OnComplete()
         {
-            this.System.AddObjective(new ReturnToCrystalCaveObjective());
+            System.AddObjective(new ReturnToCrystalCaveObjective());
         }
     }
 
     public class ReturnToCrystalCaveObjective : QuestObjective
     {
-        private static readonly QuestItemInfo[] m_Info = new QuestItemInfo[]
+        private static readonly QuestItemInfo[] m_Info =
         {
-            new QuestItemInfo(1026153, 6178)// teleporter
+            new QuestItemInfo(1026153, 6178) // teleporter
         };
-        public ReturnToCrystalCaveObjective()
-        {
-        }
 
         public override object Message
         {
@@ -306,25 +272,20 @@ namespace Server.Engines.Quests.Necro
                 return 1060115;
             }
         }
+
         public override QuestItemInfo[] Info
         {
-            get
-            {
-                return m_Info;
-            }
+            get { return m_Info; }
         }
+
         public override void OnComplete()
         {
-            this.System.AddObjective(new SpeakCavePasswordObjective());
+            System.AddObjective(new SpeakCavePasswordObjective());
         }
     }
 
     public class SpeakCavePasswordObjective : QuestObjective
     {
-        public SpeakCavePasswordObjective()
-        {
-        }
-
         public override object Message
         {
             get
@@ -336,20 +297,18 @@ namespace Server.Engines.Quests.Necro
                 return 1060117;
             }
         }
+
         public override void OnComplete()
         {
-            this.System.AddConversation(new SecondHorusConversation());
+            System.AddConversation(new SecondHorusConversation());
         }
     }
 
     public class FindCallingScrollObjective : QuestObjective
     {
-        private int m_SkitteringHoppersKilled;
         private bool m_HealConversationShown;
         private bool m_SkitteringHoppersDisposed;
-        public FindCallingScrollObjective()
-        {
-        }
+        private int m_SkitteringHoppersKilled;
 
         public override object Message
         {
@@ -361,64 +320,61 @@ namespace Server.Engines.Quests.Necro
                 return 1060119;
             }
         }
+
         public override bool IgnoreYoungProtection(Mobile from)
         {
-            return !this.m_SkitteringHoppersDisposed && from is SkitteringHopper;
+            return !m_SkitteringHoppersDisposed && from is SkitteringHopper;
         }
 
         public override bool GetKillEvent(BaseCreature creature, Container corpse)
         {
-            return !this.m_SkitteringHoppersDisposed;
+            return !m_SkitteringHoppersDisposed;
         }
 
         public override void OnKill(BaseCreature creature, Container corpse)
         {
             if (creature is SkitteringHopper)
             {
-                if (!this.m_HealConversationShown)
+                if (!m_HealConversationShown)
                 {
-                    this.m_HealConversationShown = true;
-                    this.System.AddConversation(new HealConversation());
+                    m_HealConversationShown = true;
+                    System.AddConversation(new HealConversation());
                 }
 
-                if (++this.m_SkitteringHoppersKilled >= 5)
+                if (++m_SkitteringHoppersKilled >= 5)
                 {
-                    this.m_SkitteringHoppersDisposed = true;
-                    this.System.AddObjective(new FindHorusAboutRewardObjective());
+                    m_SkitteringHoppersDisposed = true;
+                    System.AddObjective(new FindHorusAboutRewardObjective());
                 }
             }
         }
 
         public override void OnComplete()
         {
-            this.System.AddObjective(new FindMardothAboutKronusObjective());
+            System.AddObjective(new FindMardothAboutKronusObjective());
         }
 
         public override void ChildDeserialize(GenericReader reader)
         {
-            int version = reader.ReadEncodedInt();
+            var version = reader.ReadEncodedInt();
 
-            this.m_SkitteringHoppersKilled = reader.ReadEncodedInt();
-            this.m_HealConversationShown = reader.ReadBool();
-            this.m_SkitteringHoppersDisposed = reader.ReadBool();
+            m_SkitteringHoppersKilled = reader.ReadEncodedInt();
+            m_HealConversationShown = reader.ReadBool();
+            m_SkitteringHoppersDisposed = reader.ReadBool();
         }
 
         public override void ChildSerialize(GenericWriter writer)
         {
-            writer.WriteEncodedInt((int)0); // version
+            writer.WriteEncodedInt(0); // version
 
-            writer.WriteEncodedInt((int)this.m_SkitteringHoppersKilled);
-            writer.Write((bool)this.m_HealConversationShown);
-            writer.Write((bool)this.m_SkitteringHoppersDisposed);
+            writer.WriteEncodedInt(m_SkitteringHoppersKilled);
+            writer.Write(m_HealConversationShown);
+            writer.Write(m_SkitteringHoppersDisposed);
         }
     }
 
     public class FindHorusAboutRewardObjective : QuestObjective
     {
-        public FindHorusAboutRewardObjective()
-        {
-        }
-
         public override object Message
         {
             get
@@ -429,18 +385,15 @@ namespace Server.Engines.Quests.Necro
                 return 1060126;
             }
         }
+
         public override void OnComplete()
         {
-            this.System.AddConversation(new HorusRewardConversation());
+            System.AddConversation(new HorusRewardConversation());
         }
     }
 
     public class FindMardothAboutKronusObjective : QuestObjective
     {
-        public FindMardothAboutKronusObjective()
-        {
-        }
-
         public override object Message
         {
             get
@@ -451,9 +404,10 @@ namespace Server.Engines.Quests.Necro
                 return 1060127;
             }
         }
+
         public override void OnComplete()
         {
-            this.System.AddConversation(new MardothKronusConversation());
+            System.AddConversation(new MardothKronusConversation());
         }
     }
 
@@ -461,9 +415,6 @@ namespace Server.Engines.Quests.Necro
     {
         private static readonly Rectangle2D m_WellOfTearsArea = new Rectangle2D(2080, 1346, 10, 10);
         private bool m_Inside;
-        public FindWellOfTearsObjective()
-        {
-        }
 
         public override object Message
         {
@@ -475,40 +426,37 @@ namespace Server.Engines.Quests.Necro
                 return 1060128;
             }
         }
+
         public override void CheckProgress()
         {
-            if (this.System.From.Map == Map.Malas && m_WellOfTearsArea.Contains(this.System.From.Location))
+            if (System.From.Map == Map.Malas && m_WellOfTearsArea.Contains(System.From.Location))
             {
-                if (DarkTidesQuest.HasLostCallingScroll(this.System.From))
+                if (DarkTidesQuest.HasLostCallingScroll(System.From))
                 {
-                    if (!this.m_Inside)
-                        this.System.AddConversation(new LostCallingScrollConversation(false));
+                    if (!m_Inside)
+                        System.AddConversation(new LostCallingScrollConversation(false));
                 }
                 else
                 {
-                    this.Complete();
+                    Complete();
                 }
 
-                this.m_Inside = true;
+                m_Inside = true;
             }
             else
             {
-                this.m_Inside = false;
+                m_Inside = false;
             }
         }
 
         public override void OnComplete()
         {
-            this.System.AddObjective(new UseCallingScrollObjective());
+            System.AddObjective(new UseCallingScrollObjective());
         }
     }
 
     public class UseCallingScrollObjective : QuestObjective
     {
-        public UseCallingScrollObjective()
-        {
-        }
-
         public override object Message
         {
             get
@@ -525,9 +473,10 @@ namespace Server.Engines.Quests.Necro
     public class FindMardothEndObjective : QuestObjective
     {
         private bool m_Victory;
+
         public FindMardothEndObjective(bool victory)
         {
-            this.m_Victory = victory;
+            m_Victory = victory;
         }
 
         // Serialization
@@ -539,7 +488,7 @@ namespace Server.Engines.Quests.Necro
         {
             get
             {
-                if (this.m_Victory)
+                if (m_Victory)
                 {
                     /* Victory! You have done as Mardoth has asked of you.
                     * Take as much of your foe's loot as you can carry
@@ -547,42 +496,36 @@ namespace Server.Engines.Quests.Necro
                     */
                     return 1060131;
                 }
-                else
-                {
-                    /* Although you were slain by the cowardly paladin,
+                /* Although you were slain by the cowardly paladin,
                     * you managed to complete the rite of calling as
                     * instructed. Return to Mardoth.
                     */
-                    return 1060132;
-                }
+                return 1060132;
             }
         }
+
         public override void OnComplete()
         {
-            this.System.AddConversation(new MardothEndConversation());
+            System.AddConversation(new MardothEndConversation());
         }
 
         public override void ChildDeserialize(GenericReader reader)
         {
-            int version = reader.ReadEncodedInt();
+            var version = reader.ReadEncodedInt();
 
-            this.m_Victory = reader.ReadBool();
+            m_Victory = reader.ReadBool();
         }
 
         public override void ChildSerialize(GenericWriter writer)
         {
-            writer.WriteEncodedInt((int)0); // version
+            writer.WriteEncodedInt(0); // version
 
-            writer.Write((bool)this.m_Victory);
+            writer.Write(m_Victory);
         }
     }
 
     public class FindBankObjective : QuestObjective
     {
-        public FindBankObjective()
-        {
-        }
-
         public override object Message
         {
             get
@@ -594,24 +537,21 @@ namespace Server.Engines.Quests.Necro
                 return 1060134;
             }
         }
+
         public override void CheckProgress()
         {
-            if (this.System.From.Map == Map.Malas && this.System.From.InRange(new Point3D(2048, 1345, -84), 5))
-                this.Complete();
+            if (System.From.Map == Map.Malas && System.From.InRange(new Point3D(2048, 1345, -84), 5))
+                Complete();
         }
 
         public override void OnComplete()
         {
-            this.System.AddObjective(new CashBankCheckObjective());
+            System.AddObjective(new CashBankCheckObjective());
         }
     }
 
     public class CashBankCheckObjective : QuestObjective
     {
-        public CashBankCheckObjective()
-        {
-        }
-
         public override object Message
         {
             get
@@ -622,9 +562,10 @@ namespace Server.Engines.Quests.Necro
                 return 1060644;
             }
         }
+
         public override void OnComplete()
         {
-            this.System.AddConversation(new BankerConversation());
+            System.AddConversation(new BankerConversation());
         }
     }
 }

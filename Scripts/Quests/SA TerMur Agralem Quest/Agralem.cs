@@ -7,81 +7,68 @@ namespace Server.Engines.Quests
     public class IntoTheVoidQuest : BaseQuest
     {
         public IntoTheVoidQuest()
-            : base()
         {
             switch (Utility.Random(4))
             {
                 case 0:
-                    this.AddObjective(new SlayObjective(typeof(Anzuanord),"Anzuanord" , 10));
+                    AddObjective(new SlayObjective(typeof (Anzuanord), "Anzuanord", 10));
                     break;
                 case 1:
-                    this.AddObjective(new SlayObjective(typeof(Vasanord), "Vasanord", 10));
+                    AddObjective(new SlayObjective(typeof (Vasanord), "Vasanord", 10));
                     break;
                 case 2:
-                    this.AddObjective(new SlayObjective(typeof(UsagralemBallem), "Usagralem Ballem ", 10));
+                    AddObjective(new SlayObjective(typeof (UsagralemBallem), "Usagralem Ballem ", 10));
                     break;
                 case 3:
-                    this.AddObjective(new SlayObjective(typeof(Anlorzen), "Anlorzen", 10));
+                    AddObjective(new SlayObjective(typeof (Anlorzen), "Anlorzen", 10));
                     break;
             }
 
-            this.AddReward(new BaseReward(typeof(AbyssReaver), 1112694));/////Abyss Reaver
+            AddReward(new BaseReward(typeof (AbyssReaver), 1112694)); /////Abyss Reaver
         }
 
         public override bool DoneOnce
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override object Title
         {
-            get
-            {
-                return 1112687;
-            }
+            get { return 1112687; }
         }
+
         public override object Description
         {
-            get
-            {
-                return 1112690;
-            }
+            get { return 1112690; }
         }
+
         public override object Refuse
         {
-            get
-            {
-                return 1112691;
-            }
+            get { return 1112691; }
         }
+
         public override object Uncomplete
         {
-            get
-            {
-                return 1112692;
-            }
+            get { return 1112692; }
         }
+
         public override object Complete
         {
-            get
-            {
-                return 1112693;
-            }
+            get { return 1112693; }
         }
+
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write((int)0); // version
+            writer.Write(0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 
@@ -102,45 +89,46 @@ namespace Server.Engines.Quests
         {
             get
             {
-                return new Type[] 
+                return new[]
                 {
-                    typeof(IntoTheVoidQuest)
+                    typeof (IntoTheVoidQuest)
                 };
             }
         }
+
         public override void InitBody()
         {
-            this.InitStats(100, 100, 25);
-			
-            this.Female = false;
-            this.CantWalk = true;
+            InitStats(100, 100, 25);
 
-            this.Body = 666;
-            this.HairItemID = 16987;
-            this.HairHue = 1801;
+            Female = false;
+            CantWalk = true;
+
+            Body = 666;
+            HairItemID = 16987;
+            HairHue = 1801;
         }
 
         public override void InitOutfit()
         {
-            this.AddItem(new Backpack());
+            AddItem(new Backpack());
 
-            this.AddItem(new GargishClothChest(Utility.RandomNeutralHue()));
-            this.AddItem(new GargishClothKilt(Utility.RandomNeutralHue()));
-            this.AddItem(new GargishClothLegs(Utility.RandomNeutralHue()));
+            AddItem(new GargishClothChest(Utility.RandomNeutralHue()));
+            AddItem(new GargishClothKilt(Utility.RandomNeutralHue()));
+            AddItem(new GargishClothLegs(Utility.RandomNeutralHue()));
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write((int)0); // version
+            writer.Write(0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

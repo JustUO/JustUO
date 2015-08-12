@@ -1,13 +1,10 @@
-using System;
-
 namespace Server.Items
 {
     public class BaseRewardBackpack : Backpack
     {
         public BaseRewardBackpack()
-            : base()
         {
-            this.Hue = 1127;
+            Hue = 1127;
         }
 
         public BaseRewardBackpack(Serial serial)
@@ -19,14 +16,14 @@ namespace Server.Items
         {
             base.Serialize(writer);
 
-            writer.Write((int)0); // version
+            writer.Write(0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 
@@ -34,34 +31,33 @@ namespace Server.Items
     {
         [Constructable]
         public DustyAdventurersBackpack()
-            : base()
         {
-            this.AddItem(new MagicalResidue(20));
-            this.AddItem(new Amber());
-            this.AddItem(new Sapphire());
-            this.AddItem(new Gold(2000));
-            this.AddItem(new Bow());
-            this.AddItem(new GargishBracelet());
+            AddItem(new MagicalResidue(20));
+            AddItem(new Amber());
+            AddItem(new Sapphire());
+            AddItem(new Gold(2000));
+            AddItem(new Bow());
+            AddItem(new GargishBracelet());
 
             switch (Utility.Random(5))
             {
                 case 0:
-                    this.AddItem(new LeatherChest());
+                    AddItem(new LeatherChest());
                     break;
                 case 1:
-                    this.AddItem(new LeatherArms());
+                    AddItem(new LeatherArms());
                     break;
                 case 2:
-                    this.AddItem(new LeatherLegs());
+                    AddItem(new LeatherLegs());
                     break;
                 case 3:
-                    this.AddItem(new GargishLeatherChest());
+                    AddItem(new GargishLeatherChest());
                     break;
                 case 4:
-                    this.AddItem(new GargishLeatherArms());
+                    AddItem(new GargishLeatherArms());
                     break;
                 case 5:
-                    this.AddItem(new GargishLeatherLegs());
+                    AddItem(new GargishLeatherLegs());
                     break;
             }
         }
@@ -75,14 +71,14 @@ namespace Server.Items
         {
             base.Serialize(writer);
 
-            writer.Write((int)0); // version
+            writer.Write(0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 
@@ -90,69 +86,68 @@ namespace Server.Items
     {
         [Constructable]
         public DustyExplorersBackpack()
-            : base()
         {
-            this.AddItem(new EnchantEssence(10));
-            this.AddItem(new Amber());
-            this.AddItem(new Citrine());
-            this.AddItem(new Amethyst());
-            this.AddItem(new Gold(4000));
+            AddItem(new EnchantEssence(10));
+            AddItem(new Amber());
+            AddItem(new Citrine());
+            AddItem(new Amethyst());
+            AddItem(new Gold(4000));
             switch (Utility.Random(4))
             {
                 case 0:
-                    this.AddItem(new GargishRing());
+                    AddItem(new GargishRing());
                     break;
                 case 1:
-                    this.AddItem(new GargishNecklace());
+                    AddItem(new GargishNecklace());
                     break;
                 case 2:
-                    this.AddItem(new GargishBracelet());
+                    AddItem(new GargishBracelet());
                     break;
                 case 3:
-                    this.AddItem(new GargishEarrings());
+                    AddItem(new GargishEarrings());
                     break;
             }
 
             switch (Utility.Random(6))
             {
                 case 0:
-                    this.AddItem(new GlassSword());
+                    AddItem(new GlassSword());
                     break;
                 case 1:
-                    this.AddItem(new Katana());
+                    AddItem(new Katana());
                     break;
                 case 2:
-                    this.AddItem(new Broadsword());
+                    AddItem(new Broadsword());
                     break;
                 case 3:
-                    this.AddItem(new Mace());
+                    AddItem(new Mace());
                     break;
                 case 4:
-                    this.AddItem(new Halberd());
+                    AddItem(new Halberd());
                     break;
                 case 5:
-                    this.AddItem(new Shortblade());
+                    AddItem(new Shortblade());
                     break;
             }
             switch (Utility.Random(6))
             {
                 case 0:
-                    this.AddItem(new LeatherChest());
+                    AddItem(new LeatherChest());
                     break;
                 case 1:
-                    this.AddItem(new LeatherArms());
+                    AddItem(new LeatherArms());
                     break;
                 case 2:
-                    this.AddItem(new LeatherLegs());
+                    AddItem(new LeatherLegs());
                     break;
                 case 3:
-                    this.AddItem(new GargishLeatherChest());
+                    AddItem(new GargishLeatherChest());
                     break;
                 case 4:
-                    this.AddItem(new GargishLeatherArms());
+                    AddItem(new GargishLeatherArms());
                     break;
                 case 5:
-                    this.AddItem(new GargishLeatherLegs());
+                    AddItem(new GargishLeatherLegs());
                     break;
             }
         }
@@ -166,14 +161,14 @@ namespace Server.Items
         {
             base.Serialize(writer);
 
-            writer.Write((int)0); // version
+            writer.Write(0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 
@@ -181,75 +176,74 @@ namespace Server.Items
     {
         [Constructable]
         public DustyHuntersBackpack()
-            : base()
         {
-            this.AddItem(new RelicFragment(1));
-            this.AddItem(new Amber());
-            this.AddItem(new Ruby());
-            this.AddItem(new Diamond());
-            this.AddItem(new Gold(6000));
+            AddItem(new RelicFragment(1));
+            AddItem(new Amber());
+            AddItem(new Ruby());
+            AddItem(new Diamond());
+            AddItem(new Gold(6000));
 
             switch (Utility.Random(4))
             {
                 case 0:
-                    this.AddItem(new GargishRing());
+                    AddItem(new GargishRing());
                     break;
                 case 1:
-                    this.AddItem(new GargishNecklace());
+                    AddItem(new GargishNecklace());
                     break;
                 case 2:
-                    this.AddItem(new GargishBracelet());
+                    AddItem(new GargishBracelet());
                     break;
                 case 3:
-                    this.AddItem(new GargishEarrings());
+                    AddItem(new GargishEarrings());
                     break;
             }
 
             switch (Utility.Random(6))
             {
                 case 0:
-                    this.AddItem(new GlassSword());
+                    AddItem(new GlassSword());
                     break;
                 case 1:
-                    this.AddItem(new Katana());
+                    AddItem(new Katana());
                     break;
                 case 2:
-                    this.AddItem(new Broadsword());
+                    AddItem(new Broadsword());
                     break;
                 case 3:
-                    this.AddItem(new Mace());
+                    AddItem(new Mace());
                     break;
                 case 4:
-                    this.AddItem(new Halberd());
+                    AddItem(new Halberd());
                     break;
                 case 5:
-                    this.AddItem(new Shortblade());
+                    AddItem(new Shortblade());
                     break;
             }
             switch (Utility.Random(6))
             {
                 case 0:
-                    this.AddItem(new LeatherChest());
+                    AddItem(new LeatherChest());
                     break;
                 case 1:
-                    this.AddItem(new LeatherArms());
+                    AddItem(new LeatherArms());
                     break;
                 case 2:
-                    this.AddItem(new LeatherLegs());
+                    AddItem(new LeatherLegs());
                     break;
                 case 3:
-                    this.AddItem(new GargishLeatherChest());
+                    AddItem(new GargishLeatherChest());
                     break;
                 case 4:
-                    this.AddItem(new GargishLeatherArms());
+                    AddItem(new GargishLeatherArms());
                     break;
                 case 5:
-                    this.AddItem(new GargishLeatherLegs());
+                    AddItem(new GargishLeatherLegs());
                     break;
             }
 
-            this.AddItem(new LeatherTalons());
-            this.AddItem(new Boomerang());
+            AddItem(new LeatherTalons());
+            AddItem(new Boomerang());
         }
 
         public DustyHuntersBackpack(Serial serial)
@@ -261,14 +255,14 @@ namespace Server.Items
         {
             base.Serialize(writer);
 
-            writer.Write((int)0); // version
+            writer.Write(0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

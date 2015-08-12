@@ -1,4 +1,3 @@
-using System;
 using Server.Mobiles;
 
 namespace Server.Engines.Quests.Necro
@@ -16,8 +15,8 @@ namespace Server.Engines.Quests.Necro
 
         public override void InitBody()
         {
-            this.Body = 0x94;
-            this.Name = "Maabus";
+            Body = 0x94;
+            Name = "Maabus";
         }
 
         public override bool CanTalkTo(PlayerMobile to)
@@ -33,14 +32,14 @@ namespace Server.Engines.Quests.Necro
         {
             base.Serialize(writer);
 
-            writer.Write((int)0); // version
+            writer.Write(0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

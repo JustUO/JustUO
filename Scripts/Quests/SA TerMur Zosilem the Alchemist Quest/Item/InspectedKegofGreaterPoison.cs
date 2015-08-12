@@ -1,5 +1,3 @@
-using System;
-
 namespace Server.Items
 {
     public class InspectedKegofGreaterPoison : Item
@@ -8,9 +6,9 @@ namespace Server.Items
         public InspectedKegofGreaterPoison()
             : base(0x1940)
         {
-            this.Name = "Inspected Keg of Greater Poison";
+            Name = "Inspected Keg of Greater Poison";
 
-            this.Hue = 2425;
+            Hue = 2425;
         }
 
         public InspectedKegofGreaterPoison(Serial serial)
@@ -22,14 +20,14 @@ namespace Server.Items
         {
             base.Serialize(writer);
 
-            writer.Write((int)0);
+            writer.Write(0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

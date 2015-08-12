@@ -8,41 +8,42 @@ namespace Server.Engines.Quests.Necro
     {
         private PlayerMobile m_Necromancer;
         private bool m_ToDelete;
+
         public SummonedPaladin(PlayerMobile necromancer)
             : base(AIType.AI_Melee, FightMode.Aggressor, 10, 1, 0.2, 0.4)
         {
-            this.m_Necromancer = necromancer;
+            m_Necromancer = necromancer;
 
-            this.InitStats(45, 30, 5);
-            this.Title = "the Paladin";
+            InitStats(45, 30, 5);
+            Title = "the Paladin";
 
-            this.Hue = 0x83F3;
+            Hue = 0x83F3;
 
-            this.Female = false;
-            this.Body = 0x190;
-            this.Name = NameList.RandomName("male");
+            Female = false;
+            Body = 0x190;
+            Name = NameList.RandomName("male");
 
             Utility.AssignRandomHair(this);
             Utility.AssignRandomFacialHair(this, false);
 
-            this.FacialHairHue = this.HairHue;
+            FacialHairHue = HairHue;
 
-            this.AddItem(new Boots(0x1));
-            this.AddItem(new ChainChest());
-            this.AddItem(new ChainLegs());
-            this.AddItem(new RingmailArms());
-            this.AddItem(new PlateHelm());
-            this.AddItem(new PlateGloves());
-            this.AddItem(new PlateGorget());
+            AddItem(new Boots(0x1));
+            AddItem(new ChainChest());
+            AddItem(new ChainLegs());
+            AddItem(new RingmailArms());
+            AddItem(new PlateHelm());
+            AddItem(new PlateGloves());
+            AddItem(new PlateGorget());
 
-            this.AddItem(new Cloak(0xCF));
+            AddItem(new Cloak(0xCF));
 
-            this.AddItem(new ThinLongsword());
+            AddItem(new ThinLongsword());
 
-            this.SetSkill(SkillName.Swords, 50.0);
-            this.SetSkill(SkillName.Tactics, 50.0);
+            SetSkill(SkillName.Swords, 50.0);
+            SetSkill(SkillName.Tactics, 50.0);
 
-            this.PackGold(500);
+            PackGold(500);
         }
 
         public SummonedPaladin(Serial serial)
@@ -52,18 +53,14 @@ namespace Server.Engines.Quests.Necro
 
         public override bool ClickTitle
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
+
         public override bool PlayerRangeSensitive
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
+
         public static void BeginSummon(PlayerMobile player)
         {
             new SummonTimer(player).Start();
@@ -71,7 +68,7 @@ namespace Server.Engines.Quests.Necro
 
         public override bool IsHarmfulCriminal(Mobile target)
         {
-            if (target == this.m_Necromancer)
+            if (target == m_Necromancer)
                 return false;
 
             return base.IsHarmfulCriminal(target);
@@ -79,41 +76,45 @@ namespace Server.Engines.Quests.Necro
 
         public override void OnThink()
         {
-            if (!this.m_ToDelete && !this.Frozen)
+            if (!m_ToDelete && !Frozen)
             {
-                if (this.m_Necromancer == null || this.m_Necromancer.Deleted || this.m_Necromancer.Map == Map.Internal)
+                if (m_Necromancer == null || m_Necromancer.Deleted || m_Necromancer.Map == Map.Internal)
                 {
-                    this.Delete();
+                    Delete();
                     return;
                 }
 
-                if (this.Combatant != this.m_Necromancer)
-                    this.Combatant = this.m_Necromancer;
+                if (Combatant != m_Necromancer)
+                    Combatant = m_Necromancer;
 
-                if (!this.m_Necromancer.Alive)
+                if (!m_Necromancer.Alive)
                 {
-                    QuestSystem qs = this.m_Necromancer.Quest;
+                    var qs = m_Necromancer.Quest;
 
-                    if (qs is DarkTidesQuest && qs.FindObjective(typeof(FindMardothEndObjective)) == null)
+                    if (qs is DarkTidesQuest && qs.FindObjective(typeof (FindMardothEndObjective)) == null)
                         qs.AddObjective(new FindMardothEndObjective(false));
 
-                    this.Say(1060139, this.m_Necromancer.Name); // You have made my work easy for me, ~1_NAME~.  My task here is done.
+                    Say(1060139, m_Necromancer.Name);
+                        // You have made my work easy for me, ~1_NAME~.  My task here is done.
 
-                    this.m_ToDelete = true;
+                    m_ToDelete = true;
 
-                    Timer.DelayCall(TimeSpan.FromSeconds(5.0), new TimerCallback(Delete));
+                    Timer.DelayCall(TimeSpan.FromSeconds(5.0), Delete);
                 }
-                else if (this.m_Necromancer.Map != this.Map || this.GetDistanceToSqrt(this.m_Necromancer) > this.RangePerception + 1)
+                else if (m_Necromancer.Map != Map || GetDistanceToSqrt(m_Necromancer) > RangePerception + 1)
                 {
-                    Effects.SendLocationParticles(EffectItem.Create(this.Location, this.Map, EffectItem.DefaultDuration), 0x3728, 10, 10, 2023);
-                    Effects.SendLocationParticles(EffectItem.Create(this.m_Necromancer.Location, this.m_Necromancer.Map, EffectItem.DefaultDuration), 0x3728, 10, 10, 5023);
+                    Effects.SendLocationParticles(EffectItem.Create(Location, Map, EffectItem.DefaultDuration), 0x3728,
+                        10, 10, 2023);
+                    Effects.SendLocationParticles(
+                        EffectItem.Create(m_Necromancer.Location, m_Necromancer.Map, EffectItem.DefaultDuration), 0x3728,
+                        10, 10, 5023);
 
-                    this.Map = this.m_Necromancer.Map;
-                    this.Location = this.m_Necromancer.Location;
+                    Map = m_Necromancer.Map;
+                    Location = m_Necromancer.Location;
 
-                    this.PlaySound(0x1FE);
+                    PlaySound(0x1FE);
 
-                    this.Say(1060140); // You cannot escape me, knave of evil!
+                    Say(1060140); // You cannot escape me, knave of evil!
                 }
             }
 
@@ -124,9 +125,9 @@ namespace Server.Engines.Quests.Necro
         {
             base.OnDeath(c);
 
-            QuestSystem qs = this.m_Necromancer.Quest;
+            var qs = m_Necromancer.Quest;
 
-            if (qs is DarkTidesQuest && qs.FindObjective(typeof(FindMardothEndObjective)) == null)
+            if (qs is DarkTidesQuest && qs.FindObjective(typeof (FindMardothEndObjective)) == null)
                 qs.AddObjective(new FindMardothEndObjective(true));
         }
 
@@ -134,85 +135,86 @@ namespace Server.Engines.Quests.Necro
         {
             base.Serialize(writer);
 
-            writer.Write((int)0); // version
+            writer.Write(0); // version
 
-            writer.Write((Mobile)this.m_Necromancer);
-            writer.Write((bool)this.m_ToDelete);
+            writer.Write(m_Necromancer);
+            writer.Write(m_ToDelete);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
 
-            this.m_Necromancer = reader.ReadMobile() as PlayerMobile;
-            this.m_ToDelete = reader.ReadBool();
+            m_Necromancer = reader.ReadMobile() as PlayerMobile;
+            m_ToDelete = reader.ReadBool();
 
-            if (this.m_ToDelete)
-                this.Delete();
+            if (m_ToDelete)
+                Delete();
         }
 
         private class SummonTimer : Timer
         {
-            private readonly PlayerMobile m_Player;
             private SummonedPaladin m_Paladin;
             private int m_Step;
+            private readonly PlayerMobile m_Player;
+
             public SummonTimer(PlayerMobile player)
                 : base(TimeSpan.FromSeconds(4.0))
             {
-                this.Priority = TimerPriority.FiftyMS;
+                Priority = TimerPriority.FiftyMS;
 
-                this.m_Player = player;
+                m_Player = player;
             }
 
             protected override void OnTick()
             {
-                if (this.m_Player.Deleted)
+                if (m_Player.Deleted)
                 {
-                    if (this.m_Step > 0)
-                        this.m_Paladin.Delete();
+                    if (m_Step > 0)
+                        m_Paladin.Delete();
 
                     return;
                 }
 
-                if (this.m_Step > 0 && this.m_Paladin.Deleted)
+                if (m_Step > 0 && m_Paladin.Deleted)
                     return;
 
-                if (this.m_Step == 0)
+                if (m_Step == 0)
                 {
-                    SummonedPaladinMoongate moongate = new SummonedPaladinMoongate();
+                    var moongate = new SummonedPaladinMoongate();
                     moongate.MoveToWorld(new Point3D(2091, 1348, -90), Map.Malas);
 
                     Effects.PlaySound(moongate.Location, moongate.Map, 0x20E);
 
-                    this.m_Paladin = new SummonedPaladin(this.m_Player);
-                    this.m_Paladin.Frozen = true;
+                    m_Paladin = new SummonedPaladin(m_Player);
+                    m_Paladin.Frozen = true;
 
-                    this.m_Paladin.Location = moongate.Location;
-                    this.m_Paladin.Map = moongate.Map;
+                    m_Paladin.Location = moongate.Location;
+                    m_Paladin.Map = moongate.Map;
 
-                    this.Delay = TimeSpan.FromSeconds(2.0);
-                    this.Start();
+                    Delay = TimeSpan.FromSeconds(2.0);
+                    Start();
                 }
-                else if (this.m_Step == 1)
+                else if (m_Step == 1)
                 {
-                    this.m_Paladin.Direction = this.m_Paladin.GetDirectionTo(this.m_Player);
-                    this.m_Paladin.Say(1060122); // STOP WICKED ONE!
+                    m_Paladin.Direction = m_Paladin.GetDirectionTo(m_Player);
+                    m_Paladin.Say(1060122); // STOP WICKED ONE!
 
-                    this.Delay = TimeSpan.FromSeconds(3.0);
-                    this.Start();
+                    Delay = TimeSpan.FromSeconds(3.0);
+                    Start();
                 }
                 else
                 {
-                    this.m_Paladin.Frozen = false;
+                    m_Paladin.Frozen = false;
 
-                    this.m_Paladin.Say(1060123); // I will slay you before I allow you to complete your evil rites!
+                    m_Paladin.Say(1060123); // I will slay you before I allow you to complete your evil rites!
 
-                    this.m_Paladin.Combatant = this.m_Player;
+                    m_Paladin.Combatant = m_Player;
                 }
 
-                this.m_Step++;
+                m_Step++;
             }
         }
     }
@@ -222,11 +224,11 @@ namespace Server.Engines.Quests.Necro
         public SummonedPaladinMoongate()
             : base(0xF6C)
         {
-            this.Movable = false;
-            this.Hue = 0x482;
-            this.Light = LightType.Circle300;
+            Movable = false;
+            Hue = 0x482;
+            Light = LightType.Circle300;
 
-            Timer.DelayCall(TimeSpan.FromSeconds(10.0), new TimerCallback(Delete));
+            Timer.DelayCall(TimeSpan.FromSeconds(10.0), Delete);
         }
 
         public SummonedPaladinMoongate(Serial serial)
@@ -238,16 +240,16 @@ namespace Server.Engines.Quests.Necro
         {
             base.Serialize(writer);
 
-            writer.Write((int)0); // version
+            writer.Write(0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
 
-            this.Delete();
+            Delete();
         }
     }
 }

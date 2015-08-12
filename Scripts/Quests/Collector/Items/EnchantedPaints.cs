@@ -1,4 +1,3 @@
-using System;
 using Server.Mobiles;
 using Server.Targeting;
 
@@ -10,9 +9,9 @@ namespace Server.Engines.Quests.Collector
         public EnchantedPaints()
             : base(0xFC1)
         {
-            this.LootType = LootType.Blessed;
+            LootType = LootType.Blessed;
 
-            this.Weight = 1.0;
+            Weight = 1.0;
         }
 
         public EnchantedPaints(Serial serial)
@@ -22,7 +21,7 @@ namespace Server.Engines.Quests.Collector
 
         public override bool CanDrop(PlayerMobile player)
         {
-            CollectorQuest qs = player.Quest as CollectorQuest;
+            var qs = player.Quest as CollectorQuest;
 
             if (qs == null)
                 return true;
@@ -34,15 +33,15 @@ namespace Server.Engines.Quests.Collector
 
         public override void OnDoubleClick(Mobile from)
         {
-            PlayerMobile player = from as PlayerMobile;
+            var player = from as PlayerMobile;
 
             if (player != null)
             {
-                QuestSystem qs = player.Quest;
+                var qs = player.Quest;
 
                 if (qs is CollectorQuest)
                 {
-                    if (qs.IsObjectiveInProgress(typeof(CaptureImagesObjective)))
+                    if (qs.IsObjectiveInProgress(typeof (CaptureImagesObjective)))
                     {
                         player.SendAsciiMessage(0x59, "Target the creature whose image you wish to create.");
                         player.Target = new InternalTarget(this);
@@ -59,69 +58,77 @@ namespace Server.Engines.Quests.Collector
         {
             base.Serialize(writer);
 
-            writer.Write((int)0); // version
+            writer.Write(0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
 
         private class InternalTarget : Target
         {
             private readonly EnchantedPaints m_Paints;
+
             public InternalTarget(EnchantedPaints paints)
                 : base(-1, false, TargetFlags.None)
             {
-                this.CheckLOS = false;
-                this.m_Paints = paints;
+                CheckLOS = false;
+                m_Paints = paints;
             }
 
             protected override void OnTarget(Mobile from, object targeted)
             {
-                if (this.m_Paints.Deleted || !this.m_Paints.IsChildOf(from.Backpack))
+                if (m_Paints.Deleted || !m_Paints.IsChildOf(from.Backpack))
                     return;
 
-                PlayerMobile player = from as PlayerMobile;
+                var player = from as PlayerMobile;
 
                 if (player != null)
                 {
-                    QuestSystem qs = player.Quest;
+                    var qs = player.Quest;
 
                     if (qs is CollectorQuest)
                     {
-                        CaptureImagesObjective obj = qs.FindObjective(typeof(CaptureImagesObjective)) as CaptureImagesObjective;
+                        var obj = qs.FindObjective(typeof (CaptureImagesObjective)) as CaptureImagesObjective;
 
                         if (obj != null && !obj.Completed)
                         {
                             if (targeted is Mobile)
                             {
                                 ImageType image;
-                                CaptureResponse response = obj.CaptureImage((targeted.GetType().Name == "GreaterMongbat" ? new Mongbat().GetType() : targeted.GetType()), out image);
+                                var response =
+                                    obj.CaptureImage(
+                                        (targeted.GetType().Name == "GreaterMongbat"
+                                            ? new Mongbat().GetType()
+                                            : targeted.GetType()), out image);
 
-                                switch ( response )
+                                switch (response)
                                 {
                                     case CaptureResponse.Valid:
-                                        {
-                                            player.SendLocalizedMessage(1055125); // The enchanted paints swirl for a moment then an image begins to take shape. *Click*
-                                            player.AddToBackpack(new PaintedImage(image));
+                                    {
+                                        player.SendLocalizedMessage(1055125);
+                                            // The enchanted paints swirl for a moment then an image begins to take shape. *Click*
+                                        player.AddToBackpack(new PaintedImage(image));
 
-                                            break;
-                                        }
+                                        break;
+                                    }
                                     case CaptureResponse.AlreadyDone:
-                                        {
-                                            player.SendAsciiMessage(0x2C, "You have already captured the image of this creature");
+                                    {
+                                        player.SendAsciiMessage(0x2C,
+                                            "You have already captured the image of this creature");
 
-                                            break;
-                                        }
+                                        break;
+                                    }
                                     case CaptureResponse.Invalid:
-                                        {
-                                            player.SendLocalizedMessage(1055124); // You have no interest in capturing the image of this creature.
+                                    {
+                                        player.SendLocalizedMessage(1055124);
+                                            // You have no interest in capturing the image of this creature.
 
-                                            break;
-                                        }
+                                        break;
+                                    }
                                 }
                             }
                             else

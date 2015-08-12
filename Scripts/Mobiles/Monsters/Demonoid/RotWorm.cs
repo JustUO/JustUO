@@ -58,11 +58,6 @@ namespace Server.Mobiles
             if (0.4 > Utility.RandomDouble() && reg.Name == "Ariel Writ Disaster")
                 c.DropItem(new ArielHavenWritofMembership());
             c.DropItem(new BonePile());
-
-            if (Utility.RandomDouble() < 0.02)
-            {
-                c.DropItem(new LuckyCoin());
-            }
         }
 
         public override int GetIdleSound()

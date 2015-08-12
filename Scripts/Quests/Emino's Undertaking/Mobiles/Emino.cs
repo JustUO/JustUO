@@ -1,4 +1,3 @@
-using System;
 using Server.Gumps;
 using Server.Items;
 using Server.Mobiles;
@@ -20,38 +19,36 @@ namespace Server.Engines.Quests.Ninja
 
         public override int TalkNumber
         {
-            get
-            {
-                return -1;
-            }
+            get { return -1; }
         }
+
         public override void InitBody()
         {
-            this.InitStats(100, 100, 25);
+            InitStats(100, 100, 25);
 
-            this.Hue = 0x83FE;
+            Hue = 0x83FE;
 
-            this.Female = false;
-            this.Body = 0x190;
-            this.Name = "Daimyo Emino";
+            Female = false;
+            Body = 0x190;
+            Name = "Daimyo Emino";
         }
 
         public override void InitOutfit()
         {
-            this.HairItemID = 0x203B;
-            this.HairHue = 0x901;
+            HairItemID = 0x203B;
+            HairHue = 0x901;
 
-            this.AddItem(new MaleKimono());
-            this.AddItem(new SamuraiTabi());
-            this.AddItem(new Bandana());
+            AddItem(new MaleKimono());
+            AddItem(new SamuraiTabi());
+            AddItem(new Bandana());
 
-            this.AddItem(new PlateHaidate());
-            this.AddItem(new PlateDo());
-            this.AddItem(new PlateHiroSode());
+            AddItem(new PlateHaidate());
+            AddItem(new PlateDo());
+            AddItem(new PlateHiroSode());
 
-            Nunchaku nunchaku = new Nunchaku();
+            var nunchaku = new Nunchaku();
             nunchaku.Movable = false;
-            this.AddItem(nunchaku);
+            AddItem(nunchaku);
         }
 
         public override int GetAutoTalkRange(PlayerMobile pm)
@@ -61,7 +58,7 @@ namespace Server.Engines.Quests.Ninja
 
         public override void OnTalk(PlayerMobile player, bool contextMenu)
         {
-            QuestSystem qs = player.Quest;
+            var qs = player.Quest;
 
             if (qs is EminosUndertakingQuest)
             {
@@ -76,7 +73,8 @@ namespace Server.Engines.Quests.Ninja
                     else
                     {
                         note.Delete();
-                        player.SendLocalizedMessage(1046260); // You need to clear some space in your inventory to continue with the quest.  Come back here when you have more space in your inventory.
+                        player.SendLocalizedMessage(1046260);
+                            // You need to clear some space in your inventory to continue with the quest.  Come back here when you have more space in your inventory.
                     }
                 }
                 else if (EminosUndertakingQuest.HasLostEminosKatana(player))
@@ -85,7 +83,7 @@ namespace Server.Engines.Quests.Ninja
                 }
                 else
                 {
-                    QuestObjective obj = qs.FindObjective(typeof(FindEminoBeginObjective));
+                    var obj = qs.FindObjective(typeof (FindEminoBeginObjective));
 
                     if (obj != null && !obj.Completed)
                     {
@@ -93,7 +91,7 @@ namespace Server.Engines.Quests.Ninja
                     }
                     else
                     {
-                        obj = qs.FindObjective(typeof(UseTeleporterObjective));
+                        obj = qs.FindObjective(typeof (UseTeleporterObjective));
 
                         if (obj != null && !obj.Completed)
                         {
@@ -109,18 +107,19 @@ namespace Server.Engines.Quests.Ninja
                             else
                             {
                                 note.Delete();
-                                player.SendLocalizedMessage(1046260); // You need to clear some space in your inventory to continue with the quest.  Come back here when you have more space in your inventory.
+                                player.SendLocalizedMessage(1046260);
+                                    // You need to clear some space in your inventory to continue with the quest.  Come back here when you have more space in your inventory.
                             }
                         }
                         else
                         {
-                            obj = qs.FindObjective(typeof(ReturnFromInnObjective));
+                            obj = qs.FindObjective(typeof (ReturnFromInnObjective));
 
                             if (obj != null && !obj.Completed)
                             {
-                                Container cont = GetNewContainer();
+                                var cont = GetNewContainer();
 
-                                for (int i = 0; i < 10; i++)
+                                for (var i = 0; i < 10; i++)
                                     cont.DropItem(new LesserHealPotion());
 
                                 cont.DropItem(new LeatherNinjaHood());
@@ -133,35 +132,37 @@ namespace Server.Engines.Quests.Ninja
                                 else
                                 {
                                     cont.Delete();
-                                    player.SendLocalizedMessage(1046260); // You need to clear some space in your inventory to continue with the quest.  Come back here when you have more space in your inventory.
+                                    player.SendLocalizedMessage(1046260);
+                                        // You need to clear some space in your inventory to continue with the quest.  Come back here when you have more space in your inventory.
                                 }
                             }
                             else
                             {
-                                if (qs.IsObjectiveInProgress(typeof(SlayHenchmenObjective)))
+                                if (qs.IsObjectiveInProgress(typeof (SlayHenchmenObjective)))
                                 {
                                     qs.AddConversation(new ContinueSlayHenchmenConversation());
                                 }
                                 else
                                 {
-                                    obj = qs.FindObjective(typeof(GiveEminoSwordObjective));
+                                    obj = qs.FindObjective(typeof (GiveEminoSwordObjective));
 
                                     if (obj != null && !obj.Completed)
                                     {
                                         Item katana = null;
 
                                         if (player.Backpack != null)
-                                            katana = player.Backpack.FindItemByType(typeof(EminosKatana));
+                                            katana = player.Backpack.FindItemByType(typeof (EminosKatana));
 
                                         if (katana != null)
                                         {
-                                            bool stolenTreasure = false;
+                                            var stolenTreasure = false;
 
-                                            HallwayWalkObjective walk = qs.FindObjective(typeof(HallwayWalkObjective)) as HallwayWalkObjective;
+                                            var walk =
+                                                qs.FindObjective(typeof (HallwayWalkObjective)) as HallwayWalkObjective;
                                             if (walk != null)
                                                 stolenTreasure = walk.StolenTreasure;
 
-                                            Kama kama = new Kama();
+                                            var kama = new Kama();
 
                                             if (stolenTreasure)
                                                 BaseRunicTool.ApplyAttributesTo(kama, 1, 10, 20);
@@ -181,7 +182,8 @@ namespace Server.Engines.Quests.Ninja
                                             else
                                             {
                                                 kama.Delete();
-                                                player.SendLocalizedMessage(1046260); // You need to clear some space in your inventory to continue with the quest.  Come back here when you have more space in your inventory.
+                                                player.SendLocalizedMessage(1046260);
+                                                    // You need to clear some space in your inventory to continue with the quest.  Come back here when you have more space in your inventory.
                                             }
                                         }
                                     }
@@ -197,7 +199,7 @@ namespace Server.Engines.Quests.Ninja
         {
             base.OnMovement(m, oldLocation);
 
-            if (!m.Frozen && !m.Alive && this.InRange(m, 4) && !this.InRange(oldLocation, 4) && this.InLOS(m))
+            if (!m.Frozen && !m.Alive && InRange(m, 4) && !InRange(oldLocation, 4) && InLOS(m))
             {
                 if (m.Map == null || !m.Map.CanFit(m.Location, 16, false, false))
                 {
@@ -205,12 +207,12 @@ namespace Server.Engines.Quests.Ninja
                 }
                 else
                 {
-                    this.Direction = this.GetDirectionTo(m);
+                    Direction = GetDirectionTo(m);
 
                     m.PlaySound(0x214);
                     m.FixedEffect(0x376A, 10, 16);
 
-                    m.CloseGump(typeof(ResurrectGump));
+                    m.CloseGump(typeof (ResurrectGump));
                     m.SendGump(new ResurrectGump(m, ResurrectMessage.Healer));
                 }
             }
@@ -220,14 +222,14 @@ namespace Server.Engines.Quests.Ninja
         {
             base.Serialize(writer);
 
-            writer.Write((int)0); // version
+            writer.Write(0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

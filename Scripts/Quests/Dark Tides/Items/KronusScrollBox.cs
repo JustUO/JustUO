@@ -1,4 +1,3 @@
-using System;
 using Server.Items;
 using Server.Mobiles;
 
@@ -9,14 +8,14 @@ namespace Server.Engines.Quests.Necro
         [Constructable]
         public KronusScrollBox()
         {
-            this.ItemID = 0xE80;
-            this.Movable = false;
+            ItemID = 0xE80;
+            Movable = false;
 
-            for (int i = 0; i < 40; i++)
+            for (var i = 0; i < 40; i++)
             {
                 Item scroll = Loot.RandomScroll(0, 15, SpellbookType.Necromancer);
                 scroll.Movable = false;
-                this.DropItem(scroll);
+                DropItem(scroll);
             }
         }
 
@@ -27,15 +26,15 @@ namespace Server.Engines.Quests.Necro
 
         public override void OnDoubleClick(Mobile from)
         {
-            PlayerMobile pm = from as PlayerMobile;
+            var pm = from as PlayerMobile;
 
-            if (pm != null && pm.InRange(this.GetWorldLocation(), 2))
+            if (pm != null && pm.InRange(GetWorldLocation(), 2))
             {
-                QuestSystem qs = pm.Quest;
+                var qs = pm.Quest;
 
                 if (qs is DarkTidesQuest)
                 {
-                    QuestObjective obj = qs.FindObjective(typeof(FindCallingScrollObjective));
+                    var obj = qs.FindObjective(typeof (FindCallingScrollObjective));
 
                     if ((obj != null && !obj.Completed) || DarkTidesQuest.HasLostCallingScroll(from))
                     {
@@ -43,7 +42,8 @@ namespace Server.Engines.Quests.Necro
 
                         if (pm.PlaceInBackpack(scroll))
                         {
-                            pm.SendLocalizedMessage(1060120, "", 0x41); // You rummage through the scrolls until you find the Scroll of Calling.  You quickly put it in your pack.
+                            pm.SendLocalizedMessage(1060120, "", 0x41);
+                                // You rummage through the scrolls until you find the Scroll of Calling.  You quickly put it in your pack.
 
                             if (obj != null && !obj.Completed)
                                 obj.Complete();
@@ -64,14 +64,14 @@ namespace Server.Engines.Quests.Necro
         {
             base.Serialize(writer);
 
-            writer.Write((int)0); // version
+            writer.Write(0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

@@ -120,11 +120,6 @@ namespace Server.Mobiles
             {
                 c.DropItem(new GoblinBlood());
             }
-
-            if (Utility.RandomDouble() < 0.01)
-            {
-                c.DropItem(new LuckyCoin());
-            }
         }
 
         public override void Serialize(GenericWriter writer)

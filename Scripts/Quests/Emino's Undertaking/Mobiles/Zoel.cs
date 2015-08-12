@@ -1,4 +1,3 @@
-using System;
 using Server.Gumps;
 using Server.Items;
 using Server.Mobiles;
@@ -20,37 +19,35 @@ namespace Server.Engines.Quests.Ninja
 
         public override int TalkNumber
         {
-            get
-            {
-                return -1;
-            }
+            get { return -1; }
         }
+
         public override void InitBody()
         {
-            this.InitStats(100, 100, 25);
+            InitStats(100, 100, 25);
 
-            this.Hue = 0x83FE;
+            Hue = 0x83FE;
 
-            this.Female = false;
-            this.Body = 0x190;
-            this.Name = "Elite Ninja Zoel";
+            Female = false;
+            Body = 0x190;
+            Name = "Elite Ninja Zoel";
         }
 
         public override void InitOutfit()
         {
-            this.HairItemID = 0x203B;
-            this.HairHue = 0x901;
+            HairItemID = 0x203B;
+            HairHue = 0x901;
 
-            this.AddItem(new HakamaShita(0x1));
-            this.AddItem(new NinjaTabi());
-            this.AddItem(new TattsukeHakama());
-            this.AddItem(new Bandana());
+            AddItem(new HakamaShita(0x1));
+            AddItem(new NinjaTabi());
+            AddItem(new TattsukeHakama());
+            AddItem(new Bandana());
 
-            this.AddItem(new LeatherNinjaBelt());
+            AddItem(new LeatherNinjaBelt());
 
-            Tekagi tekagi = new Tekagi();
+            var tekagi = new Tekagi();
             tekagi.Movable = false;
-            this.AddItem(tekagi);
+            AddItem(tekagi);
         }
 
         public override int GetAutoTalkRange(PlayerMobile pm)
@@ -65,11 +62,11 @@ namespace Server.Engines.Quests.Ninja
 
         public override void OnTalk(PlayerMobile player, bool contextMenu)
         {
-            QuestSystem qs = player.Quest;
+            var qs = player.Quest;
 
             if (qs is EminosUndertakingQuest)
             {
-                QuestObjective obj = qs.FindObjective(typeof(FindZoelObjective));
+                var obj = qs.FindObjective(typeof (FindZoelObjective));
 
                 if (obj != null && !obj.Completed)
                     obj.Complete();
@@ -78,17 +75,17 @@ namespace Server.Engines.Quests.Ninja
 
         public override bool OnDragDrop(Mobile from, Item dropped)
         {
-            PlayerMobile player = from as PlayerMobile;
+            var player = from as PlayerMobile;
 
             if (player != null)
             {
-                QuestSystem qs = player.Quest;
+                var qs = player.Quest;
 
                 if (qs is EminosUndertakingQuest)
                 {
                     if (dropped is NoteForZoel)
                     {
-                        QuestObjective obj = qs.FindObjective(typeof(GiveZoelNoteObjective));
+                        var obj = qs.FindObjective(typeof (GiveZoelNoteObjective));
 
                         if (obj != null && !obj.Completed)
                         {
@@ -107,7 +104,7 @@ namespace Server.Engines.Quests.Ninja
         {
             base.OnMovement(m, oldLocation);
 
-            if (!m.Frozen && !m.Alive && this.InRange(m, 4) && !this.InRange(oldLocation, 4) && this.InLOS(m))
+            if (!m.Frozen && !m.Alive && InRange(m, 4) && !InRange(oldLocation, 4) && InLOS(m))
             {
                 if (m.Map == null || !m.Map.CanFit(m.Location, 16, false, false))
                 {
@@ -115,12 +112,12 @@ namespace Server.Engines.Quests.Ninja
                 }
                 else
                 {
-                    this.Direction = this.GetDirectionTo(m);
+                    Direction = GetDirectionTo(m);
 
                     m.PlaySound(0x214);
                     m.FixedEffect(0x376A, 10, 16);
 
-                    m.CloseGump(typeof(ResurrectGump));
+                    m.CloseGump(typeof (ResurrectGump));
                     m.SendGump(new ResurrectGump(m, ResurrectMessage.Healer));
                 }
             }
@@ -130,14 +127,14 @@ namespace Server.Engines.Quests.Ninja
         {
             base.Serialize(writer);
 
-            writer.Write((int)0); // version
+            writer.Write(0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

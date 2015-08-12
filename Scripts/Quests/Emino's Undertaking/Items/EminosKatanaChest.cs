@@ -1,4 +1,3 @@
-using System;
 using Server.Items;
 using Server.Mobiles;
 using Server.Network;
@@ -10,10 +9,10 @@ namespace Server.Engines.Quests.Ninja
         [Constructable]
         public EminosKatanaChest()
         {
-            this.Movable = false;
-            this.ItemID = 0xE42;
+            Movable = false;
+            ItemID = 0xE42;
 
-            this.GenerateTreasure();
+            GenerateTreasure();
         }
 
         public EminosKatanaChest(Serial serial)
@@ -23,18 +22,16 @@ namespace Server.Engines.Quests.Ninja
 
         public override bool IsDecoContainer
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
+
         public override void OnDoubleClick(Mobile from)
         {
-            PlayerMobile player = from as PlayerMobile;
+            var player = from as PlayerMobile;
 
-            if (player != null && player.InRange(this.GetWorldLocation(), 2))
+            if (player != null && player.InRange(GetWorldLocation(), 2))
             {
-                QuestSystem qs = player.Quest;
+                var qs = player.Quest;
 
                 if (qs is EminosUndertakingQuest)
                 {
@@ -45,12 +42,13 @@ namespace Server.Engines.Quests.Ninja
                         if (!player.PlaceInBackpack(katana))
                         {
                             katana.Delete();
-                            player.SendLocalizedMessage(1046260); // You need to clear some space in your inventory to continue with the quest.  Come back here when you have more space in your inventory.
+                            player.SendLocalizedMessage(1046260);
+                                // You need to clear some space in your inventory to continue with the quest.  Come back here when you have more space in your inventory.
                         }
                     }
                     else
                     {
-                        QuestObjective obj = qs.FindObjective(typeof(HallwayWalkObjective));
+                        var obj = qs.FindObjective(typeof (HallwayWalkObjective));
 
                         if (obj != null && !obj.Completed)
                         {
@@ -58,13 +56,14 @@ namespace Server.Engines.Quests.Ninja
 
                             if (player.PlaceInBackpack(katana))
                             {
-                                this.GenerateTreasure();
+                                GenerateTreasure();
                                 obj.Complete();
                             }
                             else
                             {
                                 katana.Delete();
-                                player.SendLocalizedMessage(1046260); // You need to clear some space in your inventory to continue with the quest.  Come back here when you have more space in your inventory.
+                                player.SendLocalizedMessage(1046260);
+                                    // You need to clear some space in your inventory to continue with the quest.  Come back here when you have more space in your inventory.
                             }
                         }
                     }
@@ -89,16 +88,17 @@ namespace Server.Engines.Quests.Ninja
             if (from.AccessLevel >= AccessLevel.GameMaster)
                 return true;
 
-            PlayerMobile player = from as PlayerMobile;
+            var player = from as PlayerMobile;
 
             if (player != null && player.Quest is EminosUndertakingQuest)
             {
-                HallwayWalkObjective obj = player.Quest.FindObjective(typeof(HallwayWalkObjective)) as HallwayWalkObjective;
+                var obj = player.Quest.FindObjective(typeof (HallwayWalkObjective)) as HallwayWalkObjective;
 
                 if (obj != null)
                 {
                     if (obj.StolenTreasure)
-                        from.SendLocalizedMessage(1063247); // The guard is watching you carefully!  It would be unwise to remove another item from here.
+                        from.SendLocalizedMessage(1063247);
+                            // The guard is watching you carefully!  It would be unwise to remove another item from here.
                     else
                         return true;
                 }
@@ -109,11 +109,11 @@ namespace Server.Engines.Quests.Ninja
 
         public override void OnItemLifted(Mobile from, Item item)
         {
-            PlayerMobile player = from as PlayerMobile;
+            var player = from as PlayerMobile;
 
             if (player != null && player.Quest is EminosUndertakingQuest)
             {
-                HallwayWalkObjective obj = player.Quest.FindObjective(typeof(HallwayWalkObjective)) as HallwayWalkObjective;
+                var obj = player.Quest.FindObjective(typeof (HallwayWalkObjective)) as HallwayWalkObjective;
 
                 if (obj != null)
                     obj.StolenTreasure = true;
@@ -131,26 +131,26 @@ namespace Server.Engines.Quests.Ninja
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadEncodedInt();
+            var version = reader.ReadEncodedInt();
         }
 
         private void GenerateTreasure()
         {
-            for (int i = this.Items.Count - 1; i >= 0; i--)
-                this.Items[i].Delete();
+            for (var i = Items.Count - 1; i >= 0; i--)
+                Items[i].Delete();
 
-            for (int i = 0; i < 75; i++)
+            for (var i = 0; i < 75; i++)
             {
-                switch ( Utility.Random(3) )
+                switch (Utility.Random(3))
                 {
                     case 0:
-                        this.DropItem(new GoldBracelet());
+                        DropItem(new GoldBracelet());
                         break;
                     case 1:
-                        this.DropItem(new GoldRing());
+                        DropItem(new GoldRing());
                         break;
                     case 2:
-                        this.DropItem(Loot.RandomGem());
+                        DropItem(Loot.RandomGem());
                         break;
                 }
             }

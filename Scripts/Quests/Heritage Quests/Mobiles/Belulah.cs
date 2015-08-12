@@ -2,13 +2,13 @@ using System;
 using Server.Items;
 
 namespace Server.Engines.Quests
-{ 
+{
     public class Belulah : MondainQuester
     {
         [Constructable]
         public Belulah()
             : base("Belulah", "The Scorned")
-        { 
+        {
         }
 
         public Belulah(Serial serial)
@@ -17,46 +17,47 @@ namespace Server.Engines.Quests
         }
 
         public override Type[] Quests
-        { 
+        {
             get
             {
-                return new Type[] 
+                return new[]
                 {
-                    typeof(AllSeasonAdventurerQuest)
+                    typeof (AllSeasonAdventurerQuest)
                 };
             }
         }
+
         public override void InitBody()
-        { 
-            this.Female = true;
-            this.Race = Race.Human;		
-			
-            this.Hue = 0x83F7;
-            this.HairItemID = 0x2046;
-            this.HairHue = 0x463;
+        {
+            Female = true;
+            Race = Race.Human;
+
+            Hue = 0x83F7;
+            HairItemID = 0x2046;
+            HairHue = 0x463;
         }
 
         public override void InitOutfit()
-        { 
-            this.AddItem(new Backpack());		
-            this.AddItem(new Boots());
-            this.AddItem(new LongPants(0x6C7));
-            this.AddItem(new FancyShirt(0x6BB));
-            this.AddItem(new Cloak(0x59));		
+        {
+            AddItem(new Backpack());
+            AddItem(new Boots());
+            AddItem(new LongPants(0x6C7));
+            AddItem(new FancyShirt(0x6BB));
+            AddItem(new Cloak(0x59));
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-			
-            writer.Write((int)0); // version
+
+            writer.Write(0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-			
-            int version = reader.ReadInt();
+
+            var version = reader.ReadInt();
         }
     }
 }

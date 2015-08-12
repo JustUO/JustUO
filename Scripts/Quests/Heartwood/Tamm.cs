@@ -2,15 +2,15 @@ using System;
 using Server.Items;
 
 namespace Server.Engines.Quests
-{ 
+{
     public class Tamm : MondainQuester
-    { 
+    {
         [Constructable]
         public Tamm()
             : base("Tamm", "the guard")
-        { 
-            this.SetSkill(SkillName.Meditation, 60.0, 83.0);
-            this.SetSkill(SkillName.Focus, 60.0, 83.0);
+        {
+            SetSkill(SkillName.Meditation, 60.0, 83.0);
+            SetSkill(SkillName.Focus, 60.0, 83.0);
         }
 
         public Tamm(Serial serial)
@@ -19,60 +19,61 @@ namespace Server.Engines.Quests
         }
 
         public override Type[] Quests
-        { 
+        {
             get
             {
-                return new Type[] 
+                return new[]
                 {
-                    typeof(TheyreBreedingLikeRabbitsQuest),
-                    typeof(ThinningTheHerdQuest),
-                    typeof(TheyllEatAnythingQuest),
-                    typeof(NoGoodFishStealingQuest),
-                    typeof(HeroInTheMakingQuest),
-                    typeof(WildBoarCullQuest),
-                    typeof(ForcedMigrationQuest),
-                    typeof(BullfightingSortOfQuest),
-                    typeof(FineFeastQuest),
-                    typeof(OverpopulationQuest),
-                    typeof(DeadManWalkingQuest),
-                    typeof(ForkedTonguesQuest),
-                    typeof(TrollingForTrollsQuest)
+                    typeof (TheyreBreedingLikeRabbitsQuest),
+                    typeof (ThinningTheHerdQuest),
+                    typeof (TheyllEatAnythingQuest),
+                    typeof (NoGoodFishStealingQuest),
+                    typeof (HeroInTheMakingQuest),
+                    typeof (WildBoarCullQuest),
+                    typeof (ForcedMigrationQuest),
+                    typeof (BullfightingSortOfQuest),
+                    typeof (FineFeastQuest),
+                    typeof (OverpopulationQuest),
+                    typeof (DeadManWalkingQuest),
+                    typeof (ForkedTonguesQuest),
+                    typeof (TrollingForTrollsQuest)
                 };
             }
         }
+
         public override void InitBody()
         {
-            this.InitStats(100, 100, 25);
-			
-            this.Female = false;
-            this.Race = Race.Elf;
-			
-            this.Hue = 0x8353;
-            this.HairItemID = 0x2FBF;
-            this.HairHue = 0x386;
+            InitStats(100, 100, 25);
+
+            Female = false;
+            Race = Race.Elf;
+
+            Hue = 0x8353;
+            HairItemID = 0x2FBF;
+            HairHue = 0x386;
         }
 
         public override void InitOutfit()
         {
-            this.AddItem(new ElvenBoots(0x901));
-            this.AddItem(new ElvenCompositeLongbow());
-            this.AddItem(new HidePants());
-            this.AddItem(new HidePauldrons());
-            this.AddItem(new HideChest());
+            AddItem(new ElvenBoots(0x901));
+            AddItem(new ElvenCompositeLongbow());
+            AddItem(new HidePants());
+            AddItem(new HidePauldrons());
+            AddItem(new HideChest());
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write((int)0); // version
+            writer.Write(0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

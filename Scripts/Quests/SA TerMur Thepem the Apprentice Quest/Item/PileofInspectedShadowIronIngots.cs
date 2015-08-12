@@ -1,4 +1,20 @@
-using System;
+/*                                                             .---.
+/  .  \
+|\_/|   |
+|   |  /|
+.----------------------------------------------------------------' |
+/  .-.                                                              |
+|  /   \         Contribute To The Orbsydia SA Project               |
+| |\_.  |                                                            |
+|\|  | /|                        By Lotar84                          |
+| `---' |                                                            |
+|       |       (Orbanised by Orb SA Core Development Team)          | 
+|       |                                                           /
+|       |----------------------------------------------------------'
+\       |
+\     /
+`---'
+*/
 
 namespace Server.Items
 {
@@ -8,7 +24,7 @@ namespace Server.Items
         public PileofInspectedShadowIronIngots()
             : base(0x1BEA)
         {
-            this.Hue = 2406;
+            Hue = 2406;
         }
 
         public PileofInspectedShadowIronIngots(Serial serial)
@@ -18,23 +34,21 @@ namespace Server.Items
 
         public override int LabelNumber
         {
-            get
-            {
-                return 1113022;
-            }
-        }//Pile of Inspected Shadow Iron Ingots
+            get { return 1113022; }
+        } //Pile of Inspected Shadow Iron Ingots
+
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write((int)0);
+            writer.Write(0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

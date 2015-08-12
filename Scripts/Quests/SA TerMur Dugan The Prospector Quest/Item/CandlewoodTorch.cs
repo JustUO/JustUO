@@ -1,4 +1,21 @@
-using System;
+/*                                                             .---.
+/  .  \
+|\_/|   |
+|   |  /|
+.----------------------------------------------------------------' |
+/  .-.                                                              |
+|  /   \            Contribute To The Orbsydia SA Project            |
+| |\_.  |                                                            |
+|\|  | /|                        By Lotar84                          |
+| `---' |                                                            |
+|       |         (Orbanised by Orb SA Core Development Team)        | 
+|       |                                                           /
+|       |----------------------------------------------------------'
+\       |
+\     /
+`---'
+
+*/
 
 namespace Server.Items
 {
@@ -7,9 +24,9 @@ namespace Server.Items
         [Constructable]
         public CandlewoodTorch()
             : base(0xF6B)
-        { 
-            this.Attributes.SpellChanneling = 1;
-            this.Attributes.CastSpeed = -1;
+        {
+            Attributes.SpellChanneling = 1;
+            Attributes.CastSpeed = -1;
         }
 
         public CandlewoodTorch(Serial serial)
@@ -19,26 +36,24 @@ namespace Server.Items
 
         public override int LabelNumber
         {
-            get
-            {
-                return 1094957;
-            }
-        }//Candlewood Torch
+            get { return 1094957; }
+        } //Candlewood Torch
+
         public override void OnDoubleClick(Mobile from)
         {
-            if (!this.IsChildOf(from.Backpack))
+            if (!IsChildOf(from.Backpack))
             {
                 from.SendLocalizedMessage(1042001); // That must be in your pack for you to use it.
             }
             else
             {
-                if (this.ItemID == 0xF6B)
+                if (ItemID == 0xF6B)
                 {
-                    this.ItemID = 0xA12;
+                    ItemID = 0xA12;
                 }
-                else if (this.ItemID == 0xA12)
+                else if (ItemID == 0xA12)
                 {
-                    this.ItemID = 0xF6B;
+                    ItemID = 0xF6B;
                 }
             }
         }
@@ -54,7 +69,7 @@ namespace Server.Items
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadEncodedInt();
+            var version = reader.ReadEncodedInt();
         }
     }
 }

@@ -1,5 +1,3 @@
-using System;
-
 namespace Server.Items
 {
     public class UndeadGargoyleMedallions : Item
@@ -8,10 +6,10 @@ namespace Server.Items
         public UndeadGargoyleMedallions()
             : base(0x1088)
         {
-            this.Name = "Undead Gargoyle Medallions";
-            this.LootType = LootType.Blessed;
-            this.Weight = 1.0;
-            this.Hue = 0x47F; // TODO check
+            Name = "Undead Gargoyle Medallions";
+            LootType = LootType.Blessed;
+            Weight = 1.0;
+            Hue = 0x47F; // TODO check
         }
 
         public UndeadGargoyleMedallions(Serial serial)
@@ -22,15 +20,15 @@ namespace Server.Items
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-			
-            writer.Write((int)0); // version
+
+            writer.Write(0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-			
-            int version = reader.ReadInt();
+
+            var version = reader.ReadInt();
         }
     }
 }

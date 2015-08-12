@@ -1,17 +1,14 @@
-using System;
-
 namespace Server.Items
 {
     public class ScrollBox2 : WoodenBox
     {
-        [Constructable]	
+        [Constructable]
         public ScrollBox2()
-            : base()
         {
-            this.Movable = true;
-            this.Hue = 1266;
+            Movable = true;
+            Hue = 1266;
 
-            PlaceItemIn(this, 45, 66, new PowerScroll(SkillName.Imbuing, 120.0)); 
+            PlaceItemIn(this, 45, 66, new PowerScroll(SkillName.Imbuing, 120.0));
         }
 
         public ScrollBox2(Serial serial)
@@ -21,29 +18,27 @@ namespace Server.Items
 
         public override string DefaultName
         {
-            get
-            {
-                return "Reward Scroll Box";
-            }
+            get { return "Reward Scroll Box"; }
         }
+
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write((int)0); // version
+            writer.Write(0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
 
-        private static void PlaceItemIn(Container parent, int x, int y, Item item) 
-        { 
-            parent.AddItem(item); 
-            item.Location = new Point3D(x, y, 0); 
+        private static void PlaceItemIn(Container parent, int x, int y, Item item)
+        {
+            parent.AddItem(item);
+            item.Location = new Point3D(x, y, 0);
         }
     }
 }

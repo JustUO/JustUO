@@ -1,13 +1,12 @@
-using System;
-
 namespace Server.Engines.Quests.Matriarch
 {
     public class DontOfferConversation : QuestConversation
     {
         private bool m_Friend;
+
         public DontOfferConversation(bool friend)
         {
-            this.m_Friend = friend;
+            m_Friend = friend;
         }
 
         public DontOfferConversation()
@@ -18,7 +17,7 @@ namespace Server.Engines.Quests.Matriarch
         {
             get
             {
-                if (this.m_Friend)
+                if (m_Friend)
                 {
                     /* <I>The Solen Matriarch smiles as you greet her.</I><BR><BR>
                     * 
@@ -29,9 +28,7 @@ namespace Server.Engines.Quests.Matriarch
                     */
                     return 1054081;
                 }
-                else
-                {
-                    /* <I>The Solen Matriarch smiles as she eats the seed you offered.</I><BR><BR>
+                /* <I>The Solen Matriarch smiles as she eats the seed you offered.</I><BR><BR>
                     * 
                     * Thank you for that seed. It was quite delicious.  <BR><BR>
                     * 
@@ -39,38 +36,32 @@ namespace Server.Engines.Quests.Matriarch
                     * another task at the moment. Perhaps you should finish whatever is occupying
                     * your attention at the moment and return to me once you're done.
                     */
-                    return 1054079;
-                }
+                return 1054079;
             }
         }
+
         public override bool Logged
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
+
         public override void ChildDeserialize(GenericReader reader)
         {
-            int version = reader.ReadEncodedInt();
+            var version = reader.ReadEncodedInt();
 
-            this.m_Friend = reader.ReadBool();
+            m_Friend = reader.ReadBool();
         }
 
         public override void ChildSerialize(GenericWriter writer)
         {
-            writer.WriteEncodedInt((int)0); // version
+            writer.WriteEncodedInt(0); // version
 
-            writer.Write((bool)this.m_Friend);
+            writer.Write(m_Friend);
         }
     }
 
     public class AcceptConversation : QuestConversation
     {
-        public AcceptConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -85,18 +76,15 @@ namespace Server.Engines.Quests.Matriarch
                 return 1054084;
             }
         }
+
         public override void OnRead()
         {
-            this.System.AddObjective(new KillInfiltratorsObjective());
+            System.AddObjective(new KillInfiltratorsObjective());
         }
     }
 
     public class DuringKillInfiltratorsConversation : QuestConversation
     {
-        public DuringKillInfiltratorsConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -111,21 +99,15 @@ namespace Server.Engines.Quests.Matriarch
                 return 1054089;
             }
         }
+
         public override bool Logged
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
     }
 
     public class GatherWaterConversation : QuestConversation
     {
-        public GatherWaterConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -144,18 +126,15 @@ namespace Server.Engines.Quests.Matriarch
                 return 1054091;
             }
         }
+
         public override void OnRead()
         {
-            this.System.AddObjective(new GatherWaterObjective());
+            System.AddObjective(new GatherWaterObjective());
         }
     }
 
     public class DuringWaterGatheringConversation : QuestConversation
     {
-        public DuringWaterGatheringConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -170,21 +149,20 @@ namespace Server.Engines.Quests.Matriarch
                 return 1054094;
             }
         }
+
         public override bool Logged
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
     }
 
     public class ProcessFungiConversation : QuestConversation
     {
         private bool m_Friend;
+
         public ProcessFungiConversation(bool friend)
         {
-            this.m_Friend = friend;
+            m_Friend = friend;
         }
 
         public ProcessFungiConversation()
@@ -195,7 +173,7 @@ namespace Server.Engines.Quests.Matriarch
         {
             get
             {
-                if (this.m_Friend)
+                if (m_Friend)
                 {
                     /* <I>The Solen Matriarch listens as you report the completion of your
                     * tasks to her.</I><BR><BR>
@@ -210,9 +188,7 @@ namespace Server.Engines.Quests.Matriarch
                     */
                     return 1054097;
                 }
-                else
-                {
-                    /* <I>The Solen Matriarch listens as you report the completion of your
+                /* <I>The Solen Matriarch listens as you report the completion of your
                     * tasks to her.</I><BR><BR>
                     * 
                     * I give you my thanks for your help, and I will gladly make you a friend of my
@@ -226,36 +202,32 @@ namespace Server.Engines.Quests.Matriarch
                     * I will also give you some gold for assisting me and my colony, but first let's
                     * take care of your zoogi fungus.
                     */
-                    return 1054096;
-                }
+                return 1054096;
             }
         }
+
         public override void OnRead()
         {
-            this.System.AddObjective(new ProcessFungiObjective());
+            System.AddObjective(new ProcessFungiObjective());
         }
 
         public override void ChildDeserialize(GenericReader reader)
         {
-            int version = reader.ReadEncodedInt();
+            var version = reader.ReadEncodedInt();
 
-            this.m_Friend = reader.ReadBool();
+            m_Friend = reader.ReadBool();
         }
 
         public override void ChildSerialize(GenericWriter writer)
         {
-            writer.WriteEncodedInt((int)0); // version
+            writer.WriteEncodedInt(0); // version
 
-            writer.Write((bool)this.m_Friend);
+            writer.Write(m_Friend);
         }
     }
 
     public class DuringFungiProcessConversation : QuestConversation
     {
-        public DuringFungiProcessConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -269,26 +241,25 @@ namespace Server.Engines.Quests.Matriarch
                 return 1054099;
             }
         }
+
         public override bool Logged
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
     }
 
     public class FullBackpackConversation : QuestConversation
     {
         private readonly bool m_Logged;
+
         public FullBackpackConversation(bool logged)
         {
-            this.m_Logged = logged;
+            m_Logged = logged;
         }
 
         public FullBackpackConversation()
         {
-            this.m_Logged = true;
+            m_Logged = true;
         }
 
         public override object Message
@@ -305,26 +276,21 @@ namespace Server.Engines.Quests.Matriarch
                 return 1054102;
             }
         }
+
         public override bool Logged
         {
-            get
-            {
-                return this.m_Logged;
-            }
+            get { return m_Logged; }
         }
+
         public override void OnRead()
         {
-            if (this.m_Logged)
-                this.System.AddObjective(new GetRewardObjective());
+            if (m_Logged)
+                System.AddObjective(new GetRewardObjective());
         }
     }
 
     public class EndConversation : QuestConversation
     {
-        public EndConversation()
-        {
-        }
-
         public override object Message
         {
             get
@@ -337,9 +303,10 @@ namespace Server.Engines.Quests.Matriarch
                 return 1054101;
             }
         }
+
         public override void OnRead()
         {
-            this.System.Complete();
+            System.Complete();
         }
     }
 }

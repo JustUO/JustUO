@@ -1,4 +1,3 @@
-using System;
 using Server.Items;
 using Server.Mobiles;
 
@@ -9,7 +8,7 @@ namespace Server.Engines.Quests.Haven
         [Constructable]
         public DaemonBloodChest()
         {
-            this.Movable = false;
+            Movable = false;
         }
 
         public DaemonBloodChest(Serial serial)
@@ -19,15 +18,15 @@ namespace Server.Engines.Quests.Haven
 
         public override void OnDoubleClick(Mobile from)
         {
-            PlayerMobile player = from as PlayerMobile;
+            var player = from as PlayerMobile;
 
-            if (player != null && player.InRange(this.GetWorldLocation(), 2))
+            if (player != null && player.InRange(GetWorldLocation(), 2))
             {
-                QuestSystem qs = player.Quest;
+                var qs = player.Quest;
 
                 if (qs is UzeraanTurmoilQuest)
                 {
-                    QuestObjective obj = qs.FindObjective(typeof(GetDaemonBloodObjective));
+                    var obj = qs.FindObjective(typeof (GetDaemonBloodObjective));
 
                     if ((obj != null && !obj.Completed) || UzeraanTurmoilQuest.HasLostDaemonBlood(player))
                     {
@@ -35,14 +34,16 @@ namespace Server.Engines.Quests.Haven
 
                         if (player.PlaceInBackpack(vial))
                         {
-                            player.SendLocalizedMessage(1049331, "", 0x22); // You take a vial of blood from the chest and put it in your pack.
+                            player.SendLocalizedMessage(1049331, "", 0x22);
+                                // You take a vial of blood from the chest and put it in your pack.
 
                             if (obj != null && !obj.Completed)
                                 obj.Complete();
                         }
                         else
                         {
-                            player.SendLocalizedMessage(1049338, "", 0x22); // You find a vial of blood, but can't pick it up because your pack is too full.  Come back when you have more room in your pack.
+                            player.SendLocalizedMessage(1049338, "", 0x22);
+                                // You find a vial of blood, but can't pick it up because your pack is too full.  Come back when you have more room in your pack.
                             vial.Delete();
                         }
 
@@ -58,14 +59,14 @@ namespace Server.Engines.Quests.Haven
         {
             base.Serialize(writer);
 
-            writer.Write((int)0); // version
+            writer.Write(0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

@@ -5,52 +5,53 @@ namespace Server.Engines.Quests.Collector
 {
     public class CollectorQuest : QuestSystem
     {
-        private static readonly Type[] m_TypeReferenceTable = new Type[]
+        private static readonly Type[] m_TypeReferenceTable =
         {
-            typeof(Collector.DontOfferConversation),
-            typeof(Collector.DeclineConversation),
-            typeof(Collector.AcceptConversation),
-            typeof(Collector.ElwoodDuringFishConversation),
-            typeof(Collector.ReturnPearlsConversation),
-            typeof(Collector.AlbertaPaintingConversation),
-            typeof(Collector.AlbertaStoolConversation),
-            typeof(Collector.AlbertaEndPaintingConversation),
-            typeof(Collector.AlbertaAfterPaintingConversation),
-            typeof(Collector.ElwoodDuringPainting1Conversation),
-            typeof(Collector.ElwoodDuringPainting2Conversation),
-            typeof(Collector.ReturnPaintingConversation),
-            typeof(Collector.GabrielAutographConversation),
-            typeof(Collector.GabrielNoSheetMusicConversation),
-            typeof(Collector.NoSheetMusicConversation),
-            typeof(Collector.GetSheetMusicConversation),
-            typeof(Collector.GabrielSheetMusicConversation),
-            typeof(Collector.GabrielIgnoreConversation),
-            typeof(Collector.ElwoodDuringAutograph1Conversation),
-            typeof(Collector.ElwoodDuringAutograph2Conversation),
-            typeof(Collector.ElwoodDuringAutograph3Conversation),
-            typeof(Collector.ReturnAutographConversation),
-            typeof(Collector.TomasToysConversation),
-            typeof(Collector.TomasDuringCollectingConversation),
-            typeof(Collector.ReturnImagesConversation),
-            typeof(Collector.ElwoodDuringToys1Conversation),
-            typeof(Collector.ElwoodDuringToys2Conversation),
-            typeof(Collector.ElwoodDuringToys3Conversation),
-            typeof(Collector.FullEndConversation),
-            typeof(Collector.FishPearlsObjective),
-            typeof(Collector.ReturnPearlsObjective),
-            typeof(Collector.FindAlbertaObjective),
-            typeof(Collector.SitOnTheStoolObjective),
-            typeof(Collector.ReturnPaintingObjective),
-            typeof(Collector.FindGabrielObjective),
-            typeof(Collector.FindSheetMusicObjective),
-            typeof(Collector.ReturnSheetMusicObjective),
-            typeof(Collector.ReturnAutographObjective),
-            typeof(Collector.FindTomasObjective),
-            typeof(Collector.CaptureImagesObjective),
-            typeof(Collector.ReturnImagesObjective),
-            typeof(Collector.ReturnToysObjective),
-            typeof(Collector.MakeRoomObjective)
+            typeof (DontOfferConversation),
+            typeof (DeclineConversation),
+            typeof (AcceptConversation),
+            typeof (ElwoodDuringFishConversation),
+            typeof (ReturnPearlsConversation),
+            typeof (AlbertaPaintingConversation),
+            typeof (AlbertaStoolConversation),
+            typeof (AlbertaEndPaintingConversation),
+            typeof (AlbertaAfterPaintingConversation),
+            typeof (ElwoodDuringPainting1Conversation),
+            typeof (ElwoodDuringPainting2Conversation),
+            typeof (ReturnPaintingConversation),
+            typeof (GabrielAutographConversation),
+            typeof (GabrielNoSheetMusicConversation),
+            typeof (NoSheetMusicConversation),
+            typeof (GetSheetMusicConversation),
+            typeof (GabrielSheetMusicConversation),
+            typeof (GabrielIgnoreConversation),
+            typeof (ElwoodDuringAutograph1Conversation),
+            typeof (ElwoodDuringAutograph2Conversation),
+            typeof (ElwoodDuringAutograph3Conversation),
+            typeof (ReturnAutographConversation),
+            typeof (TomasToysConversation),
+            typeof (TomasDuringCollectingConversation),
+            typeof (ReturnImagesConversation),
+            typeof (ElwoodDuringToys1Conversation),
+            typeof (ElwoodDuringToys2Conversation),
+            typeof (ElwoodDuringToys3Conversation),
+            typeof (FullEndConversation),
+            typeof (FishPearlsObjective),
+            typeof (ReturnPearlsObjective),
+            typeof (FindAlbertaObjective),
+            typeof (SitOnTheStoolObjective),
+            typeof (ReturnPaintingObjective),
+            typeof (FindGabrielObjective),
+            typeof (FindSheetMusicObjective),
+            typeof (ReturnSheetMusicObjective),
+            typeof (ReturnAutographObjective),
+            typeof (FindTomasObjective),
+            typeof (CaptureImagesObjective),
+            typeof (ReturnImagesObjective),
+            typeof (ReturnToysObjective),
+            typeof (MakeRoomObjective)
         };
+
         public CollectorQuest(PlayerMobile from)
             : base(from)
         {
@@ -63,11 +64,9 @@ namespace Server.Engines.Quests.Collector
 
         public override Type[] TypeReferenceTable
         {
-            get
-            {
-                return m_TypeReferenceTable;
-            }
+            get { return m_TypeReferenceTable; }
         }
+
         public override object Name
         {
             get
@@ -76,6 +75,7 @@ namespace Server.Engines.Quests.Collector
                 return "Collector's Quest";
             }
         }
+
         public override object OfferMessage
         {
             get
@@ -101,39 +101,34 @@ namespace Server.Engines.Quests.Collector
                 return 1055081;
             }
         }
+
         public override TimeSpan RestartDelay
         {
-            get
-            {
-                return TimeSpan.Zero;
-            }
+            get { return TimeSpan.Zero; }
         }
+
         public override bool IsTutorial
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
+
         public override int Picture
         {
-            get
-            {
-                return 0x15A9;
-            }
+            get { return 0x15A9; }
         }
+
         public override void Accept()
         {
             base.Accept();
 
-            this.AddConversation(new AcceptConversation());
+            AddConversation(new AcceptConversation());
         }
 
         public override void Decline()
         {
             base.Decline();
 
-            this.AddConversation(new DeclineConversation());
+            AddConversation(new DeclineConversation());
         }
     }
 }

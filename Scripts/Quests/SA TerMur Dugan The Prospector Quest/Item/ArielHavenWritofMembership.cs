@@ -1,4 +1,21 @@
-using System;
+/*                                                             .---.
+/  .  \
+|\_/|   |
+|   |  /|
+.----------------------------------------------------------------' |
+/  .-.                                                              |
+|  /   \            Contribute To The Orbsydia SA Project            |
+| |\_.  |                                                            |
+|\|  | /|                        By Lotar84                          |
+| `---' |                                                            |
+|       |         (Orbanised by Orb SA Core Development Team)        | 
+|       |                                                           /
+|       |----------------------------------------------------------'
+\       |
+\     /
+`---'
+
+*/
 
 namespace Server.Items
 {
@@ -17,11 +34,9 @@ namespace Server.Items
 
         public override int LabelNumber
         {
-            get
-            {
-                return 1094998;
-            }
-        }//Ariel Haven Writ of Membership
+            get { return 1094998; }
+        } //Ariel Haven Writ of Membership
+
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
@@ -33,7 +48,7 @@ namespace Server.Items
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadEncodedInt();
+            var version = reader.ReadEncodedInt();
         }
     }
 }

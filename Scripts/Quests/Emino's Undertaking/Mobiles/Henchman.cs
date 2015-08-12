@@ -1,4 +1,3 @@
-using System;
 using Server.Items;
 using Server.Mobiles;
 
@@ -10,26 +9,26 @@ namespace Server.Engines.Quests.Ninja
         public Henchman()
             : base(AIType.AI_Melee, FightMode.Aggressor, 10, 1, 0.2, 0.4)
         {
-            this.InitStats(45, 30, 5);
+            InitStats(45, 30, 5);
 
-            this.Hue = Utility.RandomSkinHue();
-            this.Body = 0x190;
-            this.Name = "a henchman";
+            Hue = Utility.RandomSkinHue();
+            Body = 0x190;
+            Name = "a henchman";
 
             Utility.AssignRandomHair(this);
             Utility.AssignRandomFacialHair(this);
 
-            this.AddItem(new LeatherNinjaJacket());
-            this.AddItem(new LeatherNinjaPants());
-            this.AddItem(new NinjaTabi());
+            AddItem(new LeatherNinjaJacket());
+            AddItem(new LeatherNinjaPants());
+            AddItem(new NinjaTabi());
 
             if (Utility.RandomBool())
-                this.AddItem(new Kama());
+                AddItem(new Kama());
             else
-                this.AddItem(new Tessen());
+                AddItem(new Tessen());
 
-            this.SetSkill(SkillName.Swords, 50.0);
-            this.SetSkill(SkillName.Tactics, 50.0);
+            SetSkill(SkillName.Swords, 50.0);
+            SetSkill(SkillName.Tactics, 50.0);
         }
 
         public Henchman(Serial serial)
@@ -39,11 +38,9 @@ namespace Server.Engines.Quests.Ninja
 
         public override bool AlwaysMurderer
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
@@ -55,7 +52,7 @@ namespace Server.Engines.Quests.Ninja
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadEncodedInt();
+            var version = reader.ReadEncodedInt();
         }
     }
 }

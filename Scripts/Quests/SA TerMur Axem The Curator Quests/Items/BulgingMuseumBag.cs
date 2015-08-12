@@ -1,61 +1,59 @@
-using System;
-
-namespace Server.Items 
+namespace Server.Items
 {
     public class BulgingMuseumBag : BaseRewardBag
     {
         [Constructable]
         public BulgingMuseumBag()
         {
-            this.AddItem(new Gold(10000));
+            AddItem(new Gold(10000));
 
             switch (Utility.Random(9))
             {
                 case 0:
-                    this.AddItem(new Amber(10));
+                    AddItem(new Amber(10));
                     break;
                 case 1:
-                    this.AddItem(new Amethyst(10));
+                    AddItem(new Amethyst(10));
                     break;
                 case 2:
-                    this.AddItem(new Citrine(10));
+                    AddItem(new Citrine(10));
                     break;
                 case 3:
-                    this.AddItem(new Ruby(10));
+                    AddItem(new Ruby(10));
                     break;
                 case 4:
-                    this.AddItem(new Emerald(10));
+                    AddItem(new Emerald(10));
                     break;
                 case 5:
-                    this.AddItem(new Diamond(10));
+                    AddItem(new Diamond(10));
                     break;
                 case 6:
-                    this.AddItem(new Sapphire(10));
+                    AddItem(new Sapphire(10));
                     break;
                 case 7:
-                    this.AddItem(new StarSapphire(10));
+                    AddItem(new StarSapphire(10));
                     break;
                 case 8:
-                    this.AddItem(new Tourmaline(10));
+                    AddItem(new Tourmaline(10));
                     break;
             }
 
             switch (Utility.Random(5))
             {
                 case 0:
-                    this.AddItem(new ElvenFletchings(20));
+                    AddItem(new ElvenFletchings(20));
                     break;
                 case 1:
-                    this.AddItem(new RelicFragment(20));
+                    AddItem(new RelicFragment(20));
                     break;
                 case 2:
-                    this.AddItem(new DelicateScales(20));
+                    AddItem(new DelicateScales(20));
                     break;
                 case 3:
-                    this.AddItem(new ChagaMushroom(20));
+                    AddItem(new ChagaMushroom(20));
                     break;
                 case 4:
-                    this.AddItem(new FeyWings(20));
+                    AddItem(new FeyWings(20));
                     break;
             }
         }
@@ -67,23 +65,21 @@ namespace Server.Items
 
         public override int LabelNumber
         {
-            get
-            {
-                return 1112995;
-            }
+            get { return 1112995; }
         }
+
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write((int)0); // version 
+            writer.Write(0); // version 
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

@@ -1,6 +1,23 @@
+/*                                                             .---.
+/  .  \
+|\_/|   |
+|   |  /|
+.----------------------------------------------------------------' |
+/  .-.                                                              |
+|  /   \         Contribute To The Orbsydia SA Project               |
+| |\_.  |                                                            |
+|\|  | /|                        By Lotar84                          |
+| `---' |                                                            |
+|       |       (Orbanised by Orb SA Core Development Team)          | 
+|       |                                                           /
+|       |----------------------------------------------------------'
+\       |
+\     /
+`---'
+*/
+
 using System;
 using Server.Items;
-using Server.Quests;
 
 namespace Server.Engines.Quests
 {
@@ -21,12 +38,13 @@ namespace Server.Engines.Quests
         {
             get
             {
-                return new[] 
+                return new[]
                 {
-                    typeof(UnusualGoods)
+                    typeof (UnusualGoods)
                 };
             }
         }
+
         public override void InitBody()
         {
             Race = Race.Gargoyle;
@@ -50,14 +68,14 @@ namespace Server.Engines.Quests
         {
             base.Serialize(writer);
 
-            writer.Write((int)0); // version
+            writer.Write(0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

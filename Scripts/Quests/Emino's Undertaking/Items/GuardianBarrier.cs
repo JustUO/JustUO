@@ -1,4 +1,3 @@
-using System;
 using Server.Mobiles;
 
 namespace Server.Engines.Quests.Ninja
@@ -9,8 +8,8 @@ namespace Server.Engines.Quests.Ninja
         public GuardianBarrier()
             : base(0x3967)
         {
-            this.Movable = false;
-            this.Visible = false; 
+            Movable = false;
+            Visible = false;
         }
 
         public GuardianBarrier(Serial serial)
@@ -24,29 +23,28 @@ namespace Server.Engines.Quests.Ninja
                 return true;
 
             // If the mobile is to the north of the barrier, allow him to pass
-            if (this.Y >= m.Y)
+            if (Y >= m.Y)
                 return true;
 
             if (m is BaseCreature)
             {
-                Mobile master = ((BaseCreature)m).GetMaster();
+                var master = ((BaseCreature) m).GetMaster();
 
                 // Allow creatures to cross from the south to the north only if their master is near to the north
-                if (master != null && this.Y >= master.Y && master.InRange(this, 4))
+                if (master != null && Y >= master.Y && master.InRange(this, 4))
                     return true;
-                else
-                    return false;
+                return false;
             }
 
-            PlayerMobile pm = m as PlayerMobile;
+            var pm = m as PlayerMobile;
 
             if (pm != null)
             {
-                EminosUndertakingQuest qs = pm.Quest as EminosUndertakingQuest;
+                var qs = pm.Quest as EminosUndertakingQuest;
 
                 if (qs != null)
                 {
-                    SneakPastGuardiansObjective obj = qs.FindObjective(typeof(SneakPastGuardiansObjective)) as SneakPastGuardiansObjective;
+                    var obj = qs.FindObjective(typeof (SneakPastGuardiansObjective)) as SneakPastGuardiansObjective;
 
                     if (obj != null)
                     {
@@ -69,14 +67,14 @@ namespace Server.Engines.Quests.Ninja
         {
             base.Serialize(writer);
 
-            writer.Write((int)0); // version
+            writer.Write(0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

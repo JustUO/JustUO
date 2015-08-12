@@ -2,13 +2,13 @@ using System;
 using Server.Items;
 
 namespace Server.Engines.Quests
-{ 
+{
     public class Ben : MondainQuester
     {
         [Constructable]
         public Ben()
             : base("Ben", "the apprentice necromancer")
-        { 
+        {
         }
 
         public Ben(Serial serial)
@@ -18,45 +18,43 @@ namespace Server.Engines.Quests
 
         public override Type[] Quests
         {
-            get
-            {
-                return new Type[] { typeof(GhostOfCovetousQuest) };
-            }
+            get { return new[] {typeof (GhostOfCovetousQuest)}; }
         }
+
         public override void InitBody()
         {
-            this.InitStats(100, 100, 25);
-			
-            this.Female = false;
-            this.Race = Race.Human;
-			
-            this.Hue = 0x83FD;
-            this.HairItemID = 0x2048;
-            this.HairHue = 0x463;
-            this.FacialHairItemID = 0x204C;
-            this.FacialHairHue = 0x463;
+            InitStats(100, 100, 25);
+
+            Female = false;
+            Race = Race.Human;
+
+            Hue = 0x83FD;
+            HairItemID = 0x2048;
+            HairHue = 0x463;
+            FacialHairItemID = 0x204C;
+            FacialHairHue = 0x463;
         }
 
         public override void InitOutfit()
         {
-            this.AddItem(new Backpack());
-            this.AddItem(new Shoes(0x901));
-            this.AddItem(new LongPants(0x1BB));
-            this.AddItem(new FancyShirt(0x756));
+            AddItem(new Backpack());
+            AddItem(new Shoes(0x901));
+            AddItem(new LongPants(0x1BB));
+            AddItem(new FancyShirt(0x756));
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write((int)0); // version
+            writer.Write(0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

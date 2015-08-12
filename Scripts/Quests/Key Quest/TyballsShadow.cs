@@ -1,8 +1,7 @@
-using System;
 using System.Collections.Generic;
 using Server.Items;
 
-namespace Server.Mobiles 
+namespace Server.Mobiles
 {
     [CorpseName("a Tyball Shadow corpse")]
     public class TyballsShadow : BaseCreature
@@ -11,40 +10,40 @@ namespace Server.Mobiles
         public TyballsShadow()
             : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.15, 0.4)
         {
-            this.Body = 0x190;
-            this.Hue = 0x4001;
-            this.Female = false;
-            this.Name = "Tyball's Shadow";
-           
-            this.AddItem(new Robe(2406));
-                                
-            this.SetStr(400, 450);
-            this.SetDex(210, 250);
-            this.SetInt(310, 330);
+            Body = 0x190;
+            Hue = 0x4001;
+            Female = false;
+            Name = "Tyball's Shadow";
 
-            this.SetHits(2800, 3000);
+            AddItem(new Robe(2406));
 
-            this.SetDamage(20, 25);
+            SetStr(400, 450);
+            SetDex(210, 250);
+            SetInt(310, 330);
 
-            this.SetDamageType(ResistanceType.Physical, 100);
-            this.SetDamageType(ResistanceType.Energy, 25);
-            this.SetDamageType(ResistanceType.Poison, 20);
-            this.SetDamageType(ResistanceType.Energy, 20);
+            SetHits(2800, 3000);
 
-            this.SetResistance(ResistanceType.Physical, 100);
-            this.SetResistance(ResistanceType.Fire, 70);
-            this.SetResistance(ResistanceType.Cold, 70);
-            this.SetResistance(ResistanceType.Poison, 70);
-            this.SetResistance(ResistanceType.Energy, 70);
+            SetDamage(20, 25);
 
-            this.SetSkill(SkillName.Magery, 100.0);
-            this.SetSkill(SkillName.MagicResist, 120.0);
-            this.SetSkill(SkillName.Tactics, 100.0);
-            this.SetSkill(SkillName.Wrestling, 100.0);
+            SetDamageType(ResistanceType.Physical, 100);
+            SetDamageType(ResistanceType.Energy, 25);
+            SetDamageType(ResistanceType.Poison, 20);
+            SetDamageType(ResistanceType.Energy, 20);
 
-            this.Fame = 20000; 
-            this.Karma = -20000;
-            this.VirtualArmor = 65;
+            SetResistance(ResistanceType.Physical, 100);
+            SetResistance(ResistanceType.Fire, 70);
+            SetResistance(ResistanceType.Cold, 70);
+            SetResistance(ResistanceType.Poison, 70);
+            SetResistance(ResistanceType.Energy, 70);
+
+            SetSkill(SkillName.Magery, 100.0);
+            SetSkill(SkillName.MagicResist, 120.0);
+            SetSkill(SkillName.Tactics, 100.0);
+            SetSkill(SkillName.Wrestling, 100.0);
+
+            Fame = 20000;
+            Karma = -20000;
+            VirtualArmor = 65;
         }
 
         public TyballsShadow(Serial serial)
@@ -54,47 +53,39 @@ namespace Server.Mobiles
 
         public override bool BardImmune
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override bool Unprovokable
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override bool Uncalmable
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override bool AlwaysMurderer
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override void GenerateLoot()
         {
-            this.AddLoot(LootPack.FilthyRich, 3);
+            AddLoot(LootPack.FilthyRich, 3);
         }
 
         public override void OnDeath(Container c)
         {
-            if (this.Map == Map.TerMur)
+            if (Map == Map.TerMur)
             {
-                List<DamageStore> rights = BaseCreature.GetLootingRights(this.DamageEntries, this.HitsMax);
-                List<Mobile> toGive = new List<Mobile>();
+                var rights = GetLootingRights(DamageEntries, HitsMax);
+                var toGive = new List<Mobile>();
 
-                for (int i = rights.Count - 1; i >= 0; --i)
+                for (var i = rights.Count - 1; i >= 0; --i)
                 {
-                    DamageStore ds = rights[i];
+                    var ds = rights[i];
                     if (ds.m_HasRight)
                         toGive.Add(ds.m_Mobile);
                 }
@@ -111,16 +102,16 @@ namespace Server.Mobiles
             base.OnDeath(c);
         }
 
-        public override void Serialize(GenericWriter writer) 
-        { 
-            base.Serialize(writer); 
-            writer.Write((int)0);  
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
+            writer.Write(0);
         }
 
-        public override void Deserialize(GenericReader reader) 
-        { 
-            base.Deserialize(reader); 
-            int version = reader.ReadInt(); 
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
+            var version = reader.ReadInt();
         }
     }
 }

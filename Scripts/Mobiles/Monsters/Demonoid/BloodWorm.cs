@@ -69,16 +69,6 @@ namespace Server.Mobiles
             return 1501;
         }
 
-        public override void OnDeath(Container c)
-        {
-            base.OnDeath(c);
-
-            if (Utility.RandomDouble() < 0.02)
-            {
-                c.DropItem(new LuckyCoin());
-            }
-        }
-
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);

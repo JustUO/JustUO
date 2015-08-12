@@ -21,40 +21,21 @@ namespace Server.Engines.Quests
         SpellweavingS,
         UnfadingMemories,
         PercolemTheHunter,
-        KingVernixQuests
+        KingVernixQuests,
+        DoughtyWarriors,
+        HonorOfDeBoors,
+        LaifemTheWeaver
     }
 
     public class BaseChain
     {
-        private Type m_CurrentQuest;
-        private Type m_Quester;
         public BaseChain(Type currentQuest, Type quester)
         {
-            this.m_CurrentQuest = currentQuest;
-            this.m_Quester = quester;
+            CurrentQuest = currentQuest;
+            Quester = quester;
         }
 
-        public Type CurrentQuest
-        {
-            get
-            {
-                return this.m_CurrentQuest;
-            }
-            set
-            {
-                this.m_CurrentQuest = value;
-            }
-        }
-        public Type Quester
-        {
-            get
-            {
-                return this.m_Quester;
-            }
-            set
-            {
-                this.m_Quester = value;
-            }
-        }
+        public Type CurrentQuest { get; set; }
+        public Type Quester { get; set; }
     }
 }

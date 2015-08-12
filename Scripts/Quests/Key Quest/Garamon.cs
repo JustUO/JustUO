@@ -9,18 +9,18 @@ namespace Server.Mobiles
         [Constructable]
         public Garamon()
         {
-            this.Name = "Garamon";
-            this.HairItemID = 0x2044;
-            this.HairHue = 1153;
-            this.FacialHairItemID = 0x204B;
-            this.FacialHairHue = 1153;
-            this.Body = 0x190;
-            this.CantWalk = true;
+            Name = "Garamon";
+            HairItemID = 0x2044;
+            HairHue = 1153;
+            FacialHairItemID = 0x204B;
+            FacialHairHue = 1153;
+            Body = 0x190;
+            CantWalk = true;
 
-            this.AddItem(new Server.Items.Sandals(927));
-            this.AddItem(new Robe(927));
+            AddItem(new Sandals(927));
+            AddItem(new Robe(927));
 
-            this.Blessed = true;
+            Blessed = true;
         }
 
         public Garamon(Serial serial)
@@ -30,26 +30,24 @@ namespace Server.Mobiles
 
         public virtual bool IsInvulnerable
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write((int)0);
+            writer.Write(0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
 
         public override bool HandlesOnSpeech(Mobile from)
         {
-            if (from.InRange(this.Location, 8))
+            if (from.InRange(Location, 8))
                 return true;
 
             return base.HandlesOnSpeech(from);
@@ -57,9 +55,9 @@ namespace Server.Mobiles
 
         public override void OnSpeech(SpeechEventArgs e)
         {
-            if (!e.Handled && e.Mobile.InRange(this.Location, 2))
+            if (!e.Handled && e.Mobile.InRange(Location, 2))
             {
-                PlayerMobile pm = e.Mobile as PlayerMobile;
+                var pm = e.Mobile as PlayerMobile;
 
                 if (pm.AbyssEntry)
                 {
@@ -67,41 +65,49 @@ namespace Server.Mobiles
                 }
                 else
                 {
-                    string keyword = e.Speech;
+                    var keyword = e.Speech;
 
                     switch (keyword)
                     {
                         case "Hello":
-                            {
-                                this.Say(String.Format("Greetings Adventurer! If you are seeking to enter the Abyss, I may be of assitance to you."));
-                                break;
-                            }
+                        {
+                            Say(
+                                String.Format(
+                                    "Greetings Adventurer! If you are seeking to enter the Abyss, I may be of assitance to you."));
+                            break;
+                        }
                         case "hello":
-                            {
-                                this.Say(String.Format("Greetings Adventurer! If you are seeking to enter the Abyss, I may be of assitance to you."));
-                                break;
-                            }
+                        {
+                            Say(
+                                String.Format(
+                                    "Greetings Adventurer! If you are seeking to enter the Abyss, I may be of assitance to you."));
+                            break;
+                        }
                         case "Key":
-                            {
-                                this.Say(String.Format("It's three parts that you must find, and reunite as one!"));
-                                break;
-                            }
+                        {
+                            Say(String.Format("It's three parts that you must find, and reunite as one!"));
+                            break;
+                        }
                         case "key":
-                            {
-                                this.Say(String.Format("It's three parts that you must find, and reunite as one!"));
-                                break;
-                            }
+                        {
+                            Say(String.Format("It's three parts that you must find, and reunite as one!"));
+                            break;
+                        }
                         case "Abyss":
-                            {
-                                this.Say(String.Format("It's entrance is protected by stone guardians who will only grant passage to the carrier of a Tripartite Key!"));
-                                break;
-                            }
+                        {
+                            Say(
+                                String.Format(
+                                    "It's entrance is protected by stone guardians who will only grant passage to the carrier of a Tripartite Key!"));
+                            break;
+                        }
                         case "abyss":
-                            {
-                                this.Say(String.Format("It's entrance is protected by stone guardians who will only grant passage to the carrier of a Tripartite Key!"));
-                                break;
-                            }
-                    /*case "Britain":
+                        {
+                            Say(
+                                String.Format(
+                                    "It's entrance is protected by stone guardians who will only grant passage to the carrier of a Tripartite Key!"));
+                            break;
+                        }
+                        /*case "Britain":
                     {
                     this.Direction =  GetDirectionTo( pm.Location );
                     Say( String.Format( "Britain is far North of here.. I have not been there since I was a child." ) );

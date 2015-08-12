@@ -1,4 +1,3 @@
-using System;
 using Server.Items;
 using Server.Mobiles;
 
@@ -11,61 +10,61 @@ namespace Server.Engines.Quests.Samurai
         public CursedSoul()
             : base(AIType.AI_Melee, FightMode.Aggressor, 10, 1, 0.2, 0.4)
         {
-            this.Name = "a cursed soul";
-            this.Body = 3;
-            this.BaseSoundID = 471;
+            Name = "a cursed soul";
+            Body = 3;
+            BaseSoundID = 471;
 
-            this.SetStr(20, 40);
-            this.SetDex(40, 60);
-            this.SetInt(15, 25);
+            SetStr(20, 40);
+            SetDex(40, 60);
+            SetInt(15, 25);
 
-            this.SetHits(10, 20);
+            SetHits(10, 20);
 
-            this.SetDamage(3, 7);
+            SetDamage(3, 7);
 
-            this.SetDamageType(ResistanceType.Physical, 100);
+            SetDamageType(ResistanceType.Physical, 100);
 
-            this.SetResistance(ResistanceType.Physical, 15, 20);
-            this.SetResistance(ResistanceType.Fire, 8, 12);
+            SetResistance(ResistanceType.Physical, 15, 20);
+            SetResistance(ResistanceType.Fire, 8, 12);
 
-            this.SetSkill(SkillName.Wrestling, 35.0, 39.0);
-            this.SetSkill(SkillName.Tactics, 5.0, 15.0);
-            this.SetSkill(SkillName.MagicResist, 10.0);
+            SetSkill(SkillName.Wrestling, 35.0, 39.0);
+            SetSkill(SkillName.Tactics, 5.0, 15.0);
+            SetSkill(SkillName.MagicResist, 10.0);
 
-            this.Fame = 200;
-            this.Karma = -200;
+            Fame = 200;
+            Karma = -200;
 
-            switch ( Utility.Random(10) )
+            switch (Utility.Random(10))
             {
                 case 0:
-                    this.PackItem(new LeftArm());
+                    PackItem(new LeftArm());
                     break;
                 case 1:
-                    this.PackItem(new RightArm());
+                    PackItem(new RightArm());
                     break;
                 case 2:
-                    this.PackItem(new Torso());
+                    PackItem(new Torso());
                     break;
                 case 3:
-                    this.PackItem(new Bone());
+                    PackItem(new Bone());
                     break;
                 case 4:
-                    this.PackItem(new RibCage());
+                    PackItem(new RibCage());
                     break;
                 case 5:
-                    this.PackItem(new RibCage());
+                    PackItem(new RibCage());
                     break;
                 case 6:
-                    this.PackItem(new BonePile());
+                    PackItem(new BonePile());
                     break;
                 case 7:
-                    this.PackItem(new BonePile());
+                    PackItem(new BonePile());
                     break;
                 case 8:
-                    this.PackItem(new BonePile());
+                    PackItem(new BonePile());
                     break;
                 case 9:
-                    this.PackItem(new BonePile());
+                    PackItem(new BonePile());
                     break;
             }
         }
@@ -86,7 +85,7 @@ namespace Server.Engines.Quests.Samurai
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadEncodedInt();
+            var version = reader.ReadEncodedInt();
         }
     }
 }

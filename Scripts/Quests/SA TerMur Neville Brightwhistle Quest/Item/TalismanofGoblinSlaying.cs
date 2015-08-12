@@ -1,4 +1,20 @@
-using System;
+/*                                                             .---.
+/  .  \
+|\_/|   |
+|   |  /|
+.----------------------------------------------------------------' |
+/  .-.                                                              |
+|  /   \         Contribute To The Orbsydia SA Project               |
+| |\_.  |                                                            |
+|\|  | /|                        By Lotar84                          |
+| `---' |                                                            |
+|       |       (Orbanised by Orb SA Core Development Team)          | 
+|       |                                                           /
+|       |----------------------------------------------------------'
+\       |
+\     /
+`---'
+*/
 
 namespace Server.Items
 {
@@ -7,9 +23,9 @@ namespace Server.Items
         [Constructable]
         public TalismanofGoblinSlaying()
             : base(0x2F58)
-        { 
-            this.Slayer = TalismanSlayerName.Goblin;
-            this.MaxChargeTime = 1200;
+        {
+            Slayer = TalismanSlayerName.Goblin;
+            MaxChargeTime = 1200;
         }
 
         public TalismanofGoblinSlaying(Serial serial)
@@ -19,18 +35,14 @@ namespace Server.Items
 
         public override int LabelNumber
         {
-            get
-            {
-                return 1095011;
-            }
-        }//Talisman of Goblin Slaying
+            get { return 1095011; }
+        } //Talisman of Goblin Slaying
+
         public override bool ForceShowName
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
@@ -42,7 +54,7 @@ namespace Server.Items
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadEncodedInt();
+            var version = reader.ReadEncodedInt();
         }
     }
 }

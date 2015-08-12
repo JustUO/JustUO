@@ -1,4 +1,3 @@
-using System;
 using Server.Mobiles;
 
 namespace Server.Engines.Quests.Haven
@@ -8,8 +7,8 @@ namespace Server.Engines.Quests.Haven
         [Constructable]
         public UzeraanTurmoilHorn()
         {
-            this.DestLoc = new Point3D(3597, 2582, 0);
-            this.DestMap = Map.Trammel;
+            DestLoc = new Point3D(3597, 2582, 0);
+            DestMap = Map.Trammel;
         }
 
         public UzeraanTurmoilHorn(Serial serial)
@@ -19,7 +18,7 @@ namespace Server.Engines.Quests.Haven
 
         public override bool ValidateUse(Mobile from)
         {
-            PlayerMobile pm = from as PlayerMobile;
+            var pm = from as PlayerMobile;
 
             return (pm != null && pm.Quest is UzeraanTurmoilQuest);
         }
@@ -28,14 +27,14 @@ namespace Server.Engines.Quests.Haven
         {
             base.Serialize(writer);
 
-            writer.Write((int)0); // version
+            writer.Write(0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

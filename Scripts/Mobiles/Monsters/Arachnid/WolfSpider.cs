@@ -91,8 +91,6 @@ namespace Server.Mobiles
             if (Utility.RandomDouble() < 0.05)
                 c.DropItem(new SpiderCarapace());
 
-            if (Utility.RandomDouble() < 0.01)
-                c.DropItem(new LuckyCoin());
         }
 
         public override int GetIdleSound()

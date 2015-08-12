@@ -83,9 +83,6 @@ namespace Server.Mobiles
             if (Utility.RandomDouble() < 0.05)
                 c.DropItem(new SpiderCarapace());
 
-            if (Utility.RandomDouble() < 0.02)
-                c.DropItem(new LuckyCoin());
-
             if (Utility.RandomDouble() < 0.025)
             {
                 switch (Utility.Random(18))

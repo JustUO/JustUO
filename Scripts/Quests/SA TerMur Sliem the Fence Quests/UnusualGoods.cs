@@ -1,85 +1,86 @@
-using Server.Engines.Quests;
+/*                                                             .---.
+/  .  \
+|\_/|   |
+|   |  /|
+.----------------------------------------------------------------' |
+/  .-.                                                              |
+|  /   \         Contribute To The Orbsydia SA Project               |
+| |\_.  |                                                            |
+|\|  | /|                        By Lotar84                          |
+| `---' |                                                            |
+|       |       (Orbanised by Orb SA Core Development Team)          | 
+|       |                                                           /
+|       |----------------------------------------------------------'
+\       |
+\     /
+`---'
+*/
+
 using Server.Items;
 
-namespace Server.Quests
+namespace Server.Engines.Quests
 {
-    public sealed class UnusualGoods : BaseQuest
+    public class UnusualGoods : BaseQuest
     {
         public UnusualGoods()
         {
-            AddObjective(new ObtainObjective(typeof(PerfectEmerald), "Perfect Emerald", 2, 0x3194));
+            AddObjective(new ObtainObjective(typeof (PerfectEmerald), "Perfect Emerald", 2, 0x3194));
 
-            AddObjective(new ObtainObjective(typeof(CrystallineBlackrock), "Crystalline Blackrock", 1, 0x5732));
+            AddObjective(new ObtainObjective(typeof (CrystallineBlackrock), "Crystalline Blackrock", 1, 0x5732));
 
-            AddReward(new BaseReward(typeof(EssenceBox), "Essence Box"));
-        }
-
-        public override void GiveRewards()
-        {
-            if (Owner != null)
-            {
-                Owner.Exp += 75;
-                Owner.SendMessage("You have also been awarded 75 Queens Loyalty Points!");
-            }
-
-            base.GiveRewards();
+            AddReward(new BaseReward(typeof (EssenceBox), "Essence Box"));
         }
 
         /*Unusual Goods*/
+
         public override object Title
         {
-            get
-            {
-                return 1113787;
-            }
+            get { return 1113787; }
         }
+
         /*Psst. Do you want to buy something rare and valuable? Yes? Good. I have in my possession an imbuing ingredient that is highly sought after. 
         If you wish to make a trade, it will not come cheaply. 
         Provide me with two perfect emeralds and one piece of crystalline blackrock, and what is in this box shall be yours. */
+
         public override object Description
         {
-            get
-            {
-                return 1113788;
-            }
+            get { return 1113788; }
         }
+
         /*It is your choice, but do not speak of this to anyone else.*/
+
         public override object Refuse
         {
-            get
-            {
-                return 1113789;
-            }
+            get { return 1113789; }
         }
+
         /*In exchange for this bag, I want two perfect emeralds and one piece of crystalline blackrock. Nothing more, nothing less.*/
+
         public override object Uncomplete
         {
-            get
-            {
-                return 1113790;
-            }
+            get { return 1113790; }
         }
+
         /*Let me see what you have brought me. Yes, this is of fine quality, and I accept it in trade. 
         Here is your box. Please do not spread word of our deal, as I do not want attention brought upon me. I am sure you understand.*/
+
         public override object Complete
         {
-            get
-            {
-                return 1113791;
-            }
+            get { return 1113791; }
         }
+
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write((int)0); // version
+            writer.Write(0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

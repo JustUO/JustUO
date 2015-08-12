@@ -1,5 +1,3 @@
-using System;
-
 namespace Server.Items
 {
     public class ShrineMantra : BrownBook
@@ -8,11 +6,12 @@ namespace Server.Items
             "Shrine of Singularity Mantra", "Naxatillor",
             new BookPageInfo(
                 "unorus"));
+
         [Constructable]
         public ShrineMantra()
             : base(false)
         {
-            this.Hue = 2210;
+            Hue = 2210;
         }
 
         public ShrineMantra(Serial serial)
@@ -22,23 +21,21 @@ namespace Server.Items
 
         public override BookContent DefaultContent
         {
-            get
-            {
-                return Content;
-            }
+            get { return Content; }
         }
+
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.WriteEncodedInt((int)0); // version
+            writer.WriteEncodedInt(0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadEncodedInt();
+            var version = reader.ReadEncodedInt();
         }
     }
 }

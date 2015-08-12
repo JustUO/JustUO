@@ -1,4 +1,3 @@
-using System;
 using Server.Items;
 using Server.Mobiles;
 
@@ -19,61 +18,59 @@ namespace Server.Engines.Quests.Samurai
 
         public override int TalkNumber
         {
-            get
-            {
-                return -1;
-            }
+            get { return -1; }
         }
+
         public override void InitBody()
         {
-            this.InitStats(100, 100, 25);
+            InitStats(100, 100, 25);
 
-            this.Hue = Race.Human.RandomSkinHue();
+            Hue = Race.Human.RandomSkinHue();
 
-            this.Female = false;
-            this.Body = 0x190;
-            this.Name = NameList.RandomName("male");
+            Female = false;
+            Body = 0x190;
+            Name = NameList.RandomName("male");
         }
 
         public override void InitOutfit()
         {
             Utility.AssignRandomHair(this);
 
-            this.AddItem(new LeatherDo());
-            this.AddItem(new LeatherHiroSode());
-            this.AddItem(new SamuraiTabi(Utility.RandomNondyedHue()));
+            AddItem(new LeatherDo());
+            AddItem(new LeatherHiroSode());
+            AddItem(new SamuraiTabi(Utility.RandomNondyedHue()));
 
-            switch ( Utility.Random(3) )
+            switch (Utility.Random(3))
             {
                 case 0:
-                    this.AddItem(new StuddedHaidate());
+                    AddItem(new StuddedHaidate());
                     break;
                 case 1:
-                    this.AddItem(new PlateSuneate());
+                    AddItem(new PlateSuneate());
                     break;
                 default:
-                    this.AddItem(new LeatherSuneate());
+                    AddItem(new LeatherSuneate());
                     break;
             }
 
-            switch ( Utility.Random(4) )
+            switch (Utility.Random(4))
             {
                 case 0:
-                    this.AddItem(new DecorativePlateKabuto());
+                    AddItem(new DecorativePlateKabuto());
                     break;
                 case 1:
-                    this.AddItem(new ChainHatsuburi());
+                    AddItem(new ChainHatsuburi());
                     break;
                 case 2:
-                    this.AddItem(new LightPlateJingasa());
+                    AddItem(new LightPlateJingasa());
                     break;
                 default:
-                    this.AddItem(new LeatherJingasa());
+                    AddItem(new LeatherJingasa());
                     break;
             }
 
             Item weapon;
-            switch ( Utility.Random(3) )
+            switch (Utility.Random(3))
             {
                 case 0:
                     weapon = new NoDachi();
@@ -86,7 +83,7 @@ namespace Server.Engines.Quests.Samurai
                     break;
             }
             weapon.Movable = false;
-            this.AddItem(weapon);
+            AddItem(weapon);
         }
 
         public override void OnTalk(PlayerMobile player, bool contextMenu)
@@ -104,7 +101,7 @@ namespace Server.Engines.Quests.Samurai
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadEncodedInt();
+            var version = reader.ReadEncodedInt();
         }
     }
 }
