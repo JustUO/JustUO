@@ -1872,6 +1872,82 @@ namespace Server.Items
         }
     }
 
+	public class OrcMask : BaseHat
+	{
+		[Constructable]
+		public OrcMask()
+			: this(0)
+		{
+		}
+
+		[Constructable]
+		public OrcMask(int hue)
+			: base(0x141B, hue)
+		{
+			Weight = 2.0;
+		}
+
+		public OrcMask(Serial serial)
+			: base(serial)
+		{
+		}
+
+		public override int BasePhysicalResistance
+		{
+			get { return 1; }
+		}
+
+		public override int BaseFireResistance
+		{
+			get { return 1; }
+		}
+
+		public override int BaseColdResistance
+		{
+			get { return 7; }
+		}
+
+		public override int BasePoisonResistance
+		{
+			get { return 7; }
+		}
+
+		public override int BaseEnergyResistance
+		{
+			get { return 8; }
+		}
+
+		public override int InitMinHits
+		{
+			get { return 36; }
+		}
+
+		public override int InitMaxHits
+		{
+			get { return 48; }
+		}
+
+		public override bool Dye(Mobile from, DyeTub sender)
+		{
+			from.SendLocalizedMessage(sender.FailMessage);
+			return false;
+		}
+
+		public override void Serialize(GenericWriter writer)
+		{
+			base.Serialize(writer);
+
+			writer.Write(0); // version
+		}
+
+		public override void Deserialize(GenericReader reader)
+		{
+			base.Deserialize(reader);
+
+			var version = reader.ReadInt();
+		}
+	}
+
     public class SavageMask : BaseHat
     {
         public override int BasePhysicalResistance

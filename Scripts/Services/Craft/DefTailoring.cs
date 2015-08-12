@@ -157,6 +157,18 @@ namespace Server.Engines.Craft
                 index = this.AddCraft(typeof(Kasa), 1011375, 1030211, 60.0, 85.0, typeof(Cloth), 1044286, 12, 1044287);	
                 this.SetNeededExpansion(index, Expansion.SE);
             }
+
+			if (Core.SA)
+			{
+				AddCraft(typeof(OrcMask), 1011375, 1025147, 75, 100, typeof(Cloth), 1044286, 12, 1044287);
+				AddCraft(typeof(DeerMask), 1011375, 1025447, 77.5, 102.5, typeof(Cloth), 1044286, 15, 1044287);
+				AddCraft(typeof(TribalMask), 1011375, 1025449, 82.5, 107.5, typeof(Cloth), 1044286, 12, 1044287);
+				AddCraft(typeof(BearMask), 1011375, 1025445, 77.5, 102.5, typeof(Cloth), 1044286, 15, 1044287);
+
+				index = AddCraft(typeof(OrcHelm), 1011375, 1027947, 90, 115, typeof(Leather), 1044462, 6, 1044463);
+				AddRes(index, typeof(Bone), 1049064, 4, 1049063);
+			}
+
             #endregion
 
             #region Shirts

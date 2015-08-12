@@ -171,8 +171,8 @@ namespace Server.Items
                 typeof (SerpentineDragon), typeof (ShadowWyrm), typeof (SilverSerpent), typeof (SkeletalDragon),
                 typeof (Snake), typeof (SwampDragon), typeof (WhiteWyrm), typeof (Wyvern), typeof (Yamandon),
                 typeof (Hydra), typeof (CrystalHydra), typeof (CrystalSeaSerpent), typeof (Rend), typeof (Thrasher),
-                typeof (Abscess), typeof (Grim), typeof (ChickenLizard), typeof (StygianDragon), typeof (FairyDragon),
-                typeof (FairyDragon1), typeof (Skree), typeof (Slith), typeof (StoneSlith), typeof (ToxicSlith), typeof (Raptor),
+                typeof (Abscess), typeof (Grim), typeof (ChickenLizard), typeof (StygianDragon), typeof (FairyDragon), 
+				typeof (Skree), typeof (Slith), typeof (StoneSlith), typeof (ToxicSlith), typeof (Raptor),
                 typeof (Kepetch), typeof (KepetchAmbusher));
             reptilian.Entries = new[]
             {
@@ -181,7 +181,7 @@ namespace Server.Items
                     typeof (LesserHiryu), typeof (Reptalon), typeof (SerpentineDragon), typeof (ShadowWyrm),
                     typeof (SkeletalDragon), typeof (SwampDragon), typeof (WhiteWyrm), typeof (Wyvern), typeof (Hydra),
                     typeof (CrystalHydra), typeof (Rend), typeof (Abscess), typeof (Grim), typeof (StygianDragon),
-                    typeof (FairyDragon), typeof (FairyDragon1)),
+                    typeof (FairyDragon)),
                 new SlayerEntry(SlayerName.LizardmanSlaughter, typeof (Lizardman)),
                 new SlayerEntry(SlayerName.Ophidian, typeof (OphidianArchmage), typeof (OphidianKnight),
                     typeof (OphidianMage), typeof (OphidianMatriarch), typeof (OphidianWarrior)),
