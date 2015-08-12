@@ -201,6 +201,10 @@ namespace Server.Engines.Craft
                            (armor is RoyalCirclet) ||
                            (armor is GemmedCirclet);
                 }
+				if (m_CraftSystem is DefTinkering)
+				{
+					return (armor is Glasses || armor is ElvenGlasses || armor is GargishGlasses);
+				}
                 #endregion
 
                 return false;
