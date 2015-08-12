@@ -1354,7 +1354,6 @@
 					<rect x="3423" y="2480" width="111" height="143" />
 					<go x="3503" y="2574" z="14" />
 					<music name="InTown01" />
-					<guards disabled="false" />
 					<region name="the New Haven Alchemist">
 						<rect x="3457" y="2564" width="9" height="9" />
 					</region>
@@ -1376,8 +1375,10 @@
 						<rect x="2464" y="2488" width="27" height="16" />
 					</region>
 					<region name="the New Haven Inn">
-						<rect x="2493" y="2513" width="17" height="9" />
-						<rect x="3503" y="2523" width="7" height="7" />
+						<rect x="3491" y="2511" width="10" height="12" />
+						<rect x="3501" y="2510" width="9" height="20" />
+						<go x="3503" y="2517" z="22" />
+						<logoutDelay active="false" />
 					</region>
 					<region name="the New Haven Docks">
 						<rect x="3501" y="2587" width="26" height="30" />
@@ -2511,6 +2512,19 @@
 			<guards disabled="true" />
 			<smartNoHousing active="true" />
 		</region>
+		<region type="TownRegion" priority="100" name="City Residential">
+			<rect x="800" y="3572" width="185" height="107" />
+			<rect x="879" y="3511" width="160" height="63" />
+			<rect x="915" y="3479" width="50" height="50" />
+			<rect x="947" y="3368" width="143" height="45" />
+			<rect x="934" y="3673" width="46" height="55" />
+			<rect x="948" y="3408" width="79" height="70" />
+			<go x="931" y="3557" z="-43" />
+		</region>
+		<region type="UnderWorldRegion" priority="50" name="Ariel Writ Disaster">
+			<rect x="1030" y="1171" width="18" height="18" />
+			<go x="1041" y="1184" z="-50" />
+		</region>
 		<region type="StygianAbyssRegion" priority="50" name="Raptor Island">
 			<rect x="712" y="3765" width="167" height="64" />
 			<rect x="728" y="3809" width="111" height="114" />
@@ -2520,6 +2534,7 @@
 		</region>
 		<region type="TownRegion" priority="50" name="Royal City">
 			<rect x="662" y="3316" width="300" height="400" />
+    <rect x="961" y="3297" width="44" height="339" />
 			<go x="750" y="3450" z="-20" />
 			<entrance x="841" y="3510" />
 		</region>
@@ -2570,7 +2585,7 @@
 			<go x="661" y="2894" z="39" />
 		</region>
     <region type="StygianAbyssRegion" priority="50" name="Abyssal Lair">
-      <rect x="931" y="314" width="100" height="140" />
+    <rect x="934" y="315" width="88" height="145" />
       <go x="985" y="366" z="-11" />
     </region>
     <region type="StygianAbyssRegion" priority="50" name="Cavern of the Discarded">
