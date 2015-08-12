@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Server.ContextMenus;
 using Server.Items;
@@ -8,67 +7,44 @@ namespace Server.Mobiles
     [CorpseName("a giant beetle corpse")]
     public class Beetle : BaseMount
     {
-        public virtual double BoostedSpeed
-        {
-            get
-            {
-                return 0.1;
-            }
-        }
-
         [Constructable]
         public Beetle()
             : this("a giant beetle")
         {
         }
 
-        public override bool SubdueBeforeTame
-        {
-            get
-            {
-                return true;
-            }
-        }// Must be beaten into submission
-        public override bool ReduceSpeedWithDamage
-        {
-            get
-            {
-                return false;
-            }
-        }
-
         [Constructable]
         public Beetle(string name)
             : base(name, 0x317, 0x3EBC, AIType.AI_Melee, FightMode.Closest, 10, 1, 0.25, 0.5)
         {
-            this.SetStr(300);
-            this.SetDex(100);
-            this.SetInt(500);
+            SetStr(300);
+            SetDex(100);
+            SetInt(500);
 
-            this.SetHits(200);
+            SetHits(200);
 
-            this.SetDamage(7, 20);
+            SetDamage(7, 20);
 
-            this.SetDamageType(ResistanceType.Physical, 100);
+            SetDamageType(ResistanceType.Physical, 100);
 
-            this.SetResistance(ResistanceType.Physical, 30, 40);
-            this.SetResistance(ResistanceType.Fire, 20, 30);
-            this.SetResistance(ResistanceType.Cold, 20, 30);
-            this.SetResistance(ResistanceType.Poison, 20, 30);
-            this.SetResistance(ResistanceType.Energy, 20, 30);
+            SetResistance(ResistanceType.Physical, 30, 40);
+            SetResistance(ResistanceType.Fire, 20, 30);
+            SetResistance(ResistanceType.Cold, 20, 30);
+            SetResistance(ResistanceType.Poison, 20, 30);
+            SetResistance(ResistanceType.Energy, 20, 30);
 
-            this.SetSkill(SkillName.MagicResist, 80.0);
-            this.SetSkill(SkillName.Tactics, 100.0);
-            this.SetSkill(SkillName.Wrestling, 100.0);
+            SetSkill(SkillName.MagicResist, 80.0);
+            SetSkill(SkillName.Tactics, 100.0);
+            SetSkill(SkillName.Wrestling, 100.0);
 
-            this.Fame = 4000;
-            this.Karma = -4000;
+            Fame = 4000;
+            Karma = -4000;
 
-            this.Tamable = true;
-            this.ControlSlots = 3;
-            this.MinTameSkill = 29.1;
+            Tamable = true;
+            ControlSlots = 3;
+            MinTameSkill = 29.1;
 
-            Container pack = this.Backpack;
+            var pack = Backpack;
 
             if (pack != null)
                 pack.Delete();
@@ -76,7 +52,32 @@ namespace Server.Mobiles
             pack = new StrongBackpack();
             pack.Movable = false;
 
-            this.AddItem(pack);
+            AddItem(pack);
+        }
+
+        public Beetle(Serial serial)
+            : base(serial)
+        {
+        }
+
+        public virtual double BoostedSpeed
+        {
+            get { return 0.1; }
+        }
+
+        public override bool SubdueBeforeTame
+        {
+            get { return true; }
+        } // Must be beaten into submission
+
+        public override bool ReduceSpeedWithDamage
+        {
+            get { return false; }
+        }
+
+        public override FoodType FavoriteFood
+        {
+            get { return FoodType.Meat; }
         }
 
         public override int GetAngerSound()
@@ -104,32 +105,34 @@ namespace Server.Mobiles
             return 0x21D;
         }
 
-        public override FoodType FavoriteFood
-        {
-            get
-            {
-                return FoodType.Meat;
-            }
-        }
-
-        public Beetle(Serial serial)
-            : base(serial)
-        {
-        }
-
         public override void OnHarmfulSpell(Mobile from)
         {
-            if (!this.Controlled && this.ControlMaster == null)
-                this.CurrentSpeed = this.BoostedSpeed;
+            if (!Controlled && ControlMaster == null)
+                CurrentSpeed = BoostedSpeed;
         }
 
         public override void OnCombatantChange()
         {
-            if (this.Combatant == null && !this.Controlled && this.ControlMaster == null)
-                this.CurrentSpeed = this.PassiveSpeed;
+            if (Combatant == null && !Controlled && ControlMaster == null)
+                CurrentSpeed = PassiveSpeed;
+        }
+
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
+
+            writer.Write(0); // version
+        }
+
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
+
+            var version = reader.ReadInt();
         }
 
         #region Pack Animal Methods
+
         public override bool OnBeforeDeath()
         {
             if (!base.OnBeforeDeath())
@@ -155,12 +158,12 @@ namespace Server.Mobiles
 
         public override bool OnDragDrop(Mobile from, Item item)
         {
-            if (this.CheckFeed(from, item))
+            if (CheckFeed(from, item))
                 return true;
 
             if (PackAnimal.CheckAccess(this, from))
             {
-                this.AddToBackpack(item);
+                AddToBackpack(item);
                 return true;
             }
 
@@ -185,19 +188,5 @@ namespace Server.Mobiles
         }
 
         #endregion
-
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
-
-            writer.Write((int)0); // version
-        }
-
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
-
-            int version = reader.ReadInt();
-        }
     }
 }

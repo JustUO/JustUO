@@ -1,5 +1,5 @@
-using System;
 using Server.Items;
+using Server.Services;
 
 namespace Server.Mobiles
 {
@@ -10,36 +10,36 @@ namespace Server.Mobiles
         public HellHound()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            this.Name = "a hell hound";
-            this.Body = 98;
-            this.BaseSoundID = 229;
+            Name = "a hell hound";
+            Body = 98;
+            BaseSoundID = 229;
 
-            this.SetStr(102, 150);
-            this.SetDex(81, 105);
-            this.SetInt(36, 60);
+            SetStr(102, 150);
+            SetDex(81, 105);
+            SetInt(36, 60);
 
-            this.SetHits(66, 125);
+            SetHits(66, 125);
 
-            this.SetDamage(11, 17);
+            SetDamage(11, 17);
 
-            this.SetDamageType(ResistanceType.Physical, 20);
-            this.SetDamageType(ResistanceType.Fire, 80);
+            SetDamageType(ResistanceType.Physical, 20);
+            SetDamageType(ResistanceType.Fire, 80);
 
-            this.SetResistance(ResistanceType.Physical, 25, 35);
-            this.SetResistance(ResistanceType.Fire, 30, 40);
-            this.SetResistance(ResistanceType.Poison, 10, 20);
-            this.SetResistance(ResistanceType.Energy, 10, 20);
+            SetResistance(ResistanceType.Physical, 25, 35);
+            SetResistance(ResistanceType.Fire, 30, 40);
+            SetResistance(ResistanceType.Poison, 10, 20);
+            SetResistance(ResistanceType.Energy, 10, 20);
 
-            this.Fame = 3400;
-            this.Karma = -3400;
+            Fame = 3400;
+            Karma = -3400;
 
-            this.VirtualArmor = 30;
+            VirtualArmor = 30;
 
-            this.Tamable = true;
-            this.ControlSlots = 1;
-            this.MinTameSkill = 85.5;
+            Tamable = true;
+            ControlSlots = 1;
+            MinTameSkill = 85.5;
 
-            this.PackItem(new SulfurousAsh(5));
+            PackItem(new SulfurousAsh(5));
         }
 
         public HellHound(Serial serial)
@@ -49,63 +49,46 @@ namespace Server.Mobiles
 
         public override bool HasBreath
         {
-            get
-            {
-                return true;
-            }
-        }// fire breath enabled
+            get { return true; }
+        } // fire breath enabled
+
         public override int Meat
         {
-            get
-            {
-                return 1;
-            }
+            get { return 1; }
         }
+
         public override FoodType FavoriteFood
         {
-            get
-            {
-                return FoodType.Meat;
-            }
+            get { return FoodType.Meat; }
         }
+
         public override PackInstinct PackInstinct
         {
-            get
-            {
-                return PackInstinct.Canine;
-            }
+            get { return PackInstinct.Canine; }
         }
+
         public override void GenerateLoot()
         {
-            this.AddLoot(LootPack.Average);
-            this.AddLoot(LootPack.Meager);
+            AddLoot(LootPack.Average);
+            AddLoot(LootPack.Meager);
         }
+
         public override void OnDeath(Container c)
         {
-
             base.OnDeath(c);
-            Region reg = Region.Find(c.GetWorldLocation(), c.Map);
-            if (0.25 > Utility.RandomDouble() && reg.Name == "Fire Temple Ruins")
-            {
-                if (Utility.RandomDouble() < 0.6)
-                    c.DropItem(new EssenceOrder());
-            }
-            if (0.25 > Utility.RandomDouble() && reg.Name == "Lava Caldera")
-            {
-                if (Utility.RandomDouble() < 0.6)
-                    c.DropItem(new EssencePassion());
-            }
+            SARegionDrops.GetSADrop(c);
         }
+
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write((int)0);
+            writer.Write(0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

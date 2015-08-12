@@ -1,4 +1,5 @@
 // Created by Peoharen
+
 using System;
 using System.Collections;
 
@@ -6,115 +7,118 @@ namespace Server
 {
     public class EnhancementTimer : Timer
     {
+        private int m_Duration;
         private readonly ArrayList AL = new ArrayList();
         private readonly Mobile m_Mobile;
         private readonly string m_Title;
-        private int m_Duration;
+
         public EnhancementTimer(Mobile m, int duration, string title, params object[] args)
             : base(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1))
         {
-            if (args.Length < 1 || (args.Length % 2) != 0)
+            if (args.Length < 1 || (args.Length%2) != 0)
                 throw new Exception("EnhancementTimer: args.length must be an even number greater than 0");
 
             Enhancement.AddMobile(m, title);
-            this.m_Mobile = m;
-            this.m_Title = title;
-            this.m_Duration = duration;
+            m_Mobile = m;
+            m_Title = title;
+            m_Duration = duration;
 
             AosAttribute att;
             AosWeaponAttribute weapon;
             AosArmorAttribute armor;
             SAAbsorptionAttribute absorb;
-            int number = 0;
+            var number = 0;
 
-            for (int i = 0; i < args.Length - 1; i += 2)
+            for (var i = 0; i < args.Length - 1; i += 2)
             {
                 if (!(args[i + 1] is int))
                     throw new Exception("EnhancementTimer: The second value must be an integer");
 
-                number = (int)args[i + 1];
+                number = (int) args[i + 1];
 
                 if (args[i] is AosAttribute)
                 {
-                    att = (AosAttribute)args[i];
-                    Enhancement.SetValue(m, att, (Enhancement.GetValue(m, att) + number), this.m_Title);
-                    this.AL.Add(att);
-                    this.AL.Add(number);
+                    att = (AosAttribute) args[i];
+                    Enhancement.SetValue(m, att, (Enhancement.GetValue(m, att) + number), m_Title);
+                    AL.Add(att);
+                    AL.Add(number);
                 }
                 else if (args[i] is AosWeaponAttribute)
                 {
-                    weapon = (AosWeaponAttribute)args[i];
-                    Enhancement.SetValue(m, weapon, (Enhancement.GetValue(m, weapon) + number), this.m_Title);
-                    this.AL.Add(weapon);
-                    this.AL.Add(number);
+                    weapon = (AosWeaponAttribute) args[i];
+                    Enhancement.SetValue(m, weapon, (Enhancement.GetValue(m, weapon) + number), m_Title);
+                    AL.Add(weapon);
+                    AL.Add(number);
                 }
                 else if (args[i] is AosArmorAttribute)
                 {
-                    armor = (AosArmorAttribute)args[i];
-                    Enhancement.SetValue(m, armor, (Enhancement.GetValue(m, armor) + number), this.m_Title);
-                    this.AL.Add(armor);
-                    this.AL.Add(number);
+                    armor = (AosArmorAttribute) args[i];
+                    Enhancement.SetValue(m, armor, (Enhancement.GetValue(m, armor) + number), m_Title);
+                    AL.Add(armor);
+                    AL.Add(number);
                 }
                 else if (args[i] is SAAbsorptionAttribute)
                 {
-                    absorb = (SAAbsorptionAttribute)args[i];
-                    Enhancement.SetValue(m, absorb, (Enhancement.GetValue(m, absorb) + number), this.m_Title);
-                    this.AL.Add(absorb);
-                    this.AL.Add(number);
+                    absorb = (SAAbsorptionAttribute) args[i];
+                    Enhancement.SetValue(m, absorb, (Enhancement.GetValue(m, absorb) + number), m_Title);
+                    AL.Add(absorb);
+                    AL.Add(number);
                 }
             }
         }
 
         public void End()
         {
-            if (Enhancement.EnhancementList.ContainsKey(this.m_Mobile))
+            if (Enhancement.EnhancementList.ContainsKey(m_Mobile))
             {
                 AosAttribute att;
                 AosWeaponAttribute weapon;
                 AosArmorAttribute armor;
                 SAAbsorptionAttribute absorb;
-                int number = 0;
+                var number = 0;
 
-                for (int i = 0; i < this.AL.Count - 1; i += 2)
+                for (var i = 0; i < AL.Count - 1; i += 2)
                 {
-                    number = (int)this.AL[i + 1];
+                    number = (int) AL[i + 1];
 
-                    if (this.AL[i] is AosAttribute)
+                    if (AL[i] is AosAttribute)
                     {
-                        att = (AosAttribute)this.AL[i];
-                        Enhancement.SetValue(this.m_Mobile, att, (Enhancement.GetValue(this.m_Mobile, att) - number), this.m_Title);
+                        att = (AosAttribute) AL[i];
+                        Enhancement.SetValue(m_Mobile, att, (Enhancement.GetValue(m_Mobile, att) - number), m_Title);
                     }
-                    else if (this.AL[i] is AosWeaponAttribute)
+                    else if (AL[i] is AosWeaponAttribute)
                     {
-                        weapon = (AosWeaponAttribute)this.AL[i];
-                        Enhancement.SetValue(this.m_Mobile, weapon, (Enhancement.GetValue(this.m_Mobile, weapon) - number), this.m_Title);
+                        weapon = (AosWeaponAttribute) AL[i];
+                        Enhancement.SetValue(m_Mobile, weapon, (Enhancement.GetValue(m_Mobile, weapon) - number),
+                            m_Title);
                     }
-                    else if (this.AL[i] is AosArmorAttribute)
+                    else if (AL[i] is AosArmorAttribute)
                     {
-                        armor = (AosArmorAttribute)this.AL[i];
-                        Enhancement.SetValue(this.m_Mobile, armor, (Enhancement.GetValue(this.m_Mobile, armor) - number), this.m_Title);
+                        armor = (AosArmorAttribute) AL[i];
+                        Enhancement.SetValue(m_Mobile, armor, (Enhancement.GetValue(m_Mobile, armor) - number), m_Title);
                     }
-                    else if (this.AL[i] is SAAbsorptionAttribute)
+                    else if (AL[i] is SAAbsorptionAttribute)
                     {
-                        absorb = (SAAbsorptionAttribute)this.AL[i];
-                        Enhancement.SetValue(this.m_Mobile, absorb, (Enhancement.GetValue(this.m_Mobile, absorb) - number), this.m_Title);
+                        absorb = (SAAbsorptionAttribute) AL[i];
+                        Enhancement.SetValue(m_Mobile, absorb, (Enhancement.GetValue(m_Mobile, absorb) - number),
+                            m_Title);
                     }
                 }
             }
 
-            this.Stop();
+            Stop();
         }
 
         protected override void OnTick()
         {
-            this.m_Duration--;
+            m_Duration--;
 
-            if (this.m_Mobile == null)
-                this.Stop();
+            if (m_Mobile == null)
+                Stop();
 
-            if (this.m_Duration < 0)
+            if (m_Duration < 0)
             {
-                this.End();
+                End();
             }
         }
     }

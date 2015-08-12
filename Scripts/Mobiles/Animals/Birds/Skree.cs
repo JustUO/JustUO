@@ -1,4 +1,4 @@
-using System;
+using Server.Items;
 
 namespace Server.Mobiles
 {
@@ -10,7 +10,7 @@ namespace Server.Mobiles
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
             Name = "a skree";
-            Body = 733; 
+            Body = 733;
 
             SetStr(297, 330);
             SetDex(96, 124);
@@ -49,25 +49,19 @@ namespace Server.Mobiles
 
         public override int Meat
         {
-            get
-            {
-                return 3;
-            }
+            get { return 3; }
         }
+
         public override MeatType MeatType
         {
-            get
-            {
-                return MeatType.Bird;
-            }
+            get { return MeatType.Bird; }
         }
+
         public override int Hides
         {
-            get
-            {
-                return 5;
-            }
+            get { return 5; }
         }
+
         public override void GenerateLoot()
         {
             AddLoot(LootPack.Average);
@@ -96,13 +90,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write((int)0);
+            writer.Write(0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

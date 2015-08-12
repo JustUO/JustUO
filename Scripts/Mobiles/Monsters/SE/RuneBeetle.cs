@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Server.Engines.Plants;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -9,81 +10,82 @@ namespace Server.Mobiles
     public class RuneBeetle : BaseCreature
     {
         private static readonly Hashtable m_Table = new Hashtable();
+
         [Constructable]
         public RuneBeetle()
             : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            this.Name = "a rune beetle";
-            this.Body = 244;
+            Name = "a rune beetle";
+            Body = 244;
 
-            this.SetStr(401, 460);
-            this.SetDex(121, 170);
-            this.SetInt(376, 450);
+            SetStr(401, 460);
+            SetDex(121, 170);
+            SetInt(376, 450);
 
-            this.SetHits(301, 360);
+            SetHits(301, 360);
 
-            this.SetDamage(15, 22);
+            SetDamage(15, 22);
 
-            this.SetDamageType(ResistanceType.Physical, 20);
-            this.SetDamageType(ResistanceType.Poison, 10);
-            this.SetDamageType(ResistanceType.Energy, 70);
+            SetDamageType(ResistanceType.Physical, 20);
+            SetDamageType(ResistanceType.Poison, 10);
+            SetDamageType(ResistanceType.Energy, 70);
 
-            this.SetResistance(ResistanceType.Physical, 40, 65);
-            this.SetResistance(ResistanceType.Fire, 35, 50);
-            this.SetResistance(ResistanceType.Cold, 35, 50);
-            this.SetResistance(ResistanceType.Poison, 75, 95);
-            this.SetResistance(ResistanceType.Energy, 40, 60);
+            SetResistance(ResistanceType.Physical, 40, 65);
+            SetResistance(ResistanceType.Fire, 35, 50);
+            SetResistance(ResistanceType.Cold, 35, 50);
+            SetResistance(ResistanceType.Poison, 75, 95);
+            SetResistance(ResistanceType.Energy, 40, 60);
 
-            this.SetSkill(SkillName.EvalInt, 100.1, 125.0);
-            this.SetSkill(SkillName.Magery, 100.1, 110.0);
-            this.SetSkill(SkillName.Poisoning, 120.1, 140.0);
-            this.SetSkill(SkillName.MagicResist, 95.1, 110.0);
-            this.SetSkill(SkillName.Tactics, 78.1, 93.0);
-            this.SetSkill(SkillName.Wrestling, 70.1, 77.5);
+            SetSkill(SkillName.EvalInt, 100.1, 125.0);
+            SetSkill(SkillName.Magery, 100.1, 110.0);
+            SetSkill(SkillName.Poisoning, 120.1, 140.0);
+            SetSkill(SkillName.MagicResist, 95.1, 110.0);
+            SetSkill(SkillName.Tactics, 78.1, 93.0);
+            SetSkill(SkillName.Wrestling, 70.1, 77.5);
 
-            this.Fame = 15000;
-            this.Karma = -15000;
-			
+            Fame = 15000;
+            Karma = -15000;
+
             if (Utility.RandomDouble() < .25)
-                this.PackItem(Engines.Plants.Seed.RandomBonsaiSeed());
-				
-            switch ( Utility.Random(10))
+                PackItem(Seed.RandomBonsaiSeed());
+
+            switch (Utility.Random(10))
             {
                 case 0:
-                    this.PackItem(new LeftArm());
+                    PackItem(new LeftArm());
                     break;
                 case 1:
-                    this.PackItem(new RightArm());
+                    PackItem(new RightArm());
                     break;
                 case 2:
-                    this.PackItem(new Torso());
+                    PackItem(new Torso());
                     break;
                 case 3:
-                    this.PackItem(new Bone());
+                    PackItem(new Bone());
                     break;
                 case 4:
-                    this.PackItem(new RibCage());
+                    PackItem(new RibCage());
                     break;
                 case 5:
-                    this.PackItem(new RibCage());
+                    PackItem(new RibCage());
                     break;
                 case 6:
-                    this.PackItem(new BonePile());
+                    PackItem(new BonePile());
                     break;
                 case 7:
-                    this.PackItem(new BonePile());
+                    PackItem(new BonePile());
                     break;
                 case 8:
-                    this.PackItem(new BonePile());
+                    PackItem(new BonePile());
                     break;
                 case 9:
-                    this.PackItem(new BonePile());
+                    PackItem(new BonePile());
                     break;
             }
-				
-            this.Tamable = true;
-            this.ControlSlots = 3;
-            this.MinTameSkill = 93.9;			
+
+            Tamable = true;
+            ControlSlots = 3;
+            MinTameSkill = 93.9;
         }
 
         public RuneBeetle(Serial serial)
@@ -93,32 +95,24 @@ namespace Server.Mobiles
 
         public override Poison PoisonImmune
         {
-            get
-            {
-                return Poison.Greater;
-            }
+            get { return Poison.Greater; }
         }
+
         public override Poison HitPoison
         {
-            get
-            {
-                return Poison.Greater;
-            }
+            get { return Poison.Greater; }
         }
+
         public override FoodType FavoriteFood
         {
-            get
-            {
-                return FoodType.FruitsAndVegies | FoodType.GrainsAndHay;
-            }
+            get { return FoodType.FruitsAndVegies | FoodType.GrainsAndHay; }
         }
+
         public override bool CanAngerOnTame
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override WeaponAbility GetWeaponAbility()
         {
             return WeaponAbility.BleedAttack;
@@ -151,8 +145,8 @@ namespace Server.Mobiles
 
         public override void GenerateLoot()
         {
-            this.AddLoot(LootPack.FilthyRich, 2);
-            this.AddLoot(LootPack.MedScrolls, 1);
+            AddLoot(LootPack.FilthyRich, 2);
+            AddLoot(LootPack.MedScrolls, 1);
         }
 
         public override void OnGaveMeleeAttack(Mobile defender)
@@ -166,7 +160,7 @@ namespace Server.Mobiles
                 * Effect: All resistances -70 (lowest 0) for 5 seconds
                 * End ASCII: "The corruption of your armor has worn off"
                 */
-                ExpireTimer timer = (ExpireTimer)m_Table[defender];
+                var timer = (ExpireTimer) m_Table[defender];
 
                 if (timer != null)
                 {
@@ -176,44 +170,49 @@ namespace Server.Mobiles
                 else
                     defender.SendLocalizedMessage(1070846); // The creature magically corrupts your armor!
 
-                List<ResistanceMod> mods = new List<ResistanceMod>();
+                var mods = new List<ResistanceMod>();
 
                 if (Core.ML)
                 {
                     if (defender.PhysicalResistance > 0)
-                        mods.Add(new ResistanceMod(ResistanceType.Physical, -(defender.PhysicalResistance / 2)));
+                        mods.Add(new ResistanceMod(ResistanceType.Physical, -(defender.PhysicalResistance/2)));
 
                     if (defender.FireResistance > 0)
-                        mods.Add(new ResistanceMod(ResistanceType.Fire, -(defender.FireResistance / 2)));
+                        mods.Add(new ResistanceMod(ResistanceType.Fire, -(defender.FireResistance/2)));
 
                     if (defender.ColdResistance > 0)
-                        mods.Add(new ResistanceMod(ResistanceType.Cold, -(defender.ColdResistance / 2)));
+                        mods.Add(new ResistanceMod(ResistanceType.Cold, -(defender.ColdResistance/2)));
 
                     if (defender.PoisonResistance > 0)
-                        mods.Add(new ResistanceMod(ResistanceType.Poison, -(defender.PoisonResistance / 2)));
+                        mods.Add(new ResistanceMod(ResistanceType.Poison, -(defender.PoisonResistance/2)));
 
                     if (defender.EnergyResistance > 0)
-                        mods.Add(new ResistanceMod(ResistanceType.Energy, -(defender.EnergyResistance / 2)));
+                        mods.Add(new ResistanceMod(ResistanceType.Energy, -(defender.EnergyResistance/2)));
                 }
                 else
                 {
                     if (defender.PhysicalResistance > 0)
-                        mods.Add(new ResistanceMod(ResistanceType.Physical, (defender.PhysicalResistance > 70) ? -70 : -defender.PhysicalResistance));
+                        mods.Add(new ResistanceMod(ResistanceType.Physical,
+                            (defender.PhysicalResistance > 70) ? -70 : -defender.PhysicalResistance));
 
                     if (defender.FireResistance > 0)
-                        mods.Add(new ResistanceMod(ResistanceType.Fire, (defender.FireResistance > 70) ? -70 : -defender.FireResistance));
+                        mods.Add(new ResistanceMod(ResistanceType.Fire,
+                            (defender.FireResistance > 70) ? -70 : -defender.FireResistance));
 
                     if (defender.ColdResistance > 0)
-                        mods.Add(new ResistanceMod(ResistanceType.Cold, (defender.ColdResistance > 70) ? -70 : -defender.ColdResistance));
+                        mods.Add(new ResistanceMod(ResistanceType.Cold,
+                            (defender.ColdResistance > 70) ? -70 : -defender.ColdResistance));
 
                     if (defender.PoisonResistance > 0)
-                        mods.Add(new ResistanceMod(ResistanceType.Poison, (defender.PoisonResistance > 70) ? -70 : -defender.PoisonResistance));
+                        mods.Add(new ResistanceMod(ResistanceType.Poison,
+                            (defender.PoisonResistance > 70) ? -70 : -defender.PoisonResistance));
 
                     if (defender.EnergyResistance > 0)
-                        mods.Add(new ResistanceMod(ResistanceType.Energy, (defender.EnergyResistance > 70) ? -70 : -defender.EnergyResistance));
+                        mods.Add(new ResistanceMod(ResistanceType.Energy,
+                            (defender.EnergyResistance > 70) ? -70 : -defender.EnergyResistance));
                 }
 
-                for (int i = 0; i < mods.Count; ++i)
+                for (var i = 0; i < mods.Count; ++i)
                     defender.AddResistanceMod(mods[i]);
 
                 defender.FixedEffect(0x37B9, 10, 5);
@@ -227,23 +226,23 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write((int)1);
+            writer.Write(1);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
 
             if (version < 1)
             {
-                for (int i = 0; i < this.Skills.Length; ++i)
+                for (var i = 0; i < Skills.Length; ++i)
                 {
-                    this.Skills[i].Cap = Math.Max(100.0, this.Skills[i].Cap * 0.9);
+                    Skills[i].Cap = Math.Max(100.0, Skills[i].Cap*0.9);
 
-                    if (this.Skills[i].Base > this.Skills[i].Cap)
+                    if (Skills[i].Base > Skills[i].Cap)
                     {
-                        this.Skills[i].Base = this.Skills[i].Cap;
+                        Skills[i].Base = Skills[i].Cap;
                     }
                 }
             }
@@ -253,27 +252,28 @@ namespace Server.Mobiles
         {
             private readonly Mobile m_Mobile;
             private readonly List<ResistanceMod> m_Mods;
+
             public ExpireTimer(Mobile m, List<ResistanceMod> mods, TimeSpan delay)
                 : base(delay)
             {
-                this.m_Mobile = m;
-                this.m_Mods = mods;
-                this.Priority = TimerPriority.TwoFiftyMS;
+                m_Mobile = m;
+                m_Mods = mods;
+                Priority = TimerPriority.TwoFiftyMS;
             }
 
             public void DoExpire()
             {
-                for (int i = 0; i < this.m_Mods.Count; ++i)
-                    this.m_Mobile.RemoveResistanceMod(this.m_Mods[i]);
+                for (var i = 0; i < m_Mods.Count; ++i)
+                    m_Mobile.RemoveResistanceMod(m_Mods[i]);
 
-                this.Stop();
-                m_Table.Remove(this.m_Mobile);
+                Stop();
+                m_Table.Remove(m_Mobile);
             }
 
             protected override void OnTick()
             {
-                this.m_Mobile.SendMessage("The corruption of your armor has worn off");
-                this.DoExpire();
+                m_Mobile.SendMessage("The corruption of your armor has worn off");
+                DoExpire();
             }
         }
     }

@@ -1,5 +1,3 @@
-using System;
-
 namespace Server.Mobiles
 {
     [CorpseName("a giant toad corpse")]
@@ -10,37 +8,37 @@ namespace Server.Mobiles
         public GiantToad()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            this.Name = "a giant toad";
-            this.Body = 80;
-            this.BaseSoundID = 0x26B;
+            Name = "a giant toad";
+            Body = 80;
+            BaseSoundID = 0x26B;
 
-            this.SetStr(76, 100);
-            this.SetDex(6, 25);
-            this.SetInt(11, 20);
+            SetStr(76, 100);
+            SetDex(6, 25);
+            SetInt(11, 20);
 
-            this.SetHits(46, 60);
-            this.SetMana(0);
+            SetHits(46, 60);
+            SetMana(0);
 
-            this.SetDamage(5, 17);
+            SetDamage(5, 17);
 
-            this.SetDamageType(ResistanceType.Physical, 100);
+            SetDamageType(ResistanceType.Physical, 100);
 
-            this.SetResistance(ResistanceType.Physical, 20, 25);
-            this.SetResistance(ResistanceType.Fire, 5, 10);
-            this.SetResistance(ResistanceType.Energy, 5, 10);
+            SetResistance(ResistanceType.Physical, 20, 25);
+            SetResistance(ResistanceType.Fire, 5, 10);
+            SetResistance(ResistanceType.Energy, 5, 10);
 
-            this.SetSkill(SkillName.MagicResist, 25.1, 40.0);
-            this.SetSkill(SkillName.Tactics, 40.1, 60.0);
-            this.SetSkill(SkillName.Wrestling, 40.1, 60.0);
+            SetSkill(SkillName.MagicResist, 25.1, 40.0);
+            SetSkill(SkillName.Tactics, 40.1, 60.0);
+            SetSkill(SkillName.Wrestling, 40.1, 60.0);
 
-            this.Fame = 750;
-            this.Karma = -750;
+            Fame = 750;
+            Karma = -750;
 
-            this.VirtualArmor = 24;
+            VirtualArmor = 24;
 
-            this.Tamable = true;
-            this.ControlSlots = 1;
-            this.MinTameSkill = 77.1;
+            Tamable = true;
+            ControlSlots = 1;
+            MinTameSkill = 77.1;
         }
 
         public GiantToad(Serial serial)
@@ -50,46 +48,40 @@ namespace Server.Mobiles
 
         public override int Hides
         {
-            get
-            {
-                return 12;
-            }
+            get { return 12; }
         }
+
         public override HideType HideType
         {
-            get
-            {
-                return HideType.Spined;
-            }
+            get { return HideType.Spined; }
         }
+
         public override FoodType FavoriteFood
         {
-            get
-            {
-                return FoodType.Fish | FoodType.Meat;
-            }
+            get { return FoodType.Fish | FoodType.Meat; }
         }
+
         public override void GenerateLoot()
         {
-            this.AddLoot(LootPack.Poor);
+            AddLoot(LootPack.Poor);
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write((int)1);
+            writer.Write(1);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
             if (version < 1)
             {
-                this.AI = AIType.AI_Melee;
-                this.FightMode = FightMode.Closest;
+                AI = AIType.AI_Melee;
+                FightMode = FightMode.Closest;
             }
         }
     }

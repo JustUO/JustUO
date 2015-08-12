@@ -1,4 +1,3 @@
-using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -8,44 +7,43 @@ namespace Server.Mobiles
     {
         [Constructable]
         public Coil()
-            : base()
         {
-            this.ActiveSpeed = 0.1;
-            this.PassiveSpeed = 0.2;
-		
-            this.Name = "Coil";
+            ActiveSpeed = 0.1;
+            PassiveSpeed = 0.2;
 
-            this.Hue = 0x3F;
-            this.BaseSoundID = 0xDB;
+            Name = "Coil";
 
-            this.SetStr(205, 343);
-            this.SetDex(202, 283);
-            this.SetInt(88, 142);
+            Hue = 0x3F;
+            BaseSoundID = 0xDB;
 
-            this.SetHits(628, 1291);
+            SetStr(205, 343);
+            SetDex(202, 283);
+            SetInt(88, 142);
 
-            this.SetDamage(19, 28);
+            SetHits(628, 1291);
 
-            this.SetDamageType(ResistanceType.Physical, 50);
-            this.SetDamageType(ResistanceType.Poison, 50);
+            SetDamage(19, 28);
 
-            this.SetResistance(ResistanceType.Physical, 56, 62);
-            this.SetResistance(ResistanceType.Fire, 25, 29);
-            this.SetResistance(ResistanceType.Cold, 25, 30);
-            this.SetResistance(ResistanceType.Poison, 100);
-            this.SetResistance(ResistanceType.Energy, 27, 30);
+            SetDamageType(ResistanceType.Physical, 50);
+            SetDamageType(ResistanceType.Poison, 50);
 
-            this.SetSkill(SkillName.Wrestling, 124.5, 134.5);
-            this.SetSkill(SkillName.Tactics, 130.2, 142.0);
-            this.SetSkill(SkillName.MagicResist, 102.3, 113.0);
-            this.SetSkill(SkillName.Anatomy, 120.8, 138.1);
-            this.SetSkill(SkillName.Poisoning, 110.1, 133.4);
+            SetResistance(ResistanceType.Physical, 56, 62);
+            SetResistance(ResistanceType.Fire, 25, 29);
+            SetResistance(ResistanceType.Cold, 25, 30);
+            SetResistance(ResistanceType.Poison, 100);
+            SetResistance(ResistanceType.Energy, 27, 30);
 
-            this.Fame = 17500;
-            this.Karma = -17500;
+            SetSkill(SkillName.Wrestling, 124.5, 134.5);
+            SetSkill(SkillName.Tactics, 130.2, 142.0);
+            SetSkill(SkillName.MagicResist, 102.3, 113.0);
+            SetSkill(SkillName.Anatomy, 120.8, 138.1);
+            SetSkill(SkillName.Poisoning, 110.1, 133.4);
 
-            this.PackGem(2);
-            this.PackItem(new Bone());	
+            Fame = 17500;
+            Karma = -17500;
+
+            PackGem(2);
+            PackItem(new Bone());
         }
 
         public Coil(Serial serial)
@@ -55,42 +53,32 @@ namespace Server.Mobiles
 
         public override Poison HitPoison
         {
-            get
-            {
-                return Poison.Lethal;
-            }
+            get { return Poison.Lethal; }
         }
+
         public override Poison PoisonImmune
         {
-            get
-            {
-                return Poison.Lethal;
-            }
+            get { return Poison.Lethal; }
         }
+
         public override bool GivesMLMinorArtifact
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override int Hides
         {
-            get
-            {
-                return 48;
-            }
+            get { return 48; }
         }
+
         public override int Meat
         {
-            get
-            {
-                return 1;
-            }
+            get { return 1; }
         }
+
         public override void GenerateLoot()
         {
-            this.AddLoot(LootPack.AosUltraRich, 3);
+            AddLoot(LootPack.AosUltraRich, 3);
         }
 
         public override WeaponAbility GetWeaponAbility()
@@ -100,13 +88,13 @@ namespace Server.Mobiles
 
         public override void OnDeath(Container c)
         {
-            base.OnDeath(c);		
-			
+            base.OnDeath(c);
+
             c.DropItem(new CoilsFang());
-			
+
             if (Utility.RandomDouble() < 0.025)
             {
-                switch( Utility.Random(5) )
+                switch (Utility.Random(5))
                 {
                     case 0:
                         c.DropItem(new AssassinChest());
@@ -130,15 +118,15 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-			
-            writer.Write((int)0); // version
+
+            writer.Write(0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-			
-            int version = reader.ReadInt();
+
+            var version = reader.ReadInt();
         }
     }
 }

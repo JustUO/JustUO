@@ -9,46 +9,47 @@ namespace Server.Mobiles
     public class MeerCaptain : BaseCreature
     {
         private DateTime m_NextAbilityTime;
+
         [Constructable]
         public MeerCaptain()
             : base(AIType.AI_Archer, FightMode.Evil, 10, 1, 0.2, 0.4)
         {
-            this.Name = "a meer captain";
-            this.Body = 773;
+            Name = "a meer captain";
+            Body = 773;
 
-            this.SetStr(96, 110);
-            this.SetDex(186, 200);
-            this.SetInt(96, 110);
+            SetStr(96, 110);
+            SetDex(186, 200);
+            SetInt(96, 110);
 
-            this.SetHits(58, 66);
+            SetHits(58, 66);
 
-            this.SetDamage(5, 15);
+            SetDamage(5, 15);
 
-            this.SetDamageType(ResistanceType.Physical, 100);
+            SetDamageType(ResistanceType.Physical, 100);
 
-            this.SetResistance(ResistanceType.Physical, 45, 55);
-            this.SetResistance(ResistanceType.Fire, 10, 20);
-            this.SetResistance(ResistanceType.Cold, 40, 50);
-            this.SetResistance(ResistanceType.Poison, 35, 45);
-            this.SetResistance(ResistanceType.Energy, 35, 45);
+            SetResistance(ResistanceType.Physical, 45, 55);
+            SetResistance(ResistanceType.Fire, 10, 20);
+            SetResistance(ResistanceType.Cold, 40, 50);
+            SetResistance(ResistanceType.Poison, 35, 45);
+            SetResistance(ResistanceType.Energy, 35, 45);
 
-            this.SetSkill(SkillName.Archery, 90.1, 100.0);
-            this.SetSkill(SkillName.MagicResist, 91.0, 100.0);
-            this.SetSkill(SkillName.Swords, 90.1, 100.0);
-            this.SetSkill(SkillName.Tactics, 91.0, 100.0);
-            this.SetSkill(SkillName.Wrestling, 80.9, 89.9);
+            SetSkill(SkillName.Archery, 90.1, 100.0);
+            SetSkill(SkillName.MagicResist, 91.0, 100.0);
+            SetSkill(SkillName.Swords, 90.1, 100.0);
+            SetSkill(SkillName.Tactics, 91.0, 100.0);
+            SetSkill(SkillName.Wrestling, 80.9, 89.9);
 
-            this.Fame = 2000;
-            this.Karma = 5000;
+            Fame = 2000;
+            Karma = 5000;
 
-            this.VirtualArmor = 28;
+            VirtualArmor = 28;
 
             Container pack = new Backpack();
 
             pack.DropItem(new Bolt(Utility.RandomMinMax(10, 20)));
             pack.DropItem(new Bolt(Utility.RandomMinMax(10, 20)));
 
-            switch ( Utility.Random(6) )
+            switch (Utility.Random(6))
             {
                 case 0:
                     pack.DropItem(new Broadsword());
@@ -72,11 +73,11 @@ namespace Server.Mobiles
 
             Container bag = new Bag();
 
-            int count = Utility.RandomMinMax(10, 20);
+            var count = Utility.RandomMinMax(10, 20);
 
-            for (int i = 0; i < count; ++i)
+            for (var i = 0; i < count; ++i)
             {
-                Item item = Loot.RandomReagent();
+                var item = Loot.RandomReagent();
 
                 if (item == null)
                     continue;
@@ -87,10 +88,10 @@ namespace Server.Mobiles
 
             pack.DropItem(bag);
 
-            this.AddItem(new Crossbow());
-            this.PackItem(pack);
+            AddItem(new Crossbow());
+            PackItem(pack);
 
-            this.m_NextAbilityTime = DateTime.UtcNow + TimeSpan.FromSeconds(Utility.RandomMinMax(2, 5));
+            m_NextAbilityTime = DateTime.UtcNow + TimeSpan.FromSeconds(Utility.RandomMinMax(2, 5));
         }
 
         public MeerCaptain(Serial serial)
@@ -100,28 +101,22 @@ namespace Server.Mobiles
 
         public override bool BardImmune
         {
-            get
-            {
-                return !Core.AOS;
-            }
+            get { return !Core.AOS; }
         }
+
         public override bool CanRummageCorpses
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override bool InitialInnocent
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override void GenerateLoot()
         {
-            this.AddLoot(LootPack.Meager);
+            AddLoot(LootPack.Meager);
         }
 
         public override int GetHurtSound()
@@ -141,32 +136,33 @@ namespace Server.Mobiles
 
         public override void OnThink()
         {
-            if (this.Combatant != null && this.MagicDamageAbsorb < 1)
+            if (Combatant != null && MagicDamageAbsorb < 1)
             {
-                this.MagicDamageAbsorb = Utility.RandomMinMax(5, 7);
-                this.FixedParticles(0x375A, 10, 15, 5037, EffectLayer.Waist);
-                this.PlaySound(0x1E9);
+                MagicDamageAbsorb = Utility.RandomMinMax(5, 7);
+                FixedParticles(0x375A, 10, 15, 5037, EffectLayer.Waist);
+                PlaySound(0x1E9);
             }
 
-            if (DateTime.UtcNow >= this.m_NextAbilityTime)
+            if (DateTime.UtcNow >= m_NextAbilityTime)
             {
-                this.m_NextAbilityTime = DateTime.UtcNow + TimeSpan.FromSeconds(Utility.RandomMinMax(10, 15));
+                m_NextAbilityTime = DateTime.UtcNow + TimeSpan.FromSeconds(Utility.RandomMinMax(10, 15));
 
-                ArrayList list = new ArrayList();
+                var list = new ArrayList();
 
-                foreach (Mobile m in this.GetMobilesInRange(8))
+                foreach (var m in GetMobilesInRange(8))
                 {
-                    if (m is MeerWarrior && this.IsFriend(m) && this.CanBeBeneficial(m) && m.Hits < m.HitsMax && !m.Poisoned && !MortalStrike.IsWounded(m))
+                    if (m is MeerWarrior && IsFriend(m) && CanBeBeneficial(m) && m.Hits < m.HitsMax && !m.Poisoned &&
+                        !MortalStrike.IsWounded(m))
                         list.Add(m);
                 }
 
-                for (int i = 0; i < list.Count; ++i)
+                for (var i = 0; i < list.Count; ++i)
                 {
-                    Mobile m = (Mobile)list[i];
+                    var m = (Mobile) list[i];
 
-                    this.DoBeneficial(m);
+                    DoBeneficial(m);
 
-                    int toHeal = Utility.RandomMinMax(20, 30);
+                    var toHeal = Utility.RandomMinMax(20, 30);
 
                     SpellHelper.Turn(this, m);
 
@@ -183,13 +179,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write((int)0);
+            writer.Write(0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

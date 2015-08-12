@@ -1,4 +1,3 @@
-using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -42,9 +41,9 @@ namespace Server.Mobiles
             Fame = 8000;
             Karma = -8000;
 
-            QLPoints = 50;
-
             VirtualArmor = 48;
+
+            QLPoints = 50;
 
             PackItem(new DaemonBone(30));
         }
@@ -56,39 +55,29 @@ namespace Server.Mobiles
 
         public override bool AlwaysMurderer
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override Poison PoisonImmune
         {
-            get
-            {
-                return Poison.Lethal;
-            }
+            get { return Poison.Lethal; }
         }
+
         public override bool Unprovokable
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override bool BardImmune
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override bool ReacquireOnMovement
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override void GenerateLoot()
         {
             AddLoot(LootPack.AosUltraRich, 3);
@@ -118,15 +107,15 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-			
-            writer.Write((int)0); // version
+
+            writer.Write(0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-			
-            int version = reader.ReadInt();
+
+            var version = reader.ReadInt();
         }
     }
 }

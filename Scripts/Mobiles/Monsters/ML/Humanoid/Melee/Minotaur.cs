@@ -1,4 +1,3 @@
-using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -8,40 +7,40 @@ namespace Server.Mobiles
     {
         [Constructable]
         public Minotaur()
-            : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)// NEED TO CHECK
+            : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4) // NEED TO CHECK
         {
-            this.Name = "a minotaur";
-            this.Body = 263;
+            Name = "a minotaur";
+            Body = 263;
 
-            this.SetStr(301, 340);
-            this.SetDex(91, 110);
-            this.SetInt(31, 50);
+            SetStr(301, 340);
+            SetDex(91, 110);
+            SetInt(31, 50);
 
-            this.SetHits(301, 340);
+            SetHits(301, 340);
 
-            this.SetDamage(11, 20);
+            SetDamage(11, 20);
 
-            this.SetDamageType(ResistanceType.Physical, 100);
+            SetDamageType(ResistanceType.Physical, 100);
 
-            this.SetResistance(ResistanceType.Physical, 55, 65);
-            this.SetResistance(ResistanceType.Fire, 25, 35);
-            this.SetResistance(ResistanceType.Cold, 30, 40);
-            this.SetResistance(ResistanceType.Poison, 30, 40);
-            this.SetResistance(ResistanceType.Energy, 30, 40);
+            SetResistance(ResistanceType.Physical, 55, 65);
+            SetResistance(ResistanceType.Fire, 25, 35);
+            SetResistance(ResistanceType.Cold, 30, 40);
+            SetResistance(ResistanceType.Poison, 30, 40);
+            SetResistance(ResistanceType.Energy, 30, 40);
 
-            this.SetSkill(SkillName.Meditation, 0);
-            this.SetSkill(SkillName.EvalInt, 0);
-            this.SetSkill(SkillName.Magery, 0);
-            this.SetSkill(SkillName.Poisoning, 0);
-            this.SetSkill(SkillName.Anatomy, 0);
-            this.SetSkill(SkillName.MagicResist, 56.1, 64.0);
-            this.SetSkill(SkillName.Tactics, 93.3, 97.8);
-            this.SetSkill(SkillName.Wrestling, 90.4, 92.1);
+            SetSkill(SkillName.Meditation, 0);
+            SetSkill(SkillName.EvalInt, 0);
+            SetSkill(SkillName.Magery, 0);
+            SetSkill(SkillName.Poisoning, 0);
+            SetSkill(SkillName.Anatomy, 0);
+            SetSkill(SkillName.MagicResist, 56.1, 64.0);
+            SetSkill(SkillName.Tactics, 93.3, 97.8);
+            SetSkill(SkillName.Wrestling, 90.4, 92.1);
 
-            this.Fame = 5000;
-            this.Karma = -5000;
+            Fame = 5000;
+            Karma = -5000;
 
-            this.VirtualArmor = 28; // Don't know what it should be
+            VirtualArmor = 28; // Don't know what it should be
         }
 
         public Minotaur(Serial serial)
@@ -56,7 +55,7 @@ namespace Server.Mobiles
 
         public override void GenerateLoot()
         {
-            this.AddLoot(LootPack.Rich);  // Need to verify
+            AddLoot(LootPack.Rich); // Need to verify
         }
 
         // Using Tormented Minotaur sounds - Need to veryfy
@@ -88,13 +87,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write((int)0);
+            writer.Write(0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

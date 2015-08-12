@@ -1,4 +1,3 @@
-using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -8,111 +7,157 @@ namespace Server.Mobiles
     {
         [Constructable]
         public SentinelSpider()
-            : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)
+            : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            this.Name = "a Sentinel spider";
-            this.Body = 11;
-            this.Hue = 0x8FF;
-            this.BaseSoundID = 1170;
+            Name = "a sentinel spider";
+            Body = 11;
+            Hue = 1663;
+            BaseSoundID = 1170;
 
-            this.SetStr(95, 100);
-            this.SetDex(142, 145);
-            this.SetInt(43, 45);
+            SetStr(90, 113);
+            SetDex(135, 150);
+            SetInt(40, 88);
 
-            this.SetHits(264, 265);
-            this.SetStam(142, 145);
-            this.SetMana(43, 45);
+            SetHits(250, 336);
 
-            this.SetDamage(15, 22);
+            SetDamage(15, 22);
 
-            this.SetDamageType(ResistanceType.Physical, 100);
+            SetDamageType(ResistanceType.Physical, 100);
 
-            this.SetResistance(ResistanceType.Physical, 48);
-            this.SetResistance(ResistanceType.Fire, 32);
-            this.SetResistance(ResistanceType.Cold, 33);
-            this.SetResistance(ResistanceType.Poison, 71);
-            this.SetResistance(ResistanceType.Energy, 30);
+            SetResistance(ResistanceType.Physical, 40, 50);
+            SetResistance(ResistanceType.Fire, 30, 40);
+            SetResistance(ResistanceType.Cold, 25, 35);
+            SetResistance(ResistanceType.Poison, 70, 80);
+            SetResistance(ResistanceType.Energy, 30, 35);
 
-            this.SetSkill(SkillName.Wrestling, 119.7);
-            this.SetSkill(SkillName.Tactics, 102.9);
-            this.SetSkill(SkillName.MagicResist, 88.5);
-            this.SetSkill(SkillName.Poisoning, 101.0);
-			
-            this.PackItem(new SpidersSilk(8));
+            SetSkill(SkillName.Anatomy, 90.1, 100.0);
+            SetSkill(SkillName.Poisoning, 100.1, 110.0);
+            SetSkill(SkillName.MagicResist, 85.1, 90.0);
+            SetSkill(SkillName.Tactics, 101.1, 110.0);
+            SetSkill(SkillName.Wrestling, 105.1, 120.0);
 
-            this.Fame = 18900;
-            this.Karma = -18900;
+            Fame = 18900;
+            Karma = -18900;
+
+            VirtualArmor = 36;
+
+            PackItem(new SpidersSilk(8));
         }
 
-        public SentinelSpider(Serial serial)
-            : base(serial)
+        public SentinelSpider(Serial serial) : base(serial)
         {
         }
 
         public override bool GivesMLMinorArtifact
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override Poison PoisonImmune
         {
-            get
-            {
-                return Poison.Lethal;
-            }
+            get { return Poison.Lethal; }
         }
+
         public override Poison HitPoison
         {
-            get
-            {
-                return Poison.Lethal;
-            }
+            get { return Poison.Lethal; }
         }
+
+        public override int TreasureMapLevel
+        {
+            get { return 5; }
+        }
+
         public override void GenerateLoot()
         {
-            this.AddLoot(LootPack.AosUltraRich, 4);
+            AddLoot(LootPack.FilthyRich);
         }
 
         public override void OnDeath(Container c)
         {
-            base.OnDeath(c);		
-			
+            base.OnDeath(c);
+
+            if (Utility.RandomDouble() < 0.15)
+                c.DropItem(new BottleIchor());
+
+            if (Utility.RandomDouble() < 0.05)
+                c.DropItem(new SpiderCarapace());
+
+            if (Utility.RandomDouble() < 0.02)
+                c.DropItem(new LuckyCoin());
+
             if (Utility.RandomDouble() < 0.025)
             {
-                switch ( Utility.Random(2) )
+                switch (Utility.Random(18))
                 {
                     case 0:
-                        c.DropItem(new LuckyCoin());
+                        c.DropItem(new AssassinChest());
                         break;
                     case 1:
-                        c.DropItem(new SpiderCarapace());
+                        c.DropItem(new AssassinArms());
+                        break;
+                    case 2:
+                        c.DropItem(new DeathChest());
+                        break;
+                    case 3:
+                        c.DropItem(new MyrmidonArms());
+                        break;
+                    case 4:
+                        c.DropItem(new MyrmidonLegs());
+                        break;
+                    case 5:
+                        c.DropItem(new MyrmidonGorget());
+                        break;
+                    case 6:
+                        c.DropItem(new LeafweaveGloves());
+                        break;
+                    case 7:
+                        c.DropItem(new LeafweaveLegs());
+                        break;
+                    case 8:
+                        c.DropItem(new LeafweavePauldrons());
+                        break;
+                    case 9:
+                        c.DropItem(new PaladinGloves());
+                        break;
+                    case 10:
+                        c.DropItem(new PaladinGorget());
+                        break;
+                    case 11:
+                        c.DropItem(new PaladinArms());
+                        break;
+                    case 12:
+                        c.DropItem(new HunterArms());
+                        break;
+                    case 13:
+                        c.DropItem(new HunterGloves());
+                        break;
+                    case 14:
+                        c.DropItem(new HunterLegs());
+                        break;
+                    case 15:
+                        c.DropItem(new HunterChest());
+                        break;
+                    case 16:
+                        c.DropItem(new GreymistArms());
+                        break;
+                    case 17:
+                        c.DropItem(new GreymistGloves());
                         break;
                 }
             }
-				
-            if (Utility.RandomDouble() < 0.15)
-                c.DropItem(new BottleIchor());
-        }
-
-        public override WeaponAbility GetWeaponAbility()
-        {
-            return WeaponAbility.ArmorIgnore;
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-			
-            writer.Write((int)0); // version
+            writer.Write(0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-			
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

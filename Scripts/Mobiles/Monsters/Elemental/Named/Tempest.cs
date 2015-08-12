@@ -1,5 +1,3 @@
-using System;
-
 namespace Server.Mobiles
 {
     [CorpseName("the remains of Tempest")]
@@ -9,39 +7,39 @@ namespace Server.Mobiles
         public Tempest()
             : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            this.Name = "Tempest";
-            this.Body = 13;
-            this.Hue = 1175;
-            this.BaseSoundID = 263;
+            Name = "Tempest";
+            Body = 13;
+            Hue = 1175;
+            BaseSoundID = 263;
 
-            this.SetStr(116, 135);
-            this.SetDex(166, 185);
-            this.SetInt(101, 125);
+            SetStr(116, 135);
+            SetDex(166, 185);
+            SetInt(101, 125);
 
-            this.SetHits(602);
+            SetHits(602);
 
-            this.SetDamage(18, 20);  // Erica's
+            SetDamage(18, 20); // Erica's
 
-            this.SetDamageType(ResistanceType.Energy, 80);
-            this.SetDamageType(ResistanceType.Cold, 20);
+            SetDamageType(ResistanceType.Energy, 80);
+            SetDamageType(ResistanceType.Cold, 20);
 
-            this.SetResistance(ResistanceType.Physical, 46);
-            this.SetResistance(ResistanceType.Fire, 39);
-            this.SetResistance(ResistanceType.Cold, 33);
-            this.SetResistance(ResistanceType.Poison, 36);
-            this.SetResistance(ResistanceType.Energy, 58);
+            SetResistance(ResistanceType.Physical, 46);
+            SetResistance(ResistanceType.Fire, 39);
+            SetResistance(ResistanceType.Cold, 33);
+            SetResistance(ResistanceType.Poison, 36);
+            SetResistance(ResistanceType.Energy, 58);
 
-            this.SetSkill(SkillName.EvalInt, 99.6);
-            this.SetSkill(SkillName.Magery, 101.0);
-            this.SetSkill(SkillName.MagicResist, 104.6);
-            this.SetSkill(SkillName.Tactics, 111.8);
-            this.SetSkill(SkillName.Wrestling, 116.0);
+            SetSkill(SkillName.EvalInt, 99.6);
+            SetSkill(SkillName.Magery, 101.0);
+            SetSkill(SkillName.MagicResist, 104.6);
+            SetSkill(SkillName.Tactics, 111.8);
+            SetSkill(SkillName.Wrestling, 116.0);
 
-            this.Fame = 4500;
-            this.Karma = -4500;
+            Fame = 4500;
+            Karma = -4500;
 
-            this.VirtualArmor = 40;
-            this.ControlSlots = 2;
+            VirtualArmor = 40;
+            ControlSlots = 2;
         }
 
         public Tempest(Serial serial)
@@ -51,53 +49,45 @@ namespace Server.Mobiles
 
         public override double DispelDifficulty
         {
-            get
-            {
-                return 117.5;
-            }
+            get { return 117.5; }
         }
+
         public override double DispelFocus
         {
-            get
-            {
-                return 45.0;
-            }
+            get { return 45.0; }
         }
+
         public override bool BleedImmune
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override int TreasureMapLevel
         {
-            get
-            {
-                return 2;
-            }
+            get { return 2; }
         }
+
         public override void GenerateLoot()
         {
-            this.AddLoot(LootPack.Average);
-            this.AddLoot(LootPack.Meager);
-            this.AddLoot(LootPack.LowScrolls);
-            this.AddLoot(LootPack.MedScrolls);
+            AddLoot(LootPack.Average);
+            AddLoot(LootPack.Meager);
+            AddLoot(LootPack.LowScrolls);
+            AddLoot(LootPack.MedScrolls);
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write((int)0);
+            writer.Write(0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
 
-            if (this.BaseSoundID == 263)
-                this.BaseSoundID = 655;
+            if (BaseSoundID == 263)
+                BaseSoundID = 655;
         }
     }
 }

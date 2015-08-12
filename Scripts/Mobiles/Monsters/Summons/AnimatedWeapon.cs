@@ -1,5 +1,3 @@
-using System;
-
 namespace Server.Mobiles
 {
     [CorpseName("the remains of a broken weapon")]
@@ -9,30 +7,30 @@ namespace Server.Mobiles
         public AnimatedWeapon()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            this.Name = "Animated Weapon";
-            this.Body = 692;
+            Name = "Animated Weapon";
+            Body = 692;
 
-            this.SetStr(100);
-            this.SetDex(100);
-            this.SetInt(100);
+            SetStr(100);
+            SetDex(100);
+            SetInt(100);
 
-            this.SetDamage(14, 21);
+            SetDamage(14, 21);
 
-            this.SetDamageType(ResistanceType.Physical, 0);
-            this.SetDamageType(ResistanceType.Poison, 100);
+            SetDamageType(ResistanceType.Physical, 0);
+            SetDamageType(ResistanceType.Poison, 100);
 
-            this.SetResistance(ResistanceType.Physical, 45, 55);
-            this.SetResistance(ResistanceType.Fire, 45, 55);
-            this.SetResistance(ResistanceType.Cold, 45, 55);
-            this.SetResistance(ResistanceType.Poison, 100);
-            this.SetResistance(ResistanceType.Energy, 30, 40);
+            SetResistance(ResistanceType.Physical, 45, 55);
+            SetResistance(ResistanceType.Fire, 45, 55);
+            SetResistance(ResistanceType.Cold, 45, 55);
+            SetResistance(ResistanceType.Poison, 100);
+            SetResistance(ResistanceType.Energy, 30, 40);
 
-            this.SetSkill(SkillName.MagicResist, 90.1, 100.0);
-            this.SetSkill(SkillName.Tactics, 100.0);
-            this.SetSkill(SkillName.Wrestling, 100.0);
+            SetSkill(SkillName.MagicResist, 90.1, 100.0);
+            SetSkill(SkillName.Tactics, 100.0);
+            SetSkill(SkillName.Wrestling, 100.0);
 
-            this.VirtualArmor = 58;
-            this.ControlSlots = 4;
+            VirtualArmor = 58;
+            ControlSlots = 4;
         }
 
         public AnimatedWeapon(Serial serial)
@@ -42,32 +40,24 @@ namespace Server.Mobiles
 
         public override double DispelDifficulty
         {
-            get
-            {
-                return 125.0;
-            }
+            get { return 125.0; }
         }
+
         public override double DispelFocus
         {
-            get
-            {
-                return 45.0;
-            }
+            get { return 45.0; }
         }
+
         public override bool BleedImmune
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override Poison PoisonImmune
         {
-            get
-            {
-                return Poison.Lethal;
-            }
-        }// Immune to poison?
+            get { return Poison.Lethal; }
+        } // Immune to poison?
+
         public override int GetAttackSound()
         {
             return 0x64B;
@@ -81,13 +71,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write((int)0);
+            writer.Write(0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

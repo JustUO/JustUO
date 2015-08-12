@@ -1,4 +1,4 @@
-using System;
+using Server.Items;
 
 namespace Server.Mobiles
 {
@@ -6,44 +6,63 @@ namespace Server.Mobiles
     public class RotWorm : BaseCreature
     {
         [Constructable]
-        public RotWorm()
-            : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
+        public RotWorm() : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            this.Name = "a rotworm";
-            this.Body = 732;
+            Name = "a rotworm";
+            Body = 732;
 
-            this.SetStr(222, 277);
-            this.SetDex(80);
-            this.SetInt(16, 20);
+            SetStr(244);
+            SetDex(80);
+            SetInt(17);
 
-            this.SetHits(204, 247);
-			this.SetMana(16, 20);
-			this.SetStam(50);
+            SetHits(215);
 
-            this.SetDamage(1, 5);
+            SetDamage(1, 5);
 
-            this.SetDamageType(ResistanceType.Physical, 100);
+            SetDamageType(ResistanceType.Physical, 100);
             //SetDamageType( ResistanceType.Poison, 40 );
 
-            this.SetResistance(ResistanceType.Physical, 36, 43);
-            this.SetResistance(ResistanceType.Fire, 30, 39);
-            this.SetResistance(ResistanceType.Cold, 28, 35);
-            this.SetResistance(ResistanceType.Poison, 65, 75);
-            this.SetResistance(ResistanceType.Energy, 25, 35);
+            SetResistance(ResistanceType.Physical, 37);
+            SetResistance(ResistanceType.Fire, 30);
+            SetResistance(ResistanceType.Cold, 35);
+            SetResistance(ResistanceType.Poison, 73);
+            SetResistance(ResistanceType.Energy, 26);
 
-            this.SetSkill(SkillName.MagicResist, 25.0);
-            this.SetSkill(SkillName.Tactics, 25.0);
-            this.SetSkill(SkillName.Wrestling, 50.0);
+            SetSkill(SkillName.MagicResist, 25.0);
+            SetSkill(SkillName.Tactics, 25.0);
+            SetSkill(SkillName.Wrestling, 50.0);
+
+            Fame = 1500;
+            Karma = -1500;
+
+            VirtualArmor = 16; //guess
+
+            QLPoints = 10;
+
+            //PackItem(new RawRotWormMeat(2));
         }
 
-        public RotWorm(Serial serial)
-            : base(serial)
+        public RotWorm(Serial serial) : base(serial)
         {
         }
 
         public override void GenerateLoot()
         {
-            this.AddLoot(LootPack.Meager);
+            AddLoot(LootPack.Meager);
+        }
+
+        public override void OnDeath(Container c)
+        {
+            base.OnDeath(c);
+            var reg = Region.Find(c.GetWorldLocation(), c.Map);
+            if (0.4 > Utility.RandomDouble() && reg.Name == "Ariel Writ Disaster")
+                c.DropItem(new ArielHavenWritofMembership());
+            c.DropItem(new BonePile());
+
+            if (Utility.RandomDouble() < 0.02)
+            {
+                c.DropItem(new LuckyCoin());
+            }
         }
 
         public override int GetIdleSound()
@@ -69,13 +88,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write((int)0);
+            writer.Write(0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

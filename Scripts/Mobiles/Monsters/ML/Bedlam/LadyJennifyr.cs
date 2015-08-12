@@ -8,38 +8,37 @@ namespace Server.Mobiles
     public class LadyJennifyr : SkeletalKnight
     {
         private static readonly Dictionary<Mobile, ExpireTimer> m_Table = new Dictionary<Mobile, ExpireTimer>();
+
         [Constructable]
         public LadyJennifyr()
         {
+            Name = "Lady Jennifyr";
+            Hue = 0x76D;
 
+            SetStr(208, 309);
+            SetDex(91, 118);
+            SetInt(44, 101);
 
-            this.Name = "Lady Jennifyr";
-            this.Hue = 0x76D;
+            SetHits(1113, 1285);
 
-            this.SetStr(208, 309);
-            this.SetDex(91, 118);
-            this.SetInt(44, 101);
+            SetDamage(15, 25);
 
-            this.SetHits(1113, 1285);
+            SetDamageType(ResistanceType.Physical, 40);
+            SetDamageType(ResistanceType.Cold, 60);
 
-            this.SetDamage(15, 25);
+            SetResistance(ResistanceType.Physical, 56, 65);
+            SetResistance(ResistanceType.Fire, 41, 49);
+            SetResistance(ResistanceType.Cold, 71, 80);
+            SetResistance(ResistanceType.Poison, 41, 50);
+            SetResistance(ResistanceType.Energy, 50, 58);
 
-            this.SetDamageType(ResistanceType.Physical, 40);
-            this.SetDamageType(ResistanceType.Cold, 60);
+            SetSkill(SkillName.Wrestling, 127.9, 137.1);
+            SetSkill(SkillName.Tactics, 128.4, 141.9);
+            SetSkill(SkillName.MagicResist, 102.1, 119.5);
+            SetSkill(SkillName.Anatomy, 129.0, 137.5);
 
-            this.SetResistance(ResistanceType.Physical, 56, 65);
-            this.SetResistance(ResistanceType.Fire, 41, 49);
-            this.SetResistance(ResistanceType.Cold, 71, 80);
-            this.SetResistance(ResistanceType.Poison, 41, 50);
-            this.SetResistance(ResistanceType.Energy, 50, 58);
-
-            this.SetSkill(SkillName.Wrestling, 127.9, 137.1);
-            this.SetSkill(SkillName.Tactics, 128.4, 141.9);
-            this.SetSkill(SkillName.MagicResist, 102.1, 119.5);
-            this.SetSkill(SkillName.Anatomy, 129.0, 137.5);
-
-            this.Fame = 18000;
-            this.Karma = -18000;
+            Fame = 18000;
+            Karma = -18000;
         }
 
         public LadyJennifyr(Serial serial)
@@ -47,27 +46,25 @@ namespace Server.Mobiles
         {
         }
 
-        public override void OnDeath( Container c )
-        {
-            base.OnDeath( c );
-
-            if ( Utility.RandomDouble() < 0.15 )
-            c.DropItem( new DisintegratingThesisNotes() );
-
-            if ( Utility.RandomDouble() < 0.1 )
-            c.DropItem( new ParrotItem() );
-        }
-     
         public override bool GivesMLMinorArtifact
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
+        public override void OnDeath(Container c)
+        {
+            base.OnDeath(c);
+
+            if (Utility.RandomDouble() < 0.15)
+                c.DropItem(new DisintegratingThesisNotes());
+
+            if (Utility.RandomDouble() < 0.1)
+                c.DropItem(new ParrotItem());
+        }
+
         public override void GenerateLoot()
         {
-            this.AddLoot(LootPack.UltraRich, 3);
+            AddLoot(LootPack.UltraRich, 3);
         }
 
         public override void OnGaveMeleeAttack(Mobile defender)
@@ -83,9 +80,10 @@ namespace Server.Mobiles
 
                 defender.FixedParticles(0x3709, 10, 30, 5052, EffectLayer.LeftFoot);
                 defender.PlaySound(0x208);
-                defender.SendLocalizedMessage(1070833); // The creature fans you with fire, reducing your resistance to fire attacks.
+                defender.SendLocalizedMessage(1070833);
+                    // The creature fans you with fire, reducing your resistance to fire attacks.
 
-                ResistanceMod mod = new ResistanceMod(ResistanceType.Fire, -10);
+                var mod = new ResistanceMod(ResistanceType.Fire, -10);
                 defender.AddResistanceMod(mod);
 
                 m_Table[defender] = timer = new ExpireTimer(defender, mod);
@@ -97,40 +95,41 @@ namespace Server.Mobiles
         {
             base.Serialize(writer);
 
-            writer.Write((int)0); // version
+            writer.Write(0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
 
         private class ExpireTimer : Timer
         {
             private readonly Mobile m_Mobile;
             private readonly ResistanceMod m_Mod;
+
             public ExpireTimer(Mobile m, ResistanceMod mod)
                 : base(TimeSpan.FromSeconds(10))
             {
-                this.m_Mobile = m;
-                this.m_Mod = mod;
-                this.Priority = TimerPriority.TwoFiftyMS;
+                m_Mobile = m;
+                m_Mod = mod;
+                Priority = TimerPriority.TwoFiftyMS;
             }
 
             public void DoExpire()
             {
-                this.m_Mobile.RemoveResistanceMod(this.m_Mod);
+                m_Mobile.RemoveResistanceMod(m_Mod);
 
-                this.Stop();
-                m_Table.Remove(this.m_Mobile);
+                Stop();
+                m_Table.Remove(m_Mobile);
             }
 
             protected override void OnTick()
             {
-                this.m_Mobile.SendLocalizedMessage(1070834); // Your resistance to fire attacks has returned.
-                this.DoExpire();
+                m_Mobile.SendLocalizedMessage(1070834); // Your resistance to fire attacks has returned.
+                DoExpire();
             }
         }
     }

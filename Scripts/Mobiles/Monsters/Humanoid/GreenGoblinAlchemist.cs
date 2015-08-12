@@ -1,159 +1,102 @@
-using System;
 using Server.Items;
 
 namespace Server.Mobiles
 {
-    [CorpseName("an goblin corpse")]
+    [CorpseName("a goblin corpse")]
     public class GreenGoblinAlchemist : BaseCreature
     {
-        //public override InhumanSpeech SpeechType{ get{ return InhumanSpeech.Orc; } }
         [Constructable]
-        public GreenGoblinAlchemist()
-            : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
+        public GreenGoblinAlchemist() : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            this.Name = "Green Goblin Alchemist";
-            this.Body = 723;
-            this.BaseSoundID = 0x45A;
+            Name = "Green Goblin Alchemist";
+            Body = 723;
+            BaseSoundID = 0x600;
 
-            this.SetStr(282, 331);
-            this.SetDex(62, 79);
-            this.SetInt(100, 149);
+            SetStr(275, 420);
+            SetDex(75, 80);
+            SetInt(117, 118);
 
-            this.SetHits(163, 197);
-            this.SetStam(62, 79);
-            this.SetMana(100, 149);
+            SetHits(192, 365);
+            SetStam(75, 80);
+            SetMana(117, 118);
 
-            this.SetDamage(5, 7);
+            SetDamage(5, 7);
 
-            this.SetDamageType(ResistanceType.Physical, 100);
+            SetDamageType(ResistanceType.Physical, 100);
 
-            this.SetResistance(ResistanceType.Physical, 40, 50);
-            this.SetResistance(ResistanceType.Fire, 45, 55);
-            this.SetResistance(ResistanceType.Cold, 30, 40);
-            this.SetResistance(ResistanceType.Poison, 35, 45);
-            this.SetResistance(ResistanceType.Energy, 11, 20);
+            SetResistance(ResistanceType.Physical, 45, 47);
+            SetResistance(ResistanceType.Fire, 45, 47);
+            SetResistance(ResistanceType.Cold, 36, 38);
+            SetResistance(ResistanceType.Poison, 37, 43);
+            SetResistance(ResistanceType.Energy, 16, 20);
 
-            this.SetSkill(SkillName.MagicResist, 120.3, 129.2);
-            this.SetSkill(SkillName.Tactics, 81.9, 87.1);
-            this.SetSkill(SkillName.Anatomy, 0.0, 0.0);
-            this.SetSkill(SkillName.Wrestling, 94.8, 106.9);
+            SetSkill(SkillName.MagicResist, 124.3, 129.0);
+            SetSkill(SkillName.Tactics, 80.1, 85.5);
+            SetSkill(SkillName.Anatomy, 0.0, 0.0);
+            SetSkill(SkillName.Wrestling, 104.0, 107.4);
 
-            this.Fame = 1500;
-            this.Karma = -1500;
+            Fame = 15000;
+            Karma = -15000;
 
-            this.VirtualArmor = 28;
+            VirtualArmor = 28;
 
-            // loot 60 gold, magic item, gem, bola ball, liquar,gob blood
-            switch ( Utility.Random(20) )
-            {
-                case 0:
-                    this.PackItem(new Scimitar());
-                    break;
-                case 1:
-                    this.PackItem(new Katana());
-                    break;
-                case 2:
-                    this.PackItem(new WarMace());
-                    break;
-                case 3:
-                    this.PackItem(new WarHammer());
-                    break;
-                case 4:
-                    this.PackItem(new Kryss());
-                    break;
-                case 5:
-                    this.PackItem(new Pitchfork());
-                    break;
-            }
-
-            this.PackItem(new ThighBoots());
-
-            switch ( Utility.Random(3) )
-            {
-                case 0:
-                    this.PackItem(new Ribs());
-                    break;
-                case 1:
-                    this.PackItem(new Shaft());
-                    break;
-                case 2:
-                    this.PackItem(new Candle());
-                    break;
-            }
-
-            if (0.2 > Utility.RandomDouble())
-                this.PackItem(new BolaBall());
+            QLPoints = 10;
         }
 
-        //Item item = aggressor.FindItemOnLayer( Layer.Helm );
-
-        //if ( item is OrcishKinMask )
-        //{
-        //	AOS.Damage( aggressor, 50, 0, 100, 0, 0, 0 );
-        //	item.Delete();
-        //	aggressor.FixedParticles( 0x36BD, 20, 10, 5044, EffectLayer.Head );
-        //	aggressor.PlaySound( 0x307 );
-        //}
-        //}
-        public GreenGoblinAlchemist(Serial serial)
-            : base(serial)
+        public GreenGoblinAlchemist(Serial serial) : base(serial)
         {
         }
 
         public override bool CanRummageCorpses
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override int TreasureMapLevel
         {
-            get
-            {
-                return 1;
-            }
+            get { return 5; }
         }
+
         public override int Meat
         {
-            get
-            {
-                return 1;
-            }
+            get { return 1; }
         }
+
         public override OppositionGroup OppositionGroup
         {
-            get
-            {
-                return OppositionGroup.SavagesAndOrcs;
-            }
+            get { return OppositionGroup.SavagesAndOrcs; }
         }
-        //public override bool IsEnemy( Mobile m )
-        //{
-        //	if ( m.Player && m.FindItemOnLayer( Layer.Helm ) is OrcishKinMask )
-        //		return false;
 
-        //	return base.IsEnemy( m );
-        //}
-
-        //public override void AggressiveAction( Mobile aggressor, bool criminal )
-        //{
-        //base.AggressiveAction( aggressor, criminal );
         public override void GenerateLoot()
         {
-            this.AddLoot(LootPack.Meager);
+            AddLoot(LootPack.UltraRich);
+        }
+
+        public override void OnDeath(Container c)
+        {
+            base.OnDeath(c);
+
+            if (Utility.RandomDouble() < 0.05)
+            {
+                c.DropItem(new GoblinBlood());
+            }
+
+            if (Utility.RandomDouble() < 0.02)
+            {
+                c.DropItem(new LuckyCoin());
+            }
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write((int)0);
+            writer.Write(0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }
