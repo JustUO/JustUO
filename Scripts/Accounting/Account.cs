@@ -241,7 +241,7 @@ namespace Server.Accounting
 			this.m_Flags = Utility.GetXMLInt32(Utility.GetText(node["flags"], "0"), 0);
 			this.m_Created = Utility.GetXMLDateTime(Utility.GetText(node["created"], null), DateTime.UtcNow);
 			this.m_LastLogin = Utility.GetXMLDateTime(Utility.GetText(node["lastLogin"], null), DateTime.UtcNow);
-			TotalCurrency = Utility.GetXMLDouble(Utility.GetText(node["totalCurrency"], "0.0"), 0.0);
+			TotalCurrency = Utility.GetXMLDouble(Utility.GetText(node["totalCurrency"], "0"), 0);
 			
 			this.m_Mobiles = LoadMobiles(node);
 			this.m_Comments = LoadComments(node);
