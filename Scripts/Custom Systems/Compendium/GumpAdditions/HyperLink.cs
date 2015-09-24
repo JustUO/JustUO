@@ -1,222 +1,268 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using System.Xml;
+﻿#region References
+using System;
+using System.Linq;
 using System.Reflection;
 
-using Server;
-using Server.Gumps;
-using Server.Network;
-using Server.Commands;
+using VitaNex.SuperGumps;
+#endregion
 
 namespace Server.Gumps
 {
-    public static class GumpExtensions
-    {
+	public static class GumpExtensions
+	{
+		public static void AddHtmlLabel(
+			this Gump gump,
+			int x,
+			int y,
+			FontHandling.FontSize size,
+			bool bold,
+			bool italicized,
+			bool underlined,
+			string webColor,
+			string text)
+		{
+			gump.AddHtmlTextRectangle(
+				x,
+				y,
+				size,
+				bold,
+				italicized,
+				underlined,
+				webColor,
+				text,
+				FontHandling.CalculateTextLengthInPixels(text, size, italicized, bold),
+				FontHandling.FONT_LINE_HEIGHT);
+		}
 
-        public static void AddHtmlLabel(this Gump gump, int x, int y, FontHandling.FontSize size, bool bold, bool italicized, bool underlined, string webColor, string text)
-        {
-            gump.AddHtmlTextRectangle(x, y, size, bold, italicized, underlined, webColor, text, FontHandling.CalculateTextLengthInPixels(text, size, italicized, bold), FontHandling.FONT_LINE_HEIGHT);
-        }
+		public static void AddHtmlTextRectangle(
+			this Gump gump,
+			int x,
+			int y,
+			FontHandling.FontSize size,
+			bool bold,
+			bool italicized,
+			bool underlined,
+			string webColor,
+			string text,
+			int width,
+			int height)
+		{
+			var displayMarkup = text;
 
-        public static void AddHtmlTextRectangle(this Gump gump, int x, int y, FontHandling.FontSize size, bool bold, bool italicized, bool underlined, string webColor, string text, int width, int height)
-        {
-            string displayMarkup = text;
+			if (bold)
+			{
+				displayMarkup = string.Format("<B>{0}</B>", displayMarkup);
+			}
 
+			if (italicized)
+			{
+				displayMarkup = string.Format("<I>{0}</I>", displayMarkup);
+			}
 
-            if (bold)
-            {
-                displayMarkup = string.Format("<B>{0}</B>", displayMarkup);
-            }
+			if (underlined)
+			{
+				displayMarkup = string.Format("<U>{0}</U>", displayMarkup);
+			}
 
-            if (italicized)
-            {
-                displayMarkup = string.Format("<I>{0}</I>", displayMarkup);
-            }
+			displayMarkup = string.Format("<BASEFONT COLOR={0} SIZE={1} >{2}</BASEFONT>", webColor, (int)size, displayMarkup);
 
-            if (underlined)
-            {
-                displayMarkup = string.Format("<U>{0}</U>", displayMarkup);
-            }
+			gump.AddHtml(x, y, width, height, displayMarkup, false, false);
+		}
 
-            displayMarkup = string.Format("<BASEFONT COLOR={0} SIZE={1} >{2}</BASEFONT>", webColor, (int)size, displayMarkup);
+		private static MethodInfo m_AssignIdMethodInfo;
 
+		private static MethodInfo AssignIdMethodInfo
+		{
+			get
+			{
+				if (m_AssignIdMethodInfo == null)
+				{
+					try
+					{
+						m_AssignIdMethodInfo = typeof(GumpEntry).GetMethod(
+							"AssignID",
+							BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+					}
+					catch
+					{ }
+				}
 
-            gump.AddHtml(x, y, width, height, displayMarkup, false, false);
-        }
+				return m_AssignIdMethodInfo;
+			}
+		}
 
-        private static MethodInfo m_AssignIdMethodInfo = null;
-        private static MethodInfo AssignIdMethodInfo
-        {
-            get
-            {
-                if (m_AssignIdMethodInfo == null)
-                {
-                    try
-                    {
-                        m_AssignIdMethodInfo = typeof(GumpEntry).GetMethod("AssignID", BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-                    }
-                    catch { }
-                }
+		public static void AddGumpEntryFirst(this SuperGump gump, GumpEntry g)
+		{
+			if (g != null)
+			{
+				if (g.Parent == null)
+				{
+					g.Parent = gump;
+				}
 
-                return m_AssignIdMethodInfo;
-            }
-        }
+				gump.Entries.Remove(g);
 
-        public static void AddGumpEntryFirst(this Gump gump, IGumpComponent g)
-        {
-            if (g is GumpEntry)
-            {
-                if (!gump.Entries.Contains((GumpEntry)g))
-                {
-                    if (AssignIdMethodInfo != null)
-                    {
-                        AssignIdMethodInfo.Invoke((GumpEntry)g, new object[] { });
-                    }
-                    gump.Entries.Insert(0, (GumpEntry)g);
-                    gump.Invalidate();
-                }
-            }
+				if (AssignIdMethodInfo != null)
+				{
+					AssignIdMethodInfo.Invoke(g, new object[] {});
+				}
 
-            if (g.Container == null)
-            {
-                g.Container = gump;
-            }
-        }
+				gump.Entries.Insert(0, g);
+				gump.Invalidate();
+			}
+		}
 
-        public static void AddHyperlink(this Gump gump, HyperLink link)
-        {
-            link.AddHyperLinkBackingButton(gump);
-            link.AddText(gump);
-        }
-    }
+		public static void MoveLastAddedToBack(this SuperGump gump)
+		{
+			var btn = gump.Entries.Last();
+			gump.Entries.Remove(btn);
+			gump.Entries.Insert(0, btn);
+		}
 
-    public class HyperLink
-    {
-        public const int HYPERLINK_UNDERLINE_HEIGHT_IN_PIXELS = 1;
-        public readonly static int[] HYPERLINK_BACK_GUMP_WIDTHS = { 170, 109, 84, 68, 16, 9, 8, 6, 3 };
-        public readonly static int[] HYPERLINK_BACK_GUMP_IDS = { 2487, 2481, 2467, 2463, 87, 5009, 5136, 5113, 9103 };
+		public static void AddHyperlink(this SuperGump gump, HyperLink link)
+		{
+			link.AddHyperLinkBackingButton(gump);
+			link.AddText(gump);
+		}
+	}
 
-        public virtual int HyperLinkUnderlineGumpId { get { return 2627; } }
+	public class HyperLink
+	{
+		public const int HYPERLINK_UNDERLINE_HEIGHT_IN_PIXELS = 1;
+		public static readonly int[] HYPERLINK_BACK_GUMP_WIDTHS = {170, 109, 84, 68, 16, 9, 8, 6, 3};
+		public static readonly int[] HYPERLINK_BACK_GUMP_IDS = {2487, 2481, 2467, 2463, 87, 5009, 5136, 5113, 9103};
 
-        public Point2D Location { get; set; }
-        public int LabelWidthInPixels { get; set; }
-        public int Hue { get; set; }
-        public bool Underlined { get; set; }
-        public bool Italicized { get; set; }
-        public bool Bold { get; set; }
-        public GumpResponse Callback { get; set; }
-        public int CallbackParam { get; set; }
-        public FontHandling.FontSize Size { get; set; }
-        private string m_displayText;
-        public string DisplayText
-        {
-            get { return m_displayText; }
-            set
-            {
-                m_displayText = value;
-                LabelWidthInPixels = FontHandling.CalculateTextLengthInPixels(DisplayText, Size, Italicized, Bold);
-            }
-        }
+		public virtual int HyperLinkUnderlineGumpId { get { return 2627; } }
 
-        public HyperLink(Point2D location, int hue, bool underlined, bool italicized, bool bold, GumpResponse callback, int callbackParam, string text, FontHandling.FontSize size = FontHandling.FontSize.Medium)
-        {
-            Location = location;
-            Hue = hue;
-            Underlined = underlined;
-            Italicized = italicized;
-            Bold = bold;
-            Callback = callback;
-            CallbackParam = callbackParam;
-            Size = size;
-            DisplayText = text;
-        }
+		public Point2D Location { get; set; }
+		public int LabelWidthInPixels { get; set; }
+		public int Hue { get; set; }
+		public bool Underlined { get; set; }
+		public bool Italicized { get; set; }
+		public bool Bold { get; set; }
+		public Action<GumpButton, int> Callback { get; set; }
+		public int CallbackParam { get; set; }
+		public FontHandling.FontSize Size { get; set; }
+		private string m_displayText;
 
-        private static MethodInfo m_NewIdMethodInfo = null;
-        private static MethodInfo NewIdMethodInfo
-        {
-            get
-            {
-                if (m_NewIdMethodInfo == null)
-                {
-                    try
-                    {
-                        m_NewIdMethodInfo = typeof(Gump).GetMethod("NewID", BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-                    }
-                    catch { }
-                }
+		public string DisplayText
+		{
+			get { return m_displayText; }
+			set
+			{
+				m_displayText = value;
+				LabelWidthInPixels = FontHandling.CalculateTextLengthInPixels(DisplayText, Size, Italicized, Bold);
+			}
+		}
 
-                return m_NewIdMethodInfo;
-            }
-        }
+		public HyperLink(
+			Point2D location,
+			int hue,
+			bool underlined,
+			bool italicized,
+			bool bold,
+			Action<GumpButton, int> callback,
+			int callbackParam,
+			string text,
+			FontHandling.FontSize size = FontHandling.FontSize.Medium)
+		{
+			Location = location;
+			Hue = hue;
+			Underlined = underlined;
+			Italicized = italicized;
+			Bold = bold;
+			Callback = callback;
+			CallbackParam = callbackParam;
+			Size = size;
+			DisplayText = text;
+		}
+		
+		public virtual void AddHyperLinkBackingButton(SuperGump gump)
+		{
+			var displayTextLengthInPixels = LabelWidthInPixels;
 
-        public virtual void AddHyperLinkBackingButton(Gump gump)
-        {
+			var x = Location.X;
+			var y = Location.Y + 1;
 
-            if (NewIdMethodInfo == null)
-            {
-                Console.WriteLine("Can't back hyperlink, underlying server core has changed.");
-                return;
-            }
+			for (var gumpIdx = 0; gumpIdx < HYPERLINK_BACK_GUMP_WIDTHS.Length; ++gumpIdx)
+			{
+				var gumpWidth = HYPERLINK_BACK_GUMP_WIDTHS[gumpIdx];
+				var gumpId = HYPERLINK_BACK_GUMP_IDS[gumpIdx];
+				var continueLooping = true;
 
-            int displayTextLengthInPixels = LabelWidthInPixels;
+				while (displayTextLengthInPixels - gumpWidth >= 0)
+				{
+					gump.AddButton(x, y, gumpId, gumpId, b => Callback(b, CallbackParam));
+					gump.MoveLastAddedToBack();
+					displayTextLengthInPixels -= gumpWidth;
 
-            int x = Location.X;
-            int y = Location.Y + 1;
-            for (int gumpIdx = 0; gumpIdx < HYPERLINK_BACK_GUMP_WIDTHS.Length; ++gumpIdx)
-            {
-                int gumpWidth = HYPERLINK_BACK_GUMP_WIDTHS[gumpIdx];
-                int gumpId = HYPERLINK_BACK_GUMP_IDS[gumpIdx];
-                bool continueLooping = true;
+					if (displayTextLengthInPixels >= 0 && displayTextLengthInPixels - gumpWidth < 0)
+					{
+						gump.AddButton(x + displayTextLengthInPixels, y, gumpId, gumpId, b => Callback(b, CallbackParam));
+						gump.MoveLastAddedToBack();
 
-                while (displayTextLengthInPixels - gumpWidth >= 0)
-                {
-                    gump.AddGumpEntryFirst(new GumpButton(x, y, gumpId, gumpId, (int)NewIdMethodInfo.Invoke(gump, new object[] { }), GumpButtonType.Reply, CallbackParam, Callback));
-                    displayTextLengthInPixels -= gumpWidth;
+						x += displayTextLengthInPixels;
+						displayTextLengthInPixels = 0;
+						continueLooping = false;
+					}
 
+					x += gumpWidth;
+				}
 
-                    if (displayTextLengthInPixels >= 0 && displayTextLengthInPixels - gumpWidth < 0)
-                    {
-                        gump.AddGumpEntryFirst(new GumpButton(x + displayTextLengthInPixels, y, gumpId, gumpId, (int)NewIdMethodInfo.Invoke(gump, new object[] { }), GumpButtonType.Reply, CallbackParam, Callback, ""));
-                        x += displayTextLengthInPixels;
-                        displayTextLengthInPixels = 0;
-                        continueLooping = false;
-                    }
+				if (!continueLooping)
+				{
+					break;
+				}
+			}
+		}
 
-                    x += gumpWidth;
-                }
+		public virtual void AddText(Gump gump)
+		{
+			gump.AddLabel(Location.X, Location.Y, Hue, DisplayText);
+			if (Underlined)
+			{
+				gump.AddImageTiled(
+					Location.X,
+					Location.Y + FontHandling.FONT_LINE_HEIGHT - 1,
+					LabelWidthInPixels,
+					HYPERLINK_UNDERLINE_HEIGHT_IN_PIXELS,
+					HyperLinkUnderlineGumpId); //Top Divisor Image
+			}
+		}
+	}
 
-                if (!continueLooping)
-                {
-                    break;
-                }
-            }
-        }
+	public class WebColoredHyperLink : HyperLink
+	{
+		public WebColoredHyperLink(
+			Point2D location,
+			string htmlColor,
+			bool underlined,
+			bool italicized,
+			bool bold,
+			Action<GumpButton, int> callback,
+			int callbackParam,
+			string text,
+			FontHandling.FontSize size = FontHandling.FontSize.Medium)
+			: base(location, 0, underlined, italicized, bold, callback, callbackParam, text, size)
+		{
+			HtmlColor = htmlColor;
+		}
 
-        public virtual void AddText(Gump gump)
-        {
-            gump.AddLabel(Location.X, Location.Y, Hue, DisplayText);
-            if (Underlined)
-            {
-                gump.AddImageTiled(Location.X, Location.Y + FontHandling.FONT_LINE_HEIGHT - 1, LabelWidthInPixels, HYPERLINK_UNDERLINE_HEIGHT_IN_PIXELS, HyperLinkUnderlineGumpId); //Top Divisor Image
-            }
-        }
-    }
+		public string HtmlColor { get; set; }
 
-    public class WebColoredHyperLink : HyperLink
-    {
-        public WebColoredHyperLink(Point2D location, string htmlColor, bool underlined, bool italicized, bool bold, GumpResponse callback, int callbackParam, string text, FontHandling.FontSize size = FontHandling.FontSize.Medium)
-            : base(location, 0, underlined, italicized, bold, callback, callbackParam, text, size)
-        {
-            HtmlColor = htmlColor;
-        }
-
-        public string HtmlColor { get; set; }
-
-        public override void AddText(Gump gump)
-        {
-            gump.AddHtmlTextRectangle(Location.X, Location.Y, Size, Bold, Italicized, Underlined, HtmlColor, DisplayText, LabelWidthInPixels, FontHandling.FONT_LINE_HEIGHT);
-        }
-    }
+		public override void AddText(Gump gump)
+		{
+			gump.AddHtmlTextRectangle(
+				Location.X,
+				Location.Y,
+				Size,
+				Bold,
+				Italicized,
+				Underlined,
+				HtmlColor,
+				DisplayText,
+				LabelWidthInPixels,
+				FontHandling.FONT_LINE_HEIGHT);
+		}
+	}
 }

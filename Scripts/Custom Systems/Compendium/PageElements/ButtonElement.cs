@@ -1,207 +1,221 @@
-﻿using System;
+﻿#region References
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Web;
 using System.Xml.Linq;
-
-using Server.Gumps;
+#endregion
 
 namespace Server.Gumps.Compendium
 {
-    //               Label    Image  Tiled Image Alpha Area Item HTML TextButton Button 
-    //+–––––––––––––+––––––––+––––––+–––––––––––+––––––––––+––––+––––+––––––––––+––––––+
-    //+ Type            x       x         x          x       x    x       x        x    
-    //+ Name            x       x         x          x       x    x       x        x
-    //| X Offset    |   x    |  x   |     x     |    x     | x  | x  |    x     |  x   |
-    //| Y Offset    |   x    |  x   |     x     |    x     | x  | x  |    x     |  x   |
-    //| Z           |   x    |  x   |     x     |    x     | x  | x  |    x     |  x   |
+	//               Label    Image  Tiled Image Alpha Area Item HTML TextButton Button 
+	//+–––––––––––––+––––––––+––––––+–––––––––––+––––––––––+––––+––––+––––––––––+––––––+
+	//+ Type            x       x         x          x       x    x       x        x    
+	//+ Name            x       x         x          x       x    x       x        x
+	//| X Offset    |   x    |  x   |     x     |    x     | x  | x  |    x     |  x   |
+	//| Y Offset    |   x    |  x   |     x     |    x     | x  | x  |    x     |  x   |
+	//| Z           |   x    |  x   |     x     |    x     | x  | x  |    x     |  x   |
 
-    //| Text        |   x    |      |           |          |    | x  |    x     |      |
+	//| Text        |   x    |      |           |          |    | x  |    x     |      |
 
-    //| Color       |   x    |  x   |           |          | x  |    |    x     |      |
-    //| Graphics ID |        |  x   |     x     |          | x  |    |          |  x   |
-    //| Width       |        |      |     x     |    x     |    | x  |          |      |
-    //| Height      |        |      |     x     |    x     |    | x  |          |      |
-    //| Scrollbar   |        |      |           |          |    | x  |          |      |
-    //| Background  |        |      |           |          |    | x  |          |      |
-    //| Font Size   |        |      |           |          |    |    |    x     |      |
-    //| GumpID      |        |      |           |          |    |    |    x     |  x   |
-    //| GraphicsID2 +        +      +           +          +    +    +          +  x   +
-    //                  7       7         8          7       7    10      9        8    
-    //
-    public class ButtonElement : BaseCompendiumPageElement
-    {
-        public string GumpLink { get; set; }
-        public int NormalId { get; set; }
-        public int PressedId { get; set; }
+	//| Color       |   x    |  x   |           |          | x  |    |    x     |      |
+	//| Graphics ID |        |  x   |     x     |          | x  |    |          |  x   |
+	//| Width       |        |      |     x     |    x     |    | x  |          |      |
+	//| Height      |        |      |     x     |    x     |    | x  |          |      |
+	//| Scrollbar   |        |      |           |          |    | x  |          |      |
+	//| Background  |        |      |           |          |    | x  |          |      |
+	//| Font Size   |        |      |           |          |    |    |    x     |      |
+	//| GumpID      |        |      |           |          |    |    |    x     |  x   |
+	//| GraphicsID2 +        +      +           +          +    +    +          +  x   +
+	//                  7       7         8          7       7    10      9        8    
+	//
+	public class ButtonElement : BaseCompendiumPageElement
+	{
+		public string GumpLink { get; set; }
+		public int NormalId { get; set; }
+		public int PressedId { get; set; }
 
-        public override object Clone()
-        {
-            ButtonElement link = new ButtonElement();
-            link.ElementType = this.ElementType.Clone() as string;
-            link.Name = this.Name.Clone() as string;
-            link.X = this.X;
-            link.Y = this.Y;
-            link.Z = this.Z;
-            link.GumpLink = (string)this.GumpLink.Clone();
-            link.NormalId = this.NormalId;
-            link.PressedId = this.PressedId;
-            return link;
-        }
+		public override object Clone()
+		{
+			var link = new ButtonElement
+			{
+				ElementType = ElementType.Clone() as string,
+				Name = Name.Clone() as string,
+				X = X,
+				Y = Y,
+				Z = Z,
+				GumpLink = (string)GumpLink.Clone(),
+				NormalId = NormalId,
+				PressedId = PressedId
+			};
 
-        public static void Configure()
-        {
-            BaseCompendiumPageElement.RegisterElement("ButtonElement", CreateLabelElement);
-            CompendiumPageEditor.RegisterElementType(typeof(ButtonElement), CreateInstance, " GumpButton   ");
-        }
+			return link;
+		}
 
-        //factory method
-        public static BaseCompendiumPageElement CreateLabelElement(XElement elementXml)
-        {
-            ButtonElement elementToReturn = new ButtonElement();
+		public static void Configure()
+		{
+			RegisterElement("ButtonElement", CreateLabelElement);
+			CompendiumPageEditor.RegisterElementType(typeof(ButtonElement), CreateInstance, " GumpButton   ");
+		}
 
-            try
-            {
-                elementToReturn.Deserialize(elementXml);
-            }
-            catch
-            {
-                elementToReturn = null;
-            }
+		//factory method
+		public static BaseCompendiumPageElement CreateLabelElement(XElement elementXml)
+		{
+			var elementToReturn = new ButtonElement();
 
-            return elementToReturn;
-        }
+			try
+			{
+				elementToReturn.Deserialize(elementXml);
+			}
+			catch
+			{
+				elementToReturn = null;
+			}
 
-        public override void Render(CompendiumPageGump gump)
-        {
-            if (gump is CompendiumPreviewPageGump)
-            {
-                gump.AddImage(X, Y, NormalId);
-            }
-            else
-            {
-                int hyperlinkId = gump.RegisterHyperlink(GumpLink);
-                gump.AddButton(X, Y, NormalId, PressedId, GumpButtonType.Reply, gump.onHyperlinkClick, hyperlinkId);
-            }
-        }
+			return elementToReturn;
+		}
 
-        public override List<ElementProperty> GetElementPropertiesSnapshot(List<ElementProperty> list = null)
-        {
-            list = base.GetElementPropertiesSnapshot();
+		public override void Render(CompendiumPageGump gump)
+		{
+			if (gump is CompendiumPreviewPageGump)
+			{
+				gump.AddImage(X, Y, NormalId);
+			}
+			else
+			{
+				var hyperlinkId = gump.RegisterHyperlink(GumpLink);
+				gump.AddButton(X, Y, NormalId, PressedId, b => gump.onHyperlinkClick(b, hyperlinkId));
+			}
+		}
 
-            list.Add(new ElementProperty("Gump Link", OnGumpLinkEntryUpdate, GumpLink.ToString(), ElementProperty.InputType.TextEntry));
-            list.Add(new ElementProperty("Normal ID", OnNormalIdTextEntryUpdate, NormalId.ToString(), ElementProperty.InputType.TextEntry));
-            list.Add(new ElementProperty("Pressed ID", OnPressedIdTextEntryUpdate, PressedId.ToString(), ElementProperty.InputType.TextEntry));
+		public override void GetElementPropertiesSnapshot(List<ElementProperty> list)
+		{
+			base.GetElementPropertiesSnapshot(list);
 
+			list.Add(new ElementProperty("Gump Link", OnGumpLinkEntryUpdate, GumpLink, ElementProperty.InputType.TextEntry));
+			list.Add(
+				new ElementProperty(
+					"Normal ID",
+					OnNormalIdTextEntryUpdate,
+					NormalId.ToString(),
+					ElementProperty.InputType.TextEntry));
+			list.Add(
+				new ElementProperty(
+					"Pressed ID",
+					OnPressedIdTextEntryUpdate,
+					PressedId.ToString(),
+					ElementProperty.InputType.TextEntry));
+		}
 
-            return list;
-        }
+		public static BaseCompendiumPageElement CreateInstance()
+		{
+			var link = new ButtonElement
+			{
+				X = 0,
+				Y = 0,
+				Name = "new Button",
+				ElementType = "ButtonElement",
+				GumpLink = "",
+				NormalId = 247,
+				PressedId = 248
+			};
 
-        public static BaseCompendiumPageElement CreateInstance()
-        {
-            ButtonElement link = new ButtonElement();
-            link.X = 0;
-            link.Y = 0;
-            link.Name = "new Button";
-            link.ElementType = "ButtonElement";
+			return link;
+		}
 
-            link.GumpLink = "";
-            link.NormalId = 247;
-            link.PressedId = 248;
+		public void OnNormalIdTextEntryUpdate(GumpEntry gumpComponent, object param)
+		{
+			var entry = gumpComponent as GumpTextEntry;
 
-            return link;
-        }
+			if (entry != null)
+			{
+				try
+				{
+					NormalId = Convert.ToInt32(entry.InitialText);
+				}
+				catch
+				{ }
+			}
+		}
 
-        public void OnNormalIdTextEntryUpdate(IGumpComponent gumpComponent, object param)
-        {
-            GumpTextEntry entry = gumpComponent as GumpTextEntry;
+		public void OnPressedIdTextEntryUpdate(GumpEntry gumpComponent, object param)
+		{
+			var entry = gumpComponent as GumpTextEntry;
 
-            if (entry != null)
-            {
-                try
-                {
-                    NormalId = Convert.ToInt32(entry.InitialText);
-                }
-                catch
-                {
-                }
-            }
-        }
+			if (entry != null)
+			{
+				try
+				{
+					PressedId = Convert.ToInt32(entry.InitialText);
+				}
+				catch
+				{ }
+			}
+		}
 
-        public void OnPressedIdTextEntryUpdate(IGumpComponent gumpComponent, object param)
-        {
-            GumpTextEntry entry = gumpComponent as GumpTextEntry;
+		public void OnGumpLinkEntryUpdate(GumpEntry gumpComponent, object param)
+		{
+			var entry = gumpComponent as GumpTextEntry;
 
-            if (entry != null)
-            {
-                try
-                {
-                    PressedId = Convert.ToInt32(entry.InitialText);
-                }
-                catch
-                {
-                }
-            }
-        }
+			if (entry != null)
+			{
+				try
+				{
+					GumpLink = entry.InitialText;
+				}
+				catch
+				{ }
+			}
+		}
 
-        public void OnGumpLinkEntryUpdate(IGumpComponent gumpComponent, object param)
-        {
-            GumpTextEntry entry = gumpComponent as GumpTextEntry;
+		public override void Serialize(ref string xml, int indentLevel)
+		{
+			var indent = "";
+			for (var indentIdx = 0; indentIdx < indentLevel; ++indentIdx)
+			{
+				indent += " ";
+			}
 
-            if (entry != null)
-            {
-                try
-                {
-                    GumpLink =  entry.InitialText;
-                }
-                catch
-                {
-                }
-            }
-        }
+			xml += string.Format("{0}{1}{2}", indent, "<Element>", Environment.NewLine);
 
-        public override void Serialize(ref string xml, int indentLevel)
-        {
-            string indent = "";
-            for (int indentIdx = 0; indentIdx < indentLevel; ++indentIdx)
-            {
-                indent += " ";
-            }
+			base.Serialize(ref xml, indentLevel + 1);
 
-            xml += string.Format("{0}{1}{2}", indent, "<Element>", Environment.NewLine);
+			xml += string.Format(
+				"{0}{1}{2}{3}{4}",
+				indent,
+				"<GumpLink>",
+				HttpUtility.HtmlEncode(GumpLink),
+				"</GumpLink>",
+				Environment.NewLine);
+			xml += string.Format("{0}{1}{2}{3}{4}", indent, "<PressedId>", PressedId, "</PressedId>", Environment.NewLine);
+			xml += string.Format("{0}{1}{2}{3}{4}", indent, "<NormalId>", NormalId, "</NormalId>", Environment.NewLine);
 
-            base.Serialize(ref xml, indentLevel + 1);
+			xml += string.Format("{0}{1}{2}", indent, "</Element>", Environment.NewLine);
+		}
 
-            xml += string.Format("{0}{1}{2}{3}{4}", indent, "<GumpLink>", System.Web.HttpUtility.HtmlEncode(GumpLink), "</GumpLink>", Environment.NewLine);
-            xml += string.Format("{0}{1}{2}{3}{4}", indent, "<PressedId>", PressedId, "</PressedId>", Environment.NewLine);
-            xml += string.Format("{0}{1}{2}{3}{4}", indent, "<NormalId>", NormalId, "</NormalId>", Environment.NewLine);
+		public override void Deserialize(XElement xml)
+		{
+			try
+			{
+				base.Deserialize(xml);
 
-            xml += string.Format("{0}{1}{2}", indent, "</Element>", Environment.NewLine);
-        }
+				GumpLink = HttpUtility.HtmlDecode(xml.Descendants("GumpLink").First().Value);
 
-        public override void Deserialize(XElement xml)
-        {
-            try
-            {
-                base.Deserialize(xml);
-
-                GumpLink = System.Web.HttpUtility.HtmlDecode(xml.Descendants("GumpLink").First().Value);
-
-                try
-                {
-                    PressedId = Convert.ToInt32(xml.Descendants("PressedId").First().Value);
-                    NormalId = Convert.ToInt32(xml.Descendants("NormalId").First().Value);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("An error occured while loading Button element");
-                    Console.WriteLine(e);
-                }
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Failed to parse LabelElement xml", e);
-            }
-        }
-    }
+				try
+				{
+					PressedId = Convert.ToInt32(xml.Descendants("PressedId").First().Value);
+					NormalId = Convert.ToInt32(xml.Descendants("NormalId").First().Value);
+				}
+				catch (Exception e)
+				{
+					Console.WriteLine("An error occured while loading Button element");
+					Console.WriteLine(e);
+				}
+			}
+			catch (Exception e)
+			{
+				throw new Exception("Failed to parse LabelElement xml", e);
+			}
+		}
+	}
 }
