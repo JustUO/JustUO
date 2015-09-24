@@ -1,8 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Server.ContextMenus;
 using Server.Items;
 using Server.Network;
+
+using Server.Accounting;
+using Acc = Server.Accounting.Account;
 
 namespace Server.Mobiles
 {
@@ -41,40 +45,57 @@ namespace Server.Mobiles
             return GetBalance(from, out gold, out checks);
         }
 
-        public static int GetBalance(Mobile from, out Item[] gold, out Item[] checks)
+        public static int GetBalance(Mobile m, out Item[] gold, out Item[] checks)
         {
-            int balance = 0;
+            double balance = 0;
 
-            Container bank = from.FindBankNoCreate();
+            if (AccountGold.Enabled && m.Account != null)
+            {
+                int goldStub;
+                m.Account.GetGoldBalance(out goldStub, out balance);
+
+                if (balance > Int32.MaxValue)
+                {
+                    gold = checks = new Item[0];
+                    return Int32.MaxValue;
+                }
+            }
+
+            Container bank = m.FindBankNoCreate();
 
             if (bank != null)
             {
                 gold = bank.FindItemsByType(typeof(Gold));
                 checks = bank.FindItemsByType(typeof(BankCheck));
 
-                for (int i = 0; i < gold.Length; ++i)
-                    balance += gold[i].Amount;
-
-                for (int i = 0; i < checks.Length; ++i)
-                    balance += ((BankCheck)checks[i]).Worth;
+                balance += gold.OfType<Gold>().Aggregate(0.0, (c, t) => c + t.Amount);
+                balance += checks.OfType<BankCheck>().Aggregate(0.0, (c, t) => c + t.Worth);
             }
             else
             {
                 gold = checks = new Item[0];
             }
 
-            return balance;
+            return (int)Math.Max(0, Math.Min(Int32.MaxValue, balance));
         }
 
         public static bool Withdraw(Mobile from, int amount)
         {
+            // If for whatever reason the TOL checks fail, we should still try old methods for withdrawing currency.
+            if (AccountGold.Enabled && from.Account != null && from.Account.WithdrawGold(amount))
+            {
+                return true;
+            }
+
             Item[] gold, checks;
-            int balance = GetBalance(from, out gold, out checks);
+            var balance = GetBalance(from, out gold, out checks);
 
             if (balance < amount)
+            {
                 return false;
+            }
 
-            for (int i = 0; amount > 0 && i < gold.Length; ++i)
+            for (var i = 0; amount > 0 && i < gold.Length; ++i)
             {
                 if (gold[i].Amount <= amount)
                 {
@@ -88,9 +109,9 @@ namespace Server.Mobiles
                 }
             }
 
-            for (int i = 0; amount > 0 && i < checks.Length; ++i)
+            for (var i = 0; amount > 0 && i < checks.Length; ++i)
             {
-                BankCheck check = (BankCheck)checks[i];
+                var check = (BankCheck)checks[i];
 
                 if (check.Worth <= amount)
                 {
@@ -109,11 +130,20 @@ namespace Server.Mobiles
 
         public static bool Deposit(Mobile from, int amount)
         {
-            BankBox box = from.FindBankNoCreate();
-            if (box == null)
-                return false;
+            // If for whatever reason the TOL checks fail, we should still try old methods for depositing currency.
+            if (Core.TOL && from.Account != null && from.Account.DepositGold(amount))
+            {
+                return true;
+            }
 
-            List<Item> items = new List<Item>();
+            var box = from.FindBankNoCreate();
+
+            if (box == null)
+            {
+                return false;
+            }
+
+            var items = new List<Item>();
 
             while (amount > 0)
             {
@@ -141,7 +171,7 @@ namespace Server.Mobiles
                 else
                 {
                     item.Delete();
-                    foreach (Item curItem in items)
+                    foreach (var curItem in items)
                     {
                         curItem.Delete();
                     }
@@ -155,11 +185,21 @@ namespace Server.Mobiles
 
         public static int DepositUpTo(Mobile from, int amount)
         {
-            BankBox box = from.FindBankNoCreate();
-            if (box == null)
-                return 0;
+            // If for whatever reason the TOL checks fail, we should still try old methods for depositing currency.
+            if (AccountGold.Enabled && from.Account != null && from.Account.DepositGold(amount))
+            {
+                return amount;
+            }
 
-            int amountLeft = amount;
+            var box = from.FindBankNoCreate();
+
+            if (box == null)
+            {
+                return 0;
+            }
+
+            var amountLeft = amount;
+            
             while (amountLeft > 0)
             {
                 Item item;
@@ -302,15 +342,16 @@ namespace Server.Mobiles
                                     break;
                                 }
 
-                                BankBox box = e.Mobile.FindBankNoCreate();
-
-                                if (box != null)
-                                    this.Say(1042759, box.TotalGold.ToString()); // Thy current bank balance is ~1_AMOUNT~ gold.
+                                if (AccountGold.Enabled && e.Mobile.Account != null)
+                                {
+                                    Say(1155855, String.Format("{0:#,0}\t{1:#,0}", e.Mobile.Account.TotalPlat, e.Mobile.Account.TotalGold));
+                                    // Thy current bank balance is ~1_AMOUNT~ platinum and ~2_AMOUNT~ gold.
+                                }
                                 else
                                     this.Say(1042759, "0"); // Thy current bank balance is ~1_AMOUNT~ gold.
-
-                                break;
                             }
+                            break;
+                            
                         case 0x0002: // *bank*
                             {
                                 e.Handled = true;
@@ -322,9 +363,8 @@ namespace Server.Mobiles
                                 }
 
                                 e.Mobile.BankBox.Open();
-
-                                break;
                             }
+                                break;
                         case 0x0003: // *check*
                             {
                                 e.Handled = true;
@@ -334,7 +374,13 @@ namespace Server.Mobiles
                                     this.Say(500389); // I will not do business with a criminal!
                                     break;
                                 }
-
+                                
+                                if (AccountGold.Enabled && e.Mobile.Account != null)
+                                {
+                                    Say("We no longer offer a checking service.");
+                                    break;
+                                }
+                                
                                 string[] split = e.Speech.Split(' ');
 
                                 if (split.Length >= 2)
@@ -374,9 +420,9 @@ namespace Server.Mobiles
                                         }
                                     }
                                 }
-
-                                break;
                             }
+                            break;
+                            
                     }
                 }
             }
