@@ -1,16 +1,20 @@
 #region References
 using Server.Network;
+using Server.Accounting;
 #endregion
 
 namespace Server
 {
 	public class CurrentExpansion
 	{
-		private static readonly Expansion Expansion = Expansion.HS;
+		private static readonly Expansion Expansion = Expansion.TOL;
 
 		public static void Configure()
 		{
 			Core.Expansion = Expansion;
+			
+			AccountGold.Enabled = Core.TOL;
+			VirtualCheck.UseEditGump = Core.TOL;
 
 			bool Enabled = Core.AOS;
 

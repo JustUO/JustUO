@@ -327,12 +327,8 @@ namespace Server.Mobiles
             {
                 this.SayTo(from, 1042565); // You have too many pets in the stables!
             }
-            else
+            else if((from.Backpack != null && from.Backpack.ConsumeTotal(typeof(Gold), 30)) || Banker.Withdraw(from, 30))
             {
-                Container bank = from.FindBankNoCreate();
-
-                if ((from.Backpack != null && from.Backpack.ConsumeTotal(typeof(Gold), 30)) || (bank != null && bank.ConsumeTotal(typeof(Gold), 30)))
-                {
                     pet.ControlTarget = null;
                     pet.ControlOrder = OrderType.Stay;
                     pet.Internalize();
@@ -349,7 +345,7 @@ namespace Server.Mobiles
                     from.Stabled.Add(pet);
 
                     this.SayTo(from, Core.AOS ? 1049677 : 502679); // [AOS: Your pet has been stabled.] Very well, thy pet is stabled. Thou mayst recover it by saying 'claim' to me. In one real world week, I shall sell it off if it is not claimed!
-                }
+                
                 else
                 {
                     this.SayTo(from, 502677); // But thou hast not the funds in thy bank account!

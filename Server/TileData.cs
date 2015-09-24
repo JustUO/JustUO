@@ -230,7 +230,7 @@ namespace Server
 				{
 					var bin = new BinaryReader(fs);
 
-					if (fs.Length == 3188736)
+					if (fs.Length >= 3188736)
 					{
 						// 7.0.9.0
 						m_LandData = new LandData[0x4000];

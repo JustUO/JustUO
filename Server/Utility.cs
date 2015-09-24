@@ -555,6 +555,25 @@ namespace Server
 			return i;
 		}
 		#endregion
+		
+		#region Get[Something]
+		public static double GetXMLDouble(string doubleString, double defaultValue)
+		{
+			try
+			{
+				return XmlConvert.ToDouble(doubleString);
+			}
+			catch
+			{
+				double val;
+				if (double.TryParse(doubleString, out val))
+				{
+					return val;
+				}
+
+				return defaultValue;
+			}
+		}
 
 		#region Get[Something]
 		public static int GetXMLInt32(string intString, int defaultValue)

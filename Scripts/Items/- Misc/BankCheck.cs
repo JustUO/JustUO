@@ -1,10 +1,13 @@
 using System;
+using Server.Accounting;
 using System.Globalization;
 using Server.Engines.Quests;
 using Server.Mobiles;
 using Server.Network;
 using Haven = Server.Engines.Quests.Haven;
 using Necro = Server.Engines.Quests.Necro;
+
+using CashBankCheckObjective = Server.Engines.Quests.Necro.CashBankCheckObjective;
 
 namespace Server.Items
 {
@@ -93,6 +96,81 @@ namespace Server.Items
 
             list.Add(1060738, worth); // value: ~1_val~
         }
+        
+#if NEWPARENT
+		public override void OnAdded(IEntity parent)
+#else
+		public override void OnAdded(object parent)
+#endif
+		{
+			base.OnAdded(parent);
+
+			if (!AccountGold.Enabled)
+			{
+				return;
+			}
+
+			Mobile owner = null;
+			SecureTradeInfo tradeInfo = null;
+
+			Container root = parent as Container;
+
+			while (root != null && root.Parent is Container)
+			{
+				root = (Container)root.Parent;
+			}
+
+			parent = root ?? parent;
+
+			if (parent is SecureTradeContainer)
+			{
+				var trade = (SecureTradeContainer)parent;
+
+				if (trade.Trade.From.Container == trade)
+				{
+					tradeInfo = trade.Trade.From;
+					owner = tradeInfo.Mobile;
+				}
+				else if (trade.Trade.To.Container == trade)
+				{
+					tradeInfo = trade.Trade.To;
+					owner = tradeInfo.Mobile;
+				}
+			}
+			else if (parent is BankBox)
+			{
+				owner = ((BankBox)parent).Owner;
+			}
+
+			if (owner == null || owner.Account == null || !owner.Account.DepositGold(Worth))
+			{
+				return;
+			}
+
+			if (tradeInfo != null)
+			{
+				if (owner.NetState != null && !owner.NetState.NewSecureTrading)
+				{
+					var total = Worth / Math.Max(1.0, Account.CurrencyThreshold);
+					var plat = (int)Math.Truncate(total);
+					var gold = (int)((total - plat) * Account.CurrencyThreshold);
+
+					tradeInfo.Plat += plat;
+					tradeInfo.Gold += gold;
+				}
+
+				if (tradeInfo.VirtualCheck != null)
+				{
+					tradeInfo.VirtualCheck.UpdateTrade(tradeInfo.Mobile);
+				}
+			}
+
+			owner.SendLocalizedMessage(1042763, Worth.ToString("#,0"));
+
+			Delete();
+
+			((Container)parent).UpdateTotals();
+		}
 
         public override void OnSingleClick(Mobile from)
         {
@@ -101,16 +179,31 @@ namespace Server.Items
 
         public override void OnDoubleClick(Mobile from)
         {
-            BankBox box = from.FindBankNoCreate();
+            // This probably isn't OSI accurate, but we can't just make the quests redundant.
+			// Double-clicking the BankCheck in your pack will now credit your account.
 
-            if (box != null && this.IsChildOf(box))
-            {
-                this.Delete();
+			var box = AccountGold.Enabled ? from.Backpack : from.FindBankNoCreate();
 
-                int deposited = 0;
+			if (box == null || !IsChildOf(box))
+			{
+				from.SendLocalizedMessage(AccountGold.Enabled ? 1080058 : 1047026); 
+				// This must be in your backpack to use it. : That must be in your bank box to use it.
+				return;
+			}
 
-                int toAdd = this.m_Worth;
+			Delete();
 
+			var deposited = 0;
+			var toAdd = m_Worth;
+
+			if (AccountGold.Enabled && from.Account != null && from.Account.DepositGold(toAdd))
+			{
+				deposited = toAdd;
+				toAdd = 0;
+			}
+
+			if (toAdd > 0)
+			{
                 Gold gold;
 
                 while (toAdd > 60000)
@@ -175,10 +268,7 @@ namespace Server.Items
                     }
                 }
             }
-            else
-            {
-                from.SendLocalizedMessage(1047026); // That must be in your bank box to use it.
-            }
+            
         }
     }
 }
