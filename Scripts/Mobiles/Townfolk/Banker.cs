@@ -341,9 +341,10 @@ namespace Server.Mobiles
                                     this.Say(500389); // I will not do business with a criminal!
                                     break;
                                 }
-
+                                
                                 if (AccountGold.Enabled && e.Mobile.Account != null)
                                 {
+                                    /// extra needs to go here to support for older clients being used
                                     Say(1155855, String.Format("{0:#,0}\t{1:#,0}", e.Mobile.Account.TotalPlat, e.Mobile.Account.TotalGold));
                                     // Thy current bank balance is ~1_AMOUNT~ platinum and ~2_AMOUNT~ gold.
                                 }
