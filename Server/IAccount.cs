@@ -183,7 +183,7 @@ namespace Server.Accounting
 		void GetBalance(out long gold, out double totalGold, out long plat, out double totalPlat);
 	}
 	
-	public interface IAccount : IComparable<IAccount>, IEquatable<IAccount>
+	public interface IAccount : IGoldAccount, IComparable<IAccount>, IEquatable<IAccount>
 	{
 		[CommandProperty(AccessLevel.Administrator, true)]
 		string Username { get; set; }
