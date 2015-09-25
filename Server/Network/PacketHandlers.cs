@@ -1385,7 +1385,7 @@ namespace Server.Network
 
 					int textCount = pvSrc.ReadInt32();
 
-					if (textCount < 0 || textCount > gump._TextEntries)
+					if (textCount < 0 || textCount > gump.m_TextEntries)
 					{
 						Utility.PushColor(ConsoleColor.DarkRed);
 						state.WriteConsole("Invalid gump response, disconnecting...");
