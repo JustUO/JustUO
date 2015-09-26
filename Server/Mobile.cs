@@ -10532,6 +10532,48 @@ namespace Server
 			return true;
 		}
 
+		public bool OpenTrade(Mobile from)
+		{
+			return OpenTrade(from, null);
+		}
+
+		/// The range check has not been moved from Mobile.OnDragDrop to Mobile.OpenTrade, meaning OpenTrade could be used to allow players to trade over long distances, should any custom system wish to do so..
+		///
+		public virtual bool OpenTrade(Mobile from, Item offer)
+		{
+			if (!from.Player || !Player || !from.Alive || !Alive)
+			{
+				return false;
+			}
+
+			NetState ourState = _NetState;
+			NetState theirState = from._NetState;
+
+			if (ourState == null || theirState == null)
+			{
+				return false;
+			}
+
+			SecureTradeContainer cont = theirState.FindTradeContainer(this);
+
+			if (!from.CheckTrade(this, offer, cont, true, true, 0, 0))
+			{
+				return false;
+			}
+
+			if (cont == null)
+			{
+				cont = theirState.AddTrade(ourState);
+			}
+
+			if (offer != null)
+			{
+				cont.DropItem(offer);
+			}
+
+			return true;
+		}
+
 		/// <summary>
 		///     Overridable. Event invoked when a Mobile (<paramref name="from" />) drops an
 		///     <see cref="Item">
@@ -10552,34 +10594,14 @@ namespace Server
 
 				return false;
 			}
-		    if (@from.Player && Player && @from.Alive && Alive && @from.InRange(Location, 2))
+			
+			if (from.InRange(Location, 2))
 			{
-		        NetState ourState = _NetState;
-		        NetState theirState = @from._NetState;
-
-				if (ourState != null && theirState != null)
-				{
-					SecureTradeContainer cont = theirState.FindTradeContainer(this);
-
-		            if (!@from.CheckTrade(this, dropped, cont, true, true, 0, 0))
-					{
-						return false;
-					}
-
-					if (cont == null)
-					{
-						cont = theirState.AddTrade(ourState);
-					}
-
-					cont.DropItem(dropped);
-
-					return true;
-				}
-
-				return false;
+				return OpenTrade(from, dropped);
 			}
-				return false;
-			}
+
+			return false;
+		}
 
 		public virtual bool CheckEquip(Item item)
 		{
