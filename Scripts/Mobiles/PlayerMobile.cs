@@ -1823,8 +1823,20 @@ namespace Server.Mobiles
 				}
 				#endregion
 			}
-			if (from != this)
+			else
 			{
+				if (Core.TOL && from.InRange(this, 2))
+				{
+					/* TODO:
+					 * Find a cliloc in the 3000000+ range that has the text "Trade"; 
+					 * OSI may add this at some point for TOL.
+					 * There is a "Trade" cliloc below 3000000 that can be used (1077728)
+					 * but using it will suppress custom coloring support.
+					 */
+					//list.Add(new CallbackEntry(6113, () => OpenTrade(from, null))); // Transfer
+					// Osi uses this one
+					list.Add(new CallbackEntry(1077728, () => OpenTrade(from))); // Trade 
+				}
 				if (Alive && Core.Expansion >= Expansion.AOS)
 				{
 					Party theirParty = from.Party as Party;
@@ -2245,7 +2257,7 @@ namespace Server.Mobiles
 				}
 			}
 
-			if (msgNum == 0)
+			if (msgNum == 0 && item != null)
 			{
 				if (cont != null)
 				{
@@ -2267,17 +2279,24 @@ namespace Server.Mobiles
 				}
 			}
 
-			if (msgNum != 0)
+			if (msgNum == 0)
 			{
-				if (message)
-				{
-					SendLocalizedMessage(msgNum);
-				}
-
+				return true;
+			}
+			if (!message)
+			{
 				return false;
 			}
+			if (msgNum == 1154111)
+			{
+				SendLocalizedMessage(msgNum, RawName);
+			}
+			else
+			{
+				SendLocalizedMessage(msgNum);
+			}
 
-			return true;
+			return false;
 		}
 
 		private static int CheckContentForTrade(Item item)

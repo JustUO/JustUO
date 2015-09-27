@@ -555,7 +555,8 @@ namespace Server
 			return i;
 		}
 		#endregion
-
+		
+		
 		#region Get[Something]
 		public static int GetXMLInt32(string intString, int defaultValue)
 		{

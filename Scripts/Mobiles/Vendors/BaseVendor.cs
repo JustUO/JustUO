@@ -2,7 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
+using Server.Accounting;
 using Server.ContextMenus;
 using Server.Engines.BulkOrders;
 using Server.Factions;
@@ -1316,28 +1316,31 @@ namespace Server.Mobiles
 				{
 					bought = true;
 				}
-				else if (totalCost < 2000)
-				{
-					SayTo(buyer, 500192); //Begging thy pardon, but thou casnt afford that.
-				}
 			}
 
 			if (!bought && totalCost >= 2000)
 			{
-				cont = buyer.FindBankNoCreate();
-				if (cont != null && cont.ConsumeTotal(typeof(Gold), totalCost))
+				if (Banker.Withdraw(buyer, totalCost))
 				{
 					bought = true;
 					fromBank = true;
 				}
-				else
+				else 
 				{
-					SayTo(buyer, 500191); //Begging thy pardon, but thy bank account lacks these funds.
+					cont = buyer.FindBankNoCreate();
+					if (cont != null && cont.ConsumeTotal(typeof(Gold), totalCost))
+					{
+						bought = true;
+						fromBank = true;
+					}
 				}
 			}
 
 			if (!bought)
 			{
+				// ? Begging thy pardon, but thy bank account lacks these funds. 
+				// : Begging thy pardon, but thou casnt afford that.
+				SayTo(buyer, totalCost >= 2000 ? 500191 : 500192);
 				return false;
 			}
 			else
@@ -1345,11 +1348,7 @@ namespace Server.Mobiles
 				buyer.PlaySound(0x32);
 			}
 
-			cont = buyer.Backpack;
-			if (cont == null)
-			{
-				cont = buyer.BankBox;
-			}
+			cont = buyer.Backpack ?? buyer.BankBox;
 
 			foreach (BuyItemResponse buy in validBuy)
 			{

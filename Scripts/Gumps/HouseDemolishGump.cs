@@ -1,4 +1,6 @@
 using System;
+using Server.Accounting;
+using Server.Guilds;
 using Server.Items;
 using Server.Multis;
 using Server.Network;
@@ -93,7 +95,7 @@ namespace Server.Gumps
                     }
                     else
                     {
-                        Item toGive = null;
+                        Item toGive;
 
                         if (this.m_House.IsAosRules)
                         {
@@ -109,15 +111,31 @@ namespace Server.Gumps
                             if (toGive == null && this.m_House.Price > 0)
                                 toGive = new BankCheck(this.m_House.Price);
                         }
+                        if (AccountGold.Enabled && toGive is BankCheck)
+						{
+							var worth = ((BankCheck)toGive).Worth;
+
+							if (m_Mobile.Account != null && m_Mobile.Account.DepositGold(worth))
+							{
+								toGive.Delete();
+
+								m_Mobile.SendLocalizedMessage(1060397, worth.ToString("#,0"));
+								// ~1_AMOUNT~ gold has been deposited into your bank box.
+
+								m_House.RemoveKeys(m_Mobile);
+								m_House.Delete();
+								return;
+							}
+						}
 
                         if (toGive != null)
                         {
-                            BankBox box = this.m_Mobile.BankBox;
+                            var box = m_Mobile.BankBox;
 
                             if (box.TryDropItem(this.m_Mobile, toGive, false))
                             {
                                 if (toGive is BankCheck)
-                                    this.m_Mobile.SendLocalizedMessage(1060397, ((BankCheck)toGive).Worth.ToString()); // ~1_AMOUNT~ gold has been deposited into your bank box.
+                                    this.m_Mobile.SendLocalizedMessage(1060397, ((BankCheck)toGive).Worth.ToString("#,0")); // ~1_AMOUNT~ gold has been deposited into your bank box.
 
                                 this.m_House.RemoveKeys(this.m_Mobile);
                                 this.m_House.Delete();
