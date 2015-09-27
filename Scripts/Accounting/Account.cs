@@ -192,6 +192,8 @@ namespace Server.Accounting
 			string plainPassword = Utility.GetText(node["password"], null);
 			string cryptPassword = Utility.GetText(node["cryptPassword"], null);
 			string newCryptPassword = Utility.GetText(node["newCryptPassword"], null);
+			
+			TotalCurrency = Double.Parse(Utility.GetText(node["totalCurrency"], "0.0"));
 
 			switch ( AccountHandler.ProtectPasswords )
 			{
@@ -1306,6 +1308,10 @@ namespace Server.Accounting
 
 				xml.WriteEndElement();
 			}
+			
+			xml.WriteStartElement("totalCurrency");
+			xml.WriteString(XmlConvert.ToString(TotalCurrency));
+
 
 			xml.WriteEndElement();
 		}
