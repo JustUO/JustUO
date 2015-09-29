@@ -193,8 +193,6 @@ namespace Server.Accounting
 			string cryptPassword = Utility.GetText(node["cryptPassword"], null);
 			string newCryptPassword = Utility.GetText(node["newCryptPassword"], null);
 			
-			TotalCurrency = Double.Parse(Utility.GetText(node["totalCurrency"], "0.0"));
-
 			switch ( AccountHandler.ProtectPasswords )
 			{
 				case PasswordProtection.None:
