@@ -66,7 +66,7 @@ namespace Server.Items
 
 			Container root = parent as Container;
 
-			while (root != null && root.Parent is Container)
+			while (root != null && root.Parent is Container && AccountGold.ConvertOnTrade)
 			{
 				root = (Container)root.Parent;
 			}
@@ -88,7 +88,7 @@ namespace Server.Items
 					owner = tradeInfo.Mobile;
 				}
 			}
-			else if (parent is BankBox)
+			else if (parent is BankBox && AccountGold.ConvertOnBank)
 			{
 				owner = ((BankBox)parent).Owner;
 			}
