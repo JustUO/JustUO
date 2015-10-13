@@ -672,17 +672,6 @@
     <Compile Include="Gumps\ConfirmHeritageGump.cs" />
     <Compile Include="Gumps\ConfirmHouseResize.cs" />
     <Compile Include="Gumps\ConfirmReleaseGump.cs" />
-    <Compile Include="Gumps\Controls\Gumplings\ApplyCancelGumpling.cs" />
-    <Compile Include="Gumps\Controls\Gumplings\CenteredLabel.cs" />
-    <Compile Include="Gumps\Controls\Gumplings\CustomCoreGumpling.cs" />
-    <Compile Include="Gumps\Controls\Gumplings\CustomServiceGumpling.cs" />
-    <Compile Include="Gumps\Controls\Gumplings\EntryField.cs" />
-    <Compile Include="Gumps\Controls\Gumplings\GoldRimmedFrame.cs" />
-    <Compile Include="Gumps\Controls\Gumplings\SaveCancelGumpling.cs" />
-    <Compile Include="Gumps\Controls\Gumplings\StoneyBackground.cs" />
-    <Compile Include="Gumps\Controls\Named Controls\GreyCheckbox.cs" />
-    <Compile Include="Gumps\Controls\Named Controls\GreyLeftArrow.cs" />
-    <Compile Include="Gumps\Controls\Named Controls\GreyRightArrow.cs" />
     <Compile Include="Gumps\DawnsMusicBoxGump.cs" />
     <Compile Include="Gumps\FacetGump.cs" />
     <Compile Include="Gumps\Go\ChildNode.cs" />
