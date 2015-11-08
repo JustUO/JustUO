@@ -66,14 +66,14 @@ namespace Server.Items
 
 			Container root = parent as Container;
 
-			while (root != null && root.Parent is Container && AccountGold.ConvertOnTrade)
+			while (root != null && root.Parent is Container)
 			{
 				root = (Container)root.Parent;
 			}
 
 			parent = root ?? parent;
 
-			if (parent is SecureTradeContainer)
+			if (parent is SecureTradeContainer && AccountGold.ConvertOnTrade)
 			{
 				var trade = (SecureTradeContainer)parent;
 
