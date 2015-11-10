@@ -7581,11 +7581,11 @@ namespace Server
 			}
 
 			Region newRegion = Region.Find(_Location, _Map);
-			Region oldRegion = m_Region;
+			Region oldRegion = _Region;
 			
 			if (newRegion != oldRegion)
 			{
-				m_Region = newRegion;
+				_Region = newRegion;
 				
 				Region.OnRegionChange(this, oldRegion, newRegion);
 				OnRegionChange(oldRegion, newRegion);
