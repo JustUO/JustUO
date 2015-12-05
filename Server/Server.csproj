@@ -125,6 +125,7 @@
     <Compile Include="Gumps\GumpAlphaRegion.cs" />
     <Compile Include="Gumps\GumpBackground.cs" />
     <Compile Include="Gumps\GumpButton.cs" />
+    <Compile Include="Gumps\GumpButtonTileArt.cs" />
     <Compile Include="Gumps\GumpCheck.cs" />
     <Compile Include="Gumps\GumpEntry.cs" />
     <Compile Include="Gumps\GumpGroup.cs" />
@@ -141,7 +142,11 @@
     <Compile Include="Gumps\GumpRadio.cs" />
     <Compile Include="Gumps\GumpTextEntry.cs" />
     <Compile Include="Gumps\GumpTextEntryLimited.cs" />
-    <Compile Include="Gumps\GumpTooltip.cs" />
+    <Compile Include="Gumps\GumpToolTip.cs" />
+    <Compile Include="Gumps\KRGumpButton.cs" />
+    <Compile Include="Gumps\KRGumpHtmlLocalized.cs" />
+    <Compile Include="Gumps\KRGumpImage.cs" />
+    <Compile Include="Gumps\KRGumpLabel.cs" />
     <Compile Include="Gumps\RelayInfo.cs" />
     <Compile Include="HuePicker.cs" />
     <Compile Include="IAccount.cs" />
@@ -197,11 +202,13 @@
     <Compile Include="Point3DList.cs" />
     <Compile Include="Poison.cs" />
     <Compile Include="Prompt.cs" />
+    <Compile Include="PromptExtensions.cs" />
     <Compile Include="QuestArrow.cs" />
     <Compile Include="Race.cs" />
     <Compile Include="Random.cs" />
     <Compile Include="Region.cs" />
     <Compile Include="ScriptCompiler.cs" />
+    <Compile Include="Season.cs" />
     <Compile Include="Sector.cs" />
     <Compile Include="SecureTrade.cs" />
     <Compile Include="Serial.cs" />

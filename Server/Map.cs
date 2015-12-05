@@ -19,7 +19,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-
 using Server.Items;
 using Server.Network;
 using Server.Targeting;
@@ -335,22 +334,46 @@ namespace Server
 		}
 		#endregion
 
-		public IPooledEnumerable<StaticTile[]> GetMultiTilesAt(int x, int y)
-		{
-			if (this == Internal)
-			{
-				return NullEnumerable<StaticTile[]>.Instance;
-			}
+        public IEnumerable<StaticTile[]> GetMultiTilesAt(int x, int y)
+        {
+            if (this == Map.Internal)
+                return Enumerable.Empty<StaticTile[]>();
 
-			Sector sector = GetSector(x, y);
+            return InternalGetMultiTilesAt(x, y);
+        }
 
-			if (sector.Multis.Count == 0)
-			{
-				return NullEnumerable<StaticTile[]>.Instance;
-			}
+        private IEnumerable<StaticTile[]> InternalGetMultiTilesAt(int x, int y)
+        {
+            foreach (BaseMulti multi in GetSector(x, y).Multis)
+            {
+                if (multi != null && !multi.Deleted)
+                {
+                    MultiComponentList list = multi.Components;
 
-			return PooledEnumerable<StaticTile[]>.Instantiate(MultiTileEnumerator.Instantiate(sector, new Point2D(x, y)));
-		}
+                    int xOffset = x - (multi.Location.X + list.Min.X);
+                    int yOffset = y - (multi.Location.Y + list.Min.Y);
+
+                    if (xOffset >= 0 && xOffset < list.Width && yOffset >= 0 && yOffset < list.Height)
+                    {
+                        StaticTile[] tiles = list.Tiles[xOffset][yOffset];
+
+                        if (tiles.Length > 0)
+                        {
+                            // TODO: How to avoid this copy?
+                            StaticTile[] copy = new StaticTile[tiles.Length];
+
+                            for (int i = 0; i < copy.Length; ++i)
+                            {
+                                copy[i] = tiles[i];
+                                copy[i].Z += multi.Z;
+                            }
+
+                            yield return copy;
+                        }
+                    }
+                }
+            }
+        }
 
 		#region CanFit
 		public bool CanFit(Point3D p, int height, bool checkBlocksFit)
@@ -504,92 +527,92 @@ namespace Server
 		}
 		#endregion
 
+        private class ZComparer : IComparer<Item>
+        {
+            public static readonly ZComparer Default = new ZComparer();
+
+            public int Compare(Item x, Item y)
+            {
+                return x.Z.CompareTo(y.Z);
+            }
+        }
+
 		public void FixColumn(int x, int y)
 		{
-			LandTile landTile = Tiles.GetLandTile(x, y);
+            LandTile landTile = Tiles.GetLandTile(x, y);
 
-			int landZ = 0, landAvg = 0, landTop = 0;
-			GetAverageZ(x, y, ref landZ, ref landAvg, ref landTop);
+            int landZ = 0, landAvg = 0, landTop = 0;
+            GetAverageZ(x, y, ref landZ, ref landAvg, ref landTop);
 
-			StaticTile[] tiles = Tiles.GetStaticTiles(x, y, true);
+            StaticTile[] tiles = Tiles.GetStaticTiles(x, y, true);
 
-			IPooledEnumerable<Item> eable = GetItemsInRange(new Point3D(x, y, 0), 0);
+            List<Item> items = new List<Item>();
 
-			List<Item> items =
-				eable.Where(item => !(item is BaseMulti) && item.ItemID <= TileData.MaxItemValue)
-					 .OrderBy(i => i.Z)
-					 .Take(100)
-					 .ToList();
+            foreach (Item item in GetItemsInRange(new Point3D(x, y, 0), 0))
+            {
+                if (!(item is BaseMulti) && item.ItemID <= TileData.MaxItemValue)
+                {
+                    items.Add(item);
 
-			eable.Free();
+                    if (items.Count > 100)
+                        break;
+                }
+            }
 
-			for (int i = 0; i < items.Count; ++i)
-			{
-				Item toFix = items[i];
+            if (items.Count > 100)
+                return;
 
-				if (!toFix.Movable)
-				{
-					continue;
-				}
+            items.Sort(ZComparer.Default);
 
-				int z = int.MinValue;
-				int currentZ = toFix.Z;
+            for (int i = 0; i < items.Count; ++i)
+            {
+                Item toFix = items[i];
 
-				if (!landTile.Ignored && landAvg <= currentZ)
-				{
-					z = landAvg;
-				}
+                if (!toFix.Movable)
+                    continue;
 
-				foreach (StaticTile tile in tiles)
-				{
-					ItemData id = TileData.ItemTable[tile.ID & TileData.MaxItemValue];
+                int z = int.MinValue;
+                int currentZ = toFix.Z;
 
-					int checkZ = tile.Z;
-					int checkTop = checkZ + id.CalcHeight;
+                if (!landTile.Ignored && landAvg <= currentZ)
+                    z = landAvg;
 
-					if (checkTop == checkZ && !id.Surface)
-					{
-						++checkTop;
-					}
+                for (int j = 0; j < tiles.Length; ++j)
+                {
+                    StaticTile tile = tiles[j];
+                    ItemData id = TileData.ItemTable[tile.ID & TileData.MaxItemValue];
 
-					if (checkTop > z && checkTop <= currentZ)
-					{
-						z = checkTop;
-					}
-				}
+                    int checkZ = tile.Z;
+                    int checkTop = checkZ + id.CalcHeight;
 
-				for (int j = 0; j < items.Count; ++j)
-				{
-					if (j == i)
-					{
-						continue;
-					}
+                    if (checkTop == checkZ && !id.Surface)
+                        ++checkTop;
 
-					Item item = items[j];
-					ItemData id = item.ItemData;
+                    if (checkTop > z && checkTop <= currentZ)
+                        z = checkTop;
+                }
 
-					int checkZ = item.Z;
-					int checkTop = checkZ + id.CalcHeight;
+                for (int j = 0; j < items.Count; ++j)
+                {
+                    if (j == i)
+                        continue;
 
-					if (checkTop == checkZ && !id.Surface)
-					{
-						++checkTop;
-					}
+                    Item item = items[j];
+                    ItemData id = item.ItemData;
 
-					if (checkTop > z && checkTop <= currentZ)
-					{
-						z = checkTop;
-					}
-				}
+                    int checkZ = item.Z;
+                    int checkTop = checkZ + id.CalcHeight;
 
-				if (z != int.MinValue)
-				{
-					toFix.Location = new Point3D(toFix.X, toFix.Y, z);
-				}
-			}
+                    if (checkTop == checkZ && !id.Surface)
+                        ++checkTop;
 
-			items.Clear();
-			items.TrimExcess();
+                    if (checkTop > z && checkTop <= currentZ)
+                        z = checkTop;
+                }
+
+                if (z != int.MinValue)
+                    toFix.Location = new Point3D(toFix.X, toFix.Y, z);
+            }
 		}
 
 		/* This could be probably be re-implemented if necessary (perhaps via an ITile interface?).

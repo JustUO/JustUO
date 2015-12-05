@@ -14,6 +14,7 @@
 
 #region References
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
@@ -21,7 +22,10 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml;
+using Microsoft.Win32;
+using Server.Network;
 #endregion
 
 namespace Server
@@ -1239,7 +1243,7 @@ namespace Server
 						bytes.Append("  ");
 					}
 
-					if (c >= 0x20 && c < 0x7F)
+                    if (c >= 0x20 && c < 0x80 /*0x7F*/)
 					{
 						chars.Append((char)c);
 					}
@@ -1278,7 +1282,7 @@ namespace Server
 							bytes.Append("  ");
 						}
 
-						if (c >= 0x20 && c < 0x7F)
+						if (c >= 0x20 && c < 0x80 /*0x7F*/)
 						{
 							chars.Append((char)c);
 						}
@@ -1406,5 +1410,25 @@ namespace Server
 
 			return output;
 		}
+
+        public static String RemoveHtml(String str)
+        {
+            return str.Replace("<", "").Replace(">", "").Trim();
+        }
+
+        public static bool IsNumeric(String str)
+        {
+            return !Regex.IsMatch(str, "[^0-9]");
+        }
+
+        public static bool IsAlpha(String str)
+        {
+            return !Regex.IsMatch(str, "[^a-z]", RegexOptions.IgnoreCase);
+        }
+
+        public static bool IsAlphaNumeric(String str)
+        {
+            return !Regex.IsMatch(str, "[^a-z0-9]", RegexOptions.IgnoreCase);
+        }
 	}
 }

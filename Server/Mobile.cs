@@ -430,7 +430,9 @@ namespace Server
 		Race = 0x00400000,
 		HealthbarYellow = 0x00800000,
 		HealthbarPoison = 0x01000000,
-
+        #region Enhance Client
+        Face = 0x08000000,
+        #endregion
 		Attributes = 0x0000001C
 	}
 
@@ -2998,34 +3000,35 @@ namespace Server
 			return BeginPrompt(callback, false, state);
 		}
 
-		public Prompt Prompt
-		{
-			get { return _Prompt; }
-			set
-			{
-				Prompt oldPrompt = _Prompt;
-				Prompt newPrompt = value;
+        public Prompt Prompt
+        {
+            get { return _Prompt; }
+            set
+            {
+                Prompt oldPrompt = _Prompt;
+                Prompt newPrompt = value;
 
-				if (oldPrompt == newPrompt)
-				{
-					return;
-				}
+                if (oldPrompt == newPrompt)
+                {
+                    return;
+                }
 
-				_Prompt = null;
+                _Prompt = null;
 
-				if (oldPrompt != null && newPrompt != null)
-				{
-					oldPrompt.OnCancel(this);
-				}
+                if (oldPrompt != null && newPrompt != null)
+                {
+                    oldPrompt.OnCancel(this);
+                }
 
-				_Prompt = newPrompt;
+                _Prompt = newPrompt;
 
-				if (newPrompt != null)
-				{
-					Send(new UnicodePrompt(newPrompt));
-				}
-			}
-		}
+                if (newPrompt != null)
+                {
+                    newPrompt.SendTo(this);
+                    //Send(new UnicodePrompt(newPrompt));
+                }
+            }
+        }
 		#endregion
 
 		private bool InternalOnMove(Direction d)
@@ -3821,6 +3824,10 @@ namespace Server
 			_FacialHair = null;
 			_MountItem = null;
 
+            #region Enhance Client
+            _Face = null;
+            #endregion
+
 			World.RemoveMobile(this);
 
 			OnAfterDelete();
@@ -4555,8 +4562,13 @@ namespace Server
 							reject = LRReason.Inspecific;
 						}
 						else
-						{
-							item.SetLastMoved();
+                        {
+                            #region Enhance Client
+                            if (item.Parent != null && item.Parent is Container)
+                                ((Container)item.Parent).FreePosition(item.GridLocation);
+                            #endregion
+
+                            item.SetLastMoved();
 
 							if (item.Spawner != null)
 							{
@@ -4789,8 +4801,8 @@ namespace Server
 				}
 			}
 		}
-
-		public virtual bool Drop(Item to, Point3D loc)
+        #region Enhance Client
+        public virtual bool Drop(Item to, Point3D loc, byte gridloc)
 		{
 			Mobile from = this;
 			Item item = from.Holding;
@@ -4808,7 +4820,7 @@ namespace Server
 
 			item.SetLastMoved();
 
-			if (to == null || !item.DropToItem(from, to, loc))
+            if (to == null || !item.DropToItem(from, to, loc, gridloc))
 			{
 				item.Bounce(from);
 			}
@@ -4826,8 +4838,9 @@ namespace Server
 
 			return !bounced;
 		}
+        #endregion
 
-		public virtual bool Drop(Point3D loc)
+        public virtual bool Drop(Point3D loc)
 		{
 			Mobile from = this;
 			Item item = from.Holding;
@@ -5860,6 +5873,13 @@ namespace Server
 							_FacialHair = new FacialHairInfo(reader);
 						}
 
+                        #region Enhance Client
+                        if ((hairflag & 0x04) != 0)
+                        {
+                            _Face = new FaceInfo(reader);
+                        }
+                        #endregion
+
 						goto case 29;
 					}
 				case 29:
@@ -6331,23 +6351,40 @@ namespace Server
 				hairflag |= 0x02;
 			}
 
+            #region Enhance Client
+            if (_Face != null)
+            {
+                hairflag |= 0x04;
+            }
+            #endregion
+
 			writer.Write(hairflag);
 
-			if ((hairflag & 0x01) != 0)
-			{
-			    if (_Hair != null)
-			    {
-			        _Hair.Serialize(writer);
-			}
-			}
+            if ((hairflag & 0x01) != 0)
+            {
+                if (_Hair != null)
+                {
+                    _Hair.Serialize(writer);
+                }
+            }
 
-			if ((hairflag & 0x02) != 0)
-			{
-			    if (_FacialHair != null)
-			    {
-			        _FacialHair.Serialize(writer);
-			}
-			}
+            if ((hairflag & 0x02) != 0)
+            {
+                if (_FacialHair != null)
+                {
+                    _FacialHair.Serialize(writer);
+                }
+            }
+
+            #region Enhance Client
+            if ((hairflag & 0x04) != 0)
+            {
+                if (_Face != null)
+                {
+                    _Face.Serialize(writer);
+                }
+            }
+            #endregion
 
 			writer.Write(Race);
 
@@ -7581,14 +7618,13 @@ namespace Server
 			}
 
 			Region newRegion = Region.Find(_Location, _Map);
-			Region oldRegion = _Region;
-			
-			if (newRegion != oldRegion)
+
+			if (newRegion != _Region)
 			{
+				Region.OnRegionChange(this, _Region, newRegion);
+
 				_Region = newRegion;
-				
-				Region.OnRegionChange(this, oldRegion, newRegion);
-				OnRegionChange(oldRegion, newRegion);
+				OnRegionChange(_Region, newRegion);
 			}
 		}
 
@@ -8441,6 +8477,101 @@ namespace Server
 		#endregion
 
 		public virtual int Luck { get { return 0; } }
+
+        #region Enhance Client
+        public virtual int AttackChance
+        {
+            get { return 0; }
+        }
+        public virtual int WeaponSpeed
+        {
+            get { return 0; }
+        }
+        public virtual int WeaponDamage
+        {
+            get { return 0; }
+        }
+        public virtual int LowerRegCost
+        {
+            get { return 0; }
+        }
+        public virtual int RegenHits
+        {
+            get { return 0; }
+        }
+        public virtual int RegenStam
+        {
+            get { return 0; }
+        }
+        public virtual int RegenMana
+        {
+            get { return 0; }
+        }
+        public virtual int ReflectPhysical
+        {
+            get { return 0; }
+        }
+        public virtual int EnhancePotions
+        {
+            get { return 0; }
+        }
+        public virtual int DefendChance
+        {
+            get { return 0; }
+        }
+        public virtual int SpellDamage
+        {
+            get { return 0; }
+        }
+        public virtual int CastRecovery
+        {
+            get { return 0; }
+        }
+        public virtual int CastSpeed
+        {
+            get { return 0; }
+        }
+        public virtual int LowerManaCost
+        {
+            get { return 0; }
+        }
+        public virtual int BonusStr
+        {
+            get { return 0; }
+        }
+        public virtual int BonusDex
+        {
+            get { return 0; }
+        }
+        public virtual int BonusInt
+        {
+            get { return 0; }
+        }
+        public virtual int BonusHits
+        {
+            get { return 0; }
+        }
+        public virtual int BonusStam
+        {
+            get { return 0; }
+        }
+        public virtual int BonusMana
+        {
+            get { return 0; }
+        }
+        public virtual int MaxHitIncrease
+        {
+            get { return HitsMax; }
+        }
+        public virtual int MaxStamIncrease
+        {
+            get { return StamMax; }
+        }
+        public virtual int MaxManaIncrease
+        {
+            get { return ManaMax; }
+        }
+        #endregion
 
 		public virtual int HuedItemID { get { return (_Female ? 0x2107 : 0x2106); } }
 
@@ -10121,6 +10252,62 @@ namespace Server
 		}
 		#endregion
 
+        #region Enhance Client
+        private FaceInfo _Face;
+
+        [CommandProperty(AccessLevel.GameMaster)]
+        public int FaceItemID
+        {
+            get
+            {
+                if (_Face == null)
+                {
+                    return 0;
+                }
+
+                return _Face.ItemID;
+            }
+            set
+            {
+                if (_Face == null && value > 0)
+                {
+                    _Face = new FaceInfo(value);
+                }
+                else if (value <= 0)
+                {
+                    _Face = null;
+                }
+                else
+                {
+                    _Face.ItemID = value;
+                    Delta(MobileDelta.Face);
+                }
+            }
+        }
+
+        [CommandProperty(AccessLevel.GameMaster)]
+        public int FaceHue
+        {
+            get
+            {
+                if (_Face == null)
+                {
+                    return Hue;
+                }
+
+                return _Face.Hue;
+            }
+            set
+            {
+                if (_Face != null)
+                {
+                    _Face.Hue = value;
+                    Delta(MobileDelta.Face);
+                }
+            }
+        }
+        #endregion
+
 		public bool HasFreeHand()
 		{
 			return FindItemOnLayer(Layer.TwoHanded) == null;
@@ -10589,9 +10776,12 @@ namespace Server
 				Container pack = Backpack;
 
 				if (pack != null)
-				{
-					return dropped.DropToItem(from, pack, new Point3D(-1, -1, 0));
-				}
+                {
+                    #region Enhance Client
+                    return dropped.DropToItem(from, pack, new Point3D(-1, -1, 0), 0x0);
+                    //return dropped.DropToItem(from, pack, new Point3D(-1, -1, 0), 0x0);
+                    #endregion
+                }
 
 				return false;
 			}
@@ -10985,6 +11175,10 @@ namespace Server
 
 			bool sendHair = false, sendFacialHair = false, removeHair = false, removeFacialHair = false;
 
+            #region Enhance Client
+            bool sendFace = false, removeFace = false;
+            #endregion
+
 			bool sendHealthbarPoison = false, sendHealthbarYellow = false;
 
 			if (attrs != MobileDelta.None)
@@ -11088,6 +11282,18 @@ namespace Server
 
 				sendFacialHair = true;
 			}
+
+            #region Enhance Client
+            if ((delta & MobileDelta.Face) != 0)
+            {
+                if (m.FaceItemID <= 0)
+                {
+                    removeFace = true;
+                }
+
+                sendFace = true;
+            }
+            #endregion
 
 			var cache = new Packet[][] {new Packet[8], new Packet[8]};
 
@@ -11208,6 +11414,20 @@ namespace Server
 					}
 				}
 
+                #region Enhance Client
+                if (sendFace)
+                {
+                    if (removeFace)
+                    {
+                        ourState.Send(new RemoveFace(m));
+                    }
+                    else
+                    {
+                        ourState.Send(new FaceEquipUpdate(m));
+                    }
+                }
+                #endregion
+
 				if (sendOPLUpdate)
 				{
 					ourState.Send(OPLPacket);
@@ -11217,11 +11437,12 @@ namespace Server
 			sendMoving = sendMoving || sendNonlocalMoving;
 			sendIncoming = sendIncoming || sendNonlocalIncoming;
 			sendHits = sendHits || sendAll;
-
-			if (m._Map != null &&
-				(sendRemove || sendIncoming || sendPublicStats || sendHits || sendMoving || sendOPLUpdate || sendHair ||
-				 sendFacialHair || sendHealthbarPoison || sendHealthbarYellow))
-			{
+            #region Enhance Client
+            if (m._Map != null &&
+                (sendRemove || sendIncoming || sendPublicStats || sendHits || sendMoving || sendOPLUpdate || sendHair ||
+                 sendFacialHair || sendHealthbarPoison || sendHealthbarYellow || sendFace))
+            #endregion
+            {
 				Mobile beholder;
 
 				Packet hitsPacket = null;
@@ -11232,6 +11453,9 @@ namespace Server
 				Packet facialhairPacket = null;
 				Packet hbpPacket = null;
 				Packet hbyPacket = null;
+                #region Enhance Client
+                Packet facePacket = null;
+                #endregion
 
 				IPooledEnumerable<NetState> eable = m.Map.GetClientsInRange(m._Location);
 
@@ -11379,6 +11603,25 @@ namespace Server
 							state.Send(facialhairPacket);
 						}
 
+                        #region Enhance Client
+                        if (sendFace)
+                        {
+                            if (facePacket == null)
+                            {
+                                if (removeFace)
+                                {
+                                    facePacket = Packet.Acquire(new RemoveFace(m));
+                                }
+                                else
+                                {
+                                    facePacket = Packet.Acquire(new FaceEquipUpdate(m));
+                                }
+                            }
+
+                            state.Send(facePacket);
+                        }
+                        #endregion
+
 						if (sendOPLUpdate)
 						{
 							state.Send(OPLPacket);
@@ -11394,6 +11637,9 @@ namespace Server
 				Packet.Release(facialhairPacket);
 				Packet.Release(hbpPacket);
 				Packet.Release(hbyPacket);
+                #region Enhance Client
+                Packet.Release(facePacket);
+                #endregion
 
 				eable.Free();
 			}

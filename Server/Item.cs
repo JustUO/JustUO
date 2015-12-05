@@ -117,10 +117,12 @@ namespace Server
 		/// </summary>
 		Bracelet = 0x0E,
 
-		/// <summary>
-		///     Unused.
-		/// </summary>
-		Unused_xF = 0x0F,
+        #region Enhance Client
+        /// <summary>
+        /// Face Selecton EC
+        /// </summary>
+        Face = 0x0F,
+        #endregion
 
 		/// <summary>
 		///     Beards and mustaches.
@@ -855,7 +857,26 @@ namespace Server
 			}
 		}
 
-		[Flags]
+        #region Enhance Client
+        private byte m_GridLocation = 0xFF;
+
+        [CommandProperty(AccessLevel.GameMaster)]
+        public byte GridLocation
+        {
+            get { return m_GridLocation; }
+            set { m_GridLocation = value; }
+        }
+
+        public void SetGridLocation(byte pos, Container parent)
+        {
+            if (parent.IsFreePosition(pos))
+                m_GridLocation = pos;
+            else
+                m_GridLocation = parent.GetNewPosition();
+        }
+        #endregion
+
+        [Flags]
 		private enum ImplFlag : byte
 		{
 			None = 0x00,
@@ -3467,7 +3488,7 @@ namespace Server
 
 		public virtual int GetMaxUpdateRange()
 		{
-			return Core.GlobalUpdateRange;
+            return Core.GlobalUpdateRange;
 		}
 
 		public virtual int GetUpdateRange(Mobile m)
@@ -3477,7 +3498,7 @@ namespace Server
 
 		public void SendInfoTo(NetState state)
 		{
-			SendInfoTo(state, ObjectPropertyList.Enabled);
+            SendInfoTo(state, ObjectPropertyList.Enabled && GraphicData == GraphicData.TileData);
 		}
 
 		public virtual void SendInfoTo(NetState state, bool sendOplPacket)
@@ -3489,6 +3510,8 @@ namespace Server
 				state.Send(OPLPacket);
 			}
 		}
+
+        public virtual GraphicData GraphicData { get { return GraphicData.TileData; } }
 
 		protected virtual Packet GetWorldPacketFor(NetState state)
 		{
@@ -4704,8 +4727,8 @@ namespace Server
 				return true;
 			}
 		}
-
-		public virtual bool OnDroppedInto(Mobile from, Container target, Point3D p)
+        #region Enhance Client
+        public virtual bool OnDroppedInto(Mobile from, Container target, Point3D p, byte gridloc)
 		{
 			if (!from.OnDroppedItemInto(this, target, p))
 			{
@@ -4717,10 +4740,11 @@ namespace Server
 				return false;
 			}
 
-			return target.OnDragDropInto(from, this, p);
+            return target.OnDragDropInto(from, this, p, gridloc);
 		}
+        #endregion
 
-		public virtual bool OnDroppedOnto(Mobile from, Item target)
+        public virtual bool OnDroppedOnto(Mobile from, Item target)
 		{
 			if (Deleted || from.Deleted || target.Deleted || from.Map != target.Map || from.Map == null || target.Map == null)
 			{
@@ -4752,8 +4776,8 @@ namespace Server
 				return target.OnDragDrop(from, this);
 			}
 		}
-
-		public virtual bool DropToItem(Mobile from, Item target, Point3D p)
+        #region Enhance Client
+        public virtual bool DropToItem(Mobile from, Item target, Point3D p, byte gridloc)
 		{
 			if (Deleted || from.Deleted || target.Deleted || from.Map != target.Map || from.Map == null || target.Map == null)
 			{
@@ -4784,15 +4808,16 @@ namespace Server
 			}
 			else if (target is Container && p.m_X != -1 && p.m_Y != -1)
 			{
-				return OnDroppedInto(from, (Container)target, p);
+                return OnDroppedInto(from, (Container)target, p, gridloc);
 			}
 			else
 			{
 				return OnDroppedOnto(from, target);
 			}
 		}
+        #endregion
 
-		public virtual bool OnDroppedToWorld(Mobile from, Point3D p)
+        public virtual bool OnDroppedToWorld(Mobile from, Point3D p)
 		{
 			if (Nontransferable && from.Player && !from.IsStaff())
 			{

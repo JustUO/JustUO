@@ -41,14 +41,14 @@ namespace Server
 		private static ParticleSupportType m_ParticleSupportType = ParticleSupportType.Detect;
 
 		public static ParticleSupportType ParticleSupportType { get { return m_ParticleSupportType; } set { m_ParticleSupportType = value; } }
+        #region Enhance Client
+        public static bool SendParticlesTo(NetState state)
+        {
+            return (m_ParticleSupportType == ParticleSupportType.Full || (m_ParticleSupportType == ParticleSupportType.Detect && (state.IsUOTDClient || state.IsSAClient || state.IsKRClient)));
+        }
+        #endregion
 
-		public static bool SendParticlesTo(NetState state)
-		{
-			return (m_ParticleSupportType == ParticleSupportType.Full ||
-					(m_ParticleSupportType == ParticleSupportType.Detect && state.IsUOTDClient));
-		}
-
-		public static void PlaySound(IPoint3D p, Map map, int soundID)
+        public static void PlaySound(IPoint3D p, Map map, int soundID)
 		{
 			if (soundID <= -1)
 			{
