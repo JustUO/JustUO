@@ -8,70 +8,221 @@
 //  |##   |##   |##   |#   |##    |###   |
 //        [http://www.playuo.org]        |
 // **************************************/
-//  [2014] AssemblyInfo.cs
+//  [2014] AggressorInfo.cs
 // ************************************/
 #endregion
 
 #region References
-using System.Reflection;
-using System.Resources;
-using System.Runtime.InteropServices;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 #endregion
 
-//
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
-//
+namespace Server
+{
+	public class AggressorInfo
+	{
+		private Mobile m_Attacker, m_Defender;
+		private DateTime m_LastCombatTime;
+		private bool m_CanReportMurder;
+		private bool m_Reported;
+		private bool m_CriminalAggression;
 
-[assembly: AssemblyTitle("JustUO")]
-[assembly: AssemblyDescription("Ultima Online Server Emulator")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("The PlayUO Team")]
-[assembly: AssemblyProduct("")]
-[assembly: AssemblyCopyright("")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-//
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Revision and Build Numbers 
-// by using the '*' as shown below:
+		private bool m_Queued;
 
-[assembly: AssemblyVersion("2.0.5.0")]
-//
-// In order to sign your assembly you must specify a key to use. Refer to the 
-// Microsoft .NET Framework documentation for more information on assembly signing.
-//
-// Use the attributes below to control which key is used for signing. 
-//
-// Notes: 
-//   (*) If no key is specified, the assembly is not signed.
-//   (*) KeyName refers to a key that has been installed in the Crypto Service
-//       Provider (CSP) on your machine. KeyFile refers to a file which contains
-//       a key.
-//   (*) If the KeyFile and the KeyName values are both specified, the 
-//       following processing occurs:
-//       (1) If the KeyName can be found in the CSP, that key is used.
-//       (2) If the KeyName does not exist and the KeyFile does exist, the key 
-//           in the KeyFile is installed into the CSP and used.
-//   (*) In order to create a KeyFile, you can use the sn.exe (Strong Name) utility.
-//       When specifying the KeyFile, the location of the KeyFile should be
-//       relative to the project output directory which is
-//       %Project Directory%\obj\<configuration>. For example, if your KeyFile is
-//       located in the project directory, you would specify the AssemblyKeyFile 
-//       attribute as [assembly: AssemblyKeyFile("..\\..\\mykey.snk")]
-//   (*) Delay Signing is an advanced option - see the Microsoft .NET Framework
-//       documentation for more information on this.
-//
+		private static readonly Queue<AggressorInfo> m_Pool = new Queue<AggressorInfo>();
 
-[assembly: AssemblyDelaySign(false)]
-[assembly: AssemblyKeyFile("")]
-[assembly: AssemblyKeyName("")]
-[assembly: ComVisible(false)]
-[assembly: NeutralResourcesLanguage("en")]
+		public static AggressorInfo Create(Mobile attacker, Mobile defender, bool criminal)
+		{
+			AggressorInfo info;
+
+			if (m_Pool.Count > 0)
+			{
+				info = m_Pool.Dequeue();
+
+				info.m_Attacker = attacker;
+				info.m_Defender = defender;
+
+				info.m_CanReportMurder = criminal;
+				info.m_CriminalAggression = criminal;
+
+				info.m_Queued = false;
+
+				info.Refresh();
+			}
+			else
+			{
+				info = new AggressorInfo(attacker, defender, criminal);
+			}
+
+			return info;
+		}
+
+		public void Free()
+		{
+			if (m_Queued)
+			{
+				return;
+			}
+
+			m_Queued = true;
+			m_Pool.Enqueue(this);
+		}
+
+		private AggressorInfo(Mobile attacker, Mobile defender, bool criminal)
+		{
+			m_Attacker = attacker;
+			m_Defender = defender;
+
+			m_CanReportMurder = criminal;
+			m_CriminalAggression = criminal;
+
+			Refresh();
+		}
+
+		private static TimeSpan m_ExpireDelay = TimeSpan.FromMinutes(2.0);
+
+		public static TimeSpan ExpireDelay { get { return m_ExpireDelay; } set { m_ExpireDelay = value; } }
+
+		public static void DumpAccess()
+		{
+			using (var op = new StreamWriter("warnings.log", true))
+			{
+				op.WriteLine("Warning: Access to queued AggressorInfo:");
+				op.WriteLine(new StackTrace());
+				op.WriteLine();
+				op.WriteLine();
+			}
+		}
+
+		public bool Expired
+		{
+			get
+			{
+				if (m_Queued)
+				{
+					DumpAccess();
+				}
+
+				return (m_Attacker.Deleted || m_Defender.Deleted || DateTime.UtcNow >= (m_LastCombatTime + m_ExpireDelay));
+			}
+		}
+
+		public bool CriminalAggression
+		{
+			get
+			{
+				if (m_Queued)
+				{
+					DumpAccess();
+				}
+
+				return m_CriminalAggression;
+			}
+			set
+			{
+				if (m_Queued)
+				{
+					DumpAccess();
+				}
+
+				m_CriminalAggression = value;
+			}
+		}
+
+		public Mobile Attacker
+		{
+			get
+			{
+				if (m_Queued)
+				{
+					DumpAccess();
+				}
+
+				return m_Attacker;
+			}
+		}
+
+		public Mobile Defender
+		{
+			get
+			{
+				if (m_Queued)
+				{
+					DumpAccess();
+				}
+
+				return m_Defender;
+			}
+		}
+
+		public DateTime LastCombatTime
+		{
+			get
+			{
+				if (m_Queued)
+				{
+					DumpAccess();
+				}
+
+				return m_LastCombatTime;
+			}
+		}
+
+		public bool Reported
+		{
+			get
+			{
+				if (m_Queued)
+				{
+					DumpAccess();
+				}
+
+				return m_Reported;
+			}
+			set
+			{
+				if (m_Queued)
+				{
+					DumpAccess();
+				}
+
+				m_Reported = value;
+			}
+		}
+
+		public bool CanReportMurder
+		{
+			get
+			{
+				if (m_Queued)
+				{
+					DumpAccess();
+				}
+
+				return m_CanReportMurder;
+			}
+			set
+			{
+				if (m_Queued)
+				{
+					DumpAccess();
+				}
+
+				m_CanReportMurder = value;
+			}
+		}
+
+		public void Refresh()
+		{
+			if (m_Queued)
+			{
+				DumpAccess();
+			}
+
+			m_LastCombatTime = DateTime.UtcNow;
+			m_Reported = false;
+		}
+	}
+}

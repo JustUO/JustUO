@@ -29,7 +29,8 @@ namespace Server.Gumps
 		private int m_ItemID;
 		private int m_Hue;
 
-		public GumpItem( int x, int y, int itemID ) : this( x, y, itemID, 0 )
+		public GumpItem( int x, int y, int itemID )
+			: this( x, y, itemID, 0 )
 		{
 		}
 
