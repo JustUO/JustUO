@@ -7618,13 +7618,14 @@ namespace Server
 			}
 
 			Region newRegion = Region.Find(_Location, _Map);
-
-			if (newRegion != _Region)
+			Region oldRegion = _Region;
+			
+			if (newRegion != oldRegion)
 			{
-				Region.OnRegionChange(this, _Region, newRegion);
-
 				_Region = newRegion;
-				OnRegionChange(_Region, newRegion);
+				
+				Region.OnRegionChange(this, oldRegion, newRegion);
+				OnRegionChange(oldRegion, newRegion);
 			}
 		}
 

@@ -5,7 +5,7 @@ using Server.Network;
 
 namespace Server.Gumps
 {
-	public abstract class Gump
+	public class Gump
 	{
 		private List<GumpEntry> m_Entries;
 		private List<string> m_Strings;
@@ -240,17 +240,17 @@ namespace Server.Gumps
 		}
 
         public void AddImageTiledButton(
-    int x,
-    int y,
-    int normalID,
-    int pressedID,
-    int buttonID,
-    GumpButtonType type,
-    int param,
-    int itemID,
-    int hue,
-    int width,
-    int height)
+			int x,
+			int y,
+			int normalID,
+			int pressedID,
+			int buttonID,
+			GumpButtonType type,
+			int param,
+			int itemID,
+			int hue,
+			int width,
+			int height)
         {
             Add(new GumpImageTileButton(x, y, normalID, pressedID, buttonID, type, param, itemID, hue, width, height));
         }
