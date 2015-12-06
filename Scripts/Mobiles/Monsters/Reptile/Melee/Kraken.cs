@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -9,48 +10,48 @@ namespace Server.Mobiles
         public Kraken()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a kraken";
-            Body = 77;
-            BaseSoundID = 353;
+            this.Name = "a kraken";
+            this.Body = 77;
+            this.BaseSoundID = 353;
 
-            SetStr(756, 780);
-            SetDex(226, 245);
-            SetInt(26, 40);
+            this.SetStr(756, 780);
+            this.SetDex(226, 245);
+            this.SetInt(26, 40);
 
-            SetHits(454, 468);
-            SetMana(0);
+            this.SetHits(454, 468);
+            this.SetMana(0);
 
-            SetDamage(19, 33);
+            this.SetDamage(19, 33);
 
-            SetDamageType(ResistanceType.Physical, 70);
-            SetDamageType(ResistanceType.Cold, 30);
+            this.SetDamageType(ResistanceType.Physical, 70);
+            this.SetDamageType(ResistanceType.Cold, 30);
 
-            SetResistance(ResistanceType.Physical, 45, 55);
-            SetResistance(ResistanceType.Fire, 30, 40);
-            SetResistance(ResistanceType.Cold, 30, 40);
-            SetResistance(ResistanceType.Poison, 20, 30);
-            SetResistance(ResistanceType.Energy, 10, 20);
+            this.SetResistance(ResistanceType.Physical, 45, 55);
+            this.SetResistance(ResistanceType.Fire, 30, 40);
+            this.SetResistance(ResistanceType.Cold, 30, 40);
+            this.SetResistance(ResistanceType.Poison, 20, 30);
+            this.SetResistance(ResistanceType.Energy, 10, 20);
 
-            SetSkill(SkillName.MagicResist, 15.1, 20.0);
-            SetSkill(SkillName.Tactics, 45.1, 60.0);
-            SetSkill(SkillName.Wrestling, 45.1, 60.0);
+            this.SetSkill(SkillName.MagicResist, 15.1, 20.0);
+            this.SetSkill(SkillName.Tactics, 45.1, 60.0);
+            this.SetSkill(SkillName.Wrestling, 45.1, 60.0);
 
-            Fame = 11000;
-            Karma = -11000;
+            this.Fame = 11000;
+            this.Karma = -11000;
 
-            VirtualArmor = 50;
+            this.VirtualArmor = 50;
 
-            CanSwim = true;
-            CantWalk = true;
+            this.CanSwim = true;
+            this.CantWalk = true;
 
-            var rope = new Rope();
+            Rope rope = new Rope();
             rope.ItemID = 0x14F8;
-            PackItem(rope);
+            this.PackItem(rope);
 
             if (Utility.RandomDouble() < .05)
-                PackItem(new MessageInABottle());
+                this.PackItem(new MessageInABottle());
 
-            PackItem(new SpecialFishingNet()); //Confirm?
+            this.PackItem(new SpecialFishingNet()); //Confirm?
         }
 
         public Kraken(Serial serial)
@@ -60,24 +61,26 @@ namespace Server.Mobiles
 
         public override int TreasureMapLevel
         {
-            get { return 4; }
+            get
+            {
+                return 4;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Rich);
+            this.AddLoot(LootPack.Rich);
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

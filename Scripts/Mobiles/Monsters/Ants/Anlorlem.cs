@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -40,11 +41,11 @@ namespace Server.Mobiles
             Fame = 16000;
             Karma = -16000;
 
+            QLPoints = 20;
+
             VirtualArmor = 50;
 
             PackItem(new DaemonBone(15));
-
-            QLPoints = 20;
         }
 
         public Anlorlem(Serial serial)
@@ -54,24 +55,32 @@ namespace Server.Mobiles
 
         public override bool BardImmune
         {
-            get { return !Core.AOS; }
+            get
+            {
+                return !Core.AOS;
+            }
         }
-
         public override bool Unprovokable
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override bool ReacquireOnMovement
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override Poison PoisonImmune
         {
-            get { return Poison.Greater; }
+            get
+            {
+                return Poison.Greater;
+            }
         }
-
         public override void GenerateLoot()
         {
             AddLoot(LootPack.Rich);
@@ -87,7 +96,7 @@ namespace Server.Mobiles
                 c.DropItem(new VoidEssence(2));
 
             if (Utility.RandomDouble() < 0.20)
-            {
+            { 
                 c.DropItem(new VoidOrb());
             }
         }
@@ -95,13 +104,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

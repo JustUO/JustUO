@@ -1,5 +1,5 @@
+using System;
 using Server.Items;
-using Server.Services;
 
 namespace Server.Mobiles
 {
@@ -11,37 +11,35 @@ namespace Server.Mobiles
         public ClanRC()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "Clan Ribbon Courtier";
-            Body = 42;
-            Hue = 2207;
-            BaseSoundID = 437;
+            this.Name = "Clan Ribbon Courtier";
+            this.Body = 42;
+            this.Hue = 2207;
+            this.BaseSoundID = 437;
 
-            SetStr(231);
-            SetDex(252);
-            SetInt(125);
+            this.SetStr(231);
+            this.SetDex(252);
+            this.SetInt(125);
 
-            SetHits(2054, 2100);
+            this.SetHits(2054, 2100);
 
-            SetDamage(7, 14);
+            this.SetDamage(7, 14);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 40);
-            SetResistance(ResistanceType.Fire, 10, 12);
-            SetResistance(ResistanceType.Cold, 15, 20);
-            SetResistance(ResistanceType.Poison, 10, 12);
-            SetResistance(ResistanceType.Energy, 10, 12);
+            this.SetResistance(ResistanceType.Physical, 40);
+            this.SetResistance(ResistanceType.Fire, 10, 12);
+            this.SetResistance(ResistanceType.Cold, 15, 20);
+            this.SetResistance(ResistanceType.Poison, 10, 12);
+            this.SetResistance(ResistanceType.Energy, 10, 12);
 
-            SetSkill(SkillName.MagicResist, 113.5, 115.0);
-            SetSkill(SkillName.Tactics, 65.1, 70.0);
-            SetSkill(SkillName.Wrestling, 50.5, 55.0);
+            this.SetSkill(SkillName.MagicResist, 113.5, 115.0);
+            this.SetSkill(SkillName.Tactics, 65.1, 70.0);
+            this.SetSkill(SkillName.Wrestling, 50.5, 55.0);
 
-            Fame = 1500;
-            Karma = -1500;
+            this.Fame = 1500;
+            this.Karma = -1500;
 
-            VirtualArmor = 48;
-
-            QLPoints = 5;
+            this.VirtualArmor = 48;
         }
 
         public ClanRC(Serial serial)
@@ -51,42 +49,64 @@ namespace Server.Mobiles
 
         public override bool CanRummageCorpses
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override int Hides
         {
-            get { return 8; }
+            get
+            {
+                return 8;
+            }
         }
-
         public override HideType HideType
         {
-            get { return HideType.Spined; }
+            get
+            {
+                return HideType.Spined;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Rich);
-            AddLoot(LootPack.Average);
+            this.AddLoot(LootPack.Rich);
+            this.AddLoot(LootPack.Average);
         }
 
         public override void OnDeath(Container c)
         {
+
             base.OnDeath(c);
-
-            SARegionDrops.GetSADrop(c);
+            Region reg = Region.Find(c.GetWorldLocation(), c.Map);
+            if (0.25 > Utility.RandomDouble() && reg.Name == "Cavern of the Discarded")
+            {
+                switch (Utility.Random(10))
+                {
+                    case 0: c.DropItem(new AbyssalCloth()); break;
+                    case 1: c.DropItem(new PowderedIron()); break;
+                    case 2: c.DropItem(new CrystallineBlackrock()); break;
+                    case 3: c.DropItem(new EssenceBalance()); break;
+                    case 4: c.DropItem(new CrystalShards()); break;
+                    case 5: c.DropItem(new ArcanicRuneStone()); break;
+                    case 6: c.DropItem(new DelicateScales()); break;
+                    case 7: c.DropItem(new SeedRenewal()); break;
+                    case 8: c.DropItem(new CrushedGlass()); break;
+                    case 9: c.DropItem(new ElvenFletchings()); break;
+                }
+            }
         }
-
+      
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

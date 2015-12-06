@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Mobiles
 {
     [CorpseName("a quagmire corpse")]
@@ -7,35 +9,35 @@ namespace Server.Mobiles
         public Quagmire()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.4, 0.8)
         {
-            Name = "a quagmire";
-            Body = 789;
-            BaseSoundID = 352;
+            this.Name = "a quagmire";
+            this.Body = 789;
+            this.BaseSoundID = 352;
 
-            SetStr(101, 130);
-            SetDex(66, 85);
-            SetInt(31, 55);
+            this.SetStr(101, 130);
+            this.SetDex(66, 85);
+            this.SetInt(31, 55);
 
-            SetHits(91, 105);
+            this.SetHits(91, 105);
 
-            SetDamage(10, 14);
+            this.SetDamage(10, 14);
 
-            SetDamageType(ResistanceType.Physical, 60);
-            SetDamageType(ResistanceType.Poison, 40);
+            this.SetDamageType(ResistanceType.Physical, 60);
+            this.SetDamageType(ResistanceType.Poison, 40);
 
-            SetResistance(ResistanceType.Physical, 50, 60);
-            SetResistance(ResistanceType.Fire, 10, 20);
-            SetResistance(ResistanceType.Cold, 10, 20);
-            SetResistance(ResistanceType.Poison, 100);
-            SetResistance(ResistanceType.Energy, 20, 30);
+            this.SetResistance(ResistanceType.Physical, 50, 60);
+            this.SetResistance(ResistanceType.Fire, 10, 20);
+            this.SetResistance(ResistanceType.Cold, 10, 20);
+            this.SetResistance(ResistanceType.Poison, 100);
+            this.SetResistance(ResistanceType.Energy, 20, 30);
 
-            SetSkill(SkillName.MagicResist, 65.1, 75.0);
-            SetSkill(SkillName.Tactics, 50.1, 60.0);
-            SetSkill(SkillName.Wrestling, 60.1, 80.0);
+            this.SetSkill(SkillName.MagicResist, 65.1, 75.0);
+            this.SetSkill(SkillName.Tactics, 50.1, 60.0);
+            this.SetSkill(SkillName.Wrestling, 60.1, 80.0);
 
-            Fame = 1500;
-            Karma = -1500;
+            this.Fame = 1500;
+            this.Karma = -1500;
 
-            VirtualArmor = 32;
+            this.VirtualArmor = 32;
         }
 
         public Quagmire(Serial serial)
@@ -45,22 +47,28 @@ namespace Server.Mobiles
 
         public override Poison PoisonImmune
         {
-            get { return Poison.Lethal; }
+            get
+            {
+                return Poison.Lethal;
+            }
         }
-
         public override Poison HitPoison
         {
-            get { return Poison.Lethal; }
+            get
+            {
+                return Poison.Lethal;
+            }
         }
-
         public override double HitPoisonChance
         {
-            get { return 0.1; }
+            get
+            {
+                return 0.1;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Average);
+            this.AddLoot(LootPack.Average);
         }
 
         public override int GetAngerSound()
@@ -71,16 +79,16 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
 
-            if (BaseSoundID == -1)
-                BaseSoundID = 352;
+            if (this.BaseSoundID == -1)
+                this.BaseSoundID = 352;
         }
     }
 }

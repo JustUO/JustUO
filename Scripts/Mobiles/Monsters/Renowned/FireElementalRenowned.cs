@@ -3,55 +3,55 @@ using Server.Items;
 
 namespace Server.Mobiles
 {
-    [CorpseName("Fire Elemental [Renowned] corpse")]
+    [CorpseName("Fire Elemental [Renowned] corpse")] 
     public class FireElementalRenowned : BaseRenowned
     {
         [Constructable]
         public FireElementalRenowned()
             : base(AIType.AI_Mage)
         {
-            Name = "Fire Elemental";
-            Title = "[Renowned]";
-            Body = 15;
-            BaseSoundID = 838;
+            this.Name = "Fire Elemental";
+            this.Title = "[Renowned]";
+            this.Body = 15;
+            this.BaseSoundID = 838;
 
-            Hue = 1161;
+            this.Hue = 1161;
 
-            SetStr(450, 500);
-            SetDex(200, 250);
-            SetInt(300, 350);
+            this.SetStr(450, 500);
+            this.SetDex(200, 250);
+            this.SetInt(300, 350);
 
-            SetHits(1200, 1600);
+            this.SetHits(1200, 1600);
 
-            SetDamage(7, 9);
+            this.SetDamage(7, 9);
 
-            SetDamageType(ResistanceType.Physical, 25);
-            SetDamageType(ResistanceType.Fire, 75);
+            this.SetDamageType(ResistanceType.Physical, 25);
+            this.SetDamageType(ResistanceType.Fire, 75);
 
-            SetResistance(ResistanceType.Physical, 45, 60);
-            SetResistance(ResistanceType.Fire, 70, 80);
-            SetResistance(ResistanceType.Cold, 5, 10);
-            SetResistance(ResistanceType.Poison, 30, 50);
-            SetResistance(ResistanceType.Energy, 40, 60);
+            this.SetResistance(ResistanceType.Physical, 45, 60);
+            this.SetResistance(ResistanceType.Fire, 70, 80);
+            this.SetResistance(ResistanceType.Cold, 5, 10);
+            this.SetResistance(ResistanceType.Poison, 30, 50);
+            this.SetResistance(ResistanceType.Energy, 40, 60);
 
-            SetSkill(SkillName.EvalInt, 100.1, 110.0);
-            SetSkill(SkillName.Magery, 105.1, 110.0);
-            SetSkill(SkillName.MagicResist, 110.2, 120.0);
-            SetSkill(SkillName.Tactics, 100.1, 105.0);
-            SetSkill(SkillName.Wrestling, 90.1, 100.0);
+            this.SetSkill(SkillName.EvalInt, 100.1, 110.0);
+            this.SetSkill(SkillName.Magery, 105.1, 110.0);
+            this.SetSkill(SkillName.MagicResist, 110.2, 120.0);
+            this.SetSkill(SkillName.Tactics, 100.1, 105.0);
+            this.SetSkill(SkillName.Wrestling, 90.1, 100.0);
 
-            Fame = 4500;
-            Karma = -4500;
+            this.Fame = 4500;
+            this.Karma = -4500;
 
-            VirtualArmor = 40;
+            this.VirtualArmor = 40;
 
-            PackItem(new EssencePrecision());
+            this.PackItem(new EssencePrecision());
 
-            ControlSlots = 4;
+            this.ControlSlots = 4;
 
-            PackItem(new SulfurousAsh(3));
+            this.PackItem(new SulfurousAsh(3));
 
-            AddItem(new LightSource());
+            this.AddItem(new LightSource());
         }
 
         public FireElementalRenowned(Serial serial)
@@ -61,54 +61,66 @@ namespace Server.Mobiles
 
         public override Type[] UniqueSAList
         {
-            get { return new[] {typeof (JadeWarAxe)}; }
+            get
+            {
+                return new Type[] { typeof(JadeWarAxe) };
+            }
         }
-
         public override Type[] SharedSAList
         {
-            get { return new[] {typeof (TokenOfHolyFavor), typeof (LavaSerpenCrust), typeof (SwordOfShatteredHopes)}; }
+            get
+            {
+                return new Type[] { typeof(TokenOfHolyFavor), typeof(LavaSerpenCrust), typeof(SwordOfShatteredHopes) };
+            }
         }
-
         public override double DispelDifficulty
         {
-            get { return 117.5; }
+            get
+            {
+                return 117.5;
+            }
         }
-
         public override double DispelFocus
         {
-            get { return 45.0; }
+            get
+            {
+                return 45.0;
+            }
         }
-
         public override bool BleedImmune
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override int TreasureMapLevel
         {
-            get { return 2; }
+            get
+            {
+                return 2;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Average);
-            AddLoot(LootPack.Meager);
-            AddLoot(LootPack.Gems);
+            this.AddLoot(LootPack.Average);
+            this.AddLoot(LootPack.Meager);
+            this.AddLoot(LootPack.Gems);
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
 
-            if (BaseSoundID == 274)
-                BaseSoundID = 838;
+            if (this.BaseSoundID == 274)
+                this.BaseSoundID = 838;
         }
     }
 }

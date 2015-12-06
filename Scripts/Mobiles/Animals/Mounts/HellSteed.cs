@@ -1,9 +1,11 @@
+using System;
+
 namespace Server.Mobiles
 {
     [CorpseName("a hellsteed corpse")]
     public class HellSteed : BaseMount
     {
-        [Constructable]
+        [Constructable] 
         public HellSteed()
             : this("a hellsteed")
         {
@@ -23,19 +25,25 @@ namespace Server.Mobiles
 
         public override bool HasBreath
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override int BreathChaosDamage
         {
-            get { return 100; }
+            get
+            {
+                return 100;
+            }
         }
-
         public override Poison PoisonImmune
         {
-            get { return Poison.Lethal; }
+            get
+            {
+                return Poison.Lethal;
+            }
         }
-
         public static void SetStats(BaseCreature steed)
         {
             steed.SetStr(201, 210);
@@ -65,14 +73,14 @@ namespace Server.Mobiles
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

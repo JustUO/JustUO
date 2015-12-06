@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Mobiles
 {
     [CorpseName("the remains of a rising colossus")]
@@ -5,63 +7,66 @@ namespace Server.Mobiles
     {
         [Constructable]
         public RisingColossus()
-            : base(AIType.AI_Melee, FightMode.Strongest, 10, 1, 0.4, 0.5)
+            : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.4, 0.5)
         {
-            Name = "Rising Colossus";
-            Body = 829;
+            this.Name = "Rising Colossus";
+            this.Body = 829;
 
-            SetStr(100);
-            SetDex(100);
-            SetInt(100);
+            this.SetStr(100);
+            this.SetDex(100);
+            this.SetInt(100);
 
-            SetDamage(17, 25);
+            this.SetDamage(17, 25);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 100, 105);
-            SetResistance(ResistanceType.Fire, 100, 105);
-            SetResistance(ResistanceType.Cold, 100, 105);
-            SetResistance(ResistanceType.Poison, 100);
-            SetResistance(ResistanceType.Energy, 30, 40);
+            this.SetResistance(ResistanceType.Physical, 100, 105);
+            this.SetResistance(ResistanceType.Fire, 100, 105);
+            this.SetResistance(ResistanceType.Cold, 100, 105);
+            this.SetResistance(ResistanceType.Poison, 100);
+            this.SetResistance(ResistanceType.Energy, 30, 40);
 
-            SetSkill(SkillName.MagicResist, 90.1, 100.0);
-            SetSkill(SkillName.Tactics, 100.0);
-            SetSkill(SkillName.Wrestling, 100.0);
+            this.SetSkill(SkillName.MagicResist, 90.1, 100.0);
+            this.SetSkill(SkillName.Tactics, 100.0);
+            this.SetSkill(SkillName.Wrestling, 100.0);
 
-            VirtualArmor = 58;
-            ControlSlots = 5;
+            this.VirtualArmor = 58;
+            this.ControlSlots = 5;
         }
 
         public RisingColossus(Serial serial)
             : base(serial)
         {
         }
-		
-		public override bool AlwaysMurderer
-        {
-            get { return true; }
-		}
-		
+
         public override double DispelDifficulty
         {
-            get { return 125.0; }
+            get
+            {
+                return 125.0;
+            }
         }
-
         public override double DispelFocus
         {
-            get { return 45.0; }
+            get
+            {
+                return 45.0;
+            }
         }
-
         public override bool BleedImmune
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override Poison PoisonImmune
         {
-            get { return Poison.Lethal; }
-        } // Immune to poison?
-
+            get
+            {
+                return Poison.Lethal;
+            }
+        }// Immune to poison?
         public override int GetAttackSound()
         {
             return 0x627;
@@ -75,13 +80,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

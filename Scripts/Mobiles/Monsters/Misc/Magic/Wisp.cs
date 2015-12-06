@@ -1,10 +1,7 @@
 using System;
-using Server.Engines.Plants;
-using Server.Ethics;
 using Server.Factions;
 using Server.Items;
 using Server.Misc;
-using Server.Services;
 
 namespace Server.Mobiles
 {
@@ -15,42 +12,42 @@ namespace Server.Mobiles
         public Wisp()
             : base(AIType.AI_Mage, FightMode.Aggressor, 10, 1, 0.2, 0.4)
         {
-            Name = "a wisp";
-            Body = 58;
-            BaseSoundID = 466;
+            this.Name = "a wisp";
+            this.Body = 58;
+            this.BaseSoundID = 466;
 
-            SetStr(196, 225);
-            SetDex(196, 225);
-            SetInt(196, 225);
+            this.SetStr(196, 225);
+            this.SetDex(196, 225);
+            this.SetInt(196, 225);
 
-            SetHits(118, 135);
+            this.SetHits(118, 135);
 
-            SetDamage(17, 18);
+            this.SetDamage(17, 18);
 
-            SetDamageType(ResistanceType.Physical, 50);
-            SetDamageType(ResistanceType.Energy, 50);
+            this.SetDamageType(ResistanceType.Physical, 50);
+            this.SetDamageType(ResistanceType.Energy, 50);
 
-            SetResistance(ResistanceType.Physical, 35, 45);
-            SetResistance(ResistanceType.Fire, 20, 40);
-            SetResistance(ResistanceType.Cold, 10, 30);
-            SetResistance(ResistanceType.Poison, 5, 10);
-            SetResistance(ResistanceType.Energy, 50, 70);
+            this.SetResistance(ResistanceType.Physical, 35, 45);
+            this.SetResistance(ResistanceType.Fire, 20, 40);
+            this.SetResistance(ResistanceType.Cold, 10, 30);
+            this.SetResistance(ResistanceType.Poison, 5, 10);
+            this.SetResistance(ResistanceType.Energy, 50, 70);
 
-            SetSkill(SkillName.EvalInt, 80.0);
-            SetSkill(SkillName.Magery, 80.0);
-            SetSkill(SkillName.MagicResist, 80.0);
-            SetSkill(SkillName.Tactics, 80.0);
-            SetSkill(SkillName.Wrestling, 80.0);
+            this.SetSkill(SkillName.EvalInt, 80.0);
+            this.SetSkill(SkillName.Magery, 80.0);
+            this.SetSkill(SkillName.MagicResist, 80.0);
+            this.SetSkill(SkillName.Tactics, 80.0);
+            this.SetSkill(SkillName.Wrestling, 80.0);
 
-            Fame = 4000;
-            Karma = 0;
+            this.Fame = 4000;
+            this.Karma = 0;
 
-            VirtualArmor = 40;
+            this.VirtualArmor = 40;
 
             if (Core.ML && Utility.RandomDouble() < .33)
-                PackItem(Seed.RandomPeculiarSeed(3));
+                this.PackItem(Engines.Plants.Seed.RandomPeculiarSeed(3));
 
-            AddItem(new LightSource());
+            this.AddItem(new LightSource());
         }
 
         public Wisp(Serial serial)
@@ -60,51 +57,67 @@ namespace Server.Mobiles
 
         public override InhumanSpeech SpeechType
         {
-            get { return InhumanSpeech.Wisp; }
+            get
+            {
+                return InhumanSpeech.Wisp;
+            }
         }
-
         public override Faction FactionAllegiance
         {
-            get { return CouncilOfMages.Instance; }
+            get
+            {
+                return CouncilOfMages.Instance;
+            }
         }
-
-        public override Ethic EthicAllegiance
+        public override Ethics.Ethic EthicAllegiance
         {
-            get { return Ethic.Hero; }
+            get
+            {
+                return Ethics.Ethic.Hero;
+            }
         }
-
         public override TimeSpan ReacquireDelay
         {
-            get { return TimeSpan.FromSeconds(1.0); }
+            get
+            {
+                return TimeSpan.FromSeconds(1.0);
+            }
         }
-
         public override OppositionGroup OppositionGroup
         {
-            get { return OppositionGroup.FeyAndUndead; }
+            get
+            {
+                return OppositionGroup.FeyAndUndead;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Rich);
-            AddLoot(LootPack.Average);
+            this.AddLoot(LootPack.Rich);
+            this.AddLoot(LootPack.Average);
         }
-
         public override void OnDeath(Container c)
         {
             base.OnDeath(c);
-            SARegionDrops.GetSADrop(c);
+            Region reg = Region.Find(c.GetWorldLocation(), c.Map);
+            if (0.25 > Utility.RandomDouble() && reg.Name == "The Secret Gardens")
+            {
+                switch (Utility.Random(2))
+                {
+                    case 0: c.DropItem(new EssenceFeeling()); break;
+                    case 1: c.DropItem(new FaeryDust()); break;
+                }
+            }
         }
-
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

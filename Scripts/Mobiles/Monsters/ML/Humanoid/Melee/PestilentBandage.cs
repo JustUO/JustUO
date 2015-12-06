@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -13,43 +14,43 @@ namespace Server.Mobiles
         // They also apparently have a Poison Attack, which I've stolen from Yamandons.
         [Constructable]
         public PestilentBandage()
-            : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4) // NEED TO CHECK
+            : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)// NEED TO CHECK
         {
-            Name = "a pestilent bandage";
-            Body = 154;
-            Hue = 0x515;
-            BaseSoundID = 471;
+            this.Name = "a pestilent bandage";
+            this.Body = 154;
+            this.Hue = 0x515; 
+            this.BaseSoundID = 471; 
 
-            SetStr(691, 740);
-            SetDex(141, 180);
-            SetInt(51, 80);
+            this.SetStr(691, 740);
+            this.SetDex(141, 180);
+            this.SetInt(51, 80);
 
-            SetHits(415, 445);
+            this.SetHits(415, 445);
 
-            SetDamage(13, 23);
+            this.SetDamage(13, 23);
 
-            SetDamageType(ResistanceType.Physical, 40);
-            SetDamageType(ResistanceType.Cold, 20);
-            SetDamageType(ResistanceType.Poison, 40);
+            this.SetDamageType(ResistanceType.Physical, 40);
+            this.SetDamageType(ResistanceType.Cold, 20);
+            this.SetDamageType(ResistanceType.Poison, 40);
 
-            SetResistance(ResistanceType.Physical, 45, 55);
-            SetResistance(ResistanceType.Fire, 10, 20);
-            SetResistance(ResistanceType.Cold, 50, 60);
-            SetResistance(ResistanceType.Poison, 20, 30);
-            SetResistance(ResistanceType.Energy, 20, 30);
+            this.SetResistance(ResistanceType.Physical, 45, 55);
+            this.SetResistance(ResistanceType.Fire, 10, 20);
+            this.SetResistance(ResistanceType.Cold, 50, 60);
+            this.SetResistance(ResistanceType.Poison, 20, 30);
+            this.SetResistance(ResistanceType.Energy, 20, 30);
 
-            SetSkill(SkillName.Poisoning, 0.0, 10.0);
-            SetSkill(SkillName.Anatomy, 0);
-            SetSkill(SkillName.MagicResist, 75.0, 80.0);
-            SetSkill(SkillName.Tactics, 80.0, 85.0);
-            SetSkill(SkillName.Wrestling, 70.0, 75.0);
+            this.SetSkill(SkillName.Poisoning, 0.0, 10.0);
+            this.SetSkill(SkillName.Anatomy, 0);
+            this.SetSkill(SkillName.MagicResist, 75.0, 80.0);
+            this.SetSkill(SkillName.Tactics, 80.0, 85.0);
+            this.SetSkill(SkillName.Wrestling, 70.0, 75.0);
 
-            Fame = 20000;
-            Karma = -20000;
+            this.Fame = 20000;
+            this.Karma = -20000;
 
             // VirtualArmor = 28; // Don't know what it should be
 
-            PackItem(new Bandage(5)); // How many?
+            this.PackItem(new Bandage(5));  // How many?
         }
 
         public PestilentBandage(Serial serial)
@@ -59,29 +60,33 @@ namespace Server.Mobiles
 
         public override Poison HitPoison
         {
-            get { return Poison.Lethal; }
+            get
+            {
+                return Poison.Lethal;
+            }
         }
-
         public override bool CanHeal
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Rich); // Need to verify
+            this.AddLoot(LootPack.Rich);  // Need to verify
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

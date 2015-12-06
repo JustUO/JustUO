@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 using Server.Misc;
 
@@ -10,39 +11,39 @@ namespace Server.Mobiles
         public RatmanArcher()
             : base(AIType.AI_Archer, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = NameList.RandomName("ratman");
-            Body = 0x8E;
-            BaseSoundID = 437;
+            this.Name = NameList.RandomName("ratman");
+            this.Body = 0x8E;
+            this.BaseSoundID = 437;
 
-            SetStr(146, 180);
-            SetDex(101, 130);
-            SetInt(116, 140);
+            this.SetStr(146, 180);
+            this.SetDex(101, 130);
+            this.SetInt(116, 140);
 
-            SetHits(88, 108);
+            this.SetHits(88, 108);
 
-            SetDamage(4, 10);
+            this.SetDamage(4, 10);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 40, 55);
-            SetResistance(ResistanceType.Fire, 10, 20);
-            SetResistance(ResistanceType.Cold, 10, 20);
-            SetResistance(ResistanceType.Poison, 10, 20);
-            SetResistance(ResistanceType.Energy, 10, 20);
+            this.SetResistance(ResistanceType.Physical, 40, 55);
+            this.SetResistance(ResistanceType.Fire, 10, 20);
+            this.SetResistance(ResistanceType.Cold, 10, 20);
+            this.SetResistance(ResistanceType.Poison, 10, 20);
+            this.SetResistance(ResistanceType.Energy, 10, 20);
 
-            SetSkill(SkillName.Anatomy, 60.2, 100.0);
-            SetSkill(SkillName.Archery, 80.1, 90.0);
-            SetSkill(SkillName.MagicResist, 65.1, 90.0);
-            SetSkill(SkillName.Tactics, 50.1, 75.0);
-            SetSkill(SkillName.Wrestling, 50.1, 75.0);
+            this.SetSkill(SkillName.Anatomy, 60.2, 100.0);
+            this.SetSkill(SkillName.Archery, 80.1, 90.0);
+            this.SetSkill(SkillName.MagicResist, 65.1, 90.0);
+            this.SetSkill(SkillName.Tactics, 50.1, 75.0);
+            this.SetSkill(SkillName.Wrestling, 50.1, 75.0);
 
-            Fame = 6500;
-            Karma = -6500;
+            this.Fame = 6500;
+            this.Karma = -6500;
 
-            VirtualArmor = 56;
+            this.VirtualArmor = 56;
 
-            AddItem(new Bow());
-            PackItem(new Arrow(Utility.RandomMinMax(50, 70)));
+            this.AddItem(new Bow());
+            this.PackItem(new Arrow(Utility.RandomMinMax(50, 70)));
         }
 
         public RatmanArcher(Serial serial)
@@ -52,44 +53,52 @@ namespace Server.Mobiles
 
         public override InhumanSpeech SpeechType
         {
-            get { return InhumanSpeech.Ratman; }
+            get
+            {
+                return InhumanSpeech.Ratman;
+            }
         }
-
         public override bool CanRummageCorpses
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override int Hides
         {
-            get { return 8; }
+            get
+            {
+                return 8;
+            }
         }
-
         public override HideType HideType
         {
-            get { return HideType.Spined; }
+            get
+            {
+                return HideType.Spined;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Rich);
+            this.AddLoot(LootPack.Rich);
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
 
-            if (Body == 42)
+            if (this.Body == 42)
             {
-                Body = 0x8E;
-                Hue = 0;
+                this.Body = 0x8E;
+                this.Hue = 0;
             }
         }
     }

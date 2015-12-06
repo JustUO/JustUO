@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using Server.Engines.Plants;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -9,57 +8,56 @@ namespace Server.Mobiles
     public class Kappa : BaseCreature
     {
         private static readonly Hashtable m_Table = new Hashtable();
-
         [Constructable]
         public Kappa()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a kappa";
-            Body = 240;
+            this.Name = "a kappa";
+            this.Body = 240;
 
-            SetStr(186, 230);
-            SetDex(51, 75);
-            SetInt(41, 55);
+            this.SetStr(186, 230);
+            this.SetDex(51, 75);
+            this.SetInt(41, 55);
 
-            SetMana(30);
+            this.SetMana(30);
 
-            SetHits(151, 180);
+            this.SetHits(151, 180);
 
-            SetDamage(6, 12);
+            this.SetDamage(6, 12);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 35, 50);
-            SetResistance(ResistanceType.Fire, 35, 50);
-            SetResistance(ResistanceType.Cold, 25, 50);
-            SetResistance(ResistanceType.Poison, 35, 50);
-            SetResistance(ResistanceType.Energy, 20, 30);
+            this.SetResistance(ResistanceType.Physical, 35, 50);
+            this.SetResistance(ResistanceType.Fire, 35, 50);
+            this.SetResistance(ResistanceType.Cold, 25, 50);
+            this.SetResistance(ResistanceType.Poison, 35, 50);
+            this.SetResistance(ResistanceType.Energy, 20, 30);
 
-            SetSkill(SkillName.MagicResist, 60.1, 70.0);
-            SetSkill(SkillName.Tactics, 79.1, 89.0);
-            SetSkill(SkillName.Wrestling, 60.1, 70.0);
+            this.SetSkill(SkillName.MagicResist, 60.1, 70.0);
+            this.SetSkill(SkillName.Tactics, 79.1, 89.0);
+            this.SetSkill(SkillName.Wrestling, 60.1, 70.0);
 
-            Fame = 1700;
-            Karma = -1700;
+            this.Fame = 1700;
+            this.Karma = -1700;
 
-            PackItem(new RawFishSteak(3));
-            for (var i = 0; i < 2; i++)
+            this.PackItem(new RawFishSteak(3));
+            for (int i = 0; i < 2; i++)
             {
-                switch (Utility.Random(6))
+                switch ( Utility.Random(6) )
                 {
                     case 0:
-                        PackItem(new Gears());
+                        this.PackItem(new Gears());
                         break;
                     case 1:
-                        PackItem(new Hinge());
+                        this.PackItem(new Hinge());
                         break;
                     case 2:
-                        PackItem(new Axle());
+                        this.PackItem(new Axle());
                         break;
                 }
             }
             if (Core.ML && Utility.RandomDouble() < .33)
-                PackItem(Seed.RandomPeculiarSeed(4));
+                this.PackItem(Engines.Plants.Seed.RandomPeculiarSeed(4));
         }
 
         public Kappa(Serial serial)
@@ -74,7 +72,7 @@ namespace Server.Mobiles
 
         public static void BeginLifeDrain(Mobile m, Mobile from)
         {
-            var t = (Timer) m_Table[m];
+            Timer t = (Timer)m_Table[m];
 
             if (t != null)
                 t.Stop();
@@ -89,7 +87,7 @@ namespace Server.Mobiles
         {
             if (m.Alive)
             {
-                var damageGiven = AOS.Damage(m, from, 5, 0, 0, 0, 0, 100);
+                int damageGiven = AOS.Damage(m, from, 5, 0, 0, 0, 0, 100);
                 from.Hits += damageGiven;
             }
             else
@@ -100,7 +98,7 @@ namespace Server.Mobiles
 
         public static void EndLifeDrain(Mobile m)
         {
-            var t = (Timer) m_Table[m];
+            Timer t = (Timer)m_Table[m];
 
             if (t != null)
                 t.Stop();
@@ -112,8 +110,8 @@ namespace Server.Mobiles
 
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Meager);
-            AddLoot(LootPack.Average);
+            this.AddLoot(LootPack.Meager);
+            this.AddLoot(LootPack.Average);
         }
 
         public override int GetAngerSound()
@@ -147,11 +145,11 @@ namespace Server.Mobiles
 
             if (Utility.RandomBool())
             {
-                if (!IsBeingDrained(defender) && Mana > 14)
+                if (!IsBeingDrained(defender) && this.Mana > 14)
                 {
                     defender.SendLocalizedMessage(1070848); // You feel your life force being stolen away.
                     BeginLifeDrain(defender, this);
-                    Mana -= 15;
+                    this.Mana -= 15;
                 }
             }
         }
@@ -160,24 +158,24 @@ namespace Server.Mobiles
         {
             if (from != null && from.Map != null)
             {
-                var amt = 0;
-                Mobile target = this;
-                var rand = Utility.Random(1, 100);
+                int amt = 0;
+                Mobile target = this; 
+                int rand = Utility.Random(1, 100);
                 if (willKill)
                 {
-                    amt = (((rand%5) >> 2) + 3);
+                    amt = (((rand % 5) >> 2) + 3);
                 }
-                if ((Hits < 100) && (rand < 21))
+                if ((this.Hits < 100) && (rand < 21)) 
                 {
-                    target = (rand%2) < 1 ? this : from;
+                    target = (rand % 2) < 1 ? this : from;
                     amt++;
                 }
                 if (amt > 0)
                 {
-                    SpillAcid(target, amt);
-                    from.SendLocalizedMessage(1070820);
-                    if (Mana > 14)
-                        Mana -= 15;
+                    this.SpillAcid(target, amt);
+                    from.SendLocalizedMessage(1070820); 
+                    if (this.Mana > 14)
+                        this.Mana -= 15;
                     amt ^= amt;
                 }
             }
@@ -192,35 +190,34 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
 
         private class InternalTimer : Timer
         {
-            private int m_Count;
             private readonly Mobile m_From;
             private readonly Mobile m_Mobile;
-
+            private int m_Count;
             public InternalTimer(Mobile from, Mobile m)
                 : base(TimeSpan.FromSeconds(1.0), TimeSpan.FromSeconds(1.0))
             {
-                m_From = from;
-                m_Mobile = m;
-                Priority = TimerPriority.TwoFiftyMS;
+                this.m_From = from;
+                this.m_Mobile = m;
+                this.Priority = TimerPriority.TwoFiftyMS;
             }
 
             protected override void OnTick()
             {
-                DrainLife(m_Mobile, m_From);
+                DrainLife(this.m_Mobile, this.m_From);
 
-                if (Running && ++m_Count == 5)
-                    EndLifeDrain(m_Mobile);
+                if (this.Running && ++this.m_Count == 5)
+                    EndLifeDrain(this.m_Mobile);
             }
         }
     }

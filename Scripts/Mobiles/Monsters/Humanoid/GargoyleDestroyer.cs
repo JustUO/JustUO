@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -9,42 +10,42 @@ namespace Server.Mobiles
         public GargoyleDestroyer()
             : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "Gargoyle Destroyer";
-            Body = 0x2F3;
-            BaseSoundID = 0x174;
+            this.Name = "Gargoyle Destroyer";
+            this.Body = 0x2F3;
+            this.BaseSoundID = 0x174;
 
-            SetStr(760, 850);
-            SetDex(102, 150);
-            SetInt(152, 200);
+            this.SetStr(760, 850);
+            this.SetDex(102, 150);
+            this.SetInt(152, 200);
 
-            SetHits(482, 485);
+            this.SetHits(482, 485);
 
-            SetDamage(7, 14);
+            this.SetDamage(7, 14);
 
-            SetResistance(ResistanceType.Physical, 40, 60);
-            SetResistance(ResistanceType.Fire, 60, 70);
-            SetResistance(ResistanceType.Cold, 15, 25);
-            SetResistance(ResistanceType.Poison, 15, 25);
-            SetResistance(ResistanceType.Energy, 15, 25);
+            this.SetResistance(ResistanceType.Physical, 40, 60);
+            this.SetResistance(ResistanceType.Fire, 60, 70);
+            this.SetResistance(ResistanceType.Cold, 15, 25);
+            this.SetResistance(ResistanceType.Poison, 15, 25);
+            this.SetResistance(ResistanceType.Energy, 15, 25);
 
-            SetSkill(SkillName.Wrestling, 90.1, 100.0);
-            SetSkill(SkillName.Tactics, 90.1, 100.0);
-            SetSkill(SkillName.MagicResist, 120.4, 160.0);
-            SetSkill(SkillName.Anatomy, 50.5, 100.0);
-            SetSkill(SkillName.Swords, 90.1, 100.0);
-            SetSkill(SkillName.Macing, 90.1, 100.0);
-            SetSkill(SkillName.Fencing, 90.1, 100.0);
-            SetSkill(SkillName.Magery, 90.1, 100.0);
-            SetSkill(SkillName.EvalInt, 90.1, 100.0);
-            SetSkill(SkillName.Meditation, 90.1, 100.0);
+            this.SetSkill(SkillName.Wrestling, 90.1, 100.0);
+            this.SetSkill(SkillName.Tactics, 90.1, 100.0);
+            this.SetSkill(SkillName.MagicResist, 120.4, 160.0);
+            this.SetSkill(SkillName.Anatomy, 50.5, 100.0);
+            this.SetSkill(SkillName.Swords, 90.1, 100.0);
+            this.SetSkill(SkillName.Macing, 90.1, 100.0);
+            this.SetSkill(SkillName.Fencing, 90.1, 100.0);
+            this.SetSkill(SkillName.Magery, 90.1, 100.0);
+            this.SetSkill(SkillName.EvalInt, 90.1, 100.0);
+            this.SetSkill(SkillName.Meditation, 90.1, 100.0);
 
-            Fame = 10000;
-            Karma = -10000;
+            this.Fame = 10000;
+            this.Karma = -10000;
 
-            VirtualArmor = 50;
+            this.VirtualArmor = 50;
 
             if (0.2 > Utility.RandomDouble())
-                PackItem(new GargoylesPickaxe());
+                this.PackItem(new GargoylesPickaxe());
         }
 
         public GargoyleDestroyer(Serial serial)
@@ -54,32 +55,38 @@ namespace Server.Mobiles
 
         public override bool BardImmune
         {
-            get { return !Core.AOS; }
+            get
+            {
+                return !Core.AOS;
+            }
         }
-
         public override int Meat
         {
-            get { return 1; }
+            get
+            {
+                return 1;
+            }
         }
-
         public override bool CanFly
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.FilthyRich);
-            AddLoot(LootPack.Rich);
-            AddLoot(LootPack.MedScrolls);
-            AddLoot(LootPack.Gems, 2);
+            this.AddLoot(LootPack.FilthyRich);
+            this.AddLoot(LootPack.Rich);
+            this.AddLoot(LootPack.MedScrolls);
+            this.AddLoot(LootPack.Gems, 2);
         }
 
         public override void OnDamagedBySpell(Mobile from)
         {
             if (from != null && from.Alive && 0.4 > Utility.RandomDouble())
             {
-                ThrowHatchet(from);
+                this.ThrowHatchet(from);
             }
         }
 
@@ -89,28 +96,28 @@ namespace Server.Mobiles
 
             if (attacker != null && attacker.Alive && attacker.Weapon is BaseRanged && 0.4 > Utility.RandomDouble())
             {
-                ThrowHatchet(attacker);
+                this.ThrowHatchet(attacker);
             }
         }
 
         public void ThrowHatchet(Mobile to)
         {
-            var damage = 50;
-            MovingEffect(to, 0xF43, 10, 0, false, false);
-            DoHarmful(to);
+            int damage = 50;
+            this.MovingEffect(to, 0xF43, 10, 0, false, false);
+            this.DoHarmful(to);
             AOS.Damage(to, this, damage, 100, 0, 0, 0, 0);
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

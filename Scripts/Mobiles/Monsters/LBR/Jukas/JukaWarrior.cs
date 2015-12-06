@@ -10,40 +10,40 @@ namespace Server.Mobiles
         public JukaWarrior()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a juka warrior";
-            Body = 764;
+            this.Name = "a juka warrior";
+            this.Body = 764;
 
-            SetStr(251, 350);
-            SetDex(61, 80);
-            SetInt(101, 150);
+            this.SetStr(251, 350);
+            this.SetDex(61, 80);
+            this.SetInt(101, 150);
 
-            SetHits(151, 210);
+            this.SetHits(151, 210);
 
-            SetDamage(7, 9);
+            this.SetDamage(7, 9);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 40, 50);
-            SetResistance(ResistanceType.Fire, 30, 40);
-            SetResistance(ResistanceType.Cold, 25, 35);
-            SetResistance(ResistanceType.Poison, 10, 20);
-            SetResistance(ResistanceType.Energy, 10, 20);
+            this.SetResistance(ResistanceType.Physical, 40, 50);
+            this.SetResistance(ResistanceType.Fire, 30, 40);
+            this.SetResistance(ResistanceType.Cold, 25, 35);
+            this.SetResistance(ResistanceType.Poison, 10, 20);
+            this.SetResistance(ResistanceType.Energy, 10, 20);
 
-            SetSkill(SkillName.Anatomy, 80.1, 90.0);
-            SetSkill(SkillName.Fencing, 80.1, 90.0);
-            SetSkill(SkillName.Macing, 80.1, 90.0);
-            SetSkill(SkillName.MagicResist, 120.1, 130.0);
-            SetSkill(SkillName.Swords, 80.1, 90.0);
-            SetSkill(SkillName.Tactics, 80.1, 90.0);
-            SetSkill(SkillName.Wrestling, 80.1, 90.0);
+            this.SetSkill(SkillName.Anatomy, 80.1, 90.0);
+            this.SetSkill(SkillName.Fencing, 80.1, 90.0);
+            this.SetSkill(SkillName.Macing, 80.1, 90.0);
+            this.SetSkill(SkillName.MagicResist, 120.1, 130.0);
+            this.SetSkill(SkillName.Swords, 80.1, 90.0);
+            this.SetSkill(SkillName.Tactics, 80.1, 90.0);
+            this.SetSkill(SkillName.Wrestling, 80.1, 90.0);
 
-            Fame = 10000;
-            Karma = -10000;
+            this.Fame = 10000;
+            this.Karma = -10000;
 
-            VirtualArmor = 22;
+            this.VirtualArmor = 22;
 
             if (Utility.RandomDouble() < 0.1)
-                PackItem(new ArcaneGem());
+                this.PackItem(new ArcaneGem());
         }
 
         public JukaWarrior(Serial serial)
@@ -53,24 +53,30 @@ namespace Server.Mobiles
 
         public override bool AlwaysMurderer
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override bool CanRummageCorpses
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override int Meat
         {
-            get { return 1; }
+            get
+            {
+                return 1;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Average);
-            AddLoot(LootPack.Meager);
-            AddLoot(LootPack.Gems, 1);
+            this.AddLoot(LootPack.Average);
+            this.AddLoot(LootPack.Meager);
+            this.AddLoot(LootPack.Gems, 1);
         }
 
         public override int GetIdleSound()
@@ -100,39 +106,39 @@ namespace Server.Mobiles
             if (0.2 < Utility.RandomDouble())
                 return;
 
-            switch (Utility.Random(3))
+            switch ( Utility.Random(3) )
             {
                 case 0:
-                {
-                    defender.SendLocalizedMessage(1004014); // You have been stunned!
-                    defender.Freeze(TimeSpan.FromSeconds(4.0));
-                    break;
-                }
+                    {
+                        defender.SendLocalizedMessage(1004014); // You have been stunned!
+                        defender.Freeze(TimeSpan.FromSeconds(4.0));
+                        break;
+                    }
                 case 1:
-                {
-                    defender.SendAsciiMessage("You have been hit by a paralyzing blow!");
-                    defender.Freeze(TimeSpan.FromSeconds(3.0));
-                    break;
-                }
+                    {
+                        defender.SendAsciiMessage("You have been hit by a paralyzing blow!");
+                        defender.Freeze(TimeSpan.FromSeconds(3.0));
+                        break;
+                    }
                 case 2:
-                {
-                    AOS.Damage(defender, this, Utility.Random(10, 5), 100, 0, 0, 0, 0);
-                    defender.SendAsciiMessage("You have been hit by a critical strike!");
-                    break;
-                }
+                    {
+                        AOS.Damage(defender, this, Utility.Random(10, 5), 100, 0, 0, 0, 0);
+                        defender.SendAsciiMessage("You have been hit by a critical strike!");
+                        break;
+                    }
             }
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

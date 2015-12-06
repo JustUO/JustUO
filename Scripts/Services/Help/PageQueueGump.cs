@@ -8,6 +8,8 @@ namespace Server.Engines.Help
 {
     public class MessageSentGump : Gump
     {
+        public override int TypeID { get { return 0xC9; } }
+
         private readonly string m_Name;
         private readonly string m_Text;
         private readonly Mobile m_Mobile;

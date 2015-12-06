@@ -1,4 +1,4 @@
-using Server.Engines.Plants;
+using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -10,37 +10,37 @@ namespace Server.Mobiles
         public Bogling()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a bogling";
-            Body = 779;
-            BaseSoundID = 422;
+            this.Name = "a bogling";
+            this.Body = 779;
+            this.BaseSoundID = 422;
 
-            SetStr(96, 120);
-            SetDex(91, 115);
-            SetInt(21, 45);
+            this.SetStr(96, 120);
+            this.SetDex(91, 115);
+            this.SetInt(21, 45);
 
-            SetHits(58, 72);
+            this.SetHits(58, 72);
 
-            SetDamage(5, 7);
+            this.SetDamage(5, 7);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 20, 25);
-            SetResistance(ResistanceType.Fire, 10, 20);
-            SetResistance(ResistanceType.Cold, 15, 25);
-            SetResistance(ResistanceType.Poison, 15, 25);
-            SetResistance(ResistanceType.Energy, 15, 25);
+            this.SetResistance(ResistanceType.Physical, 20, 25);
+            this.SetResistance(ResistanceType.Fire, 10, 20);
+            this.SetResistance(ResistanceType.Cold, 15, 25);
+            this.SetResistance(ResistanceType.Poison, 15, 25);
+            this.SetResistance(ResistanceType.Energy, 15, 25);
 
-            SetSkill(SkillName.MagicResist, 75.1, 100.0);
-            SetSkill(SkillName.Tactics, 55.1, 80.0);
-            SetSkill(SkillName.Wrestling, 55.1, 75.0);
+            this.SetSkill(SkillName.MagicResist, 75.1, 100.0);
+            this.SetSkill(SkillName.Tactics, 55.1, 80.0);
+            this.SetSkill(SkillName.Wrestling, 55.1, 75.0);
 
-            Fame = 450;
-            Karma = -450;
+            this.Fame = 450;
+            this.Karma = -450;
 
-            VirtualArmor = 28;
+            this.VirtualArmor = 28;
 
-            PackItem(new Log(4));
-            PackItem(new Seed());
+            this.PackItem(new Log(4));
+            this.PackItem(new Engines.Plants.Seed());
         }
 
         public Bogling(Serial serial)
@@ -50,29 +50,33 @@ namespace Server.Mobiles
 
         public override int Hides
         {
-            get { return 6; }
+            get
+            {
+                return 6;
+            }
         }
-
         public override int Meat
         {
-            get { return 1; }
+            get
+            {
+                return 1;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Meager);
+            this.AddLoot(LootPack.Meager);
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

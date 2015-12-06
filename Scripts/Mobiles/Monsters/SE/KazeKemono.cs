@@ -8,42 +8,41 @@ namespace Server.Mobiles
     {
         private static readonly Hashtable m_FlurryOfTwigsTable = new Hashtable();
         private static readonly Hashtable m_ChlorophylBlastTable = new Hashtable();
-
         [Constructable]
         public KazeKemono()
             : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a kaze kemono";
-            Body = 196;
-            BaseSoundID = 655;
+            this.Name = "a kaze kemono";
+            this.Body = 196;
+            this.BaseSoundID = 655;
 
-            SetStr(201, 275);
-            SetDex(101, 155);
-            SetInt(101, 105);
+            this.SetStr(201, 275);
+            this.SetDex(101, 155);
+            this.SetInt(101, 105);
 
-            SetHits(251, 330);
+            this.SetHits(251, 330);
 
-            SetDamage(15, 20);
+            this.SetDamage(15, 20);
 
-            SetDamageType(ResistanceType.Physical, 70);
-            SetDamageType(ResistanceType.Fire, 10);
-            SetDamageType(ResistanceType.Cold, 10);
-            SetDamageType(ResistanceType.Poison, 10);
+            this.SetDamageType(ResistanceType.Physical, 70);
+            this.SetDamageType(ResistanceType.Fire, 10);
+            this.SetDamageType(ResistanceType.Cold, 10);
+            this.SetDamageType(ResistanceType.Poison, 10);
 
-            SetResistance(ResistanceType.Physical, 50, 70);
-            SetResistance(ResistanceType.Fire, 30, 60);
-            SetResistance(ResistanceType.Cold, 30, 60);
-            SetResistance(ResistanceType.Poison, 50, 70);
-            SetResistance(ResistanceType.Energy, 60, 80);
+            this.SetResistance(ResistanceType.Physical, 50, 70);
+            this.SetResistance(ResistanceType.Fire, 30, 60);
+            this.SetResistance(ResistanceType.Cold, 30, 60);
+            this.SetResistance(ResistanceType.Poison, 50, 70);
+            this.SetResistance(ResistanceType.Energy, 60, 80);
 
-            SetSkill(SkillName.MagicResist, 110.1, 125.0);
-            SetSkill(SkillName.Tactics, 55.1, 65.0);
-            SetSkill(SkillName.Wrestling, 85.1, 95.0);
-            SetSkill(SkillName.Anatomy, 25.1, 35.0);
-            SetSkill(SkillName.Magery, 95.1, 105.0);
+            this.SetSkill(SkillName.MagicResist, 110.1, 125.0);
+            this.SetSkill(SkillName.Tactics, 55.1, 65.0);
+            this.SetSkill(SkillName.Wrestling, 85.1, 95.0);
+            this.SetSkill(SkillName.Anatomy, 25.1, 35.0);
+            this.SetSkill(SkillName.Magery, 95.1, 105.0);
 
-            Fame = 8000;
-            Karma = -8000;
+            this.Fame = 8000;
+            this.Karma = -8000;
         }
 
         public KazeKemono(Serial serial)
@@ -53,12 +52,14 @@ namespace Server.Mobiles
 
         public override bool BleedImmune
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Rich, 3);
+            this.AddLoot(LootPack.Rich, 3);
         }
 
         public override void OnGaveMeleeAttack(Mobile defender)
@@ -73,7 +74,7 @@ namespace Server.Mobiles
                 * End cliloc: 1070852
                 * Effect: Type: "3" From: "0x57D4F5B" To: "0x0" ItemId: "0x37B9" ItemIdName: "glow" FromLocation: "(1048 779, 6)" ToLocation: "(1048 779, 6)" Speed: "10" Duration: "5" FixedDirection: "True" Explode: "False"
                 */
-                var timer = (ExpireTimer) m_FlurryOfTwigsTable[defender];
+                ExpireTimer timer = (ExpireTimer)m_FlurryOfTwigsTable[defender];
 
                 if (timer != null)
                 {
@@ -81,12 +82,11 @@ namespace Server.Mobiles
                     defender.SendLocalizedMessage(1070851); // The creature lands another blow in your weakened state.
                 }
                 else
-                    defender.SendLocalizedMessage(1070850);
-                        // The creature's flurry of twigs has made you more susceptible to physical attacks!
+                    defender.SendLocalizedMessage(1070850); // The creature's flurry of twigs has made you more susceptible to physical attacks!
 
-                var effect = -(defender.PhysicalResistance*15/100);
+                int effect = -(defender.PhysicalResistance * 15 / 100);
 
-                var mod = new ResistanceMod(ResistanceType.Physical, effect);
+                ResistanceMod mod = new ResistanceMod(ResistanceType.Physical, effect);
 
                 defender.FixedEffect(0x37B9, 10, 5);
                 defender.AddResistanceMod(mod);
@@ -103,7 +103,7 @@ namespace Server.Mobiles
                 * End cliloc: 1070829
                 * Effect: Type: "3" From: "0x57D4F5B" To: "0x0" ItemId: "0x37B9" ItemIdName: "glow" FromLocation: "(1048 779, 6)" ToLocation: "(1048 779, 6)" Speed: "10" Duration: "5" FixedDirection: "True" Explode: "False"
                 */
-                var timer = (ExpireTimer) m_ChlorophylBlastTable[defender];
+                ExpireTimer timer = (ExpireTimer)m_ChlorophylBlastTable[defender];
 
                 if (timer != null)
                 {
@@ -111,12 +111,11 @@ namespace Server.Mobiles
                     defender.SendLocalizedMessage(1070828); // The creature continues to hinder your energy resistance!
                 }
                 else
-                    defender.SendLocalizedMessage(1070827);
-                        // The creature's attack has made you more susceptible to energy attacks!
+                    defender.SendLocalizedMessage(1070827); // The creature's attack has made you more susceptible to energy attacks!
 
-                var effect = -(defender.EnergyResistance/2);
+                int effect = -(defender.EnergyResistance / 2);
 
-                var mod = new ResistanceMod(ResistanceType.Energy, effect);
+                ResistanceMod mod = new ResistanceMod(ResistanceType.Energy, effect);
 
                 defender.FixedEffect(0x37B9, 10, 5);
                 defender.AddResistanceMod(mod);
@@ -130,13 +129,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
 
         private class ExpireTimer : Timer
@@ -144,31 +143,30 @@ namespace Server.Mobiles
             private readonly Mobile m_Mobile;
             private readonly ResistanceMod m_Mod;
             private readonly Hashtable m_Table;
-
             public ExpireTimer(Mobile m, ResistanceMod mod, Hashtable table, TimeSpan delay)
                 : base(delay)
             {
-                m_Mobile = m;
-                m_Mod = mod;
-                m_Table = table;
-                Priority = TimerPriority.TwoFiftyMS;
+                this.m_Mobile = m;
+                this.m_Mod = mod;
+                this.m_Table = table;
+                this.Priority = TimerPriority.TwoFiftyMS;
             }
 
             public void DoExpire()
             {
-                m_Mobile.RemoveResistanceMod(m_Mod);
-                Stop();
-                m_Table.Remove(m_Mobile);
+                this.m_Mobile.RemoveResistanceMod(this.m_Mod);
+                this.Stop();
+                this.m_Table.Remove(this.m_Mobile);
             }
 
             protected override void OnTick()
             {
-                if (m_Mod.Type == ResistanceType.Physical)
-                    m_Mobile.SendLocalizedMessage(1070852); // Your resistance to physical attacks has returned.
+                if (this.m_Mod.Type == ResistanceType.Physical)
+                    this.m_Mobile.SendLocalizedMessage(1070852); // Your resistance to physical attacks has returned.
                 else
-                    m_Mobile.SendLocalizedMessage(1070829); // Your resistance to energy attacks has returned.
+                    this.m_Mobile.SendLocalizedMessage(1070829); // Your resistance to energy attacks has returned.
 
-                DoExpire();
+                this.DoExpire();
             }
         }
     }

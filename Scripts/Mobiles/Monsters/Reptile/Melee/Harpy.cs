@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Mobiles
 {
     [CorpseName("a harpy corpse")]
@@ -7,34 +9,34 @@ namespace Server.Mobiles
         public Harpy()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a harpy";
-            Body = 30;
-            BaseSoundID = 402;
+            this.Name = "a harpy";
+            this.Body = 30;
+            this.BaseSoundID = 402;
 
-            SetStr(96, 120);
-            SetDex(86, 110);
-            SetInt(51, 75);
+            this.SetStr(96, 120);
+            this.SetDex(86, 110);
+            this.SetInt(51, 75);
 
-            SetHits(58, 72);
+            this.SetHits(58, 72);
 
-            SetDamage(5, 7);
+            this.SetDamage(5, 7);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 25, 30);
-            SetResistance(ResistanceType.Fire, 10, 20);
-            SetResistance(ResistanceType.Cold, 10, 30);
-            SetResistance(ResistanceType.Poison, 20, 30);
-            SetResistance(ResistanceType.Energy, 10, 20);
+            this.SetResistance(ResistanceType.Physical, 25, 30);
+            this.SetResistance(ResistanceType.Fire, 10, 20);
+            this.SetResistance(ResistanceType.Cold, 10, 30);
+            this.SetResistance(ResistanceType.Poison, 20, 30);
+            this.SetResistance(ResistanceType.Energy, 10, 20);
 
-            SetSkill(SkillName.MagicResist, 50.1, 65.0);
-            SetSkill(SkillName.Tactics, 70.1, 100.0);
-            SetSkill(SkillName.Wrestling, 60.1, 90.0);
+            this.SetSkill(SkillName.MagicResist, 50.1, 65.0);
+            this.SetSkill(SkillName.Tactics, 70.1, 100.0);
+            this.SetSkill(SkillName.Wrestling, 60.1, 90.0);
 
-            Fame = 2500;
-            Karma = -2500;
+            this.Fame = 2500;
+            this.Karma = -2500;
 
-            VirtualArmor = 28;
+            this.VirtualArmor = 28;
         }
 
         public Harpy(Serial serial)
@@ -44,32 +46,42 @@ namespace Server.Mobiles
 
         public override bool CanRummageCorpses
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override int Meat
         {
-            get { return 4; }
+            get
+            {
+                return 4;
+            }
         }
-
         public override MeatType MeatType
         {
-            get { return MeatType.Bird; }
+            get
+            {
+                return MeatType.Bird;
+            }
         }
-
         public override int Feathers
         {
-            get { return 50; }
+            get
+            {
+                return 50;
+            }
         }
-
         public override bool CanFly
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Meager, 2);
+            this.AddLoot(LootPack.Meager, 2);
         }
 
         public override int GetAttackSound()
@@ -100,13 +112,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

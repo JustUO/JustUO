@@ -1,88 +1,100 @@
+using System;
 using Server.Items;
-using Server.Services;
 
 namespace Server.Mobiles
 {
     [CorpseName("an goblin corpse")]
     public class EnslavedGreenGoblinAlchemist : BaseCreature
     {
+        //public override InhumanSpeech SpeechType{ get{ return InhumanSpeech.Orc; } }
         [Constructable]
         public EnslavedGreenGoblinAlchemist()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "Green Goblin Alchemist";
-            Body = 723;
-            BaseSoundID = 0x600;
+            this.Name = "Green Goblin Alchemist";
+            this.Body = 723;
+            this.BaseSoundID = 0x45A;
 
-            SetStr(289, 289);
-            SetDex(72, 72);
-            SetInt(113, 113);
+            this.SetStr(289, 289);
+            this.SetDex(72, 72);
+            this.SetInt(113, 113);
 
-            SetHits(196, 196);
-            SetStam(72, 72);
-            SetMana(113, 113);
+            this.SetHits(196, 196);
+            this.SetStam(72, 72);
+            this.SetMana(113, 113);
 
-            SetDamage(5, 7);
+            this.SetDamage(5, 7);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 45, 49);
-            SetResistance(ResistanceType.Fire, 50, 53);
-            SetResistance(ResistanceType.Cold, 25, 30);
-            SetResistance(ResistanceType.Poison, 40, 42);
-            SetResistance(ResistanceType.Energy, 15, 18);
+            this.SetResistance(ResistanceType.Physical, 45, 49);
+            this.SetResistance(ResistanceType.Fire, 50, 53);
+            this.SetResistance(ResistanceType.Cold, 25, 30);
+            this.SetResistance(ResistanceType.Poison, 40, 42);
+            this.SetResistance(ResistanceType.Energy, 15, 18);
 
-            SetSkill(SkillName.MagicResist, 124.1, 126.2);
-            SetSkill(SkillName.Tactics, 75.3, 83.6);
-            SetSkill(SkillName.Anatomy, 0.0, 0.0);
-            SetSkill(SkillName.Wrestling, 90.4, 94.7);
+            this.SetSkill(SkillName.MagicResist, 124.1, 126.2);
+            this.SetSkill(SkillName.Tactics, 75.3, 83.6);
+            this.SetSkill(SkillName.Anatomy, 0.0, 0.0);
+            this.SetSkill(SkillName.Wrestling, 90.4, 94.7);
 
-            Fame = 1500;
-            Karma = -1500;
+            this.Fame = 1500;
+            this.Karma = -1500;
 
-            VirtualArmor = 28;
+            this.VirtualArmor = 28;
 
-            switch (Utility.Random(20))
+            // loot 30-40 gold, magic item, gem, essence control,gob blood
+            switch ( Utility.Random(20) )
             {
                 case 0:
-                    PackItem(new Scimitar());
+                    this.PackItem(new Scimitar());
                     break;
                 case 1:
-                    PackItem(new Katana());
+                    this.PackItem(new Katana());
                     break;
                 case 2:
-                    PackItem(new WarMace());
+                    this.PackItem(new WarMace());
                     break;
                 case 3:
-                    PackItem(new WarHammer());
+                    this.PackItem(new WarHammer());
                     break;
                 case 4:
-                    PackItem(new Kryss());
+                    this.PackItem(new Kryss());
                     break;
                 case 5:
-                    PackItem(new Pitchfork());
+                    this.PackItem(new Pitchfork());
                     break;
             }
 
-            PackItem(new ThighBoots());
+            this.PackItem(new ThighBoots());
 
-            switch (Utility.Random(3))
+            switch ( Utility.Random(3) )
             {
                 case 0:
-                    PackItem(new Ribs());
+                    this.PackItem(new Ribs());
                     break;
                 case 1:
-                    PackItem(new Shaft());
+                    this.PackItem(new Shaft());
                     break;
                 case 2:
-                    PackItem(new Candle());
+                    this.PackItem(new Candle());
                     break;
             }
 
             if (0.2 > Utility.RandomDouble())
-                PackItem(new BolaBall());
+                this.PackItem(new BolaBall());
         }
 
+        //Item item = aggressor.FindItemOnLayer( Layer.Helm );
+
+        //if ( item is OrcishKinMask )
+        //{
+        //	AOS.Damage( aggressor, 50, 0, 100, 0, 0, 0 );
+        //	item.Delete();
+        //	aggressor.FixedParticles( 0x36BD, 20, 10, 5044, EffectLayer.Head );
+        //	aggressor.PlaySound( 0x307 );
+        //}
+        //}
         public EnslavedGreenGoblinAlchemist(Serial serial)
             : base(serial)
         {
@@ -90,50 +102,72 @@ namespace Server.Mobiles
 
         public override bool CanRummageCorpses
         {
-            get { return true; }
-        }
-
-        public override int TreasureMapLevel
-        {
-            get { return 1; }
-        }
-
-        public override int Meat
-        {
-            get { return 1; }
-        }
-
-        public override OppositionGroup OppositionGroup
-        {
-            get { return OppositionGroup.SavagesAndOrcs; }
-        }
-
-        public override void GenerateLoot()
-        {
-            AddLoot(LootPack.Meager);
-        }
-
-        public override void OnDeath(Container c)
-        {
-            base.OnDeath(c);
-            SARegionDrops.GetSADrop(c);
-
-            if (Utility.RandomDouble() < 0.25)
+            get
             {
-                c.DropItem(new GoblinBlood());
+                return true;
             }
         }
+        public override int TreasureMapLevel
+        {
+            get
+            {
+                return 1;
+            }
+        }
+        public override int Meat
+        {
+            get
+            {
+                return 1;
+            }
+        }
+        public override OppositionGroup OppositionGroup
+        {
+            get
+            {
+                return OppositionGroup.SavagesAndOrcs;
+            }
+        }
+        //public override bool IsEnemy( Mobile m )
+        //{
+        //	if ( m.Player && m.FindItemOnLayer( Layer.Helm ) is OrcishKinMask )
+        //		return false;
 
+        //	return base.IsEnemy( m );
+        //}
+
+        //public override void AggressiveAction( Mobile aggressor, bool criminal )
+        //{
+        //base.AggressiveAction( aggressor, criminal );
+        public override void GenerateLoot()
+        {
+            this.AddLoot(LootPack.Meager);
+        }
+        public override void OnDeath(Container c)
+        {
+
+            base.OnDeath(c);
+            Region reg = Region.Find(c.GetWorldLocation(), c.Map);
+            if (0.25 > Utility.RandomDouble() && reg.Name == "Enslaved Goblins")
+            {
+                switch (Utility.Random(2))
+                {
+                    case 0: c.DropItem(new EssenceControl()); break;
+                    case 1: c.DropItem(new GoblinBlood()); break;
+
+                }
+            }
+        }
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

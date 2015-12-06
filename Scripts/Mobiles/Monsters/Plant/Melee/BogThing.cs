@@ -1,5 +1,5 @@
+using System;
 using System.Collections;
-using Server.Engines.Plants;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -11,44 +11,44 @@ namespace Server.Mobiles
         public BogThing()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.6, 1.2)
         {
-            Name = "a bog thing";
-            Body = 780;
+            this.Name = "a bog thing";
+            this.Body = 780;
 
-            SetStr(801, 900);
-            SetDex(46, 65);
-            SetInt(36, 50);
+            this.SetStr(801, 900);
+            this.SetDex(46, 65);
+            this.SetInt(36, 50);
 
-            SetHits(481, 540);
-            SetMana(0);
+            this.SetHits(481, 540);
+            this.SetMana(0);
 
-            SetDamage(10, 23);
+            this.SetDamage(10, 23);
 
-            SetDamageType(ResistanceType.Physical, 60);
-            SetDamageType(ResistanceType.Poison, 40);
+            this.SetDamageType(ResistanceType.Physical, 60);
+            this.SetDamageType(ResistanceType.Poison, 40);
 
-            SetResistance(ResistanceType.Physical, 30, 40);
-            SetResistance(ResistanceType.Fire, 20, 25);
-            SetResistance(ResistanceType.Cold, 10, 15);
-            SetResistance(ResistanceType.Poison, 40, 50);
-            SetResistance(ResistanceType.Energy, 20, 25);
+            this.SetResistance(ResistanceType.Physical, 30, 40);
+            this.SetResistance(ResistanceType.Fire, 20, 25);
+            this.SetResistance(ResistanceType.Cold, 10, 15);
+            this.SetResistance(ResistanceType.Poison, 40, 50);
+            this.SetResistance(ResistanceType.Energy, 20, 25);
 
-            SetSkill(SkillName.MagicResist, 90.1, 95.0);
-            SetSkill(SkillName.Tactics, 70.1, 85.0);
-            SetSkill(SkillName.Wrestling, 65.1, 80.0);
+            this.SetSkill(SkillName.MagicResist, 90.1, 95.0);
+            this.SetSkill(SkillName.Tactics, 70.1, 85.0);
+            this.SetSkill(SkillName.Wrestling, 65.1, 80.0);
 
-            Fame = 8000;
-            Karma = -8000;
+            this.Fame = 8000;
+            this.Karma = -8000;
 
-            VirtualArmor = 28;
+            this.VirtualArmor = 28;
 
             if (0.25 > Utility.RandomDouble())
-                PackItem(new Board(10));
+                this.PackItem(new Board(10));
             else
-                PackItem(new Log(10));
+                this.PackItem(new Log(10));
 
-            PackReg(3);
-            PackItem(new Seed());
-            PackItem(new Seed());
+            this.PackReg(3);
+            this.PackItem(new Engines.Plants.Seed());
+            this.PackItem(new Engines.Plants.Seed());
         }
 
         public BogThing(Serial serial)
@@ -58,53 +58,57 @@ namespace Server.Mobiles
 
         public override bool BardImmune
         {
-            get { return !Core.AOS; }
+            get
+            {
+                return !Core.AOS;
+            }
         }
-
         public override Poison PoisonImmune
         {
-            get { return Poison.Lethal; }
+            get
+            {
+                return Poison.Lethal;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Average, 2);
+            this.AddLoot(LootPack.Average, 2);
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
 
         public void SpawnBogling(Mobile m)
         {
-            var map = Map;
+            Map map = this.Map;
 
             if (map == null)
                 return;
 
-            var spawned = new Bogling();
+            Bogling spawned = new Bogling();
 
-            spawned.Team = Team;
+            spawned.Team = this.Team;
 
-            var validLocation = false;
-            var loc = Location;
+            bool validLocation = false;
+            Point3D loc = this.Location;
 
-            for (var j = 0; !validLocation && j < 10; ++j)
+            for (int j = 0; !validLocation && j < 10; ++j)
             {
-                var x = X + Utility.Random(3) - 1;
-                var y = Y + Utility.Random(3) - 1;
-                var z = map.GetAverageZ(x, y);
+                int x = this.X + Utility.Random(3) - 1;
+                int y = this.Y + Utility.Random(3) - 1;
+                int z = map.GetAverageZ(x, y);
 
-                if (validLocation = map.CanFit(x, y, Z, 16, false, false))
-                    loc = new Point3D(x, y, Z);
+                if (validLocation = map.CanFit(x, y, this.Z, 16, false, false))
+                    loc = new Point3D(x, y, this.Z);
                 else if (validLocation = map.CanFit(x, y, z, 16, false, false))
                     loc = new Point3D(x, y, z);
             }
@@ -115,9 +119,9 @@ namespace Server.Mobiles
 
         public void EatBoglings()
         {
-            var toEat = new ArrayList();
-
-            foreach (var m in GetMobilesInRange(2))
+            ArrayList toEat = new ArrayList();
+  
+            foreach (Mobile m in this.GetMobilesInRange(2))
             {
                 if (m is Bogling)
                     toEat.Add(m);
@@ -125,11 +129,11 @@ namespace Server.Mobiles
 
             if (toEat.Count > 0)
             {
-                PlaySound(Utility.Random(0x3B, 2)); // Eat sound
+                this.PlaySound(Utility.Random(0x3B, 2)); // Eat sound
 
                 foreach (Mobile m in toEat)
                 {
-                    Hits += (m.Hits/2);
+                    this.Hits += (m.Hits / 2);
                     m.Delete();
                 }
             }
@@ -139,14 +143,14 @@ namespace Server.Mobiles
         {
             base.OnGotMeleeAttack(attacker);
 
-            if (Hits > (HitsMax/4))
+            if (this.Hits > (this.HitsMax / 4))
             {
                 if (0.25 >= Utility.RandomDouble())
-                    SpawnBogling(attacker);
+                    this.SpawnBogling(attacker);
             }
             else if (0.25 >= Utility.RandomDouble())
             {
-                EatBoglings();
+                this.EatBoglings();
             }
         }
     }

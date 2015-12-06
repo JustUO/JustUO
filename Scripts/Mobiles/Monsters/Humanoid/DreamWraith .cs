@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Mobiles
 {
     [CorpseName("a dream wraith corpse")]
@@ -7,43 +9,43 @@ namespace Server.Mobiles
         public DreamWraith()
             : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a Dream Wraith";
-            Body = 740;
+            this.Name = "a Dream Wraith";
+            this.Body = 740;
             //Hue = 0;
-            BaseSoundID = 0x482;
+            this.BaseSoundID = 0x482;
 
-            SetStr(200, 300);
-            SetDex(100, 200);
-            SetInt(600, 700);
+            this.SetStr(200, 300);
+            this.SetDex(100, 200);
+            this.SetInt(600, 700);
 
-            SetHits(550, 650);
+            this.SetHits(550, 650);
 
-            SetDamage(18, 25);
+            this.SetDamage(18, 25);
 
-            SetDamageType(ResistanceType.Physical, 10);
-            SetDamageType(ResistanceType.Cold, 45);
-            SetDamageType(ResistanceType.Energy, 45);
+            this.SetDamageType(ResistanceType.Physical, 10);
+            this.SetDamageType(ResistanceType.Cold, 45);
+            this.SetDamageType(ResistanceType.Energy, 45);
 
-            SetResistance(ResistanceType.Physical, 55, 65);
-            SetResistance(ResistanceType.Fire, 40, 50);
-            SetResistance(ResistanceType.Cold, 30, 50);
-            SetResistance(ResistanceType.Poison, 40, 50);
-            SetResistance(ResistanceType.Energy, 20, 30);
+            this.SetResistance(ResistanceType.Physical, 55, 65);
+            this.SetResistance(ResistanceType.Fire, 40, 50);
+            this.SetResistance(ResistanceType.Cold, 30, 50);
+            this.SetResistance(ResistanceType.Poison, 40, 50);
+            this.SetResistance(ResistanceType.Energy, 20, 30);
 
-            SetSkill(SkillName.Anatomy, 0.0, 10.0);
-            SetSkill(SkillName.EvalInt, 100.0, 120.0);
-            SetSkill(SkillName.Magery, 100.0, 120.0);
-            SetSkill(SkillName.Meditation, 100.0, 110.0);
-            SetSkill(SkillName.MagicResist, 120.0, 150.0);
-            SetSkill(SkillName.Tactics, 70.0, 80.0);
-            SetSkill(SkillName.Wrestling, 90.0, 100.0);
+            this.SetSkill(SkillName.Anatomy, 0.0, 10.0);
+            this.SetSkill(SkillName.EvalInt, 100.0, 120.0);
+            this.SetSkill(SkillName.Magery, 100.0, 120.0);
+            this.SetSkill(SkillName.Meditation, 100.0, 110.0);
+            this.SetSkill(SkillName.MagicResist, 120.0, 150.0);
+            this.SetSkill(SkillName.Tactics, 70.0, 80.0);
+            this.SetSkill(SkillName.Wrestling, 90.0, 100.0);
 
-            Fame = 4000;
-            Karma = -4000;
+            this.Fame = 4000;
+            this.Karma = -4000;
 
-            VirtualArmor = 28;
+            this.VirtualArmor = 28;
 
-            PackReg(10);
+            this.PackReg(10);
         }
 
         public DreamWraith(Serial serial)
@@ -53,22 +55,28 @@ namespace Server.Mobiles
 
         public override bool BleedImmune
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override OppositionGroup OppositionGroup
         {
-            get { return OppositionGroup.FeyAndUndead; }
+            get
+            {
+                return OppositionGroup.FeyAndUndead;
+            }
         }
-
         public override Poison PoisonImmune
         {
-            get { return Poison.Lethal; }
+            get
+            {
+                return Poison.Lethal;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Rich);
+            this.AddLoot(LootPack.Rich);
         }
 
         public override int GetIdleSound()
@@ -94,13 +102,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

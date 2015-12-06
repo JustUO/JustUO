@@ -47,6 +47,8 @@ namespace Server.Engines.Help
 
     public class HelpGump : Gump
     {
+        public override int TypeID { get { return 0x29A; } }
+
         public HelpGump(Mobile from)
             : base(0, 0)
         {
@@ -54,114 +56,127 @@ namespace Server.Engines.Help
 
             bool isYoung = IsYoung(from);
 
-            this.AddBackground(50, 25, 540, 430, 2600);
+            AddBackground(50, 25, 540, 430, 2600);
 
-            this.AddPage(0);
+            AddPage(0);
 
-            this.AddHtmlLocalized(150, 50, 360, 40, 1001002, false, false); // <CENTER><U>Ultima Online Help Menu</U></CENTER>
-            this.AddButton(425, 415, 2073, 2072, 0, GumpButtonType.Reply, 0); // Close
+            AddHtmlLocalized(150, 50, 360, 40, 1001002, false, false); // <CENTER><U>Ultima Online Help Menu</U></CENTER>
+            AddButton(425, 415, 2073, 2072, 0, GumpButtonType.Reply, 0); // Close
 
-            this.AddPage(1);
+            AddPage(1);
 
             if (isYoung)
             {
-                this.AddButton(80, 75, 5540, 5541, 9, GumpButtonType.Reply, 2);
-                this.AddHtml(110, 75, 450, 58, @"<BODY><BASEFONT COLOR=BLACK><u>Young Player Haven Transport.</u> Select this option if you want to be transported to Haven.</BODY>", true, true);
+                AddButton(80, 75, 5540, 5541, 10, GumpButtonType.Reply, 2);
+                AddHtmlLocalized(110, 75, 450, 60, 1041525, true, true); // <BODY><BASEFONT COLOR=BLACK><u>Young Player Haven Transport.</u> Select this option if you want to be transported to Haven <BASEFONT COLOR=BLACK>.</BODY>
 
-                this.AddButton(80, 140, 5540, 5541, 1, GumpButtonType.Reply, 2);
-                this.AddHtml(110, 140, 450, 58, @"<u>General question about Ultima Online.</u> Select this option if you have a general gameplay question, need help learning to use a skill, or if you would like to search the UO Knowledge Base.", true, true);
+                AddButton(80, 141, 5540, 5541, 1, GumpButtonType.Page, 2);
+                AddHtmlLocalized(110, 141, 450, 60, 1001003, true, true); // <U>General question about Ultima Online</U>: Select this option if you are having difficulties learning to use a skill, if you are lost, or if you have a general gameplay question.
 
-                this.AddButton(80, 205, 5540, 5541, 2, GumpButtonType.Reply, 0);
-                this.AddHtml(110, 205, 450, 58, @"<u>My character is physically stuck in the game.</u> This choice only covers cases where your character is physically stuck in a location they cannot move out of. This option will only work two times in 24 hours.", true, true);
+                AddButton(80, 207, 5540, 5541, 2, GumpButtonType.Reply, 0);
+                AddHtmlLocalized(110, 207, 450, 60, 1001004, true, true); // <U>My character is physically stuck or cannot continue to play</U>: This choice covers cases where your character is in a location they cannot move out of.
 
-                this.AddButton(80, 270, 5540, 5541, 0, GumpButtonType.Page, 3);
-                this.AddHtml(110, 270, 450, 58, @"<u>Another player is harassing me.</u> Another player is verbally harassing your character. When you select this option you will be sending a text log to Origin Systems. To see what constitutes harassment please visit http://support.uo.com/gm_9.html.", true, true);
+                AddButton(80, 273, 5540, 5541, 3, GumpButtonType.Page, 3);
+                AddHtmlLocalized(110, 273, 450, 60, 1001005, true, true); // <U>Another player is harassing me</U>: Another player is harassing your character, be it by verbal or physical means, or is breaking the Terms of Service Agreement. To see what constitutes harassment please visit <A HREF="http://support.owo.com/gm_harass.html">http://support.owo.com/gm_harass.html</A>.
 
-                this.AddButton(80, 335, 5540, 5541, 0, GumpButtonType.Page, 2);
-                this.AddHtml(110, 335, 450, 58, @"<u>Other.</u> If you are experiencing a problem in the game that does not fall into one of the other categories or is not addressed on the Support web page (located at http://support.uo.com), please use this option.", true, true);
+                AddButton(80, 339, 5540, 5541, 4, GumpButtonType.Reply, 0);
+                AddHtmlLocalized(110, 339, 450, 60, 1001006, true, true); // <U>Other</U>: If you are experiencing a problem in the game that does not fall into one of the other categories or is not addressed on the Support web page (located at <A HREF="http://support.owo.com">http://support.owo.com</A>), and requires in-game assistance, use this option.
             }
             else
             {
-                this.AddButton(80, 90, 5540, 5541, 1, GumpButtonType.Reply, 2);
-                this.AddHtml(110, 90, 450, 74, @"<u>General question about Ultima Online.</u> Select this option if you have a general gameplay question, need help learning to use a skill, or if you would like to search the UO Knowledge Base.", true, true);
+                AddButton(80, 75, 5540, 5541, 1, GumpButtonType.Reply, 0);
+                AddHtmlLocalized(110, 75, 450, 60, 1001003, true, true); // <U>General question about Ultima Online</U>: Select this option if you are having difficulties learning to use a skill, if you have a general gameplay question, or you would like to search the UO Knowledge Base.
 
-                this.AddButton(80, 170, 5540, 5541, 2, GumpButtonType.Reply, 0);
-                this.AddHtml(110, 170, 450, 74, @"<u>My character is physically stuck in the game.</u> This choice only covers cases where your character is physically stuck in a location they cannot move out of. This option will only work two times in 24 hours.", true, true);
+                AddButton(80, 141, 5540, 5541, 2, GumpButtonType.Reply, 0);
+                AddHtmlLocalized(110, 141, 450, 60, 1001004, true, true); // <U>My character is physically stuck</U>: This choice only covers cases where your character is physically stuck in a location they cannot move out of.
 
-                this.AddButton(80, 250, 5540, 5541, 0, GumpButtonType.Page, 3);
-                this.AddHtml(110, 250, 450, 74, @"<u>Another player is harassing me.</u> Another player is verbally harassing your character. When you select this option you will be sending a text log to Origin Systems. To see what constitutes harassment please visit http://support.uo.com/gm_9.html.", true, true);
+                AddButton(80, 207, 5540, 5541, 0, GumpButtonType.Page, 3);
+                AddHtmlLocalized(110, 207, 450, 60, 1001005, true, true); // <U>Another player is harassing me</U>: Another player is harassing me verbally or physically, or is breaking the Terms of Service Agreement.  To see what constitutes harassment please visit <A HREF="http://uo.custhelp.com/cgi-bin/uo.cfg/php/enduser/std_adp.php?p_faqid=47">- How do I report someone for Harassment in UO? -</A>.
 
-                this.AddButton(80, 330, 5540, 5541, 0, GumpButtonType.Page, 2);
-                this.AddHtml(110, 330, 450, 74, @"<u>Other.</u> If you are experiencing a problem in the game that does not fall into one of the other categories or is not addressed on the Support web page (located at http://support.uo.com), please use this option.", true, true);
+                AddButton(80, 273, 5540, 5541, 0, GumpButtonType.Page, 2);
+                AddHtmlLocalized(110, 273, 450, 60, 1001006, true, true); // <U>Other</U>: If you are experiencing a problem in the game that does not fall into one of the other categories or is not addressed on the Support web page (located at <A HREF="http://uo.custhelp.com/">http://uo.custhelp.com/</A>) and requires in-game assistance please use this option.
             }
 
-            this.AddPage(2);
+            AddPage(2);
 
-            this.AddButton(80, 90, 5540, 5541, 3, GumpButtonType.Reply, 0);
-            this.AddHtml(110, 90, 450, 74, @"<u>Report a bug or contact Origin.</u> Use this option to launch your web browser and mail in a bug report. Your report will be read by our Quality Assurance Staff. We apologize for not being able to reply to individual reports. ", true, true);
+            if (isYoung)
+            {
+                AddButton(80, 75, 5540, 5541, 8, GumpButtonType.Reply, 0);
+                AddHtmlLocalized(110, 75, 450, 60, 1001008, true, true); // <U>Visit the Ultima Online web site</U>: You can learn about Ultima Online, browse the UO Playguide, and keep abreast of current issues.  This selection will launch your web browser and take you the web site.
 
-            this.AddButton(80, 170, 5540, 5541, 4, GumpButtonType.Reply, 0);
-            this.AddHtml(110, 170, 450, 74, @"<u>Suggestion for the Game.</u> If you'd like to make a suggestion for the game, it should be directed to the Development Team Members who participate in the discussion forums on the UO.Com web site. Choosing this option will take you to the Discussion Forums. ", true, true);
+                AddButton(80, 141, 5540, 5541, 5, GumpButtonType.Reply, 0);
+                AddHtmlLocalized(110, 141, 450, 60, 1074796, true, true); // <U>Visit the Ultima Online Knowledge Base</U>: You can find detailed answers to many of the most frequently asked questions in our Knowledge Base.  This selection will launch your web browser and take you to those answers.
 
-            this.AddButton(80, 250, 5540, 5541, 5, GumpButtonType.Reply, 0);
-            this.AddHtml(110, 250, 450, 74, @"<u>Account Management</u> For questions regarding your account such as forgotten passwords, payment options, account activation, and account transfer, please choose this option.", true, true);
+                AddButton(80, 207, 5540, 5541, 6, GumpButtonType.Reply, 0);
+                AddHtmlLocalized(110, 207, 450, 60, 1001009, true, true); // <U>Report a bug</U>: Use this option to launch your web browser submit a bug report.  Your report will be read by our Quality Assurance staff.  We apologize for not being able to reply to individual bug reports.
 
-            this.AddButton(80, 330, 5540, 5541, 6, GumpButtonType.Reply, 0);
-            this.AddHtml(110, 330, 450, 74, @"<u>Other.</u> If you are experiencing a problem in the game that does not fall into one of the other categories or is not addressed on the Support web page (located at http://support.uo.com), and requires in-game assistance, use this option. ", true, true);
+                AddButton(80, 273, 5540, 5541, 7, GumpButtonType.Reply, 0);
+                AddHtmlLocalized(110, 273, 450, 60, 1001010, true, true); // <U>Contact a Counselor</U>: A Counselor is an experienced Ultima Online player who has volunteered their time to help answer general gameplay questions.  Selecting this option will let you send a message to a Counselor.  Please remember that Counselors are volunteers and may not be available at all times so please be patient and remember to check the website for additional help.
 
-            this.AddPage(3);
+                AddButton(80, 339, 5540, 5541, 4, GumpButtonType.Reply, 0);
+                AddHtmlLocalized(110, 339, 450, 60, 1001006, true, true); // <U>Other</U>: If you are experiencing a problem in the game that does not fall into one of the other categories or is not addressed on the Support web page (located at <A HREF="http://uo.custhelp.com/">http://uo.custhelp.com/</A>) and requires in-game assistance please use this option.
 
-            this.AddButton(80, 90, 5540, 5541, 7, GumpButtonType.Reply, 0);
-            this.AddHtmlLocalized(110, 90, 450, 145, 1062572, true, true); /* <U><CENTER>Another player is harassing me (or Exploiting).</CENTER></U><BR>
-            * VERBAL HARASSMENT<BR>
-            * Use this option when another player is verbally harassing your character.
-            * Verbal harassment behaviors include but are not limited to, using bad language, threats etc..
-            * Before you submit a complaint be sure you understand what constitutes harassment
-            * <A HREF="http://uo.custhelp.com/cgi-bin/uo.cfg/php/enduser/std_adp.php?p_faqid=40">– what is verbal harassment? -</A>
-            * and that you have followed these steps:<BR>
-            * 1. You have asked the player to stop and they have continued.<BR>
-            * 2. You have tried to remove yourself from the situation.<BR>
-            * 3. You have done nothing to instigate or further encourage the harassment.<BR>
-            * 4. You have added the player to your ignore list.
-            * <A HREF="http://uo.custhelp.com/cgi-bin/uo.cfg/php/enduser/std_adp.php?p_faqid=138">- How do I ignore a player?</A><BR>
-            * 5. You have read and understand Origin’s definition of harassment.<BR>
-            * 6. Your account information is up to date. (Including a current email address)<BR>
-            * *If these steps have not been taken, GMs may be unable to take action against the offending player.<BR>
-            * **A chat log will be review by a GM to assess the validity of this complaint.
-            * Abuse of this system is a violation of the Rules of Conduct.<BR>
-            * EXPLOITING<BR>
-            * Use this option to report someone who may be exploiting or cheating.
-            * <A HREF="http://uo.custhelp.com/cgi-bin/uo.cfg/php/enduser/std_adp.php?p_faqid=41">– What constitutes an exploit?</a>
-            */
+                AddButton(80, 405, 5540, 5541, 0, GumpButtonType.Page, 1);
+                AddHtmlLocalized(110, 405, 450, 29, 1001011, true, false); // <U>Return to the help menu</U>
+            }
+            else
+            {
+                AddButton(80, 75, 5540, 5541, 8, GumpButtonType.Reply, 0);
+                AddHtmlLocalized(110, 75, 450, 60, 1001008, true, true); // <U>Visit the Ultima Online web site</U>: You can learn about Ultima Online, browse the UO Playguide, and keep abreast of current issues.  This selection will launch your web browser and take you the web site.
 
-            this.AddButton(80, 240, 5540, 5541, 8, GumpButtonType.Reply, 0);
-            this.AddHtmlLocalized(110, 240, 450, 145, 1062573, true, true); /* <U><CENTER>Another player is harassing me using game mechanics.</CENTER></U><BR>
-            * <BR>
-            * PHYSICAL HARASSMENT<BR>
-            * Use this option when another player is harassing your character using game mechanics.
-            * Physical harassment includes but is not limited to luring, Kill Stealing, and any act that causes a players death in Trammel.
-            * Before you submit a complaint be sure you understand what constitutes harassment
-            * <A HREF="http://uo.custhelp.com/cgi-bin/uo.cfg/php/enduser/std_adp.php?p_faqid=59"> – what is physical harassment?</A>
-            * and that you have followed these steps:<BR>
-            * 1. You have asked the player to stop and they have continued.<BR>
-            * 2. You have tried to remove yourself from the situation.<BR>
-            * 3. You have done nothing to instigate or further encourage the harassment.<BR>
-            * 4. You have added the player to your ignore list.
-            * <A HREF="http://uo.custhelp.com/cgi-bin/uo.cfg/php/enduser/std_adp.php?p_faqid=138"> - how do I ignore a player?</A><BR>
-            * 5. You have read and understand Origin’s definition of harassment.<BR>
-            * 6. Your account information is up to date. (Including a current email address)<BR>
-            * *If these steps have not been taken, GMs may be unable to take action against the offending player.<BR>
-            * **This issue will be reviewed by a GM to assess the validity of this complaint.
-            * Abuse of this system is a violation of the Rules of Conduct.
-            */
+                AddButton(80, 141, 5540, 5541, 5, GumpButtonType.Reply, 0);
+                AddHtmlLocalized(110, 141, 450, 60, 1074796, true, true); // <U>Visit the Ultima Online Knowledge Base</U>: You can find detailed answers to many of the most frequently asked questions in our Knowledge Base.  This selection will launch your web browser and take you to those answers.
 
-            this.AddButton(150, 390, 5540, 5541, 0, GumpButtonType.Page, 1);
-            this.AddHtmlLocalized(180, 390, 335, 40, 1001015, false, false); // NO  - I meant to ask for help with another matter.
+                AddButton(80, 207, 5540, 5541, 6, GumpButtonType.Reply, 0);
+                AddHtmlLocalized(110, 207, 450, 60, 1001009, true, true); // <U>Report a bug</U>: Use this option to launch your web browser submit a bug report.  Your report will be read by our Quality Assurance staff.  We apologize for not being able to reply to individual bug reports.
+
+                AddButton(80, 273, 5540, 5541, 4, GumpButtonType.Reply, 0);
+                AddHtmlLocalized(110, 273, 450, 60, 1001006, true, true); // <U>Other</U>: If you are experiencing a problem in the game that does not fall into one of the other categories or is not addressed on the Support web page (located at <A HREF="http://uo.custhelp.com/">http://uo.custhelp.com/</A>) and requires in-game assistance please use this option.
+
+                AddButton(80, 339, 5540, 5541, 0, GumpButtonType.Page, 1);
+                AddHtmlLocalized(110, 339, 450, 29, 1001011, true, false); // <U>Return to the help menu</U>
+            }
+
+            AddPage(3);
+
+            AddButton(80, 75, 5540, 5541, 3, GumpButtonType.Reply, 0);
+            AddHtmlLocalized(110, 75, 450, 164, 1062572, true, true); // <U><CENTER>Another player is harassing me (or Exploiting).</CENTER></U><BR>VERBAL HARASSMENT<BR>Use this option when another player is verbally harassing your character. Verbal harassment behaviors include but are not limited to, using bad language, threats etc.. Before you submit a complaint be sure you understand what constitutes harassment <A HREF="http://uo.custhelp.com/cgi-bin/uo.cfg/php/enduser/std_adp.php?p_faqid=40">– what is verbal harassment? -</A> and that you have followed these steps:<BR>1. You have asked the player to stop and they have continued.<BR>2. You have tried to remove yourself from the situation.<BR>3. You have done nothing to instigate or further encourage the harassment.<BR>4. You have added the player to your ignore list. <A HREF="http://uo.custhelp.com/cgi-bin/uo.cfg/php/enduser/std_adp.php?p_faqid=138">- How do I ignore a player?</A><BR>5. You have read and understand Origin’s definition of harassment.<BR>6. Your account information is up to date. (Including a current email address)<BR>*If these steps have not been taken, GMs may be unable to take action against the offending player.<BR>**A chat log will be review by a GM to assess the validity of this complaint. Abuse of this system is a violation of the Rules of Conduct.<BR>EXPLOITING<BR>Use this option to report someone who may be exploiting or cheating. <A HREF="http://uo.custhelp.com/cgi-bin/uo.cfg/php/enduser/std_adp.php?p_faqid=41">– What constitutes an exploit?</a>
+
+            AddButton(80, 245, 5540, 5541, 12, GumpButtonType.Reply, 0);
+            AddHtmlLocalized(110, 245, 450, 164, 1062573, true, true); // <U><CENTER>Another player is harassing me using game mechanics.</CENTER></U><BR><BR>PHYSICAL HARASSMENT<BR>Use this option when another player is harassing your character using game mechanics. Physical harassment includes but is not limited to luring and any act that causes a players death in Trammel. Before you submit a complaint be sure you understand what constitutes harassment <A HREF="http://uo.custhelp.com/cgi-bin/uo.cfg/php/enduser/std_adp.php?p_faqid=59">- What is physical harassment? -</A> and that you have followed these steps:<BR>1. You have asked the player to stop and they have continued.<BR>2. You have tried to remove yourself from the situation.<BR>3. You have done nothing to instigate or further encourage the harassment.<BR>4. You have added the player to your ignore list. <A HREF="http://uo.custhelp.com/cgi-bin/uo.cfg/php/enduser/std_adp.php?p_faqid=138">- How do I ignore a player? -</A><BR>5. You have read and understand Origin’s definition of harassment.<BR>6. Your account information is up to date. (Including a current email address)<BR>*If these steps have not been taken, GMs may be unable to take action against the offending player.<BR>**This issue will be reviewed by a GM to assess the validity of this complaint. Abuse of this system is a violation of the Rules of Conduct.
+
+            AddButton(80, 415, 5540, 5541, 0, GumpButtonType.Page, 1);
+            AddHtmlLocalized(110, 415, 450, 29, 1001011, true, false); // <U>Return to the help menu</U>
         }
 
         public static void Initialize()
         {
             EventSink.HelpRequest += new HelpRequestEventHandler(EventSink_HelpRequest);
+        }
+
+        private static void EventSink_HelpRequest(HelpRequestEventArgs e)
+        {
+            foreach (Gump g in e.Mobile.NetState.Gumps)
+            {
+                if (g is HelpGump)
+                    return;
+            }
+
+            if (!PageQueue.CheckAllowedToPage(e.Mobile))
+                return;
+
+            if (PageQueue.Contains(e.Mobile))
+                e.Mobile.SendMenu(new ContainedMenu(e.Mobile));
+            else
+                e.Mobile.SendGump(new HelpGump(e.Mobile));
+        }
+
+        private static bool IsYoung(Mobile m)
+        {
+            if (m is PlayerMobile)
+                return ((PlayerMobile)m).Young;
+
+            return false;
         }
 
         public static bool CheckCombat(Mobile m)
@@ -191,28 +206,28 @@ namespace Server.Engines.Help
 
                         break;
                     }
-                case 1: // General question
+                case 1: // General question about Ultima Online
                     {
-                        type = PageType.Question;
+                        from.LaunchBrowser("http://www.uo.com");
                         break;
                     }
                 case 2: // Stuck
                     {
-                        BaseHouse house = BaseHouse.FindHouseAt(from);
+                        var house = BaseHouse.FindHouseAt(from);
 
                         if (house != null && house.IsAosRules && !from.Region.IsPartOf(typeof(Engines.ConPVP.SafeZone))) // Dueling
                         {
                             from.Location = house.BanLocation;
                         }
-                        else if (from.Region.IsPartOf(typeof(Server.Regions.Jail)))
+                        else if (from.Region.IsPartOf(typeof(Regions.Jail)))
                         {
-                            from.SendLocalizedMessage(1114345, "", 0x35); // You'll need a better jailbreak plan than that!
+                            from.SendLocalizedMessage(1041530, "", 0x35); // You'll need a better jailbreak plan then that!
                         }
                         else if (Factions.Sigil.ExistsOn(from))
                         {
                             from.SendLocalizedMessage(1061632); // You can't do that while carrying the sigil.
                         }
-                        else if (from.CanUseStuckMenu() && from.Region.CanUseStuckMenu(from) && !CheckCombat(from) && !from.Frozen && !from.Criminal && (Core.AOS || from.Kills < 5))
+                        else if (from.CanUseStuckMenu() && from.Region.CanUseStuckMenu(from) && !CheckCombat(from) && !from.Frozen && !from.Criminal)
                         {
                             StuckMenu menu = new StuckMenu(from, from, true);
 
@@ -227,85 +242,85 @@ namespace Server.Engines.Help
 
                         break;
                     }
-                case 3: // Report bug or contact Origin
-                    {
-                        type = PageType.Bug;
-                        break;
-                    }
-                case 4: // Game suggestion
-                    {
-                        type = PageType.Suggestion;
-                        break;
-                    }
-                case 5: // Account management
-                    {
-                        type = PageType.Account;
-                        break;
-                    }
-                case 6: // Other
-                    {
-                        type = PageType.Other;
-                        break;
-                    }
-                case 7: // Harassment: verbal/exploit
+                case 3: // Harassment: Verbal
                     {
                         type = PageType.VerbalHarassment;
                         break;
                     }
-                case 8: // Harassment: physical
+                case 4: // Other
                     {
-                        type = PageType.PhysicalHarassment;
+                        type = PageType.Other;
                         break;
                     }
-                case 9: // Young player transport
+                case 5: // Visit the OWO web page
+                    {
+                        from.LaunchBrowser("http://www.uoguide.com/");
+                        break;
+                    }
+                case 6: // Report a bug or contact Origin
+                    {
+                        from.LaunchBrowser("http://www.uo.com");
+                        break;
+                    }
+                case 7: // Contact a Councelor
+                    {
+                        type = PageType.Question;
+                        break;
+                    }
+                case 8: // Visit the Ultima Online web site
+                    {
+                        from.LaunchBrowser("http://www.uo.com");
+                        break;
+                    }
+                case 10: // Young player transport
                     {
                         if (IsYoung(from))
                         {
                             if (from.Region.IsPartOf(typeof(Regions.Jail)))
                             {
-                                from.SendLocalizedMessage(1114345, "", 0x35); // You'll need a better jailbreak plan than that!
+                                from.SendLocalizedMessage(1041530, "", 0x35); // You'll need a better jailbreak plan then that!
                             }
-                            else if (from.Region.IsPartOf("Haven Island"))
+                            else if (from.Region.Name == "Haven" || from.Region.Name == "New Haven")
                             {
                                 from.SendLocalizedMessage(1041529); // You're already in Haven
                             }
                             else
                             {
-                                from.MoveToWorld(new Point3D(3503, 2574, 14), Map.Trammel);
+                                if (from.Alive)
+                                    from.MoveToWorld(new Point3D(3503, 2574, 14), Map.Trammel);
+                                else
+                                    from.MoveToWorld(new Point3D(3469, 2559, 36), Map.Trammel);
                             }
                         }
 
                         break;
                     }
+                case 11: // Promotional Code
+                    {
+                        //if (PromotionalSystem.Enabled)
+                        //{
+                        //    from.SendGump(new PromotionalCodeGump());
+                        //}
+                        //else
+                        //{
+                            from.SendLocalizedMessage(1062904); // The promo code redemption system is currently unavailable. Please try again later.
+
+                            from.SendLocalizedMessage(501235, "", 0x35); // Help request aborted.
+                        //}
+
+                        break;
+                    }
+                case 12: // Harassment: Physical
+                    {
+                        type = PageType.PhysicalHarassment;
+                        break;
+                    }
             }
 
             if (type != (PageType)(-1) && PageQueue.CheckAllowedToPage(from))
-                from.SendGump(new PagePromptGump(from, type));
-        }
-
-        private static void EventSink_HelpRequest(HelpRequestEventArgs e)
-        {
-            foreach (Gump g in e.Mobile.NetState.Gumps)
             {
-                if (g is HelpGump)
-                    return;
+                from.SendGump(new PagePromptGump(from, type));
             }
-
-            if (!PageQueue.CheckAllowedToPage(e.Mobile))
-                return;
-
-            if (PageQueue.Contains(e.Mobile))
-                e.Mobile.SendMenu(new ContainedMenu(e.Mobile));
-            else
-                e.Mobile.SendGump(new HelpGump(e.Mobile));
-        }
-
-        private static bool IsYoung(Mobile m)
-        {
-            if (m is PlayerMobile)
-                return ((PlayerMobile)m).Young;
-
-            return false;
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -9,32 +10,32 @@ namespace Server.Mobiles
         public GazerLarva()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a gazer larva";
-            Body = 778;
-            BaseSoundID = 377;
+            this.Name = "a gazer larva";
+            this.Body = 778;
+            this.BaseSoundID = 377;
 
-            SetStr(76, 100);
-            SetDex(51, 75);
-            SetInt(56, 80);
+            this.SetStr(76, 100);
+            this.SetDex(51, 75);
+            this.SetInt(56, 80);
 
-            SetHits(36, 47);
+            this.SetHits(36, 47);
 
-            SetDamage(2, 9);
+            this.SetDamage(2, 9);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 15, 25);
+            this.SetResistance(ResistanceType.Physical, 15, 25);
 
-            SetSkill(SkillName.MagicResist, 70.0);
-            SetSkill(SkillName.Tactics, 70.0);
-            SetSkill(SkillName.Wrestling, 70.0);
+            this.SetSkill(SkillName.MagicResist, 70.0);
+            this.SetSkill(SkillName.Tactics, 70.0);
+            this.SetSkill(SkillName.Wrestling, 70.0);
 
-            Fame = 900;
-            Karma = -900;
+            this.Fame = 900;
+            this.Karma = -900;
 
-            VirtualArmor = 25;
+            this.VirtualArmor = 25;
 
-            PackItem(new Nightshade(Utility.RandomMinMax(2, 3)));
+            this.PackItem(new Nightshade(Utility.RandomMinMax(2, 3)));
         }
 
         public GazerLarva(Serial serial)
@@ -44,24 +45,26 @@ namespace Server.Mobiles
 
         public override int Meat
         {
-            get { return 1; }
+            get
+            {
+                return 1;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Poor);
+            this.AddLoot(LootPack.Poor);
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

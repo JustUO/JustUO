@@ -83,31 +83,35 @@ namespace Server.SkillHandlers
         public TrackWhatGump(Mobile from)
             : base(20, 30)
         {
-            this.m_From = from;
-            this.m_Success = from.CheckSkill(SkillName.Tracking, 0.0, 21.1);
+            m_From = from;
+            m_Success = from.CheckSkill(SkillName.Tracking, 0.0, 21.1);
 
-            this.AddPage(0);
+            AddPage(0);
 
-            this.AddBackground(0, 0, 440, 135, 5054);
+            AddBackground(0, 0, 440, 135, 5054);
 
-            this.AddBackground(10, 10, 420, 75, 2620);
-            this.AddBackground(10, 85, 420, 25, 3000);
+            AddBackground(10, 10, 420, 75, 2620);
+            AddBackground(10, 85, 420, 25, 3000);
 
-            this.AddItem(20, 20, 9682);
-            this.AddButton(20, 110, 4005, 4007, 1, GumpButtonType.Reply, 0);
-            this.AddHtmlLocalized(20, 90, 100, 20, 1018087, false, false); // Animals
+            AddKRHtmlLocalized(0, 0, 0, 0, 1011012, false, false);
+            AddKRButton(0, 0, 0, 0, 0, GumpButtonType.Page, 0);
+            AddKRHtmlLocalized(0, 0, 0, 0, 1018086, false, false);
 
-            this.AddItem(120, 20, 9607);
-            this.AddButton(120, 110, 4005, 4007, 2, GumpButtonType.Reply, 0);
-            this.AddHtmlLocalized(120, 90, 100, 20, 1018088, false, false); // Monsters
+            AddItem(20, 20, 9682);
+            AddButton(20, 110, 4005, 4007, 1, GumpButtonType.Reply, 0);
+            AddHtmlLocalized(20, 90, 100, 20, 1018087, false, false); // Animals
 
-            this.AddItem(220, 20, 8454);
-            this.AddButton(220, 110, 4005, 4007, 3, GumpButtonType.Reply, 0);
-            this.AddHtmlLocalized(220, 90, 100, 20, 1018089, false, false); // Human NPCs
+            AddItem(120, 20, 9607);
+            AddButton(120, 110, 4005, 4007, 2, GumpButtonType.Reply, 0);
+            AddHtmlLocalized(120, 90, 100, 20, 1018088, false, false); // Monsters
 
-            this.AddItem(320, 20, 8455);
-            this.AddButton(320, 110, 4005, 4007, 4, GumpButtonType.Reply, 0);
-            this.AddHtmlLocalized(320, 90, 100, 20, 1018090, false, false); // Players
+            AddItem(220, 20, 8454);
+            AddButton(220, 110, 4005, 4007, 3, GumpButtonType.Reply, 0);
+            AddHtmlLocalized(220, 90, 100, 20, 1018089, false, false); // Human NPCs
+
+            AddItem(320, 20, 8455);
+            AddButton(320, 110, 4005, 4007, 4, GumpButtonType.Reply, 0);
+            AddHtmlLocalized(320, 90, 100, 20, 1018090, false, false); // Players
         }
 
         public override void OnResponse(NetState state, RelayInfo info)

@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Mobiles
 {
     [CorpseName("a pig corpse")]
@@ -7,37 +9,37 @@ namespace Server.Mobiles
         public Boar()
             : base(AIType.AI_Animal, FightMode.Aggressor, 10, 1, 0.2, 0.4)
         {
-            Name = "a boar";
-            Body = 0x122;
-            BaseSoundID = 0xC4;
+            this.Name = "a boar";
+            this.Body = 0x122;
+            this.BaseSoundID = 0xC4;
 
-            SetStr(25);
-            SetDex(15);
-            SetInt(5);
+            this.SetStr(25);
+            this.SetDex(15);
+            this.SetInt(5);
 
-            SetHits(15);
-            SetMana(0);
+            this.SetHits(15);
+            this.SetMana(0);
 
-            SetDamage(3, 6);
+            this.SetDamage(3, 6);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 10, 15);
-            SetResistance(ResistanceType.Fire, 5, 10);
-            SetResistance(ResistanceType.Poison, 5, 10);
+            this.SetResistance(ResistanceType.Physical, 10, 15);
+            this.SetResistance(ResistanceType.Fire, 5, 10);
+            this.SetResistance(ResistanceType.Poison, 5, 10);
 
-            SetSkill(SkillName.MagicResist, 9.0);
-            SetSkill(SkillName.Tactics, 9.0);
-            SetSkill(SkillName.Wrestling, 9.0);
+            this.SetSkill(SkillName.MagicResist, 9.0);
+            this.SetSkill(SkillName.Tactics, 9.0);
+            this.SetSkill(SkillName.Wrestling, 9.0);
 
-            Fame = 300;
-            Karma = 0;
+            this.Fame = 300;
+            this.Karma = 0;
 
-            VirtualArmor = 10;
+            this.VirtualArmor = 10;
 
-            Tamable = true;
-            ControlSlots = 1;
-            MinTameSkill = 29.1;
+            this.Tamable = true;
+            this.ControlSlots = 1;
+            this.MinTameSkill = 29.1;
         }
 
         public Boar(Serial serial)
@@ -47,26 +49,30 @@ namespace Server.Mobiles
 
         public override int Meat
         {
-            get { return 2; }
+            get
+            {
+                return 2;
+            }
         }
-
         public override FoodType FavoriteFood
         {
-            get { return FoodType.FruitsAndVegies | FoodType.GrainsAndHay; }
+            get
+            {
+                return FoodType.FruitsAndVegies | FoodType.GrainsAndHay;
+            }
         }
-
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

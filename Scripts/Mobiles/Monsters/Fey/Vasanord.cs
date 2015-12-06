@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -9,46 +10,46 @@ namespace Server.Mobiles
         public Vasanord()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.6, 1.2)
         {
-            Name = "Vasanord";
-            Body = 780;
-            Hue = 2071;
+            this.Name = "Vasanord";
+            this.Body = 780;
+            this.Hue = 2071;
 
-            SetStr(805, 869);
-            SetDex(51, 64);
-            SetInt(38, 48);
+            this.SetStr(805, 869);
+            this.SetDex(51, 64);
+            this.SetInt(38, 48);
 
-            SetHits(2553, 2626);
-            SetMana(110);
-            SetStam(51, 64);
+            this.SetHits(2553, 2626);
+            this.SetMana(110);
+            this.SetStam(51, 64);
 
-            SetDamage(10, 23);
+            this.SetDamage(10, 23);
 
-            SetDamageType(ResistanceType.Physical, 20);
-            SetDamageType(ResistanceType.Fire, 20);
-            SetDamageType(ResistanceType.Cold, 20);
-            SetDamageType(ResistanceType.Poison, 20);
-            SetDamageType(ResistanceType.Energy, 20);
+            this.SetDamageType(ResistanceType.Physical, 20);
+            this.SetDamageType(ResistanceType.Fire, 20);
+            this.SetDamageType(ResistanceType.Cold, 20);
+            this.SetDamageType(ResistanceType.Poison, 20);
+            this.SetDamageType(ResistanceType.Energy, 20);
 
-            SetResistance(ResistanceType.Physical, 30, 50);
-            SetResistance(ResistanceType.Fire, 20, 40);
-            SetResistance(ResistanceType.Cold, 20, 50);
-            SetResistance(ResistanceType.Poison, 100, 120);
-            SetResistance(ResistanceType.Energy, 20, 50);
+            this.SetResistance(ResistanceType.Physical, 30, 50);
+            this.SetResistance(ResistanceType.Fire, 20, 40);
+            this.SetResistance(ResistanceType.Cold, 20, 50);
+            this.SetResistance(ResistanceType.Poison, 100, 120);
+            this.SetResistance(ResistanceType.Energy, 20, 50);
 
-            SetSkill(SkillName.MagicResist, 72.8, 77.7);
-            SetSkill(SkillName.Tactics, 50.7, 99.6);
-            SetSkill(SkillName.Anatomy, 6.5, 17.1);
-            SetSkill(SkillName.EvalInt, 92.5, 106.2);
-            SetSkill(SkillName.Magery, 95.5, 106.9);
-            SetSkill(SkillName.Wrestling, 93.6, 98.6);
+            this.SetSkill(SkillName.MagicResist, 72.8, 77.7);
+            this.SetSkill(SkillName.Tactics, 50.7, 99.6);
+            this.SetSkill(SkillName.Anatomy, 6.5, 17.1);
+            this.SetSkill(SkillName.EvalInt, 92.5, 106.2);
+            this.SetSkill(SkillName.Magery, 95.5, 106.9);
+            this.SetSkill(SkillName.Wrestling, 93.6, 98.6);
 
-            Fame = 8000;
-            Karma = -8000;
+            this.Fame = 8000;
+            this.Karma = -8000;
 
-            VirtualArmor = 88;
+            this.VirtualArmor = 88;
 
-            PackItem(new DaemonBone(30));
-            PackItem(new Board(10));
+            this.PackItem(new DaemonBone(30));
+            this.PackItem(new Board(10));
         }
 
         public Vasanord(Serial serial)
@@ -58,34 +59,44 @@ namespace Server.Mobiles
 
         public override bool AlwaysMurderer
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override bool BardImmune
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override Poison PoisonImmune
         {
-            get { return Poison.Lethal; }
+            get
+            {
+                return Poison.Lethal;
+            }
         }
-
         public override bool Unprovokable
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override bool ReacquireOnMovement
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.FilthyRich, 3);
-            AddLoot(LootPack.Rich);
-            AddLoot(LootPack.MedScrolls, 2);
+            this.AddLoot(LootPack.FilthyRich, 3);
+            this.AddLoot(LootPack.Rich);
+            this.AddLoot(LootPack.MedScrolls, 2);
         }
 
         public override void OnDeath(Container c)
@@ -103,10 +114,10 @@ namespace Server.Mobiles
                 switch (Utility.Random(2))
                 {
                     case 0:
-                        AddToBackpack(new VoidOrb());
+                        this.AddToBackpack(new VoidOrb());
                         break;
                     case 1:
-                        AddToBackpack(new VoidCore());
+                        this.AddToBackpack(new VoidCore());
                         break;
                 }
             }
@@ -115,13 +126,26 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
+        /*public override void OnGotMeleeAttack( Mobile attacker )
+        {
+        base.OnGotMeleeAttack( attacker );
+        if ( this.Hits > (this.HitsMax / 4) )
+        {
+        if ( 0.25 >= Utility.RandomDouble() )
+        //SpawnBogling( attacker );
+        }
+        else if ( 0.25 >= Utility.RandomDouble() )
+        {
+        //EatBoglings();
+        }
+        }*/
     }
 }

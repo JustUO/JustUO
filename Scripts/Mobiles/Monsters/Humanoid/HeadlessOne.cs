@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Mobiles
 {
     [CorpseName("a headless corpse")]
@@ -7,31 +9,31 @@ namespace Server.Mobiles
         public HeadlessOne()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a headless one";
-            Body = 31;
-            Hue = Utility.RandomSkinHue() & 0x7FFF;
-            BaseSoundID = 0x39D;
+            this.Name = "a headless one";
+            this.Body = 31;
+            this.Hue = Utility.RandomSkinHue() & 0x7FFF;
+            this.BaseSoundID = 0x39D;
 
-            SetStr(26, 50);
-            SetDex(36, 55);
-            SetInt(16, 30);
+            this.SetStr(26, 50);
+            this.SetDex(36, 55);
+            this.SetInt(16, 30);
 
-            SetHits(16, 30);
+            this.SetHits(16, 30);
 
-            SetDamage(5, 10);
+            this.SetDamage(5, 10);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 15, 20);
+            this.SetResistance(ResistanceType.Physical, 15, 20);
 
-            SetSkill(SkillName.MagicResist, 15.1, 20.0);
-            SetSkill(SkillName.Tactics, 25.1, 40.0);
-            SetSkill(SkillName.Wrestling, 25.1, 40.0);
+            this.SetSkill(SkillName.MagicResist, 15.1, 20.0);
+            this.SetSkill(SkillName.Tactics, 25.1, 40.0);
+            this.SetSkill(SkillName.Wrestling, 25.1, 40.0);
 
-            Fame = 450;
-            Karma = -450;
+            this.Fame = 450;
+            this.Karma = -450;
 
-            VirtualArmor = 18;
+            this.VirtualArmor = 18;
         }
 
         public HeadlessOne(Serial serial)
@@ -41,30 +43,34 @@ namespace Server.Mobiles
 
         public override bool CanRummageCorpses
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override int Meat
         {
-            get { return 1; }
+            get
+            {
+                return 1;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Poor);
+            this.AddLoot(LootPack.Poor);
             // TODO: body parts
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

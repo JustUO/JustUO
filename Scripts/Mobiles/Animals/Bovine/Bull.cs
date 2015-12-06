@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Mobiles
 {
     [CorpseName("a bull corpse")]
@@ -7,39 +9,39 @@ namespace Server.Mobiles
         public Bull()
             : base(AIType.AI_Animal, FightMode.Aggressor, 10, 1, 0.2, 0.4)
         {
-            Name = "a bull";
-            Body = Utility.RandomList(0xE8, 0xE9);
-            BaseSoundID = 0x64;
+            this.Name = "a bull";
+            this.Body = Utility.RandomList(0xE8, 0xE9);
+            this.BaseSoundID = 0x64;
 
             if (0.5 >= Utility.RandomDouble())
-                Hue = 0x901;
+                this.Hue = 0x901;
 
-            SetStr(77, 111);
-            SetDex(56, 75);
-            SetInt(47, 75);
+            this.SetStr(77, 111);
+            this.SetDex(56, 75);
+            this.SetInt(47, 75);
 
-            SetHits(50, 64);
-            SetMana(0);
+            this.SetHits(50, 64);
+            this.SetMana(0);
 
-            SetDamage(4, 9);
+            this.SetDamage(4, 9);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 25, 30);
-            SetResistance(ResistanceType.Cold, 10, 15);
+            this.SetResistance(ResistanceType.Physical, 25, 30);
+            this.SetResistance(ResistanceType.Cold, 10, 15);
 
-            SetSkill(SkillName.MagicResist, 17.6, 25.0);
-            SetSkill(SkillName.Tactics, 67.6, 85.0);
-            SetSkill(SkillName.Wrestling, 40.1, 57.5);
+            this.SetSkill(SkillName.MagicResist, 17.6, 25.0);
+            this.SetSkill(SkillName.Tactics, 67.6, 85.0);
+            this.SetSkill(SkillName.Wrestling, 40.1, 57.5);
 
-            Fame = 600;
-            Karma = 0;
+            this.Fame = 600;
+            this.Karma = 0;
 
-            VirtualArmor = 28;
+            this.VirtualArmor = 28;
 
-            Tamable = true;
-            ControlSlots = 1;
-            MinTameSkill = 71.1;
+            this.Tamable = true;
+            this.ControlSlots = 1;
+            this.MinTameSkill = 71.1;
         }
 
         public Bull(Serial serial)
@@ -49,36 +51,44 @@ namespace Server.Mobiles
 
         public override int Meat
         {
-            get { return 10; }
+            get
+            {
+                return 10;
+            }
         }
-
         public override int Hides
         {
-            get { return 15; }
+            get
+            {
+                return 15;
+            }
         }
-
         public override FoodType FavoriteFood
         {
-            get { return FoodType.GrainsAndHay; }
+            get
+            {
+                return FoodType.GrainsAndHay;
+            }
         }
-
         public override PackInstinct PackInstinct
         {
-            get { return PackInstinct.Bull; }
+            get
+            {
+                return PackInstinct.Bull;
+            }
         }
-
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

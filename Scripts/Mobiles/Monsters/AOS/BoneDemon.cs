@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Mobiles
 {
     [CorpseName("a bone demon corpse")]
@@ -7,39 +9,39 @@ namespace Server.Mobiles
         public BoneDemon()
             : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a bone demon";
-            Body = 308;
-            BaseSoundID = 0x48D;
+            this.Name = "a bone demon";
+            this.Body = 308;
+            this.BaseSoundID = 0x48D;
 
-            SetStr(1000);
-            SetDex(151, 175);
-            SetInt(171, 220);
+            this.SetStr(1000);
+            this.SetDex(151, 175);
+            this.SetInt(171, 220);
 
-            SetHits(3600);
+            this.SetHits(3600);
 
-            SetDamage(34, 36);
+            this.SetDamage(34, 36);
 
-            SetDamageType(ResistanceType.Physical, 50);
-            SetDamageType(ResistanceType.Cold, 50);
+            this.SetDamageType(ResistanceType.Physical, 50);
+            this.SetDamageType(ResistanceType.Cold, 50);
 
-            SetResistance(ResistanceType.Physical, 75);
-            SetResistance(ResistanceType.Fire, 60);
-            SetResistance(ResistanceType.Cold, 90);
-            SetResistance(ResistanceType.Poison, 100);
-            SetResistance(ResistanceType.Energy, 60);
+            this.SetResistance(ResistanceType.Physical, 75);
+            this.SetResistance(ResistanceType.Fire, 60);
+            this.SetResistance(ResistanceType.Cold, 90);
+            this.SetResistance(ResistanceType.Poison, 100);
+            this.SetResistance(ResistanceType.Energy, 60);
 
-            SetSkill(SkillName.DetectHidden, 80.0);
-            SetSkill(SkillName.EvalInt, 77.6, 87.5);
-            SetSkill(SkillName.Magery, 77.6, 87.5);
-            SetSkill(SkillName.Meditation, 100.0);
-            SetSkill(SkillName.MagicResist, 50.1, 75.0);
-            SetSkill(SkillName.Tactics, 100.0);
-            SetSkill(SkillName.Wrestling, 100.0);
+            this.SetSkill(SkillName.DetectHidden, 80.0);
+            this.SetSkill(SkillName.EvalInt, 77.6, 87.5);
+            this.SetSkill(SkillName.Magery, 77.6, 87.5);
+            this.SetSkill(SkillName.Meditation, 100.0);
+            this.SetSkill(SkillName.MagicResist, 50.1, 75.0);
+            this.SetSkill(SkillName.Tactics, 100.0);
+            this.SetSkill(SkillName.Wrestling, 100.0);
 
-            Fame = 20000;
-            Karma = -20000;
+            this.Fame = 20000;
+            this.Karma = -20000;
 
-            VirtualArmor = 44;
+            this.VirtualArmor = 44;
         }
 
         public BoneDemon(Serial serial)
@@ -49,44 +51,54 @@ namespace Server.Mobiles
 
         public override bool BardImmune
         {
-            get { return !Core.SE; }
+            get
+            {
+                return !Core.SE;
+            }
         }
-
         public override bool Unprovokable
         {
-            get { return Core.SE; }
+            get
+            {
+                return Core.SE;
+            }
         }
-
         public override bool AreaPeaceImmune
         {
-            get { return Core.SE; }
+            get
+            {
+                return Core.SE;
+            }
         }
-
         public override Poison PoisonImmune
         {
-            get { return Poison.Lethal; }
+            get
+            {
+                return Poison.Lethal;
+            }
         }
-
         public override int TreasureMapLevel
         {
-            get { return 1; }
+            get
+            {
+                return 1;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.FilthyRich, 8);
+            this.AddLoot(LootPack.FilthyRich, 8);
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

@@ -8,7 +8,6 @@ namespace Server.Mobiles
     public class Golem : BaseCreature
     {
         private bool m_Stunning;
-
         [Constructable]
         public Golem()
             : this(false, 1.0)
@@ -19,66 +18,66 @@ namespace Server.Mobiles
         public Golem(bool summoned, double scalar)
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.4, 0.8)
         {
-            Name = "a golem";
-            Body = 752;
+            this.Name = "a golem";
+            this.Body = 752;
 
             if (summoned)
-                Hue = 2101;
+                this.Hue = 2101;
 
-            SetStr((int) (251*scalar), (int) (350*scalar));
-            SetDex((int) (76*scalar), (int) (100*scalar));
-            SetInt((int) (101*scalar), (int) (150*scalar));
+            this.SetStr((int)(251 * scalar), (int)(350 * scalar));
+            this.SetDex((int)(76 * scalar), (int)(100 * scalar));
+            this.SetInt((int)(101 * scalar), (int)(150 * scalar));
 
-            SetHits((int) (151*scalar), (int) (210*scalar));
+            this.SetHits((int)(151 * scalar), (int)(210 * scalar));
 
-            SetDamage((int) (13*scalar), (int) (24*scalar));
+            this.SetDamage((int)(13 * scalar), (int)(24 * scalar));
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, (int) (35*scalar), (int) (55*scalar));
+            this.SetResistance(ResistanceType.Physical, (int)(35 * scalar), (int)(55 * scalar));
 
             if (summoned)
-                SetResistance(ResistanceType.Fire, (int) (50*scalar), (int) (60*scalar));
+                this.SetResistance(ResistanceType.Fire, (int)(50 * scalar), (int)(60 * scalar));
             else
-                SetResistance(ResistanceType.Fire, (int) (100*scalar));
+                this.SetResistance(ResistanceType.Fire, (int)(100 * scalar));
 
-            SetResistance(ResistanceType.Cold, (int) (10*scalar), (int) (30*scalar));
-            SetResistance(ResistanceType.Poison, (int) (10*scalar), (int) (25*scalar));
-            SetResistance(ResistanceType.Energy, (int) (30*scalar), (int) (40*scalar));
+            this.SetResistance(ResistanceType.Cold, (int)(10 * scalar), (int)(30 * scalar));
+            this.SetResistance(ResistanceType.Poison, (int)(10 * scalar), (int)(25 * scalar));
+            this.SetResistance(ResistanceType.Energy, (int)(30 * scalar), (int)(40 * scalar));
 
-            SetSkill(SkillName.MagicResist, (150.1*scalar), (190.0*scalar));
-            SetSkill(SkillName.Tactics, (60.1*scalar), (100.0*scalar));
-            SetSkill(SkillName.Wrestling, (60.1*scalar), (100.0*scalar));
+            this.SetSkill(SkillName.MagicResist, (150.1 * scalar), (190.0 * scalar));
+            this.SetSkill(SkillName.Tactics, (60.1 * scalar), (100.0 * scalar));
+            this.SetSkill(SkillName.Wrestling, (60.1 * scalar), (100.0 * scalar));
 
             if (summoned)
             {
-                Fame = 10;
-                Karma = 10;
+                this.Fame = 10;
+                this.Karma = 10;
             }
             else
             {
-                Fame = 3500;
-                Karma = -3500;
+                this.Fame = 3500;
+                this.Karma = -3500;
             }
 
             if (!summoned)
             {
-                PackItem(new IronIngot(Utility.RandomMinMax(13, 21)));
+                this.PackItem(new IronIngot(Utility.RandomMinMax(13, 21)));
 
                 if (0.1 > Utility.RandomDouble())
-                    PackItem(new PowerCrystal());
+                    this.PackItem(new PowerCrystal());
 
                 if (0.15 > Utility.RandomDouble())
-                    PackItem(new ClockworkAssembly());
+                    this.PackItem(new ClockworkAssembly());
 
                 if (0.2 > Utility.RandomDouble())
-                    PackItem(new ArcaneGem());
+                    this.PackItem(new ArcaneGem());
 
                 if (0.25 > Utility.RandomDouble())
-                    PackItem(new Gears());
+                    this.PackItem(new Gears());
             }
 
-            ControlSlots = 3;
+            this.ControlSlots = 3;
         }
 
         public Golem(Serial serial)
@@ -88,61 +87,81 @@ namespace Server.Mobiles
 
         public override bool IsScaredOfScaryThings
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
-
         public override bool IsScaryToPets
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override bool IsBondable
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
-
         public override FoodType FavoriteFood
         {
-            get { return FoodType.None; }
+            get
+            {
+                return FoodType.None;
+            }
         }
-
         public override bool CanBeDistracted
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
-
         public override bool DeleteOnRelease
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override bool AutoDispel
         {
-            get { return !Controlled; }
+            get
+            {
+                return !this.Controlled;
+            }
         }
-
         public override bool BleedImmune
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override bool BardImmune
         {
-            get { return !Core.AOS || Controlled; }
+            get
+            {
+                return !Core.AOS || this.Controlled;
+            }
         }
-
         public override Poison PoisonImmune
         {
-            get { return Poison.Lethal; }
+            get
+            {
+                return Poison.Lethal;
+            }
         }
-
         public override void OnDeath(Container c)
         {
             base.OnDeath(c);
 
             if (0.05 > Utility.RandomDouble())
             {
-                if (!IsParagon)
+                if (!this.IsParagon)
                 {
                     if (0.75 > Utility.RandomDouble())
                         c.DropItem(DawnsMusicGear.RandomCommon);
@@ -161,7 +180,7 @@ namespace Server.Mobiles
 
         public override int GetIdleSound()
         {
-            if (!Controlled)
+            if (!this.Controlled)
                 return 542;
 
             return base.GetIdleSound();
@@ -169,7 +188,7 @@ namespace Server.Mobiles
 
         public override int GetDeathSound()
         {
-            if (!Controlled)
+            if (!this.Controlled)
                 return 545;
 
             return base.GetDeathSound();
@@ -182,7 +201,7 @@ namespace Server.Mobiles
 
         public override int GetHurtSound()
         {
-            if (Controlled)
+            if (this.Controlled)
                 return 320;
 
             return base.GetHurtSound();
@@ -192,16 +211,15 @@ namespace Server.Mobiles
         {
             base.OnGaveMeleeAttack(defender);
 
-            if (!m_Stunning && 0.3 > Utility.RandomDouble())
+            if (!this.m_Stunning && 0.3 > Utility.RandomDouble())
             {
-                m_Stunning = true;
+                this.m_Stunning = true;
 
                 defender.Animate(21, 6, 1, true, false, 0);
-                PlaySound(0xEE);
-                defender.LocalOverheadMessage(MessageType.Regular, 0x3B2, false,
-                    "You have been stunned by a colossal blow!");
+                this.PlaySound(0xEE);
+                defender.LocalOverheadMessage(MessageType.Regular, 0x3B2, false, "You have been stunned by a colossal blow!");
 
-                var weapon = Weapon as BaseWeapon;
+                BaseWeapon weapon = this.Weapon as BaseWeapon;
                 if (weapon != null)
                     weapon.OnHit(this, defender);
 
@@ -215,14 +233,14 @@ namespace Server.Mobiles
 
         public override void OnDamage(int amount, Mobile from, bool willKill)
         {
-            if (Controlled || Summoned)
+            if (this.Controlled || this.Summoned)
             {
-                var master = (ControlMaster);
+                Mobile master = (this.ControlMaster);
 
                 if (master == null)
-                    master = SummonMaster;
+                    master = this.SummonMaster;
 
-                if (master != null && master.Player && master.Map == Map && master.InRange(Location, 20))
+                if (master != null && master.Player && master.Map == this.Map && master.InRange(this.Location, 20))
                 {
                     if (master.Mana >= amount)
                     {
@@ -243,18 +261,18 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
 
         private void Recover_Callback(object state)
         {
-            var defender = state as Mobile;
+            Mobile defender = state as Mobile;
 
             if (defender != null)
             {
@@ -263,7 +281,7 @@ namespace Server.Mobiles
                 defender.LocalOverheadMessage(MessageType.Regular, 0x3B2, false, "You recover your senses.");
             }
 
-            m_Stunning = false;
+            this.m_Stunning = false;
         }
     }
 }

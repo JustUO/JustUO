@@ -1,5 +1,5 @@
+using System;
 using System.Collections;
-using Server.Engines.Plants;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -12,40 +12,40 @@ namespace Server.Mobiles
         public Yamandon()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a yamandon";
-            Body = 249;
+            this.Name = "a yamandon";
+            this.Body = 249;
 
-            SetStr(786, 930);
-            SetDex(251, 365);
-            SetInt(101, 115);
+            this.SetStr(786, 930);
+            this.SetDex(251, 365);
+            this.SetInt(101, 115);
 
-            SetHits(1601, 1800);
+            this.SetHits(1601, 1800);
 
-            SetDamage(19, 35);
+            this.SetDamage(19, 35);
 
-            SetDamageType(ResistanceType.Physical, 70);
-            SetDamageType(ResistanceType.Poison, 20);
-            SetDamageType(ResistanceType.Energy, 10);
+            this.SetDamageType(ResistanceType.Physical, 70);
+            this.SetDamageType(ResistanceType.Poison, 20);
+            this.SetDamageType(ResistanceType.Energy, 10);
 
-            SetResistance(ResistanceType.Physical, 65, 85);
-            SetResistance(ResistanceType.Fire, 70, 90);
-            SetResistance(ResistanceType.Cold, 50, 70);
-            SetResistance(ResistanceType.Poison, 50, 70);
-            SetResistance(ResistanceType.Energy, 50, 70);
+            this.SetResistance(ResistanceType.Physical, 65, 85);
+            this.SetResistance(ResistanceType.Fire, 70, 90);
+            this.SetResistance(ResistanceType.Cold, 50, 70);
+            this.SetResistance(ResistanceType.Poison, 50, 70);
+            this.SetResistance(ResistanceType.Energy, 50, 70);
 
-            SetSkill(SkillName.Anatomy, 115.1, 130.0);
-            SetSkill(SkillName.MagicResist, 117.6, 132.5);
-            SetSkill(SkillName.Poisoning, 120.1, 140.0);
-            SetSkill(SkillName.Tactics, 117.1, 132.0);
-            SetSkill(SkillName.Wrestling, 112.6, 132.5);
+            this.SetSkill(SkillName.Anatomy, 115.1, 130.0);
+            this.SetSkill(SkillName.MagicResist, 117.6, 132.5);
+            this.SetSkill(SkillName.Poisoning, 120.1, 140.0);
+            this.SetSkill(SkillName.Tactics, 117.1, 132.0);
+            this.SetSkill(SkillName.Wrestling, 112.6, 132.5);
 
-            Fame = 22000;
-            Karma = -22000;
+            this.Fame = 22000;
+            this.Karma = -22000;
 
             if (Utility.RandomDouble() < .50)
-                PackItem(Seed.RandomBonsaiSeed());
+                this.PackItem(Engines.Plants.Seed.RandomBonsaiSeed());
 
-            PackItem(new Eggs(2));
+            this.PackItem(new Eggs(2));
         }
 
         public Yamandon(Serial serial)
@@ -55,29 +55,39 @@ namespace Server.Mobiles
 
         public override bool ReacquireOnMovement
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override Poison PoisonImmune
         {
-            get { return Poison.Lethal; }
+            get
+            {
+                return Poison.Lethal;
+            }
         }
-
         public override Poison HitPoison
         {
-            get { return Utility.RandomBool() ? Poison.Deadly : Poison.Lethal; }
+            get
+            {
+                return Utility.RandomBool() ? Poison.Deadly : Poison.Lethal;
+            }
         }
-
         public override int TreasureMapLevel
         {
-            get { return 5; }
+            get
+            {
+                return 5;
+            }
         }
-
         public override int Hides
         {
-            get { return 20; }
+            get
+            {
+                return 20;
+            }
         }
-
         public override WeaponAbility GetWeaponAbility()
         {
             return WeaponAbility.DoubleStrike;
@@ -85,23 +95,23 @@ namespace Server.Mobiles
 
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.UltraRich);
-            AddLoot(LootPack.FilthyRich, 2);
-            AddLoot(LootPack.Gems, 6);
+            this.AddLoot(LootPack.UltraRich);
+            this.AddLoot(LootPack.FilthyRich, 2);
+            this.AddLoot(LootPack.Gems, 6);
         }
 
         public override void OnDamagedBySpell(Mobile attacker)
         {
             base.OnDamagedBySpell(attacker);
 
-            DoCounter(attacker);
+            this.DoCounter(attacker);
         }
 
         public override void OnGotMeleeAttack(Mobile attacker)
         {
             base.OnGotMeleeAttack(attacker);
 
-            DoCounter(attacker);
+            this.DoCounter(attacker);
         }
 
         public override int GetAttackSound()
@@ -133,22 +143,22 @@ namespace Server.Mobiles
         {
             base.Serialize(writer);
 
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
 
         private void DoCounter(Mobile attacker)
         {
-            if (Map == null)
+            if (this.Map == null)
                 return;
 
-            if (attacker is BaseCreature && ((BaseCreature) attacker).BardProvoked)
+            if (attacker is BaseCreature && ((BaseCreature)attacker).BardProvoked)
                 return;
 
             if (0.2 > Utility.RandomDouble())
@@ -163,8 +173,8 @@ namespace Server.Mobiles
 
                 if (attacker is BaseCreature)
                 {
-                    var m = ((BaseCreature) attacker).GetMaster();
-
+                    Mobile m = ((BaseCreature)attacker).GetMaster();
+					
                     if (m != null)
                         target = m;
                 }
@@ -172,31 +182,30 @@ namespace Server.Mobiles
                 if (target == null || !target.InRange(this, 18))
                     target = attacker;
 
-                Animate(10, 4, 1, true, false, 0);
+                this.Animate(10, 4, 1, true, false, 0);
 
-                var targets = new ArrayList();
+                ArrayList targets = new ArrayList();
 
-                foreach (var m in target.GetMobilesInRange(8))
+                foreach (Mobile m in target.GetMobilesInRange(8))
                 {
-                    if (m == this || !CanBeHarmful(m))
+                    if (m == this || !this.CanBeHarmful(m))
                         continue;
 
-                    if (m is BaseCreature &&
-                        (((BaseCreature) m).Controlled || ((BaseCreature) m).Summoned || ((BaseCreature) m).Team != Team))
+                    if (m is BaseCreature && (((BaseCreature)m).Controlled || ((BaseCreature)m).Summoned || ((BaseCreature)m).Team != this.Team))
                         targets.Add(m);
                     else if (m.Player && m.Alive)
                         targets.Add(m);
                 }
 
-                for (var i = 0; i < targets.Count; ++i)
+                for (int i = 0; i < targets.Count; ++i)
                 {
-                    var m = (Mobile) targets[i];
+                    Mobile m = (Mobile)targets[i];
 
-                    DoHarmful(m);
+                    this.DoHarmful(m);
 
                     AOS.Damage(m, this, Utility.RandomMinMax(20, 25), true, 0, 0, 0, 100, 0);
 
-                    m.FixedParticles(0x36BD, 1, 10, 0x1F78, 0xA6, 0, (EffectLayer) 255);
+                    m.FixedParticles(0x36BD, 1, 10, 0x1F78, 0xA6, 0, (EffectLayer)255);
                     m.ApplyPoison(this, Poison.Lethal);
                 }
             }

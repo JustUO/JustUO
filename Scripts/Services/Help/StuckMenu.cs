@@ -1,6 +1,7 @@
 using System;
 using Server.Gumps;
 using Server.Network;
+using Server.Regions;
 
 namespace Server.Menus.Questions
 {
@@ -10,28 +11,30 @@ namespace Server.Menus.Questions
         private readonly Point3D[] m_Locations;
         public StuckMenuEntry(int name, Point3D[] locations)
         {
-            this.m_Name = name;
-            this.m_Locations = locations;
+            m_Name = name;
+            m_Locations = locations;
         }
 
         public int Name
         {
             get
             {
-                return this.m_Name;
+                return m_Name;
             }
         }
         public Point3D[] Locations
         {
             get
             {
-                return this.m_Locations;
+                return m_Locations;
             }
         }
     }
 
     public class StuckMenu : Gump
     {
+        public override int TypeID { get { return 0x128; } }
+
         private static readonly StuckMenuEntry[] m_Entries = new StuckMenuEntry[]
         {
             // Britain
@@ -116,77 +119,110 @@ namespace Server.Menus.Questions
                 new Point3D(5243, 3960, 37)
             })
         };
+
+        private static StuckMenuEntry[] m_TerMurEntries = new StuckMenuEntry[]
+			{
+				// Royal City
+				new StuckMenuEntry( 1112571, new Point3D[]
+					{
+						new Point3D( 743, 3485, -19 )
+					} ),
+				// Holy City
+				new StuckMenuEntry( 1112572, new Point3D[]
+					{
+						new Point3D( 1003, 3911, -42 )
+					} )
+			};
+
+        private static StuckMenuEntry[] GetEntriesFor(Mobile m)
+        {
+            if (m.Region.IsPartOf(typeof(DungeonRegion)) && m.Map == Map.TerMur)
+            {
+                if (m.Race == Race.Gargoyle)
+                    return m_TerMurEntries;
+                else
+                    return m_Entries;
+            }
+            else if (m.Map == Map.TerMur)
+                return m_TerMurEntries;
+            else if (IsInSecondAgeArea(m))
+                return m_T2AEntries;
+            else
+                return m_Entries;
+        }
+
         private readonly Mobile m_Mobile;
         private readonly Mobile m_Sender;
         private readonly bool m_MarkUse;
         private Timer m_Timer;
+
         public StuckMenu(Mobile beholder, Mobile beheld, bool markUse)
             : base(150, 50)
         {
-            this.m_Sender = beholder;
-            this.m_Mobile = beheld;
-            this.m_MarkUse = markUse;
+            m_Sender = beholder;
+            m_Mobile = beheld;
+            m_MarkUse = markUse;
 
-            this.Closable = false; 
-            this.Dragable = false; 
-            this.Disposable = false;
+            AddBackground(0, 0, 270, 320, 2600);
 
-            this.AddBackground(0, 0, 270, 320, 2600);
+            AddHtmlLocalized(90, 265, 200, 35, 1011012, false, false); // CANCEL
+            AddHtmlLocalized(50, 20, 250, 35, 1011027, false, false); // Chose a town:
 
-            this.AddHtmlLocalized(50, 20, 250, 35, 1011027, false, false); // Chose a town:
+            AddButton(55, 263, 4005, 4007, 0, GumpButtonType.Reply, 0);
 
-            StuckMenuEntry[] entries = IsInSecondAgeArea(beheld) ? m_T2AEntries : m_Entries;
+            StuckMenuEntry[] entries = GetEntriesFor(beheld);
 
             for (int i = 0; i < entries.Length; i++)
             {
                 StuckMenuEntry entry = entries[i];
 
-                this.AddButton(50, 55 + 35 * i, 208, 209, i + 1, GumpButtonType.Reply, 0);
-                this.AddHtmlLocalized(75, 55 + 35 * i, 335, 40, entry.Name, false, false);
+                AddButton(50, 55 + 35 * i, 208, 209, i + 1, GumpButtonType.Reply, 0);
+                AddHtmlLocalized(75, 55 + 35 * i, 335, 40, entry.Name, false, false);
             }
 
-            this.AddButton(55, 263, 4005, 4007, 0, GumpButtonType.Reply, 0);
-            this.AddHtmlLocalized(90, 265, 200, 35, 1011012, false, false); // CANCEL
+            Closable = false;
+            Dragable = false;
+            Disposable = false;
         }
 
         public void BeginClose()
         {
-            this.StopClose();
+            StopClose();
 
-            this.m_Timer = new CloseTimer(this.m_Mobile);
-            this.m_Timer.Start();
+            m_Timer = new CloseTimer(m_Mobile);
+            m_Timer.Start();
 
-            this.m_Mobile.Frozen = true;
+            m_Mobile.Frozen = true;
         }
 
         public void StopClose()
         {
-            if (this.m_Timer != null)
-                this.m_Timer.Stop();
+            if (m_Timer != null)
+                m_Timer.Stop();
 
-            this.m_Mobile.Frozen = false;
+            m_Mobile.Frozen = false;
         }
 
         public override void OnResponse(NetState state, RelayInfo info)
         {
-            this.StopClose();
+            StopClose();
 
-            if (Factions.Sigil.ExistsOn(this.m_Mobile))
+            if (Factions.Sigil.ExistsOn(m_Mobile))
             {
-                this.m_Mobile.SendLocalizedMessage(1061632); // You can't do that while carrying the sigil.
+                m_Mobile.SendLocalizedMessage(1061632); // You can't do that while carrying the sigil.
             }
             else if (info.ButtonID == 0)
             {
-                if (this.m_Mobile == this.m_Sender)
-                    this.m_Mobile.SendLocalizedMessage(1010588); // You choose not to go to any city.
+                if (m_Mobile == m_Sender)
+                    m_Mobile.SendLocalizedMessage(1010588); // You choose not to go to any city.
             }
             else
             {
                 int index = info.ButtonID - 1;
-                StuckMenuEntry[] entries = IsInSecondAgeArea(this.m_Mobile) ? m_T2AEntries : m_Entries;
+                StuckMenuEntry[] entries = GetEntriesFor(m_Mobile);
 
                 if (index >= 0 && index < entries.Length)
-                    this.Teleport(entries[index]);
+                    Teleport(entries[index]);
             }
         }
 
@@ -206,17 +242,17 @@ namespace Server.Menus.Questions
 
         private void Teleport(StuckMenuEntry entry)
         {
-            if (this.m_MarkUse) 
+            if (m_MarkUse) 
             {
-                this.m_Mobile.SendLocalizedMessage(1010589); // You will be teleported within the next two minutes.
+                m_Mobile.SendLocalizedMessage(1010589); // You will be teleported within the next two minutes.
 
-                new TeleportTimer(this.m_Mobile, entry, TimeSpan.FromSeconds(10.0 + (Utility.RandomDouble() * 110.0))).Start();
+                new TeleportTimer(m_Mobile, entry, TimeSpan.FromSeconds(10.0 + (Utility.RandomDouble() * 110.0))).Start();
 
-                this.m_Mobile.UsedStuckMenu();
+                m_Mobile.UsedStuckMenu();
             }
             else
             {
-                new TeleportTimer(this.m_Mobile, entry, TimeSpan.Zero).Start();
+                new TeleportTimer(m_Mobile, entry, TimeSpan.Zero).Start();
             }
         }
 
@@ -227,22 +263,22 @@ namespace Server.Menus.Questions
             public CloseTimer(Mobile m)
                 : base(TimeSpan.Zero, TimeSpan.FromSeconds(1.0))
             {
-                this.m_Mobile = m;
-                this.m_End = DateTime.UtcNow + TimeSpan.FromMinutes(3.0);
+                m_Mobile = m;
+                m_End = DateTime.UtcNow + TimeSpan.FromMinutes(3.0);
             }
 
             protected override void OnTick()
             {
-                if (this.m_Mobile.NetState == null || DateTime.UtcNow > this.m_End)
+                if (m_Mobile.NetState == null || DateTime.UtcNow > m_End)
                 {
-                    this.m_Mobile.Frozen = false;
-                    this.m_Mobile.CloseGump(typeof(StuckMenu));
+                    m_Mobile.Frozen = false;
+                    m_Mobile.CloseGump(typeof(StuckMenu));
 
-                    this.Stop();
+                    Stop();
                 }
                 else
                 {
-                    this.m_Mobile.Frozen = true;
+                    m_Mobile.Frozen = true;
                 }
             }
         }
@@ -250,48 +286,61 @@ namespace Server.Menus.Questions
         private class TeleportTimer : Timer
         {
             private readonly Mobile m_Mobile;
+            private Map m_Map;
+            private Region m_Region;
             private readonly StuckMenuEntry m_Destination;
             private readonly DateTime m_End;
             public TeleportTimer(Mobile mobile, StuckMenuEntry destination, TimeSpan delay)
                 : base(TimeSpan.Zero, TimeSpan.FromSeconds(1.0))
             {
-                this.Priority = TimerPriority.TwoFiftyMS;
+                Priority = TimerPriority.TwoFiftyMS;
 
-                this.m_Mobile = mobile;
-                this.m_Destination = destination;
-                this.m_End = DateTime.UtcNow + delay;
+                m_Mobile = mobile;
+                m_Map = mobile.Map;
+                m_Region = mobile.Region;
+                m_Destination = destination;
+                m_End = DateTime.UtcNow + delay;
             }
 
             protected override void OnTick()
             {
-                if (DateTime.UtcNow < this.m_End)
+                if (DateTime.UtcNow < m_End)
                 {
-                    this.m_Mobile.Frozen = true;
+                    m_Mobile.Frozen = true;
                 }
                 else
                 {
-                    this.m_Mobile.Frozen = false;
-                    this.Stop();
+                    m_Mobile.Frozen = false;
+                    Stop();
 
-                    if (Factions.Sigil.ExistsOn(this.m_Mobile))
+                    if (Factions.Sigil.ExistsOn(m_Mobile))
                     {
-                        this.m_Mobile.SendLocalizedMessage(1061632); // You can't do that while carrying the sigil.
+                        m_Mobile.SendLocalizedMessage(1061632); // You can't do that while carrying the sigil.
                         return;
                     }
 
-                    int idx = Utility.Random(this.m_Destination.Locations.Length);
-                    Point3D dest = this.m_Destination.Locations[idx];
+                    int idx = Utility.Random(m_Destination.Locations.Length);
+                    Point3D dest = m_Destination.Locations[idx];
 
                     Map destMap;
-                    if (this.m_Mobile.Map == Map.Trammel)
-                        destMap = Map.Trammel;
-                    else if (this.m_Mobile.Map == Map.Felucca)
+                    if (m_Map == Map.Felucca)
                         destMap = Map.Felucca;
+                    else if (m_Map == Map.Trammel)
+                        destMap = Map.Trammel;
+                    else if (m_Map == Map.TerMur && m_Region.IsPartOf(typeof(DungeonRegion)))
+                    {
+                        if (m_Mobile.Race == Race.Gargoyle)
+                            destMap = Map.TerMur;
+                        else
+                            destMap = Map.Trammel;
+                    }
+                    else if (m_Map == Map.TerMur)
+                        destMap = Map.TerMur;
                     else
-                        destMap = this.m_Mobile.Kills >= 5 ? Map.Felucca : Map.Trammel;
+                        destMap = m_Mobile.Kills >= 5 ? Map.Felucca : Map.Trammel;
 
-                    Mobiles.BaseCreature.TeleportPets(this.m_Mobile, dest, destMap);
-                    this.m_Mobile.MoveToWorld(dest, destMap);
+                    Mobiles.BaseCreature.TeleportPets(m_Mobile, dest, destMap);
+                    m_Mobile.MoveToWorld(dest, destMap);
                 }
             }
         }

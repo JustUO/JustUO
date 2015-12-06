@@ -1,4 +1,4 @@
-using Server.Items;
+using System;
 
 namespace Server.Mobiles
 {
@@ -10,43 +10,43 @@ namespace Server.Mobiles
     public class BloodWorm : BaseCreature, IBloodCreature
     {
         [Constructable]
-        public BloodWorm() : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
+        public BloodWorm()
+            : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a bloodworm";
-            Body = 287;
+            this.Name = "a bloodworm";
+            this.Body = 287;
 
-            SetStr(420);
-            SetDex(80);
-            SetInt(18);
+            this.SetStr(401, 473);
+            this.SetDex(80);
+            this.SetInt(18, 19);
 
-            SetHits(365);
+            this.SetHits(374, 422);
 
-            SetDamage(11, 17);
+            this.SetDamage(11, 17);
 
-            SetDamageType(ResistanceType.Physical, 60);
-            SetDamageType(ResistanceType.Poison, 40);
+            this.SetDamageType(ResistanceType.Physical, 60);
+            this.SetDamageType(ResistanceType.Poison, 40);
+				
+            this.SetResistance(ResistanceType.Physical, 52, 55);
+            this.SetResistance(ResistanceType.Fire, 42, 50);
+            this.SetResistance(ResistanceType.Cold, 29, 31);
+            this.SetResistance(ResistanceType.Poison, 69, 75);
+            this.SetResistance(ResistanceType.Energy, 26, 27);
 
-            SetResistance(ResistanceType.Physical, 49);
-            SetResistance(ResistanceType.Fire, 50);
-            SetResistance(ResistanceType.Cold, 35);
-            SetResistance(ResistanceType.Poison, 69);
-            SetResistance(ResistanceType.Energy, 26);
-
-            SetSkill(SkillName.MagicResist, 35.0);
-            SetSkill(SkillName.Tactics, 100.0);
-            SetSkill(SkillName.Wrestling, 100.0);
-
-            QLPoints = 15;
+            this.SetSkill(SkillName.MagicResist, 35.0);
+            this.SetSkill(SkillName.Tactics, 100.0);
+            this.SetSkill(SkillName.Wrestling, 100.0);
         }
 
-        public BloodWorm(Serial serial) : base(serial)
+        public BloodWorm(Serial serial)
+            : base(serial)
         {
         }
 
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Rich);
-            AddLoot(LootPack.Average);
+            this.AddLoot(LootPack.Rich);
+            this.AddLoot(LootPack.Average);
         }
 
         public override int GetIdleSound()
@@ -72,13 +72,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

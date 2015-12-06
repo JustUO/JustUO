@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -9,44 +10,44 @@ namespace Server.Mobiles
         public UsagralemBallem()
             : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "an Usagrallem Ballem";
-            Hue = 2071;
-            Body = 318;
-            BaseSoundID = 0x165;
+            this.Name = "an Usagrallem Ballem";
+            this.Hue = 2071;
+            this.Body = 318;
+            this.BaseSoundID = 0x165;
 
-            SetStr(500);
-            SetDex(100);
-            SetInt(1000);
+            this.SetStr(500);
+            this.SetDex(100);
+            this.SetInt(1000);
 
-            SetHits(30000);
-            SetMana(5000);
+            this.SetHits(30000);
+            this.SetMana(5000);
 
-            SetDamage(17, 21);
+            this.SetDamage(17, 21);
 
-            SetDamageType(ResistanceType.Physical, 20);
-            SetDamageType(ResistanceType.Fire, 20);
-            SetDamageType(ResistanceType.Cold, 20);
-            SetDamageType(ResistanceType.Poison, 20);
-            SetDamageType(ResistanceType.Energy, 20);
+            this.SetDamageType(ResistanceType.Physical, 20);
+            this.SetDamageType(ResistanceType.Fire, 20);
+            this.SetDamageType(ResistanceType.Cold, 20);
+            this.SetDamageType(ResistanceType.Poison, 20);
+            this.SetDamageType(ResistanceType.Energy, 20);
 
-            SetResistance(ResistanceType.Physical, 30);
-            SetResistance(ResistanceType.Fire, 30);
-            SetResistance(ResistanceType.Cold, 30);
-            SetResistance(ResistanceType.Poison, 30);
-            SetResistance(ResistanceType.Energy, 30);
+            this.SetResistance(ResistanceType.Physical, 30);
+            this.SetResistance(ResistanceType.Fire, 30);
+            this.SetResistance(ResistanceType.Cold, 30);
+            this.SetResistance(ResistanceType.Poison, 30);
+            this.SetResistance(ResistanceType.Energy, 30);
 
-            SetSkill(SkillName.DetectHidden, 80.0);
-            SetSkill(SkillName.EvalInt, 100.0);
-            SetSkill(SkillName.Magery, 100.0);
-            SetSkill(SkillName.Meditation, 120.0);
-            SetSkill(SkillName.MagicResist, 150.0);
-            SetSkill(SkillName.Tactics, 100.0);
-            SetSkill(SkillName.Wrestling, 120.0);
+            this.SetSkill(SkillName.DetectHidden, 80.0);
+            this.SetSkill(SkillName.EvalInt, 100.0);
+            this.SetSkill(SkillName.Magery, 100.0);
+            this.SetSkill(SkillName.Meditation, 120.0);
+            this.SetSkill(SkillName.MagicResist, 150.0);
+            this.SetSkill(SkillName.Tactics, 100.0);
+            this.SetSkill(SkillName.Wrestling, 120.0);
 
-            Fame = 28000;
-            Karma = -28000;
+            this.Fame = 28000;
+            this.Karma = -28000;
 
-            VirtualArmor = 64;
+            this.VirtualArmor = 64;
         }
 
         public UsagralemBallem(Serial serial)
@@ -56,37 +57,49 @@ namespace Server.Mobiles
 
         public override bool IgnoreYoungProtection
         {
-            get { return Core.ML; }
+            get
+            {
+                return Core.ML;
+            }
         }
-
         public override bool AlwaysMurderer
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override bool BardImmune
         {
-            get { return !Core.SE; }
+            get
+            {
+                return !Core.SE;
+            }
         }
-
         public override bool Unprovokable
         {
-            get { return Core.SE; }
+            get
+            {
+                return Core.SE;
+            }
         }
-
         public override bool AreaPeaceImmune
         {
-            get { return Core.SE; }
+            get
+            {
+                return Core.SE;
+            }
         }
-
         public override Poison PoisonImmune
         {
-            get { return Poison.Lethal; }
+            get
+            {
+                return Poison.Lethal;
+            }
         }
-
         public override WeaponAbility GetWeaponAbility()
         {
-            switch (Utility.Random(3))
+            switch ( Utility.Random(3) )
             {
                 default:
                 case 0:
@@ -100,8 +113,8 @@ namespace Server.Mobiles
 
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.SuperBoss, 2);
-            AddLoot(LootPack.HighScrolls, Utility.RandomMinMax(6, 10));
+            this.AddLoot(LootPack.SuperBoss, 2);
+            this.AddLoot(LootPack.HighScrolls, Utility.RandomMinMax(6, 10));
         }
 
         public override void OnDeath(Container c)
@@ -116,10 +129,10 @@ namespace Server.Mobiles
                 switch (Utility.Random(2))
                 {
                     case 0:
-                        AddToBackpack(new VoidEssence());
+                        this.AddToBackpack(new VoidEssence());
                         break;
                     case 1:
-                        AddToBackpack(new AncientPotteryFragments());
+                        this.AddToBackpack(new AncientPotteryFragments());
                         break;
                 }
             }
@@ -128,13 +141,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

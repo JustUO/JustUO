@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Mobiles
 {
     [CorpseName("a doppleganger corpse")]
@@ -7,32 +9,32 @@ namespace Server.Mobiles
         public Doppleganger()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a doppleganger";
-            Body = 0x309;
-            BaseSoundID = 0x451;
+            this.Name = "a doppleganger";
+            this.Body = 0x309;
+            this.BaseSoundID = 0x451;
 
-            SetStr(81, 110);
-            SetDex(56, 75);
-            SetInt(81, 105);
+            this.SetStr(81, 110);
+            this.SetDex(56, 75);
+            this.SetInt(81, 105);
 
-            SetHits(101, 120);
+            this.SetHits(101, 120);
 
-            SetDamage(8, 12);
+            this.SetDamage(8, 12);
 
-            SetResistance(ResistanceType.Physical, 50, 60);
-            SetResistance(ResistanceType.Fire, 10, 20);
-            SetResistance(ResistanceType.Cold, 40, 50);
-            SetResistance(ResistanceType.Poison, 50, 60);
-            SetResistance(ResistanceType.Energy, 30, 40);
+            this.SetResistance(ResistanceType.Physical, 50, 60);
+            this.SetResistance(ResistanceType.Fire, 10, 20);
+            this.SetResistance(ResistanceType.Cold, 40, 50);
+            this.SetResistance(ResistanceType.Poison, 50, 60);
+            this.SetResistance(ResistanceType.Energy, 30, 40);
 
-            SetSkill(SkillName.MagicResist, 75.1, 85.0);
-            SetSkill(SkillName.Tactics, 70.1, 80.0);
-            SetSkill(SkillName.Wrestling, 80.1, 90.0);
+            this.SetSkill(SkillName.MagicResist, 75.1, 85.0);
+            this.SetSkill(SkillName.Tactics, 70.1, 80.0);
+            this.SetSkill(SkillName.Wrestling, 80.1, 90.0);
 
-            Fame = 1000;
-            Karma = -1000;
+            this.Fame = 1000;
+            this.Karma = -1000;
 
-            VirtualArmor = 55;
+            this.VirtualArmor = 55;
         }
 
         public Doppleganger(Serial serial)
@@ -42,29 +44,33 @@ namespace Server.Mobiles
 
         public override int Hides
         {
-            get { return 6; }
+            get
+            {
+                return 6;
+            }
         }
-
         public override int Meat
         {
-            get { return 1; }
+            get
+            {
+                return 1;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Average);
+            this.AddLoot(LootPack.Average);
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

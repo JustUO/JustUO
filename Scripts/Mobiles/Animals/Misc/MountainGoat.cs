@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Mobiles
 {
     [CorpseName("a mountain goat corpse")]
@@ -7,39 +9,39 @@ namespace Server.Mobiles
         public MountainGoat()
             : base(AIType.AI_Animal, FightMode.Aggressor, 10, 1, 0.2, 0.4)
         {
-            Name = "a mountain goat";
-            Body = 88;
-            BaseSoundID = 0x99;
+            this.Name = "a mountain goat";
+            this.Body = 88;
+            this.BaseSoundID = 0x99;
 
-            SetStr(22, 64);
-            SetDex(56, 75);
-            SetInt(16, 30);
+            this.SetStr(22, 64);
+            this.SetDex(56, 75);
+            this.SetInt(16, 30);
 
-            SetHits(20, 33);
-            SetMana(0);
+            this.SetHits(20, 33);
+            this.SetMana(0);
 
-            SetDamage(3, 7);
+            this.SetDamage(3, 7);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 10, 20);
-            SetResistance(ResistanceType.Fire, 5, 10);
-            SetResistance(ResistanceType.Cold, 10, 20);
-            SetResistance(ResistanceType.Poison, 10, 15);
-            SetResistance(ResistanceType.Energy, 10, 15);
+            this.SetResistance(ResistanceType.Physical, 10, 20);
+            this.SetResistance(ResistanceType.Fire, 5, 10);
+            this.SetResistance(ResistanceType.Cold, 10, 20);
+            this.SetResistance(ResistanceType.Poison, 10, 15);
+            this.SetResistance(ResistanceType.Energy, 10, 15);
 
-            SetSkill(SkillName.MagicResist, 25.1, 30.0);
-            SetSkill(SkillName.Tactics, 29.3, 44.0);
-            SetSkill(SkillName.Wrestling, 29.3, 44.0);
+            this.SetSkill(SkillName.MagicResist, 25.1, 30.0);
+            this.SetSkill(SkillName.Tactics, 29.3, 44.0);
+            this.SetSkill(SkillName.Wrestling, 29.3, 44.0);
 
-            Fame = 300;
-            Karma = 0;
+            this.Fame = 300;
+            this.Karma = 0;
 
-            VirtualArmor = 10;
+            this.VirtualArmor = 10;
 
-            Tamable = true;
-            ControlSlots = 1;
-            MinTameSkill = -0.9;
+            this.Tamable = true;
+            this.ControlSlots = 1;
+            this.MinTameSkill = -0.9;
         }
 
         public MountainGoat(Serial serial)
@@ -49,31 +51,37 @@ namespace Server.Mobiles
 
         public override int Meat
         {
-            get { return 2; }
+            get
+            {
+                return 2;
+            }
         }
-
         public override int Hides
         {
-            get { return 12; }
+            get
+            {
+                return 12;
+            }
         }
-
         public override FoodType FavoriteFood
         {
-            get { return FoodType.GrainsAndHay | FoodType.FruitsAndVegies; }
+            get
+            {
+                return FoodType.GrainsAndHay | FoodType.FruitsAndVegies;
+            }
         }
-
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

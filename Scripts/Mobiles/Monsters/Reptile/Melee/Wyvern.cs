@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -9,38 +10,38 @@ namespace Server.Mobiles
         public Wyvern()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a wyvern";
-            Body = 62;
-            BaseSoundID = 362;
+            this.Name = "a wyvern";
+            this.Body = 62;
+            this.BaseSoundID = 362;
 
-            SetStr(202, 240);
-            SetDex(153, 172);
-            SetInt(51, 90);
+            this.SetStr(202, 240);
+            this.SetDex(153, 172);
+            this.SetInt(51, 90);
 
-            SetHits(125, 141);
+            this.SetHits(125, 141);
 
-            SetDamage(8, 19);
+            this.SetDamage(8, 19);
 
-            SetDamageType(ResistanceType.Physical, 50);
-            SetDamageType(ResistanceType.Poison, 50);
+            this.SetDamageType(ResistanceType.Physical, 50);
+            this.SetDamageType(ResistanceType.Poison, 50);
 
-            SetResistance(ResistanceType.Physical, 35, 45);
-            SetResistance(ResistanceType.Fire, 30, 40);
-            SetResistance(ResistanceType.Cold, 20, 30);
-            SetResistance(ResistanceType.Poison, 90, 100);
-            SetResistance(ResistanceType.Energy, 30, 40);
+            this.SetResistance(ResistanceType.Physical, 35, 45);
+            this.SetResistance(ResistanceType.Fire, 30, 40);
+            this.SetResistance(ResistanceType.Cold, 20, 30);
+            this.SetResistance(ResistanceType.Poison, 90, 100);
+            this.SetResistance(ResistanceType.Energy, 30, 40);
 
-            SetSkill(SkillName.Poisoning, 60.1, 80.0);
-            SetSkill(SkillName.MagicResist, 65.1, 80.0);
-            SetSkill(SkillName.Tactics, 65.1, 90.0);
-            SetSkill(SkillName.Wrestling, 65.1, 80.0);
+            this.SetSkill(SkillName.Poisoning, 60.1, 80.0);
+            this.SetSkill(SkillName.MagicResist, 65.1, 80.0);
+            this.SetSkill(SkillName.Tactics, 65.1, 90.0);
+            this.SetSkill(SkillName.Wrestling, 65.1, 80.0);
 
-            Fame = 4000;
-            Karma = -4000;
+            this.Fame = 4000;
+            this.Karma = -4000;
 
-            VirtualArmor = 40;
-
-            PackItem(new LesserPoisonPotion());
+            this.VirtualArmor = 40;
+			
+            this.PackItem(new LesserPoisonPotion());
         }
 
         public Wyvern(Serial serial)
@@ -50,49 +51,65 @@ namespace Server.Mobiles
 
         public override bool ReacquireOnMovement
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override Poison PoisonImmune
         {
-            get { return Poison.Deadly; }
+            get
+            {
+                return Poison.Deadly;
+            }
         }
-
         public override Poison HitPoison
         {
-            get { return Poison.Deadly; }
+            get
+            {
+                return Poison.Deadly;
+            }
         }
-
         public override int TreasureMapLevel
         {
-            get { return 2; }
+            get
+            {
+                return 2;
+            }
         }
-
         public override int Meat
         {
-            get { return 10; }
+            get
+            {
+                return 10;
+            }
         }
-
         public override int Hides
         {
-            get { return 20; }
+            get
+            {
+                return 20;
+            }
         }
-
         public override HideType HideType
         {
-            get { return HideType.Horned; }
+            get
+            {
+                return HideType.Horned;
+            }
         }
-
         public override bool CanFly
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Average);
-            AddLoot(LootPack.Meager);
-            AddLoot(LootPack.MedScrolls);
+            this.AddLoot(LootPack.Average);
+            this.AddLoot(LootPack.Meager);
+            this.AddLoot(LootPack.MedScrolls);
         }
 
         public override int GetAttackSound()
@@ -123,13 +140,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

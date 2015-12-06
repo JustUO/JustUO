@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -9,83 +10,83 @@ namespace Server.Mobiles
         public Ronin()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            SpeechHue = Utility.RandomDyedHue();
-            Hue = Utility.RandomSkinHue();
-            Name = "a ronin";
-            Body = ((Female = Utility.RandomBool()) ? Body = 0x191 : Body = 0x190);
+            this.SpeechHue = Utility.RandomDyedHue();
+            this.Hue = Utility.RandomSkinHue();
+            this.Name = "a ronin";
+            this.Body = ((this.Female = Utility.RandomBool()) ? this.Body = 0x191 : this.Body = 0x190);
+			
+            this.Hue = Utility.RandomSkinHue();
 
-            Hue = Utility.RandomSkinHue();
+            this.SetStr(326, 375);
+            this.SetDex(31, 45);
+            this.SetInt(101, 110);
 
-            SetStr(326, 375);
-            SetDex(31, 45);
-            SetInt(101, 110);
+            this.SetHits(301, 400);
+            this.SetMana(101, 110);
 
-            SetHits(301, 400);
-            SetMana(101, 110);
+            this.SetDamage(17, 25);
 
-            SetDamage(17, 25);
+            this.SetDamageType(ResistanceType.Physical, 90);
+            this.SetDamageType(ResistanceType.Poison, 10);
 
-            SetDamageType(ResistanceType.Physical, 90);
-            SetDamageType(ResistanceType.Poison, 10);
+            this.SetResistance(ResistanceType.Physical, 55, 75);
+            this.SetResistance(ResistanceType.Fire, 40, 60);
+            this.SetResistance(ResistanceType.Cold, 35, 55);
+            this.SetResistance(ResistanceType.Poison, 50, 70);
+            this.SetResistance(ResistanceType.Energy, 55, 75);
 
-            SetResistance(ResistanceType.Physical, 55, 75);
-            SetResistance(ResistanceType.Fire, 40, 60);
-            SetResistance(ResistanceType.Cold, 35, 55);
-            SetResistance(ResistanceType.Poison, 50, 70);
-            SetResistance(ResistanceType.Energy, 55, 75);
+            this.SetSkill(SkillName.MagicResist, 42.6, 57.5);
+            this.SetSkill(SkillName.Tactics, 115.1, 130.0);
+            this.SetSkill(SkillName.Wrestling, 92.6, 107.5);
+            this.SetSkill(SkillName.Anatomy, 110.1, 125.0);
 
-            SetSkill(SkillName.MagicResist, 42.6, 57.5);
-            SetSkill(SkillName.Tactics, 115.1, 130.0);
-            SetSkill(SkillName.Wrestling, 92.6, 107.5);
-            SetSkill(SkillName.Anatomy, 110.1, 125.0);
+            this.SetSkill(SkillName.Fencing, 92.6, 107.5);
+            this.SetSkill(SkillName.Macing, 92.6, 107.5);
+            this.SetSkill(SkillName.Swords, 92.6, 107.5);
 
-            SetSkill(SkillName.Fencing, 92.6, 107.5);
-            SetSkill(SkillName.Macing, 92.6, 107.5);
-            SetSkill(SkillName.Swords, 92.6, 107.5);
+            this.Fame = 8500;
+            this.Karma = -8500;
 
-            Fame = 8500;
-            Karma = -8500;
+            this.AddItem(new SamuraiTabi());
+            this.AddItem(new LeatherHiroSode());
+            this.AddItem(new LeatherDo());
 
-            AddItem(new SamuraiTabi());
-            AddItem(new LeatherHiroSode());
-            AddItem(new LeatherDo());
-
-            switch (Utility.Random(4))
+            switch ( Utility.Random(4))
             {
                 case 0:
-                    AddItem(new LightPlateJingasa());
+                    this.AddItem(new LightPlateJingasa());
                     break;
                 case 1:
-                    AddItem(new ChainHatsuburi());
+                    this.AddItem(new ChainHatsuburi());
                     break;
                 case 2:
-                    AddItem(new DecorativePlateKabuto());
+                    this.AddItem(new DecorativePlateKabuto());
                     break;
                 case 3:
-                    AddItem(new LeatherJingasa());
+                    this.AddItem(new LeatherJingasa());
                     break;
             }
 
-            switch (Utility.Random(3))
+            switch ( Utility.Random(3))
             {
                 case 0:
-                    AddItem(new StuddedHaidate());
+                    this.AddItem(new StuddedHaidate());
                     break;
                 case 1:
-                    AddItem(new LeatherSuneate());
+                    this.AddItem(new LeatherSuneate());
                     break;
                 case 2:
-                    AddItem(new PlateSuneate());
+                    this.AddItem(new PlateSuneate());
                     break;
             }
-
+			
             if (Utility.RandomDouble() > .2)
-                AddItem(new NoDachi());
+                this.AddItem(new NoDachi());
             else
-                AddItem(new Halberd());
+                this.AddItem(new Halberd());
 
-            PackItem(new Wakizashi());
-            PackItem(new Longsword());
+            this.PackItem(new Wakizashi());
+            this.PackItem(new Longsword());
 
             Utility.AssignRandomHair(this);
         }
@@ -97,24 +98,32 @@ namespace Server.Mobiles
 
         public override bool ClickTitle
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
-
         public override bool AlwaysMurderer
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override bool BardImmune
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override bool CanRummageCorpses
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override void OnDeath(Container c)
         {
             base.OnDeath(c);
@@ -124,23 +133,23 @@ namespace Server.Mobiles
         // TODO: Bushido abilities
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.FilthyRich);
-            AddLoot(LootPack.Rich);
-            AddLoot(LootPack.Gems, 2);
+            this.AddLoot(LootPack.FilthyRich);
+            this.AddLoot(LootPack.Rich);
+            this.AddLoot(LootPack.Gems, 2);
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

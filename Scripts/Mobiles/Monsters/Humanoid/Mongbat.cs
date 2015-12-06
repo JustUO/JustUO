@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Mobiles
 {
     [CorpseName("a mongbat corpse")]
@@ -7,35 +9,35 @@ namespace Server.Mobiles
         public Mongbat()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a mongbat";
-            Body = 39;
-            BaseSoundID = 422;
+            this.Name = "a mongbat";
+            this.Body = 39;
+            this.BaseSoundID = 422;
 
-            SetStr(6, 10);
-            SetDex(26, 38);
-            SetInt(6, 14);
+            this.SetStr(6, 10);
+            this.SetDex(26, 38);
+            this.SetInt(6, 14);
 
-            SetHits(4, 6);
-            SetMana(0);
+            this.SetHits(4, 6);
+            this.SetMana(0);
 
-            SetDamage(1, 2);
+            this.SetDamage(1, 2);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 5, 10);
+            this.SetResistance(ResistanceType.Physical, 5, 10);
 
-            SetSkill(SkillName.MagicResist, 5.1, 14.0);
-            SetSkill(SkillName.Tactics, 5.1, 10.0);
-            SetSkill(SkillName.Wrestling, 5.1, 10.0);
+            this.SetSkill(SkillName.MagicResist, 5.1, 14.0);
+            this.SetSkill(SkillName.Tactics, 5.1, 10.0);
+            this.SetSkill(SkillName.Wrestling, 5.1, 10.0);
 
-            Fame = 150;
-            Karma = -150;
+            this.Fame = 150;
+            this.Karma = -150;
 
-            VirtualArmor = 10;
+            this.VirtualArmor = 10;
 
-            Tamable = true;
-            ControlSlots = 1;
-            MinTameSkill = -18.9;
+            this.Tamable = true;
+            this.ControlSlots = 1;
+            this.MinTameSkill = -18.9;
         }
 
         public Mongbat(Serial serial)
@@ -45,34 +47,42 @@ namespace Server.Mobiles
 
         public override int Meat
         {
-            get { return 1; }
+            get
+            {
+                return 1;
+            }
         }
-
         public override FoodType FavoriteFood
         {
-            get { return FoodType.Meat; }
+            get
+            {
+                return FoodType.Meat;
+            }
         }
 
         public override bool CanFly
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
 
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Poor);
+            this.AddLoot(LootPack.Poor);
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

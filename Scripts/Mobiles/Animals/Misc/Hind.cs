@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Mobiles
 {
     [CorpseName("a deer corpse")]
@@ -7,35 +9,35 @@ namespace Server.Mobiles
         public Hind()
             : base(AIType.AI_Animal, FightMode.Aggressor, 10, 1, 0.2, 0.4)
         {
-            Name = "a hind";
-            Body = 0xED;
+            this.Name = "a hind";
+            this.Body = 0xED;
 
-            SetStr(21, 51);
-            SetDex(47, 77);
-            SetInt(17, 47);
+            this.SetStr(21, 51);
+            this.SetDex(47, 77);
+            this.SetInt(17, 47);
 
-            SetHits(15, 29);
-            SetMana(0);
+            this.SetHits(15, 29);
+            this.SetMana(0);
 
-            SetDamage(4);
+            this.SetDamage(4);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 5, 15);
-            SetResistance(ResistanceType.Cold, 5);
+            this.SetResistance(ResistanceType.Physical, 5, 15);
+            this.SetResistance(ResistanceType.Cold, 5);
 
-            SetSkill(SkillName.MagicResist, 15.0);
-            SetSkill(SkillName.Tactics, 19.0);
-            SetSkill(SkillName.Wrestling, 26.0);
+            this.SetSkill(SkillName.MagicResist, 15.0);
+            this.SetSkill(SkillName.Tactics, 19.0);
+            this.SetSkill(SkillName.Wrestling, 26.0);
 
-            Fame = 300;
-            Karma = 0;
+            this.Fame = 300;
+            this.Karma = 0;
 
-            VirtualArmor = 8;
+            this.VirtualArmor = 8;
 
-            Tamable = true;
-            ControlSlots = 1;
-            MinTameSkill = 23.1;
+            this.Tamable = true;
+            this.ControlSlots = 1;
+            this.MinTameSkill = 23.1;
         }
 
         public Hind(Serial serial)
@@ -45,46 +47,52 @@ namespace Server.Mobiles
 
         public override int Meat
         {
-            get { return 5; }
+            get
+            {
+                return 5;
+            }
         }
-
         public override int Hides
         {
-            get { return 8; }
+            get
+            {
+                return 8;
+            }
         }
-
         public override FoodType FavoriteFood
         {
-            get { return FoodType.FruitsAndVegies | FoodType.GrainsAndHay; }
+            get
+            {
+                return FoodType.FruitsAndVegies | FoodType.GrainsAndHay;
+            }
+        }
+        public override int GetAttackSound() 
+        { 
+            return 0x82; 
         }
 
-        public override int GetAttackSound()
-        {
-            return 0x82;
+        public override int GetHurtSound() 
+        { 
+            return 0x83; 
         }
 
-        public override int GetHurtSound()
-        {
-            return 0x83;
-        }
-
-        public override int GetDeathSound()
-        {
-            return 0x84;
+        public override int GetDeathSound() 
+        { 
+            return 0x84; 
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

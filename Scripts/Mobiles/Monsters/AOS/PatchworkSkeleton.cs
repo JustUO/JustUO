@@ -1,5 +1,5 @@
+using System;
 using Server.Items;
-using Server.Services;
 
 namespace Server.Mobiles
 {
@@ -10,35 +10,35 @@ namespace Server.Mobiles
         public PatchworkSkeleton()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a patchwork skeleton";
-            Body = 309;
-            BaseSoundID = 0x48D;
+            this.Name = "a patchwork skeleton";
+            this.Body = 309;
+            this.BaseSoundID = 0x48D;
 
-            SetStr(96, 120);
-            SetDex(71, 95);
-            SetInt(16, 40);
+            this.SetStr(96, 120);
+            this.SetDex(71, 95);
+            this.SetInt(16, 40);
 
-            SetHits(58, 72);
+            this.SetHits(58, 72);
 
-            SetDamage(18, 22);
+            this.SetDamage(18, 22);
 
-            SetDamageType(ResistanceType.Physical, 85);
-            SetDamageType(ResistanceType.Cold, 15);
+            this.SetDamageType(ResistanceType.Physical, 85);
+            this.SetDamageType(ResistanceType.Cold, 15);
 
-            SetResistance(ResistanceType.Physical, 55, 65);
-            SetResistance(ResistanceType.Fire, 50, 60);
-            SetResistance(ResistanceType.Cold, 70, 80);
-            SetResistance(ResistanceType.Poison, 100);
-            SetResistance(ResistanceType.Energy, 40, 50);
+            this.SetResistance(ResistanceType.Physical, 55, 65);
+            this.SetResistance(ResistanceType.Fire, 50, 60);
+            this.SetResistance(ResistanceType.Cold, 70, 80);
+            this.SetResistance(ResistanceType.Poison, 100);
+            this.SetResistance(ResistanceType.Energy, 40, 50);
 
-            SetSkill(SkillName.MagicResist, 70.1, 95.0);
-            SetSkill(SkillName.Tactics, 55.1, 80.0);
-            SetSkill(SkillName.Wrestling, 50.1, 70.0);
+            this.SetSkill(SkillName.MagicResist, 70.1, 95.0);
+            this.SetSkill(SkillName.Tactics, 55.1, 80.0);
+            this.SetSkill(SkillName.Wrestling, 50.1, 70.0);
 
-            Fame = 500;
-            Karma = -500;
+            this.Fame = 500;
+            this.Karma = -500;
 
-            VirtualArmor = 54;
+            this.VirtualArmor = 54;
         }
 
         public PatchworkSkeleton(Serial serial)
@@ -48,19 +48,25 @@ namespace Server.Mobiles
 
         public override bool BleedImmune
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override Poison PoisonImmune
         {
-            get { return Poison.Lethal; }
+            get
+            {
+                return Poison.Lethal;
+            }
         }
-
         public override int TreasureMapLevel
         {
-            get { return 1; }
+            get
+            {
+                return 1;
+            }
         }
-
         public override WeaponAbility GetWeaponAbility()
         {
             return WeaponAbility.Dismount;
@@ -68,26 +74,30 @@ namespace Server.Mobiles
 
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Meager);
+            this.AddLoot(LootPack.Meager);
         }
-
         public override void OnDeath(Container c)
         {
-            base.OnDeath(c);
-            
-            SARegionDrops.GetSADrop(c);
-        }
 
+            base.OnDeath(c);
+            Region reg = Region.Find(c.GetWorldLocation(), c.Map);
+            if (1.0 > Utility.RandomDouble() && reg.Name == "Skeletal Dragon")
+            {
+                if (Utility.RandomDouble() < 0.6)
+                    c.DropItem(new EssencePersistence());
+
+            }
+        }
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -9,37 +10,37 @@ namespace Server.Mobiles
         public Ogre()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "an ogre";
-            Body = 1;
-            BaseSoundID = 427;
+            this.Name = "an ogre";
+            this.Body = 1;
+            this.BaseSoundID = 427;
 
-            SetStr(166, 195);
-            SetDex(46, 65);
-            SetInt(46, 70);
+            this.SetStr(166, 195);
+            this.SetDex(46, 65);
+            this.SetInt(46, 70);
 
-            SetHits(100, 117);
-            SetMana(0);
+            this.SetHits(100, 117);
+            this.SetMana(0);
 
-            SetDamage(9, 11);
+            this.SetDamage(9, 11);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 30, 35);
-            SetResistance(ResistanceType.Fire, 15, 25);
-            SetResistance(ResistanceType.Cold, 15, 25);
-            SetResistance(ResistanceType.Poison, 15, 25);
-            SetResistance(ResistanceType.Energy, 25);
+            this.SetResistance(ResistanceType.Physical, 30, 35);
+            this.SetResistance(ResistanceType.Fire, 15, 25);
+            this.SetResistance(ResistanceType.Cold, 15, 25);
+            this.SetResistance(ResistanceType.Poison, 15, 25);
+            this.SetResistance(ResistanceType.Energy, 25);
 
-            SetSkill(SkillName.MagicResist, 55.1, 70.0);
-            SetSkill(SkillName.Tactics, 60.1, 70.0);
-            SetSkill(SkillName.Wrestling, 70.1, 80.0);
+            this.SetSkill(SkillName.MagicResist, 55.1, 70.0);
+            this.SetSkill(SkillName.Tactics, 60.1, 70.0);
+            this.SetSkill(SkillName.Wrestling, 70.1, 80.0);
 
-            Fame = 3000;
-            Karma = -3000;
+            this.Fame = 3000;
+            this.Karma = -3000;
 
-            VirtualArmor = 32;
+            this.VirtualArmor = 32;
 
-            PackItem(new Club());
+            this.PackItem(new Club());
         }
 
         public Ogre(Serial serial)
@@ -49,35 +50,41 @@ namespace Server.Mobiles
 
         public override bool CanRummageCorpses
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override int TreasureMapLevel
         {
-            get { return 1; }
+            get
+            {
+                return 1;
+            }
         }
-
         public override int Meat
         {
-            get { return 2; }
+            get
+            {
+                return 2;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Average);
-            AddLoot(LootPack.Potions);
+            this.AddLoot(LootPack.Average);
+            this.AddLoot(LootPack.Potions);
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

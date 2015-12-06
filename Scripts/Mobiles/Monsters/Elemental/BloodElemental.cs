@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Mobiles
 {
     [CorpseName("a blood elemental corpse")]
@@ -7,39 +9,39 @@ namespace Server.Mobiles
         public BloodElemental()
             : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a blood elemental";
-            Body = 159;
-            BaseSoundID = 278;
+            this.Name = "a blood elemental";
+            this.Body = 159;
+            this.BaseSoundID = 278;
 
-            SetStr(526, 615);
-            SetDex(66, 85);
-            SetInt(226, 350);
+            this.SetStr(526, 615);
+            this.SetDex(66, 85);
+            this.SetInt(226, 350);
 
-            SetHits(316, 369);
+            this.SetHits(316, 369);
 
-            SetDamage(17, 27);
+            this.SetDamage(17, 27);
 
-            SetDamageType(ResistanceType.Physical, 0);
-            SetDamageType(ResistanceType.Poison, 50);
-            SetDamageType(ResistanceType.Energy, 50);
+            this.SetDamageType(ResistanceType.Physical, 0);
+            this.SetDamageType(ResistanceType.Poison, 50);
+            this.SetDamageType(ResistanceType.Energy, 50);
 
-            SetResistance(ResistanceType.Physical, 55, 65);
-            SetResistance(ResistanceType.Fire, 20, 30);
-            SetResistance(ResistanceType.Cold, 40, 50);
-            SetResistance(ResistanceType.Poison, 50, 60);
-            SetResistance(ResistanceType.Energy, 30, 40);
+            this.SetResistance(ResistanceType.Physical, 55, 65);
+            this.SetResistance(ResistanceType.Fire, 20, 30);
+            this.SetResistance(ResistanceType.Cold, 40, 50);
+            this.SetResistance(ResistanceType.Poison, 50, 60);
+            this.SetResistance(ResistanceType.Energy, 30, 40);
 
-            SetSkill(SkillName.EvalInt, 85.1, 100.0);
-            SetSkill(SkillName.Magery, 85.1, 100.0);
-            SetSkill(SkillName.Meditation, 10.4, 50.0);
-            SetSkill(SkillName.MagicResist, 80.1, 95.0);
-            SetSkill(SkillName.Tactics, 80.1, 100.0);
-            SetSkill(SkillName.Wrestling, 80.1, 100.0);
+            this.SetSkill(SkillName.EvalInt, 85.1, 100.0);
+            this.SetSkill(SkillName.Magery, 85.1, 100.0);
+            this.SetSkill(SkillName.Meditation, 10.4, 50.0);
+            this.SetSkill(SkillName.MagicResist, 80.1, 95.0);
+            this.SetSkill(SkillName.Tactics, 80.1, 100.0);
+            this.SetSkill(SkillName.Wrestling, 80.1, 100.0);
 
-            Fame = 12500;
-            Karma = -12500;
+            this.Fame = 12500;
+            this.Karma = -12500;
 
-            VirtualArmor = 60;
+            this.VirtualArmor = 60;
         }
 
         public BloodElemental(Serial serial)
@@ -49,25 +51,27 @@ namespace Server.Mobiles
 
         public override int TreasureMapLevel
         {
-            get { return 5; }
+            get
+            {
+                return 5;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.FilthyRich);
-            AddLoot(LootPack.Rich);
+            this.AddLoot(LootPack.FilthyRich);
+            this.AddLoot(LootPack.Rich);
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

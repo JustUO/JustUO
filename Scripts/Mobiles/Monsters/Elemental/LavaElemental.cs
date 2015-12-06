@@ -1,5 +1,5 @@
+using System;
 using Server.Items;
-using Server.Services;
 
 namespace Server.Mobiles
 {
@@ -10,38 +10,36 @@ namespace Server.Mobiles
         public LavaElemental()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a lava elemental";
-            Body = 720;
+            this.Name = "a lava elemental";
+            this.Body = 720; 
 
-            SetStr(446, 510);
-            SetDex(173, 191);
-            SetInt(369, 397);
+            this.SetStr(446, 510);
+            this.SetDex(173, 191);
+            this.SetInt(369, 397);
 
-            SetHits(260, 266);
+            this.SetHits(260, 266);
 
-            SetDamage(12, 18);
+            this.SetDamage(12, 18);
 
-            SetDamageType(ResistanceType.Physical, 10);
-            SetDamageType(ResistanceType.Fire, 90);
+            this.SetDamageType(ResistanceType.Physical, 10);
+            this.SetDamageType(ResistanceType.Fire, 90);
 
-            SetResistance(ResistanceType.Physical, 60, 70);
-            SetResistance(ResistanceType.Fire, 20, 30);
-            SetResistance(ResistanceType.Cold, 20, 30);
-            SetResistance(ResistanceType.Poison, 100);
-            SetResistance(ResistanceType.Energy, 40, 50);
+            this.SetResistance(ResistanceType.Physical, 60, 70);
+            this.SetResistance(ResistanceType.Fire, 20, 30);
+            this.SetResistance(ResistanceType.Cold, 20, 30);
+            this.SetResistance(ResistanceType.Poison, 100);
+            this.SetResistance(ResistanceType.Energy, 40, 50);
 
-            SetSkill(SkillName.Anatomy, 0.0, 12.8);
-            SetSkill(SkillName.EvalInt, 84.8, 92.6);
-            SetSkill(SkillName.Magery, 90.1, 92.7);
-            SetSkill(SkillName.Meditation, 97.8, 102.8);
-            SetSkill(SkillName.MagicResist, 101.9, 106.2);
-            SetSkill(SkillName.Tactics, 80.3, 94.0);
-            SetSkill(SkillName.Wrestling, 71.7, 85.4);
+            this.SetSkill(SkillName.Anatomy, 0.0, 12.8);
+            this.SetSkill(SkillName.EvalInt, 84.8, 92.6);
+            this.SetSkill(SkillName.Magery, 90.1, 92.7);
+            this.SetSkill(SkillName.Meditation, 97.8, 102.8);
+            this.SetSkill(SkillName.MagicResist, 101.9, 106.2);
+            this.SetSkill(SkillName.Tactics, 80.3, 94.0);
+            this.SetSkill(SkillName.Wrestling, 71.7, 85.4);
 
-            PackItem(new LesserPoisonPotion());
-            PackReg(9);
-
-            QLPoints = 20;
+            this.PackItem(new LesserPoisonPotion());
+            this.PackReg(9);
         }
 
         public LavaElemental(Serial serial)
@@ -51,32 +49,39 @@ namespace Server.Mobiles
 
         public override bool HasBreath
         {
-            get { return true; }
-        } // fire breath enabled
-
+            get
+            {
+                return true;
+            }
+        }// fire breath enabled
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.FilthyRich, 3);
-            AddLoot(LootPack.Gems, 2);
-            AddLoot(LootPack.MedScrolls);
+            this.AddLoot(LootPack.FilthyRich, 3);
+            this.AddLoot(LootPack.Gems, 2);
+            this.AddLoot(LootPack.MedScrolls);
         }
-
         public override void OnDeath(Container c)
         {
+
             base.OnDeath(c);
-            SARegionDrops.GetSADrop(c);
-
-            if (Utility.RandomDouble() < 0.25)
+            Region reg = Region.Find(c.GetWorldLocation(), c.Map);
+            if (0.25> Utility.RandomDouble() && reg.Name == "Crimson Veins")
             {
-                c.DropItem(new TatteredAncientScroll());
+                if (Utility.RandomDouble() < 0.6)
+                    c.DropItem(new EssencePrecision());
             }
-
-            if (Utility.RandomDouble() < 0.05)
+           
+            if (0.25 > Utility.RandomDouble() && reg.Name == "Fire Temple Ruins")
             {
-                c.DropItem(new LavaSerpenCrust());
+                if (Utility.RandomDouble() < 0.6)
+                    c.DropItem(new EssenceOrder());
+            }
+            if (0.25 > Utility.RandomDouble() && reg.Name == "Lava Caldera")
+            {
+                if (Utility.RandomDouble() < 0.6)
+                    c.DropItem(new EssencePassion());
             }
         }
-
         public override int GetIdleSound()
         {
             return 1549;
@@ -100,13 +105,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

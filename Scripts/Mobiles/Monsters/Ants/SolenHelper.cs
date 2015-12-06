@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 using Server.Network;
 
@@ -9,7 +10,7 @@ namespace Server.Mobiles
         {
             if (1 > Utility.Random(100))
             {
-                var basket = new PicnicBasket();
+                PicnicBasket basket = new PicnicBasket();
 
                 basket.DropItem(new BeverageBottle(BeverageType.Wine));
                 basket.DropItem(new CheeseWedge());
@@ -22,15 +23,15 @@ namespace Server.Mobiles
         {
             if (m is BaseCreature)
             {
-                var bc = (BaseCreature) m;
+                BaseCreature bc = (BaseCreature)m;
 
                 if (bc.Controlled && bc.ControlMaster is PlayerMobile)
                     return CheckRedFriendship(bc.ControlMaster);
-                if (bc.Summoned && bc.SummonMaster is PlayerMobile)
+                else if (bc.Summoned && bc.SummonMaster is PlayerMobile)
                     return CheckRedFriendship(bc.SummonMaster);
             }
 
-            var player = m as PlayerMobile;
+            PlayerMobile player = m as PlayerMobile;
 
             return player != null && player.SolenFriendship == SolenFriendship.Red;
         }
@@ -39,15 +40,15 @@ namespace Server.Mobiles
         {
             if (m is BaseCreature)
             {
-                var bc = (BaseCreature) m;
+                BaseCreature bc = (BaseCreature)m;
 
                 if (bc.Controlled && bc.ControlMaster is PlayerMobile)
                     return CheckBlackFriendship(bc.ControlMaster);
-                if (bc.Summoned && bc.SummonMaster is PlayerMobile)
+                else if (bc.Summoned && bc.SummonMaster is PlayerMobile)
                     return CheckBlackFriendship(bc.SummonMaster);
             }
 
-            var player = m as PlayerMobile;
+            PlayerMobile player = m as PlayerMobile;
 
             return player != null && player.SolenFriendship == SolenFriendship.Black;
         }
@@ -56,7 +57,7 @@ namespace Server.Mobiles
         {
             if (from is BaseCreature)
             {
-                var bc = (BaseCreature) from;
+                BaseCreature bc = (BaseCreature)from;
 
                 if (bc.Controlled && bc.ControlMaster is PlayerMobile)
                     OnRedDamage(bc.ControlMaster);
@@ -64,12 +65,11 @@ namespace Server.Mobiles
                     OnRedDamage(bc.SummonMaster);
             }
 
-            var player = from as PlayerMobile;
+            PlayerMobile player = from as PlayerMobile;
 
             if (player != null && player.SolenFriendship == SolenFriendship.Red)
             {
-                player.LocalOverheadMessage(MessageType.Regular, 0x3B2, 1054103);
-                    // The solen revoke their friendship. You will now be considered an intruder.
+                player.LocalOverheadMessage(MessageType.Regular, 0x3B2, 1054103); // The solen revoke their friendship. You will now be considered an intruder.
 
                 player.SolenFriendship = SolenFriendship.None;
             }
@@ -79,7 +79,7 @@ namespace Server.Mobiles
         {
             if (from is BaseCreature)
             {
-                var bc = (BaseCreature) from;
+                BaseCreature bc = (BaseCreature)from;
 
                 if (bc.Controlled && bc.ControlMaster is PlayerMobile)
                     OnBlackDamage(bc.ControlMaster);
@@ -87,12 +87,11 @@ namespace Server.Mobiles
                     OnBlackDamage(bc.SummonMaster);
             }
 
-            var player = from as PlayerMobile;
+            PlayerMobile player = from as PlayerMobile;
 
             if (player != null && player.SolenFriendship == SolenFriendship.Black)
             {
-                player.LocalOverheadMessage(MessageType.Regular, 0x3B2, 1054103);
-                    // The solen revoke their friendship. You will now be considered an intruder.
+                player.LocalOverheadMessage(MessageType.Regular, 0x3B2, 1054103); // The solen revoke their friendship. You will now be considered an intruder.
 
                 player.SolenFriendship = SolenFriendship.None;
             }

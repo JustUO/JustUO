@@ -6,46 +6,45 @@ namespace Server.Mobiles
     public class ShadowFiend : BaseCreature
     {
         private UnhideTimer m_Timer;
-
         [Constructable]
         public ShadowFiend()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a shadow fiend";
-            Body = 0xA8;
+            this.Name = "a shadow fiend";
+            this.Body = 0xA8;
 
             // this to allow shadow fiend to loot from corpses
-            var backpack = new Backpack();
+            Backpack backpack = new Backpack();
             backpack.Movable = false;
-            AddItem(backpack);
+            this.AddItem(backpack);
 
-            SetStr(46, 55);
-            SetDex(121, 130);
-            SetInt(46, 55);
+            this.SetStr(46, 55);
+            this.SetDex(121, 130);
+            this.SetInt(46, 55);
 
-            SetHits(28, 33);
-            SetStam(46, 55);
+            this.SetHits(28, 33);
+            this.SetStam(46, 55);
 
-            SetDamage(10, 22);
+            this.SetDamage(10, 22);
 
-            SetDamageType(ResistanceType.Physical, 20);
-            SetDamageType(ResistanceType.Cold, 80);
+            this.SetDamageType(ResistanceType.Physical, 20);
+            this.SetDamageType(ResistanceType.Cold, 80);
 
-            SetResistance(ResistanceType.Physical, 20, 25);
-            SetResistance(ResistanceType.Fire, 20, 25);
-            SetResistance(ResistanceType.Cold, 40, 45);
-            SetResistance(ResistanceType.Poison, 60, 70);
-            SetResistance(ResistanceType.Energy, 5, 10);
+            this.SetResistance(ResistanceType.Physical, 20, 25);
+            this.SetResistance(ResistanceType.Fire, 20, 25);
+            this.SetResistance(ResistanceType.Cold, 40, 45);
+            this.SetResistance(ResistanceType.Poison, 60, 70);
+            this.SetResistance(ResistanceType.Energy, 5, 10);
 
-            SetSkill(SkillName.MagicResist, 20.1, 30.0);
-            SetSkill(SkillName.Tactics, 20.1, 30.0);
-            SetSkill(SkillName.Wrestling, 20.1, 30.0);
+            this.SetSkill(SkillName.MagicResist, 20.1, 30.0);
+            this.SetSkill(SkillName.Tactics, 20.1, 30.0);
+            this.SetSkill(SkillName.Wrestling, 20.1, 30.0);
 
-            Fame = 1000;
-            Karma = -1000;
+            this.Fame = 1000;
+            this.Karma = -1000;
 
-            m_Timer = new UnhideTimer(this);
-            m_Timer.Start();
+            this.m_Timer = new UnhideTimer(this);
+            this.m_Timer.Start();
         }
 
         public ShadowFiend(Serial serial)
@@ -55,14 +54,18 @@ namespace Server.Mobiles
 
         public override bool DeleteCorpseOnDeath
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override bool CanRummageCorpses
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override int GetIdleSound()
         {
             return 0x37A;
@@ -90,34 +93,34 @@ namespace Server.Mobiles
 
         public override bool OnBeforeDeath()
         {
-            if (Backpack != null)
-                Backpack.Destroy();
+            if (this.Backpack != null)
+                this.Backpack.Destroy();
 
-            Effects.SendLocationEffect(Location, Map, 0x376A, 10, 1);
+            Effects.SendLocationEffect(this.Location, this.Map, 0x376A, 10, 1);
             return true;
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
 
-            m_Timer = new UnhideTimer(this);
-            m_Timer.Start();
+            this.m_Timer = new UnhideTimer(this);
+            this.m_Timer.Start();
         }
 
         public override void OnAfterDelete()
         {
-            if (m_Timer != null)
-                m_Timer.Stop();
+            if (this.m_Timer != null)
+                this.m_Timer.Stop();
 
-            m_Timer = null;
+            this.m_Timer = null;
 
             base.OnAfterDelete();
         }
@@ -125,25 +128,24 @@ namespace Server.Mobiles
         private class UnhideTimer : Timer
         {
             private readonly ShadowFiend m_Owner;
-
             public UnhideTimer(ShadowFiend owner)
                 : base(TimeSpan.FromSeconds(30.0))
             {
-                m_Owner = owner;
-                Priority = TimerPriority.OneSecond;
+                this.m_Owner = owner;
+                this.Priority = TimerPriority.OneSecond;
             }
 
             protected override void OnTick()
             {
-                if (m_Owner.Deleted)
+                if (this.m_Owner.Deleted)
                 {
-                    Stop();
+                    this.Stop();
                     return;
                 }
 
-                foreach (var m in m_Owner.GetMobilesInRange(3))
+                foreach (Mobile m in this.m_Owner.GetMobilesInRange(3))
                 {
-                    if (m != m_Owner && m.Player && m.Hidden && m_Owner.CanBeHarmful(m) && m.IsPlayer())
+                    if (m != this.m_Owner && m.Player && m.Hidden && this.m_Owner.CanBeHarmful(m) && m.IsPlayer())
                         m.Hidden = false;
                 }
             }

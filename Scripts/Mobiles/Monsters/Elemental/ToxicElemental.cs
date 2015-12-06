@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Mobiles
 {
     [CorpseName("an acid elemental corpse")]
@@ -7,39 +9,39 @@ namespace Server.Mobiles
         public ToxicElemental()
             : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "an acid elemental";
-            Body = 0x9E;
-            BaseSoundID = 278;
+            this.Name = "an acid elemental";
+            this.Body = 0x9E;
+            this.BaseSoundID = 278;
 
-            SetStr(326, 355);
-            SetDex(66, 85);
-            SetInt(271, 295);
+            this.SetStr(326, 355);
+            this.SetDex(66, 85);
+            this.SetInt(271, 295);
 
-            SetHits(196, 213);
+            this.SetHits(196, 213);
 
-            SetDamage(9, 15);
+            this.SetDamage(9, 15);
 
-            SetDamageType(ResistanceType.Physical, 25);
-            SetDamageType(ResistanceType.Fire, 50);
-            SetDamageType(ResistanceType.Energy, 25);
+            this.SetDamageType(ResistanceType.Physical, 25);
+            this.SetDamageType(ResistanceType.Fire, 50);
+            this.SetDamageType(ResistanceType.Energy, 25);
 
-            SetResistance(ResistanceType.Physical, 45, 55);
-            SetResistance(ResistanceType.Fire, 40, 50);
-            SetResistance(ResistanceType.Cold, 20, 30);
-            SetResistance(ResistanceType.Poison, 10, 20);
-            SetResistance(ResistanceType.Energy, 30, 40);
+            this.SetResistance(ResistanceType.Physical, 45, 55);
+            this.SetResistance(ResistanceType.Fire, 40, 50);
+            this.SetResistance(ResistanceType.Cold, 20, 30);
+            this.SetResistance(ResistanceType.Poison, 10, 20);
+            this.SetResistance(ResistanceType.Energy, 30, 40);
 
-            SetSkill(SkillName.Anatomy, 30.3, 60.0);
-            SetSkill(SkillName.EvalInt, 70.1, 85.0);
-            SetSkill(SkillName.Magery, 70.1, 85.0);
-            SetSkill(SkillName.MagicResist, 60.1, 75.0);
-            SetSkill(SkillName.Tactics, 80.1, 90.0);
-            SetSkill(SkillName.Wrestling, 70.1, 90.0);
+            this.SetSkill(SkillName.Anatomy, 30.3, 60.0);
+            this.SetSkill(SkillName.EvalInt, 70.1, 85.0);
+            this.SetSkill(SkillName.Magery, 70.1, 85.0);
+            this.SetSkill(SkillName.MagicResist, 60.1, 75.0);
+            this.SetSkill(SkillName.Tactics, 80.1, 90.0);
+            this.SetSkill(SkillName.Wrestling, 70.1, 90.0);
 
-            Fame = 10000;
-            Karma = -10000;
+            this.Fame = 10000;
+            this.Karma = -10000;
 
-            VirtualArmor = 40;
+            this.VirtualArmor = 40;
         }
 
         public ToxicElemental(Serial serial)
@@ -49,49 +51,57 @@ namespace Server.Mobiles
 
         public override bool BleedImmune
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override Poison HitPoison
         {
-            get { return Poison.Lethal; }
+            get
+            {
+                return Poison.Lethal;
+            }
         }
-
         public override double HitPoisonChance
         {
-            get { return 0.6; }
+            get
+            {
+                return 0.6;
+            }
         }
-
         public override int TreasureMapLevel
         {
-            get { return Core.AOS ? 2 : 3; }
+            get
+            {
+                return Core.AOS ? 2 : 3;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Rich);
-            AddLoot(LootPack.Average);
+            this.AddLoot(LootPack.Rich);
+            this.AddLoot(LootPack.Average);
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
 
-            if (BaseSoundID == 263)
-                BaseSoundID = 278;
+            if (this.BaseSoundID == 263)
+                this.BaseSoundID = 278;
 
-            if (Body == 13)
-                Body = 0x9E;
+            if (this.Body == 13)
+                this.Body = 0x9E;
 
-            if (Hue == 0x4001)
-                Hue = 0;
+            if (this.Hue == 0x4001)
+                this.Hue = 0;
         }
     }
 }

@@ -1,9 +1,7 @@
 /* Copied from deamon, still have to get detailed information on Pit Fiend */
-
-using Server.Ethics;
+using System;
 using Server.Factions;
 using Server.Items;
-using Server.Services;
 
 namespace Server.Mobiles
 {
@@ -14,35 +12,35 @@ namespace Server.Mobiles
         public PitFiend()
             : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a Pit fiend";
-            Body = 43;
-            Hue = 1863;
-            BaseSoundID = 357;
+            this.Name = "a Pit fiend";
+            this.Body = 43;
+            this.Hue = 1863;
+            this.BaseSoundID = 357;
 
-            SetStr(376, 405);
-            SetDex(176, 195);
-            SetInt(201, 225);
+            this.SetStr(376, 405);
+            this.SetDex(176, 195);
+            this.SetInt(201, 225);
 
-            SetHits(226, 243);
+            this.SetHits(226, 243);
 
-            SetDamage(15, 20);
+            this.SetDamage(15, 20);
 
-            SetSkill(SkillName.EvalInt, 80.1, 90.0);
-            SetSkill(SkillName.Magery, 80.1, 90.0);
-            SetSkill(SkillName.MagicResist, 75.1, 85.0);
-            SetSkill(SkillName.Tactics, 80.1, 90.0);
-            SetSkill(SkillName.Wrestling, 80.1, 100.0);
+            this.SetSkill(SkillName.EvalInt, 80.1, 90.0);
+            this.SetSkill(SkillName.Magery, 80.1, 90.0);
+            this.SetSkill(SkillName.MagicResist, 75.1, 85.0);
+            this.SetSkill(SkillName.Tactics, 80.1, 90.0);
+            this.SetSkill(SkillName.Wrestling, 80.1, 100.0);
 
-            SetResistance(ResistanceType.Physical, 55, 65);
-            SetResistance(ResistanceType.Fire, 10, 20);
-            SetResistance(ResistanceType.Cold, 60, 70);
-            SetResistance(ResistanceType.Poison, 20, 30);
-            SetResistance(ResistanceType.Energy, 30, 40);
+            this.SetResistance(ResistanceType.Physical, 55, 65);
+            this.SetResistance(ResistanceType.Fire, 10, 20);
+            this.SetResistance(ResistanceType.Cold, 60, 70);
+            this.SetResistance(ResistanceType.Poison, 20, 30);
+            this.SetResistance(ResistanceType.Energy, 30, 40);
 
-            Fame = 18000;
-            Karma = -18000;
+            this.Fame = 18000;
+            this.Karma = -18000;
 
-            VirtualArmor = 60;
+            this.VirtualArmor = 60;
         }
 
         public PitFiend(Serial serial)
@@ -52,67 +50,87 @@ namespace Server.Mobiles
 
         public override double DispelDifficulty
         {
-            get { return 125.0; }
+            get
+            {
+                return 125.0;
+            }
         }
-
         public override double DispelFocus
         {
-            get { return 45.0; }
+            get
+            {
+                return 45.0;
+            }
         }
-
         public override Faction FactionAllegiance
         {
-            get { return Shadowlords.Instance; }
+            get
+            {
+                return Shadowlords.Instance;
+            }
         }
-
-        public override Ethic EthicAllegiance
+        public override Ethics.Ethic EthicAllegiance
         {
-            get { return Ethic.Evil; }
+            get
+            {
+                return Ethics.Ethic.Evil;
+            }
         }
-
         public override bool CanRummageCorpses
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override Poison PoisonImmune
         {
-            get { return Poison.Regular; }
+            get
+            {
+                return Poison.Regular;
+            }
         }
-
         public override int TreasureMapLevel
         {
-            get { return 4; }
+            get
+            {
+                return 4;
+            }
         }
-
         public override int Meat
         {
-            get { return 1; }
+            get
+            {
+                return 1;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Rich);
-            AddLoot(LootPack.Average, 2);
-            AddLoot(LootPack.MedScrolls, 2);
+            this.AddLoot(LootPack.Rich);
+            this.AddLoot(LootPack.Average, 2);
+            this.AddLoot(LootPack.MedScrolls, 2);
         }
-
         public override void OnDeath(Container c)
         {
-            base.OnDeath(c);
-            SARegionDrops.GetSADrop(c);
-        }
 
+            base.OnDeath(c);
+            Region reg = Region.Find(c.GetWorldLocation(), c.Map);
+            if (0.25 > Utility.RandomDouble() && reg.Name == "Abyssal Lair Entrance")
+            {
+                if (Utility.RandomDouble() < 0.6)
+                    c.DropItem(new EssenceAchievement());
+            }
+        }
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

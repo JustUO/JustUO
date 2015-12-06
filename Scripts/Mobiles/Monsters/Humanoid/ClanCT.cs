@@ -1,5 +1,5 @@
+using System;
 using Server.Items;
-using Server.Services;
 
 namespace Server.Mobiles
 {
@@ -11,39 +11,39 @@ namespace Server.Mobiles
         public ClanCT()
             : base(AIType.AI_Archer, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "Clan Scratch Tinkerer";
-            Body = 0x8E;
-            BaseSoundID = 437;
+            this.Name = "Clan Scratch Tinkerer";
+            this.Body = 0x8E;
+            this.BaseSoundID = 437;
 
-            SetStr(300, 330);
-            SetDex(220, 240);
-            SetInt(240, 275);
+            this.SetStr(300, 330);
+            this.SetDex(220, 240);
+            this.SetInt(240, 275);
 
-            SetHits(2025, 2068);
+            this.SetHits(2025, 2068);
 
-            SetDamage(4, 10);
+            this.SetDamage(4, 10);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 20, 30);
-            SetResistance(ResistanceType.Fire, 20, 30);
-            SetResistance(ResistanceType.Cold, 35, 50);
-            SetResistance(ResistanceType.Poison, 10, 20);
-            SetResistance(ResistanceType.Energy, 10, 20);
+            this.SetResistance(ResistanceType.Physical, 20, 30);
+            this.SetResistance(ResistanceType.Fire, 20, 30);
+            this.SetResistance(ResistanceType.Cold, 35, 50);
+            this.SetResistance(ResistanceType.Poison, 10, 20);
+            this.SetResistance(ResistanceType.Energy, 10, 20);
 
-            SetSkill(SkillName.Anatomy, 62.5, 82.6);
-            SetSkill(SkillName.Archery, 80.1, 90.0);
-            SetSkill(SkillName.MagicResist, 76.8, 99.3);
-            SetSkill(SkillName.Tactics, 64.2, 84.4);
-            SetSkill(SkillName.Wrestling, 62.8, 85.0);
+            this.SetSkill(SkillName.Anatomy, 62.5, 82.6);
+            this.SetSkill(SkillName.Archery, 80.1, 90.0);
+            this.SetSkill(SkillName.MagicResist, 76.8, 99.3);
+            this.SetSkill(SkillName.Tactics, 64.2, 84.4);
+            this.SetSkill(SkillName.Wrestling, 62.8, 85.0);
 
-            Fame = 6500;
-            Karma = -6500;
+            this.Fame = 6500;
+            this.Karma = -6500;
 
-            VirtualArmor = 56;
+            this.VirtualArmor = 56;
 
-            AddItem(new Bow());
-            PackItem(new Arrow(Utility.RandomMinMax(50, 70)));
+            this.AddItem(new Bow());
+            this.PackItem(new Arrow(Utility.RandomMinMax(50, 70)));
         }
 
         public ClanCT(Serial serial)
@@ -53,45 +53,67 @@ namespace Server.Mobiles
 
         public override bool CanRummageCorpses
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override int Hides
         {
-            get { return 8; }
+            get
+            {
+                return 8;
+            }
         }
-
         public override HideType HideType
         {
-            get { return HideType.Spined; }
+            get
+            {
+                return HideType.Spined;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Rich, 2);
+            this.AddLoot(LootPack.Rich, 2);
         }
 
         public override void OnDeath(Container c)
         {
-            base.OnDeath(c);
-            SARegionDrops.GetSADrop(c);
-        }
 
+            base.OnDeath(c);
+            Region reg = Region.Find(c.GetWorldLocation(), c.Map);
+            if (0.25 > Utility.RandomDouble() && reg.Name == "Cavern of the Discarded")
+            {
+                switch (Utility.Random(10))
+                {
+                    case 0: c.DropItem(new AbyssalCloth()); break;
+                    case 1: c.DropItem(new PowderedIron()); break;
+                    case 2: c.DropItem(new CrystallineBlackrock()); break;
+                    case 3: c.DropItem(new EssenceBalance()); break;
+                    case 4: c.DropItem(new CrystalShards()); break;
+                    case 5: c.DropItem(new ArcanicRuneStone()); break;
+                    case 6: c.DropItem(new DelicateScales()); break;
+                    case 7: c.DropItem(new SeedRenewal()); break;
+                    case 8: c.DropItem(new CrushedGlass()); break;
+                    case 9: c.DropItem(new ElvenFletchings()); break;
+                }
+            }
+        }
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
 
-            if (Body == 42)
+            if (this.Body == 42)
             {
-                Body = 0x8E;
-                Hue = 0;
+                this.Body = 0x8E;
+                this.Hue = 0;
             }
         }
     }

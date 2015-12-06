@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -6,12 +7,13 @@ namespace Server.Mobiles
     {
         [Constructable]
         public ParoxysmusSwampDragon()
+            : base()
         {
-            BardingResource = CraftResource.Iron;
-            BardingExceptional = true;
-            BardingHP = BardingMaxHP;
-            HasBarding = true;
-            Hue = 0x851;
+            this.BardingResource = CraftResource.Iron;
+            this.BardingExceptional = true;
+            this.BardingHP = this.BardingMaxHP;
+            this.HasBarding = true;
+            this.Hue = 0x851;
         }
 
         public ParoxysmusSwampDragon(Serial serial)
@@ -21,9 +23,11 @@ namespace Server.Mobiles
 
         public override bool DeleteOnRelease
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override void GetProperties(ObjectPropertyList list)
         {
             base.GetProperties(list);
@@ -42,7 +46,7 @@ namespace Server.Mobiles
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Mobiles
 {
     [CorpseName("a maggoty corpse")] // TODO: Corpse name?
@@ -7,31 +9,31 @@ namespace Server.Mobiles
         public MoundOfMaggots()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a mound of maggots";
-            Body = 319;
-            BaseSoundID = 898;
+            this.Name = "a mound of maggots";
+            this.Body = 319;
+            this.BaseSoundID = 898;
 
-            SetStr(61, 70);
-            SetDex(61, 70);
-            SetInt(10);
+            this.SetStr(61, 70);
+            this.SetDex(61, 70);
+            this.SetInt(10);
 
-            SetMana(0);
+            this.SetMana(0);
 
-            SetDamage(3, 9);
+            this.SetDamage(3, 9);
 
-            SetDamageType(ResistanceType.Physical, 50);
-            SetDamageType(ResistanceType.Poison, 50);
+            this.SetDamageType(ResistanceType.Physical, 50);
+            this.SetDamageType(ResistanceType.Poison, 50);
 
-            SetResistance(ResistanceType.Physical, 90);
-            SetResistance(ResistanceType.Poison, 100);
+            this.SetResistance(ResistanceType.Physical, 90);
+            this.SetResistance(ResistanceType.Poison, 100);
 
-            SetSkill(SkillName.Tactics, 50.0);
-            SetSkill(SkillName.Wrestling, 50.1, 60.0);
+            this.SetSkill(SkillName.Tactics, 50.0);
+            this.SetSkill(SkillName.Wrestling, 50.1, 60.0);
 
-            Fame = 1000;
-            Karma = -1000;
+            this.Fame = 1000;
+            this.Karma = -1000;
 
-            VirtualArmor = 24;
+            this.VirtualArmor = 24;
         }
 
         public MoundOfMaggots(Serial serial)
@@ -41,30 +43,34 @@ namespace Server.Mobiles
 
         public override Poison PoisonImmune
         {
-            get { return Poison.Lethal; }
+            get
+            {
+                return Poison.Lethal;
+            }
         }
-
         public override int TreasureMapLevel
         {
-            get { return 1; }
+            get
+            {
+                return 1;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Meager);
-            AddLoot(LootPack.Gems);
+            this.AddLoot(LootPack.Meager);
+            this.AddLoot(LootPack.Gems);
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

@@ -3,49 +3,49 @@ using Server.Items;
 
 namespace Server.Mobiles
 {
-    [CorpseName("Skeletal Dragon [Renowned] corpse")]
+    [CorpseName("Skeletal Dragon [Renowned] corpse")]  
     public class SkeletalDragonRenowned : BaseRenowned
     {
         [Constructable]
         public SkeletalDragonRenowned()
             : base(AIType.AI_Mage)
         {
-            Name = "Skeletal Dragon";
-            Title = "[Renowned]";
-            Body = 104;
-            BaseSoundID = 0x488;
+            this.Name = "Skeletal Dragon";
+            this.Title = "[Renowned]";
+            this.Body = 104;
+            this.BaseSoundID = 0x488;
 
-            Hue = 906;
+            this.Hue = 906;
 
-            SetStr(898, 1030);
-            SetDex(100, 200);
-            SetInt(488, 620);
+            this.SetStr(898, 1030);
+            this.SetDex(100, 200);
+            this.SetInt(488, 620);
 
-            SetHits(558, 599);
+            this.SetHits(558, 599);
 
-            SetDamage(29, 35);
+            this.SetDamage(29, 35);
 
-            SetDamageType(ResistanceType.Physical, 75);
-            SetDamageType(ResistanceType.Fire, 25);
+            this.SetDamageType(ResistanceType.Physical, 75);
+            this.SetDamageType(ResistanceType.Fire, 25);
 
-            SetResistance(ResistanceType.Physical, 75, 80);
-            SetResistance(ResistanceType.Fire, 40, 60);
-            SetResistance(ResistanceType.Cold, 40, 60);
-            SetResistance(ResistanceType.Poison, 70, 80);
-            SetResistance(ResistanceType.Energy, 40, 60);
+            this.SetResistance(ResistanceType.Physical, 75, 80);
+            this.SetResistance(ResistanceType.Fire, 40, 60);
+            this.SetResistance(ResistanceType.Cold, 40, 60);
+            this.SetResistance(ResistanceType.Poison, 70, 80);
+            this.SetResistance(ResistanceType.Energy, 40, 60);
 
-            SetSkill(SkillName.EvalInt, 80.1, 100.0);
-            SetSkill(SkillName.Magery, 80.1, 100.0);
-            SetSkill(SkillName.MagicResist, 100.3, 130.0);
-            SetSkill(SkillName.Tactics, 97.6, 100.0);
-            SetSkill(SkillName.Wrestling, 97.6, 100.0);
+            this.SetSkill(SkillName.EvalInt, 80.1, 100.0);
+            this.SetSkill(SkillName.Magery, 80.1, 100.0);
+            this.SetSkill(SkillName.MagicResist, 100.3, 130.0);
+            this.SetSkill(SkillName.Tactics, 97.6, 100.0);
+            this.SetSkill(SkillName.Wrestling, 97.6, 100.0);
 
-            Fame = 22500;
-            Karma = -22500;
+            this.Fame = 22500;
+            this.Karma = -22500;
 
-            VirtualArmor = 80;
-
-            PackItem(new EssencePersistence());
+            this.VirtualArmor = 80;
+		
+            this.PackItem(new EssencePersistence());
         }
 
         public SkeletalDragonRenowned(Serial serial)
@@ -55,98 +55,119 @@ namespace Server.Mobiles
 
         public override Type[] UniqueSAList
         {
-            get { return new[] {typeof (UndyingFlesh)}; }
+            get
+            {
+                return new Type[] { typeof(UndyingFlesh) };
+            }
         }
-
         public override Type[] SharedSAList
         {
             get
             {
-                return new[]
-                {
-                    typeof (AxeOfAbandon), typeof (DemonBridleRing), typeof (DemonBridleRing), typeof (MagicalResidue),
-                    typeof (DelicateScales), typeof (VoidInfusedKilt)
-                };
+                return new Type[] { typeof(AxeOfAbandon), typeof(DemonBridleRing), typeof(DemonBridleRing), typeof(MagicalResidue), typeof(DelicateScales), typeof(VoidInfusedKilt) };
             }
         }
-
         public override bool ReacquireOnMovement
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override bool HasBreath
         {
-            get { return true; }
-        } // fire breath enabled
-
+            get
+            {
+                return true;
+            }
+        }// fire breath enabled
         public override int BreathFireDamage
         {
-            get { return 0; }
+            get
+            {
+                return 0;
+            }
         }
-
         public override int BreathColdDamage
         {
-            get { return 100; }
+            get
+            {
+                return 100;
+            }
         }
-
         public override int BreathEffectHue
         {
-            get { return 0x480; }
+            get
+            {
+                return 0x480;
+            }
         }
-
         public override double BonusPetDamageScalar
         {
-            get { return (Core.SE) ? 3.0 : 1.0; }
+            get
+            {
+                return (Core.SE) ? 3.0 : 1.0;
+            }
         }
-
         // TODO: Undead summoning?
         public override bool AutoDispel
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override Poison PoisonImmune
         {
-            get { return Poison.Lethal; }
+            get
+            {
+                return Poison.Lethal;
+            }
         }
-
         public override bool BleedImmune
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override int Meat
         {
-            get { return 19; }
-        } // where's it hiding these? :)
-
+            get
+            {
+                return 19;
+            }
+        }// where's it hiding these? :)
         public override int Hides
         {
-            get { return 20; }
+            get
+            {
+                return 20;
+            }
         }
-
         public override HideType HideType
         {
-            get { return HideType.Barbed; }
+            get
+            {
+                return HideType.Barbed;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.FilthyRich, 4);
-            AddLoot(LootPack.Gems, 5);
+            this.AddLoot(LootPack.FilthyRich, 4);
+            this.AddLoot(LootPack.Gems, 5);
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

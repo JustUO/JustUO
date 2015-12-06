@@ -16,35 +16,35 @@ namespace Server.Mobiles
         public FireSteed(string name)
             : base(name, 0xBE, 0x3E9E, AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            BaseSoundID = 0xA8;
+            this.BaseSoundID = 0xA8;
 
-            SetStr(376, 400);
-            SetDex(91, 120);
-            SetInt(291, 300);
+            this.SetStr(376, 400);
+            this.SetDex(91, 120);
+            this.SetInt(291, 300);
 
-            SetHits(226, 240);
+            this.SetHits(226, 240);
 
-            SetDamage(11, 30);
+            this.SetDamage(11, 30);
 
-            SetDamageType(ResistanceType.Physical, 20);
-            SetDamageType(ResistanceType.Fire, 80);
+            this.SetDamageType(ResistanceType.Physical, 20);
+            this.SetDamageType(ResistanceType.Fire, 80);
 
-            SetResistance(ResistanceType.Physical, 30, 40);
-            SetResistance(ResistanceType.Fire, 70, 80);
-            SetResistance(ResistanceType.Cold, 20, 30);
-            SetResistance(ResistanceType.Poison, 30, 40);
-            SetResistance(ResistanceType.Energy, 30, 40);
+            this.SetResistance(ResistanceType.Physical, 30, 40);
+            this.SetResistance(ResistanceType.Fire, 70, 80);
+            this.SetResistance(ResistanceType.Cold, 20, 30);
+            this.SetResistance(ResistanceType.Poison, 30, 40);
+            this.SetResistance(ResistanceType.Energy, 30, 40);
 
-            SetSkill(SkillName.MagicResist, 100.0, 120.0);
-            SetSkill(SkillName.Tactics, 100.0);
-            SetSkill(SkillName.Wrestling, 100.0);
+            this.SetSkill(SkillName.MagicResist, 100.0, 120.0);
+            this.SetSkill(SkillName.Tactics, 100.0);
+            this.SetSkill(SkillName.Wrestling, 100.0);
 
-            Fame = 20000;
-            Karma = -20000;
+            this.Fame = 20000;
+            this.Karma = -20000;
 
-            Tamable = true;
-            ControlSlots = 2;
-            MinTameSkill = 106.0;
+            this.Tamable = true;
+            this.ControlSlots = 2;
+            this.MinTameSkill = 106.0;
         }
 
         public FireSteed(Serial serial)
@@ -54,50 +54,56 @@ namespace Server.Mobiles
 
         public override bool HasBreath
         {
-            get { return true; }
-        } // fire breath enabled
-
+            get
+            {
+                return true;
+            }
+        }// fire breath enabled
         public override FoodType FavoriteFood
         {
-            get { return FoodType.Meat; }
+            get
+            {
+                return FoodType.Meat;
+            }
         }
-
         public override PackInstinct PackInstinct
         {
-            get { return PackInstinct.Daemon | PackInstinct.Equine; }
+            get
+            {
+                return PackInstinct.Daemon | PackInstinct.Equine;
+            }
         }
-
         public override void GenerateLoot()
         {
-            PackItem(new SulfurousAsh(Utility.RandomMinMax(151, 300)));
-            PackItem(new Ruby(Utility.RandomMinMax(16, 30)));
+            this.PackItem(new SulfurousAsh(Utility.RandomMinMax(151, 300)));
+            this.PackItem(new Ruby(Utility.RandomMinMax(16, 30)));
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write(1); // version
+            writer.Write((int)1); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
 
-            if (BaseSoundID <= 0)
-                BaseSoundID = 0xA8;
+            if (this.BaseSoundID <= 0)
+                this.BaseSoundID = 0xA8;
 
             if (version < 1)
             {
-                for (var i = 0; i < Skills.Length; ++i)
+                for (int i = 0; i < this.Skills.Length; ++i)
                 {
-                    Skills[i].Cap = Math.Max(100.0, Skills[i].Cap*0.9);
+                    this.Skills[i].Cap = Math.Max(100.0, this.Skills[i].Cap * 0.9);
 
-                    if (Skills[i].Base > Skills[i].Cap)
+                    if (this.Skills[i].Base > this.Skills[i].Cap)
                     {
-                        Skills[i].Base = Skills[i].Cap;
+                        this.Skills[i].Base = this.Skills[i].Cap;
                     }
                 }
             }

@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -9,39 +10,39 @@ namespace Server.Mobiles
         public StoneGargoyle()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a stone gargoyle";
-            Body = 67;
-            BaseSoundID = 0x174;
+            this.Name = "a stone gargoyle";
+            this.Body = 67;
+            this.BaseSoundID = 0x174;
 
-            SetStr(246, 275);
-            SetDex(76, 95);
-            SetInt(81, 105);
+            this.SetStr(246, 275);
+            this.SetDex(76, 95);
+            this.SetInt(81, 105);
 
-            SetHits(148, 165);
+            this.SetHits(148, 165);
 
-            SetDamage(11, 17);
+            this.SetDamage(11, 17);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 45, 55);
-            SetResistance(ResistanceType.Fire, 20, 30);
-            SetResistance(ResistanceType.Cold, 10, 20);
-            SetResistance(ResistanceType.Poison, 30, 40);
-            SetResistance(ResistanceType.Energy, 30, 40);
+            this.SetResistance(ResistanceType.Physical, 45, 55);
+            this.SetResistance(ResistanceType.Fire, 20, 30);
+            this.SetResistance(ResistanceType.Cold, 10, 20);
+            this.SetResistance(ResistanceType.Poison, 30, 40);
+            this.SetResistance(ResistanceType.Energy, 30, 40);
 
-            SetSkill(SkillName.MagicResist, 85.1, 100.0);
-            SetSkill(SkillName.Tactics, 80.1, 100.0);
-            SetSkill(SkillName.Wrestling, 60.1, 100.0);
+            this.SetSkill(SkillName.MagicResist, 85.1, 100.0);
+            this.SetSkill(SkillName.Tactics, 80.1, 100.0);
+            this.SetSkill(SkillName.Wrestling, 60.1, 100.0);
 
-            Fame = 4000;
-            Karma = -4000;
+            this.Fame = 4000;
+            this.Karma = -4000;
 
-            VirtualArmor = 50;
+            this.VirtualArmor = 50;
 
-            PackItem(new IronIngot(12));
+            this.PackItem(new IronIngot(12));
 
             if (0.05 > Utility.RandomDouble())
-                PackItem(new GargoylesPickaxe());
+                this.PackItem(new GargoylesPickaxe());
         }
 
         public StoneGargoyle(Serial serial)
@@ -51,26 +52,28 @@ namespace Server.Mobiles
 
         public override int TreasureMapLevel
         {
-            get { return 2; }
+            get
+            {
+                return 2;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Average, 2);
-            AddLoot(LootPack.Gems, 1);
-            AddLoot(LootPack.Potions);
+            this.AddLoot(LootPack.Average, 2);
+            this.AddLoot(LootPack.Gems, 1);
+            this.AddLoot(LootPack.Potions);
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

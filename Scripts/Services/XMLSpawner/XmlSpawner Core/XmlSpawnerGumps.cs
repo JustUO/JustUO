@@ -49,9 +49,9 @@ namespace Server.Mobiles
 
 			AddPage(0);
 
-            int width = 370;
+            int width = 490;
 
-			AddBackground(20, 0, width, 480, 5054);
+            AddBackground(20, 0, width, 500, 5054);
 
 			AddPage(1);
 			//AddAlphaRegion( 20, 0, 220, 554 );
@@ -101,9 +101,9 @@ namespace Server.Mobiles
 				"BCAST[,color][,fontnumber]/text\n" +
 				"BSOUND,soundnumber",
 				false, true);
-			AddButton(width - 30, 5, 0x15E1, 0x15E5, 200, GumpButtonType.Page, 2);
-			AddLabel(width - 38, 2, 0x384, "1");
-			AddButton(width - 60, 5, 0x15E3, 0x15E7, 200, GumpButtonType.Page, 4);
+			AddButton(width - 30, 480, 0x15E1, 0x15E5, 200, GumpButtonType.Page, 2);
+            AddLabel(width - 38, 478, 0x384, "1");
+			AddButton(width - 60, 480, 0x15E3, 0x15E7, 200, GumpButtonType.Page, 4);
 
 			AddPage(2);
 			AddLabel(27, 2, 0x384, "Value and Itemtype Keywords NB: ( « EQUALE TO < ) ( » EQUALS TO > )");
@@ -198,9 +198,9 @@ namespace Server.Mobiles
 				"SKILL,skillname\n" +
 				"STEALABLE,stealable (true/false)",
 				false, true);
-			AddButton(width - 30, 5, 0x15E1, 0x15E5, 200, GumpButtonType.Page, 3);
-			AddLabel(width - 41, 2, 0x384, "2");
-			AddButton(width - 60, 5, 0x15E3, 0x15E7, 200, GumpButtonType.Page, 1);
+            AddButton(width - 30, 480, 0x15E1, 0x15E5, 200, GumpButtonType.Page, 3);
+            AddLabel(width - 41, 478, 0x384, "2");
+            AddButton(width - 60, 480, 0x15E3, 0x15E7, 200, GumpButtonType.Page, 1);
 
 			AddPage(3);
 			AddLabel(27, 2, 0x384, "[ Commands");
@@ -238,9 +238,9 @@ namespace Server.Mobiles
 				"XmlSet property value",
 				false, true);
 
-			AddButton(width - 30, 5, 0x15E1, 0x15E5, 200, GumpButtonType.Page, 4);
-			AddLabel(width - 41, 2, 0x384, "3");
-			AddButton(width - 60, 5, 0x15E3, 0x15E7, 200, GumpButtonType.Page, 2);
+            AddButton(width - 30, 480, 0x15E1, 0x15E5, 200, GumpButtonType.Page, 4);
+            AddLabel(width - 41, 478, 0x384, "3");
+            AddButton(width - 60, 480, 0x15E3, 0x15E7, 200, GumpButtonType.Page, 2);
 
 			AddPage(4);
 			AddLabel(27, 2, 0x384, "Quest types");
@@ -252,13 +252,13 @@ namespace Server.Mobiles
 				"COLLECT,itemtype[,count][,proptest]\n" +
 				"COLLECTNAMED,itemname[,itemtype][,count][,proptest]\n" +
 				"ESCORT[,mobname][,proptest]\n",
-				false, true);
+				false, false);
 
 			AddLabel(27, 200, 0x384, "Trigger/NoTriggerOnCarried");
 			AddHtml(25, 220, width - 10, 50,
 				"ATTACHMENT,name,type\n" +
 				"itemname[,type][,EQUIPPED][,objective#,objective#,...]\n",
-				false, true);
+                false, false);
 
 			AddLabel(27, 300, 0x384, "GUMPITEMS");
 			AddHtml(25, 320, width - 10, 150,
@@ -270,11 +270,11 @@ namespace Server.Mobiles
 				"LABEL,x,y,labelstring[,labelcolor]\n" +
 				"RADIO,gumpid1,gumpid2,x,y[,initialstate]\n" +
 				"TEXTENTRY,x,y,width,height[,text][,textcolor]\n",
-				false, true);
+                false, false);
 
-			AddButton(width - 30, 5, 0x15E1, 0x15E5, 200, GumpButtonType.Page, 1);
-			AddLabel(width - 41, 2, 0x384, "4");
-			AddButton(width - 60, 5, 0x15E3, 0x15E7, 200, GumpButtonType.Page, 3);
+            AddButton(width - 30, 480, 0x15E1, 0x15E5, 200, GumpButtonType.Page, 1);
+            AddLabel(width - 41, 478, 0x384, "4");
+            AddButton(width - 60, 480, 0x15E3, 0x15E7, 200, GumpButtonType.Page, 3);
 		}
 	}
 	public class TextEntryGump : Gump

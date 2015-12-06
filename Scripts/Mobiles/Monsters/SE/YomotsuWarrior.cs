@@ -1,5 +1,4 @@
 using System;
-using Server.Engines.Plants;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -11,61 +10,61 @@ namespace Server.Mobiles
         public YomotsuWarrior()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a yomotsu warrior";
-            Body = 245;
-            BaseSoundID = 0x452;
+            this.Name = "a yomotsu warrior";
+            this.Body = 245;
+            this.BaseSoundID = 0x452;
 
-            SetStr(486, 530);
-            SetDex(151, 165);
-            SetInt(17, 31);
+            this.SetStr(486, 530);
+            this.SetDex(151, 165);
+            this.SetInt(17, 31);
 
-            SetHits(486, 530);
-            SetMana(17, 31);
+            this.SetHits(486, 530);
+            this.SetMana(17, 31);
 
-            SetDamage(8, 10);
+            this.SetDamage(8, 10);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 65, 85);
-            SetResistance(ResistanceType.Fire, 30, 50);
-            SetResistance(ResistanceType.Cold, 45, 65);
-            SetResistance(ResistanceType.Poison, 35, 55);
-            SetResistance(ResistanceType.Energy, 25, 50);
+            this.SetResistance(ResistanceType.Physical, 65, 85);
+            this.SetResistance(ResistanceType.Fire, 30, 50);
+            this.SetResistance(ResistanceType.Cold, 45, 65);
+            this.SetResistance(ResistanceType.Poison, 35, 55);
+            this.SetResistance(ResistanceType.Energy, 25, 50);
 
-            SetSkill(SkillName.Anatomy, 85.1, 95.0);
-            SetSkill(SkillName.MagicResist, 82.6, 90.5);
-            SetSkill(SkillName.Tactics, 95.1, 105.0);
-            SetSkill(SkillName.Wrestling, 97.6, 107.5);
+            this.SetSkill(SkillName.Anatomy, 85.1, 95.0);
+            this.SetSkill(SkillName.MagicResist, 82.6, 90.5);
+            this.SetSkill(SkillName.Tactics, 95.1, 105.0);
+            this.SetSkill(SkillName.Wrestling, 97.6, 107.5);
 
-            Fame = 4200;
-            Karma = -4200;
+            this.Fame = 4200;	
+            this.Karma = -4200;
 
-            PackItem(new GreenGourd());
-            PackItem(new ExecutionersAxe());
+            this.PackItem(new GreenGourd());
+            this.PackItem(new ExecutionersAxe());
 
             if (Utility.RandomBool())
-                PackItem(new LongPants());
+                this.PackItem(new LongPants());
             else
-                PackItem(new ShortPants());
+                this.PackItem(new ShortPants());
 
-            switch (Utility.Random(4))
+            switch ( Utility.Random(4) )
             {
                 case 0:
-                    PackItem(new Shoes());
+                    this.PackItem(new Shoes());
                     break;
                 case 1:
-                    PackItem(new Sandals());
+                    this.PackItem(new Sandals());
                     break;
                 case 2:
-                    PackItem(new Boots());
+                    this.PackItem(new Boots());
                     break;
                 case 3:
-                    PackItem(new ThighBoots());
+                    this.PackItem(new ThighBoots());
                     break;
             }
 
             if (Utility.RandomDouble() < .25)
-                PackItem(Seed.RandomBonsaiSeed());
+                this.PackItem(Engines.Plants.Seed.RandomBonsaiSeed());
         }
 
         public YomotsuWarrior(Serial serial)
@@ -75,24 +74,32 @@ namespace Server.Mobiles
 
         public override FoodType FavoriteFood
         {
-            get { return FoodType.Fish; }
+            get
+            {
+                return FoodType.Fish;
+            }
         }
-
         public override int Meat
         {
-            get { return 1; }
+            get
+            {
+                return 1;
+            }
         }
-
         public override bool CanRummageCorpses
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override int TreasureMapLevel
         {
-            get { return 3; }
+            get
+            {
+                return 3;
+            }
         }
-
         public override WeaponAbility GetWeaponAbility()
         {
             return WeaponAbility.DoubleStrike;
@@ -100,12 +107,12 @@ namespace Server.Mobiles
 
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Rich, 2);
-            AddLoot(LootPack.Gems, 2);
+            this.AddLoot(LootPack.Rich, 2);
+            this.AddLoot(LootPack.Gems, 2);
         }
 
         // TODO: Throwing Dagger
-        public override void OnGaveMeleeAttack(Mobile defender)
+        public override void OnGaveMeleeAttack(Mobile defender) 
         {
             base.OnGaveMeleeAttack(defender);
 
@@ -126,13 +133,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
 
         public override int GetIdleSound()

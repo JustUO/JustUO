@@ -4,87 +4,87 @@ using Server.Misc;
 
 namespace Server.Mobiles
 {
-    [CorpseName("Gray Goblin Mage [Renowned] corpse")]
+    [CorpseName("Gray Goblin Mage [Renowned] corpse")] 
     public class GrayGoblinMageRenowned : BaseRenowned
     {
         [Constructable]
         public GrayGoblinMageRenowned()
             : base(AIType.AI_Mage)
         {
-            Name = "Gray Goblin Mage";
-            Title = "[Renowned]";
-            Body = 723;
-            BaseSoundID = 437;
+            this.Name = "Gray Goblin Mage";
+            this.Title = "[Renowned]";
+            this.Body = 723;
+            this.BaseSoundID = 437;
 
-            SetStr(550, 600);
-            SetDex(70, 75);
-            SetInt(500, 600);
+            this.SetStr(550, 600);
+            this.SetDex(70, 75);
+            this.SetInt(500, 600);
 
-            SetHits(1100, 1300);
+            this.SetHits(1100, 1300);
 
-            SetDamage(5, 7);
+            this.SetDamage(5, 7);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 30, 35);
-            SetResistance(ResistanceType.Fire, 45, 50);
-            SetResistance(ResistanceType.Cold, 40, 50);
-            SetResistance(ResistanceType.Poison, 40, 50);
-            SetResistance(ResistanceType.Energy, 20, 25);
+            this.SetResistance(ResistanceType.Physical, 30, 35);
+            this.SetResistance(ResistanceType.Fire, 45, 50);
+            this.SetResistance(ResistanceType.Cold, 40, 50);
+            this.SetResistance(ResistanceType.Poison, 40, 50);
+            this.SetResistance(ResistanceType.Energy, 20, 25);
 
-            SetSkill(SkillName.MagicResist, 120.0, 125.0);
-            SetSkill(SkillName.Tactics, 95.0, 100.0);
-            SetSkill(SkillName.Wrestling, 100.0, 110.0);
-            SetSkill(SkillName.EvalInt, 100.0, 120.0);
-            SetSkill(SkillName.Meditation, 100.0, 105.0);
-            SetSkill(SkillName.Magery, 100.0, 110.0);
+            this.SetSkill(SkillName.MagicResist, 120.0, 125.0);
+            this.SetSkill(SkillName.Tactics, 95.0, 100.0);
+            this.SetSkill(SkillName.Wrestling, 100.0, 110.0);
+            this.SetSkill(SkillName.EvalInt, 100.0, 120.0);
+            this.SetSkill(SkillName.Meditation, 100.0, 105.0);
+            this.SetSkill(SkillName.Magery, 100.0, 110.0);
 
-            Fame = 1500;
-            Karma = -1500;
+            this.Fame = 1500;
+            this.Karma = -1500;
 
-            VirtualArmor = 28;
+            this.VirtualArmor = 28;
 
-            PackItem(new EssenceControl());
-
-            switch (Utility.Random(20))
+            this.PackItem(new EssenceControl());
+			
+            switch ( Utility.Random(20) )
             {
                 case 0:
-                    PackItem(new Scimitar());
+                    this.PackItem(new Scimitar());
                     break;
                 case 1:
-                    PackItem(new Katana());
+                    this.PackItem(new Katana());
                     break;
                 case 2:
-                    PackItem(new WarMace());
+                    this.PackItem(new WarMace());
                     break;
                 case 3:
-                    PackItem(new WarHammer());
+                    this.PackItem(new WarHammer());
                     break;
                 case 4:
-                    PackItem(new Kryss());
+                    this.PackItem(new Kryss());
                     break;
                 case 5:
-                    PackItem(new Pitchfork());
+                    this.PackItem(new Pitchfork());
                     break;
             }
 
-            PackItem(new ThighBoots());
+            this.PackItem(new ThighBoots());
 
-            switch (Utility.Random(3))
+            switch ( Utility.Random(3) )
             {
                 case 0:
-                    PackItem(new Ribs());
+                    this.PackItem(new Ribs());
                     break;
                 case 1:
-                    PackItem(new Shaft());
+                    this.PackItem(new Shaft());
                     break;
                 case 2:
-                    PackItem(new Candle());
+                    this.PackItem(new Candle());
                     break;
             }
 
             if (0.2 > Utility.RandomDouble())
-                PackItem(new BolaBall());
+                this.PackItem(new BolaBall());
         }
 
         public GrayGoblinMageRenowned(Serial serial)
@@ -94,38 +94,40 @@ namespace Server.Mobiles
 
         public override Type[] UniqueSAList
         {
-            get { return new Type[] {}; }
+            get
+            {
+                return new Type[] { };
+            }
         }
-
         public override Type[] SharedSAList
         {
             get
             {
-                return new[]
-                {typeof (StormCaller), typeof (TorcOfTheGuardians), typeof (GiantSteps), typeof (CavalrysFolly)};
+                return new Type[] { typeof(StormCaller), typeof(TorcOfTheGuardians), typeof(GiantSteps), typeof(CavalrysFolly) };
             }
         }
-
         public override InhumanSpeech SpeechType
         {
-            get { return InhumanSpeech.Orc; }
+            get
+            {
+                return InhumanSpeech.Orc;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Meager);
+            this.AddLoot(LootPack.Meager);
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

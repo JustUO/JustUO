@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Mobiles
 {
     [CorpseName("a ghostly corpse")]
@@ -7,36 +9,36 @@ namespace Server.Mobiles
         public Ghoul()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a ghoul";
-            Body = 153;
-            BaseSoundID = 0x482;
+            this.Name = "a ghoul";
+            this.Body = 153;
+            this.BaseSoundID = 0x482;
 
-            SetStr(76, 100);
-            SetDex(76, 95);
-            SetInt(36, 60);
+            this.SetStr(76, 100);
+            this.SetDex(76, 95);
+            this.SetInt(36, 60);
 
-            SetHits(46, 60);
-            SetMana(0);
+            this.SetHits(46, 60);
+            this.SetMana(0);
 
-            SetDamage(7, 9);
+            this.SetDamage(7, 9);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 25, 30);
-            SetResistance(ResistanceType.Cold, 20, 30);
-            SetResistance(ResistanceType.Poison, 5, 10);
-            SetResistance(ResistanceType.Energy, 10, 20);
+            this.SetResistance(ResistanceType.Physical, 25, 30);
+            this.SetResistance(ResistanceType.Cold, 20, 30);
+            this.SetResistance(ResistanceType.Poison, 5, 10);
+            this.SetResistance(ResistanceType.Energy, 10, 20);
 
-            SetSkill(SkillName.MagicResist, 45.1, 60.0);
-            SetSkill(SkillName.Tactics, 45.1, 60.0);
-            SetSkill(SkillName.Wrestling, 45.1, 55.0);
+            this.SetSkill(SkillName.MagicResist, 45.1, 60.0);
+            this.SetSkill(SkillName.Tactics, 45.1, 60.0);
+            this.SetSkill(SkillName.Wrestling, 45.1, 55.0);
 
-            Fame = 2500;
-            Karma = -2500;
+            this.Fame = 2500;
+            this.Karma = -2500;
 
-            VirtualArmor = 28;
+            this.VirtualArmor = 28;
 
-            PackItem(Loot.RandomWeapon());
+            this.PackItem(Loot.RandomWeapon());
         }
 
         public Ghoul(Serial serial)
@@ -46,34 +48,40 @@ namespace Server.Mobiles
 
         public override bool BleedImmune
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override Poison PoisonImmune
         {
-            get { return Poison.Regular; }
+            get
+            {
+                return Poison.Regular;
+            }
         }
-
         public override OppositionGroup OppositionGroup
         {
-            get { return OppositionGroup.FeyAndUndead; }
+            get
+            {
+                return OppositionGroup.FeyAndUndead;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Meager);
+            this.AddLoot(LootPack.Meager);
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

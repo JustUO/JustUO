@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Mobiles
 {
     [CorpseName("a crane corpse")]
@@ -7,31 +9,31 @@ namespace Server.Mobiles
         public Crane()
             : base(AIType.AI_Animal, FightMode.Aggressor, 10, 1, 0.2, 0.4)
         {
-            Name = "a crane";
-            Body = 254;
-            BaseSoundID = 0x4D7;
+            this.Name = "a crane";
+            this.Body = 254;
+            this.BaseSoundID = 0x4D7;
 
-            SetStr(26, 35);
-            SetDex(16, 25);
-            SetInt(11, 15);
+            this.SetStr(26, 35);
+            this.SetDex(16, 25);
+            this.SetInt(11, 15);
 
-            SetHits(26, 35);
-            SetMana(0);
+            this.SetHits(26, 35);
+            this.SetMana(0);
 
-            SetDamage(1, 1);
+            this.SetDamage(1, 1);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 5, 5);
+            this.SetResistance(ResistanceType.Physical, 5, 5);
 
-            SetSkill(SkillName.MagicResist, 4.1, 5.0);
-            SetSkill(SkillName.Tactics, 10.1, 11.0);
-            SetSkill(SkillName.Wrestling, 10.1, 11.0);
+            this.SetSkill(SkillName.MagicResist, 4.1, 5.0);
+            this.SetSkill(SkillName.Tactics, 10.1, 11.0);
+            this.SetSkill(SkillName.Wrestling, 10.1, 11.0);
 
-            Fame = 0;
-            Karma = 200;
+            this.Fame = 0;
+            this.Karma = 200;
 
-            VirtualArmor = 5;
+            this.VirtualArmor = 5;
         }
 
         public Crane(Serial serial)
@@ -41,14 +43,18 @@ namespace Server.Mobiles
 
         public override int Meat
         {
-            get { return 1; }
+            get
+            {
+                return 1;
+            }
         }
-
         public override int Feathers
         {
-            get { return 25; }
+            get
+            {
+                return 25;
+            }
         }
-
         public override int GetAngerSound()
         {
             return 0x4D9;
@@ -78,14 +84,14 @@ namespace Server.Mobiles
         {
             base.Serialize(writer);
 
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

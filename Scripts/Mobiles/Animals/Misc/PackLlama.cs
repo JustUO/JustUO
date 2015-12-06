@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Server.ContextMenus;
 using Server.Items;
@@ -11,42 +12,42 @@ namespace Server.Mobiles
         public PackLlama()
             : base(AIType.AI_Animal, FightMode.Aggressor, 10, 1, 0.2, 0.4)
         {
-            Name = "a pack llama";
-            Body = 292;
-            BaseSoundID = 0x3F3;
+            this.Name = "a pack llama";
+            this.Body = 292;
+            this.BaseSoundID = 0x3F3;
 
-            SetStr(52, 80);
-            SetDex(36, 55);
-            SetInt(16, 30);
+            this.SetStr(52, 80);
+            this.SetDex(36, 55);
+            this.SetInt(16, 30);
 
-            SetHits(50);
-            SetStam(86, 105);
-            SetMana(0);
+            this.SetHits(50);
+            this.SetStam(86, 105);
+            this.SetMana(0);
 
-            SetDamage(2, 6);
+            this.SetDamage(2, 6);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 25, 35);
-            SetResistance(ResistanceType.Fire, 10, 15);
-            SetResistance(ResistanceType.Cold, 10, 15);
-            SetResistance(ResistanceType.Poison, 10, 15);
-            SetResistance(ResistanceType.Energy, 10, 15);
+            this.SetResistance(ResistanceType.Physical, 25, 35);
+            this.SetResistance(ResistanceType.Fire, 10, 15);
+            this.SetResistance(ResistanceType.Cold, 10, 15);
+            this.SetResistance(ResistanceType.Poison, 10, 15);
+            this.SetResistance(ResistanceType.Energy, 10, 15);
 
-            SetSkill(SkillName.MagicResist, 15.1, 20.0);
-            SetSkill(SkillName.Tactics, 19.2, 29.0);
-            SetSkill(SkillName.Wrestling, 19.2, 29.0);
+            this.SetSkill(SkillName.MagicResist, 15.1, 20.0);
+            this.SetSkill(SkillName.Tactics, 19.2, 29.0);
+            this.SetSkill(SkillName.Wrestling, 19.2, 29.0);
 
-            Fame = 0;
-            Karma = 200;
+            this.Fame = 0;
+            this.Karma = 200;
 
-            VirtualArmor = 16;
+            this.VirtualArmor = 16;
 
-            Tamable = true;
-            ControlSlots = 1;
-            MinTameSkill = 11.1;
+            this.Tamable = true;
+            this.ControlSlots = 1;
+            this.MinTameSkill = 11.1;
 
-            var pack = Backpack;
+            Container pack = this.Backpack;
 
             if (pack != null)
                 pack.Delete();
@@ -54,7 +55,22 @@ namespace Server.Mobiles
             pack = new StrongBackpack();
             pack.Movable = false;
 
-            AddItem(pack);
+            this.AddItem(pack);
+        }
+
+        public override int Meat
+        {
+            get
+            {
+                return 1;
+            }
+        }
+        public override FoodType FavoriteFood
+        {
+            get
+            {
+                return FoodType.FruitsAndVegies | FoodType.GrainsAndHay;
+            }
         }
 
         public PackLlama(Serial serial)
@@ -62,32 +78,7 @@ namespace Server.Mobiles
         {
         }
 
-        public override int Meat
-        {
-            get { return 1; }
-        }
-
-        public override FoodType FavoriteFood
-        {
-            get { return FoodType.FruitsAndVegies | FoodType.GrainsAndHay; }
-        }
-
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
-
-            writer.Write(0);
-        }
-
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
-
-            var version = reader.ReadInt();
-        }
-
         #region Pack Animal Methods
-
         public override bool OnBeforeDeath()
         {
             if (!base.OnBeforeDeath())
@@ -113,12 +104,12 @@ namespace Server.Mobiles
 
         public override bool OnDragDrop(Mobile from, Item item)
         {
-            if (CheckFeed(from, item))
+            if (this.CheckFeed(from, item))
                 return true;
 
             if (PackAnimal.CheckAccess(this, from))
             {
-                AddToBackpack(item);
+                this.AddToBackpack(item);
                 return true;
             }
 
@@ -148,5 +139,19 @@ namespace Server.Mobiles
         }
 
         #endregion
+
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
+
+            writer.Write((int)0);
+        }
+
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
+
+            int version = reader.ReadInt();
+        }
     }
 }

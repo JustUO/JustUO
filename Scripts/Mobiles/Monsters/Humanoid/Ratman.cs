@@ -1,3 +1,4 @@
+using System;
 using Server.Misc;
 
 namespace Server.Mobiles
@@ -9,34 +10,34 @@ namespace Server.Mobiles
         public Ratman()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = NameList.RandomName("ratman");
-            Body = 42;
-            BaseSoundID = 437;
+            this.Name = NameList.RandomName("ratman");
+            this.Body = 42;
+            this.BaseSoundID = 437;
 
-            SetStr(96, 120);
-            SetDex(81, 100);
-            SetInt(36, 60);
+            this.SetStr(96, 120);
+            this.SetDex(81, 100);
+            this.SetInt(36, 60);
 
-            SetHits(58, 72);
+            this.SetHits(58, 72);
 
-            SetDamage(4, 5);
+            this.SetDamage(4, 5);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 25, 30);
-            SetResistance(ResistanceType.Fire, 10, 20);
-            SetResistance(ResistanceType.Cold, 10, 20);
-            SetResistance(ResistanceType.Poison, 10, 20);
-            SetResistance(ResistanceType.Energy, 10, 20);
+            this.SetResistance(ResistanceType.Physical, 25, 30);
+            this.SetResistance(ResistanceType.Fire, 10, 20);
+            this.SetResistance(ResistanceType.Cold, 10, 20);
+            this.SetResistance(ResistanceType.Poison, 10, 20);
+            this.SetResistance(ResistanceType.Energy, 10, 20);
 
-            SetSkill(SkillName.MagicResist, 35.1, 60.0);
-            SetSkill(SkillName.Tactics, 50.1, 75.0);
-            SetSkill(SkillName.Wrestling, 50.1, 75.0);
+            this.SetSkill(SkillName.MagicResist, 35.1, 60.0);
+            this.SetSkill(SkillName.Tactics, 50.1, 75.0);
+            this.SetSkill(SkillName.Wrestling, 50.1, 75.0);
 
-            Fame = 1500;
-            Karma = -1500;
+            this.Fame = 1500;
+            this.Karma = -1500;
 
-            VirtualArmor = 28;
+            this.VirtualArmor = 28;
         }
 
         public Ratman(Serial serial)
@@ -46,40 +47,48 @@ namespace Server.Mobiles
 
         public override InhumanSpeech SpeechType
         {
-            get { return InhumanSpeech.Ratman; }
+            get
+            {
+                return InhumanSpeech.Ratman;
+            }
         }
-
         public override bool CanRummageCorpses
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override int Hides
         {
-            get { return 8; }
+            get
+            {
+                return 8;
+            }
         }
-
         public override HideType HideType
         {
-            get { return HideType.Spined; }
+            get
+            {
+                return HideType.Spined;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Meager);
+            this.AddLoot(LootPack.Meager);
             // TODO: weapon, misc
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

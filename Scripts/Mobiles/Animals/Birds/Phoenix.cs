@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Mobiles
 {
     [CorpseName("a phoenix corpse")]
@@ -7,38 +9,38 @@ namespace Server.Mobiles
         public Phoenix()
             : base(AIType.AI_Mage, FightMode.Aggressor, 10, 1, 0.2, 0.4)
         {
-            Name = "a phoenix";
-            Body = 5;
-            Hue = 0x674;
-            BaseSoundID = 0x8F;
+            this.Name = "a phoenix";
+            this.Body = 5;
+            this.Hue = 0x674;
+            this.BaseSoundID = 0x8F;
 
-            SetStr(504, 700);
-            SetDex(202, 300);
-            SetInt(504, 700);
+            this.SetStr(504, 700);
+            this.SetDex(202, 300);
+            this.SetInt(504, 700);
 
-            SetHits(340, 383);
+            this.SetHits(340, 383);
 
-            SetDamage(25);
+            this.SetDamage(25);
 
-            SetDamageType(ResistanceType.Physical, 50);
-            SetDamageType(ResistanceType.Fire, 50);
+            this.SetDamageType(ResistanceType.Physical, 50);
+            this.SetDamageType(ResistanceType.Fire, 50);
 
-            SetResistance(ResistanceType.Physical, 45, 55);
-            SetResistance(ResistanceType.Fire, 60, 70);
-            SetResistance(ResistanceType.Poison, 25, 35);
-            SetResistance(ResistanceType.Energy, 40, 50);
+            this.SetResistance(ResistanceType.Physical, 45, 55);
+            this.SetResistance(ResistanceType.Fire, 60, 70);
+            this.SetResistance(ResistanceType.Poison, 25, 35);
+            this.SetResistance(ResistanceType.Energy, 40, 50);
 
-            SetSkill(SkillName.EvalInt, 90.2, 100.0);
-            SetSkill(SkillName.Magery, 90.2, 100.0);
-            SetSkill(SkillName.Meditation, 75.1, 100.0);
-            SetSkill(SkillName.MagicResist, 86.0, 135.0);
-            SetSkill(SkillName.Tactics, 80.1, 90.0);
-            SetSkill(SkillName.Wrestling, 90.1, 100.0);
+            this.SetSkill(SkillName.EvalInt, 90.2, 100.0);
+            this.SetSkill(SkillName.Magery, 90.2, 100.0);
+            this.SetSkill(SkillName.Meditation, 75.1, 100.0);
+            this.SetSkill(SkillName.MagicResist, 86.0, 135.0);
+            this.SetSkill(SkillName.Tactics, 80.1, 90.0);
+            this.SetSkill(SkillName.Wrestling, 90.1, 100.0);
 
-            Fame = 15000;
-            Karma = 0;
+            this.Fame = 15000;
+            this.Karma = 0;
 
-            VirtualArmor = 60;
+            this.VirtualArmor = 60;
         }
 
         public Phoenix(Serial serial)
@@ -48,40 +50,48 @@ namespace Server.Mobiles
 
         public override int Meat
         {
-            get { return 1; }
+            get
+            {
+                return 1;
+            }
         }
-
         public override MeatType MeatType
         {
-            get { return MeatType.Bird; }
+            get
+            {
+                return MeatType.Bird;
+            }
         }
-
         public override int Feathers
         {
-            get { return 36; }
+            get
+            {
+                return 36;
+            }
         }
-
         public override bool CanFly
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.FilthyRich);
-            AddLoot(LootPack.Rich);
+            this.AddLoot(LootPack.FilthyRich);
+            this.AddLoot(LootPack.Rich);
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

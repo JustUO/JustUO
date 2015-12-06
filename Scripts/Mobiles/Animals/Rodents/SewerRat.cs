@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Mobiles
 {
     [CorpseName("a sewer rat corpse")]
@@ -7,37 +9,37 @@ namespace Server.Mobiles
         public Sewerrat()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a sewer rat";
-            Body = 238;
-            BaseSoundID = 0xCC;
+            this.Name = "a sewer rat";
+            this.Body = 238;
+            this.BaseSoundID = 0xCC;
 
-            SetStr(9);
-            SetDex(25);
-            SetInt(6, 10);
+            this.SetStr(9);
+            this.SetDex(25);
+            this.SetInt(6, 10);
 
-            SetHits(6);
-            SetMana(0);
+            this.SetHits(6);
+            this.SetMana(0);
 
-            SetDamage(1, 2);
+            this.SetDamage(1, 2);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 5, 10);
-            SetResistance(ResistanceType.Poison, 15, 25);
-            SetResistance(ResistanceType.Energy, 5, 10);
+            this.SetResistance(ResistanceType.Physical, 5, 10);
+            this.SetResistance(ResistanceType.Poison, 15, 25);
+            this.SetResistance(ResistanceType.Energy, 5, 10);
 
-            SetSkill(SkillName.MagicResist, 5.0);
-            SetSkill(SkillName.Tactics, 5.0);
-            SetSkill(SkillName.Wrestling, 5.0);
+            this.SetSkill(SkillName.MagicResist, 5.0);
+            this.SetSkill(SkillName.Tactics, 5.0);
+            this.SetSkill(SkillName.Wrestling, 5.0);
 
-            Fame = 300;
-            Karma = -300;
+            this.Fame = 300;
+            this.Karma = -300;
 
-            VirtualArmor = 6;
+            this.VirtualArmor = 6;
 
-            Tamable = true;
-            ControlSlots = 1;
-            MinTameSkill = -0.9;
+            this.Tamable = true;
+            this.ControlSlots = 1;
+            this.MinTameSkill = -0.9;
         }
 
         public Sewerrat(Serial serial)
@@ -47,31 +49,35 @@ namespace Server.Mobiles
 
         public override int Meat
         {
-            get { return 1; }
+            get
+            {
+                return 1;
+            }
         }
-
         public override FoodType FavoriteFood
         {
-            get { return FoodType.Meat | FoodType.Eggs | FoodType.FruitsAndVegies; }
+            get
+            {
+                return FoodType.Meat | FoodType.Eggs | FoodType.FruitsAndVegies;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Poor);
+            this.AddLoot(LootPack.Poor);
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

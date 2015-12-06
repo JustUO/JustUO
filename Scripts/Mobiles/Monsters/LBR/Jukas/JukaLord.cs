@@ -10,37 +10,37 @@ namespace Server.Mobiles
         public JukaLord()
             : base(AIType.AI_Archer, FightMode.Closest, 10, 3, 0.2, 0.4)
         {
-            Name = "a juka lord";
-            Body = 766;
+            this.Name = "a juka lord";
+            this.Body = 766;
 
-            SetStr(401, 500);
-            SetDex(81, 100);
-            SetInt(151, 200);
+            this.SetStr(401, 500);
+            this.SetDex(81, 100);
+            this.SetInt(151, 200);
 
-            SetHits(241, 300);
+            this.SetHits(241, 300);
 
-            SetDamage(10, 12);
+            this.SetDamage(10, 12);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 40, 50);
-            SetResistance(ResistanceType.Fire, 45, 50);
-            SetResistance(ResistanceType.Cold, 40, 50);
-            SetResistance(ResistanceType.Poison, 20, 25);
-            SetResistance(ResistanceType.Energy, 40, 50);
+            this.SetResistance(ResistanceType.Physical, 40, 50);
+            this.SetResistance(ResistanceType.Fire, 45, 50);
+            this.SetResistance(ResistanceType.Cold, 40, 50);
+            this.SetResistance(ResistanceType.Poison, 20, 25);
+            this.SetResistance(ResistanceType.Energy, 40, 50);
 
-            SetSkill(SkillName.Anatomy, 90.1, 100.0);
-            SetSkill(SkillName.Archery, 95.1, 100.0);
-            SetSkill(SkillName.Healing, 80.1, 100.0);
-            SetSkill(SkillName.MagicResist, 120.1, 130.0);
-            SetSkill(SkillName.Swords, 90.1, 100.0);
-            SetSkill(SkillName.Tactics, 95.1, 100.0);
-            SetSkill(SkillName.Wrestling, 90.1, 100.0);
+            this.SetSkill(SkillName.Anatomy, 90.1, 100.0);
+            this.SetSkill(SkillName.Archery, 95.1, 100.0);
+            this.SetSkill(SkillName.Healing, 80.1, 100.0);
+            this.SetSkill(SkillName.MagicResist, 120.1, 130.0);
+            this.SetSkill(SkillName.Swords, 90.1, 100.0);
+            this.SetSkill(SkillName.Tactics, 95.1, 100.0);
+            this.SetSkill(SkillName.Wrestling, 90.1, 100.0);
 
-            Fame = 15000;
-            Karma = -15000;
+            this.Fame = 15000;
+            this.Karma = -15000;
 
-            VirtualArmor = 28;
+            this.VirtualArmor = 28;
 
             Container pack = new Backpack();
 
@@ -51,9 +51,9 @@ namespace Server.Mobiles
             pack.DropItem(Loot.RandomGem());
             pack.DropItem(new ArcaneGem());
 
-            PackItem(pack);
+            this.PackItem(pack);
 
-            AddItem(new JukaBow());
+            this.AddItem(new JukaBow());
             // TODO: Bandage self
         }
 
@@ -64,35 +64,43 @@ namespace Server.Mobiles
 
         public override bool AlwaysMurderer
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override bool BardImmune
         {
-            get { return !Core.AOS; }
+            get
+            {
+                return !Core.AOS;
+            }
         }
-
         public override bool CanRummageCorpses
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override int Meat
         {
-            get { return 1; }
+            get
+            {
+                return 1;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Rich);
-            AddLoot(LootPack.Average);
+            this.AddLoot(LootPack.Rich);
+            this.AddLoot(LootPack.Average);
         }
 
         public override void OnDamage(int amount, Mobile from, bool willKill)
         {
             if (from != null && !willKill && amount > 5 && from.Player && 5 > Utility.Random(100))
             {
-                string[] toSay =
+                string[] toSay = new string[]
                 {
                     "{0}!!  You will have to do better than that!",
                     "{0}!!  Prepare to meet your doom!",
@@ -100,7 +108,7 @@ namespace Server.Mobiles
                     "{0}!!  You will pay for that!"
                 };
 
-                Say(true, String.Format(toSay[Utility.Random(toSay.Length)], from.Name));
+                this.Say(true, String.Format(toSay[Utility.Random(toSay.Length)], from.Name));
             }
 
             base.OnDamage(amount, from, willKill);
@@ -129,13 +137,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

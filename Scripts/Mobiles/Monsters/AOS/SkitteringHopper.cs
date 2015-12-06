@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Mobiles
 {
     [CorpseName("a skittering hopper corpse")]
@@ -7,36 +9,36 @@ namespace Server.Mobiles
         public SkitteringHopper()
             : base(AIType.AI_Melee, FightMode.Aggressor, 10, 1, 0.2, 0.4)
         {
-            Name = "a skittering hopper";
-            Body = 302;
-            BaseSoundID = 959;
+            this.Name = "a skittering hopper";
+            this.Body = 302;
+            this.BaseSoundID = 959;
 
-            SetStr(41, 65);
-            SetDex(91, 115);
-            SetInt(26, 50);
+            this.SetStr(41, 65);
+            this.SetDex(91, 115);
+            this.SetInt(26, 50);
 
-            SetHits(31, 45);
+            this.SetHits(31, 45);
 
-            SetDamage(3, 5);
+            this.SetDamage(3, 5);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 5, 10);
-            SetResistance(ResistanceType.Cold, 10, 20);
-            SetResistance(ResistanceType.Energy, 5, 10);
+            this.SetResistance(ResistanceType.Physical, 5, 10);
+            this.SetResistance(ResistanceType.Cold, 10, 20);
+            this.SetResistance(ResistanceType.Energy, 5, 10);
 
-            SetSkill(SkillName.MagicResist, 30.1, 45.0);
-            SetSkill(SkillName.Tactics, 45.1, 70.0);
-            SetSkill(SkillName.Wrestling, 40.1, 60.0);
+            this.SetSkill(SkillName.MagicResist, 30.1, 45.0);
+            this.SetSkill(SkillName.Tactics, 45.1, 70.0);
+            this.SetSkill(SkillName.Wrestling, 40.1, 60.0);
 
-            Fame = 300;
-            Karma = 0;
+            this.Fame = 300;
+            this.Karma = 0;
 
-            Tamable = true;
-            ControlSlots = 1;
-            MinTameSkill = -12.9;
+            this.Tamable = true;
+            this.ControlSlots = 1;
+            this.MinTameSkill = -12.9;
 
-            VirtualArmor = 12;
+            this.VirtualArmor = 12;
         }
 
         public SkitteringHopper(Serial serial)
@@ -46,24 +48,26 @@ namespace Server.Mobiles
 
         public override int TreasureMapLevel
         {
-            get { return 1; }
+            get
+            {
+                return 1;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Meager);
+            this.AddLoot(LootPack.Meager);
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -8,44 +9,45 @@ namespace Server.Mobiles
         [Constructable]
         public MasterJonath()
         {
-            Name = "Master Jonath";
-            Hue = 0x455;
 
-            SetStr(109, 131);
-            SetDex(98, 110);
-            SetInt(232, 259);
+            this.Name = "Master Jonath";
+            this.Hue = 0x455;
 
-            SetHits(766, 920);
+            this.SetStr(109, 131);
+            this.SetDex(98, 110);
+            this.SetInt(232, 259);
 
-            SetDamage(10, 15);
+            this.SetHits(766, 920);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamage(10, 15);
 
-            SetResistance(ResistanceType.Physical, 55, 60);
-            SetResistance(ResistanceType.Fire, 43, 49);
-            SetResistance(ResistanceType.Cold, 45, 80);
-            SetResistance(ResistanceType.Poison, 41, 45);
-            SetResistance(ResistanceType.Energy, 54, 55);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetSkill(SkillName.Wrestling, 80.5, 88.6);
-            SetSkill(SkillName.Tactics, 88.5, 95.1);
-            SetSkill(SkillName.MagicResist, 102.7, 102.9);
-            SetSkill(SkillName.Magery, 100.0, 106.6);
-            SetSkill(SkillName.EvalInt, 99.6, 106.9);
-            SetSkill(SkillName.Necromancy, 100.0, 106.6);
-            SetSkill(SkillName.SpiritSpeak, 99.6, 106.9);
+            this.SetResistance(ResistanceType.Physical, 55, 60);
+            this.SetResistance(ResistanceType.Fire, 43, 49);
+            this.SetResistance(ResistanceType.Cold, 45, 80);
+            this.SetResistance(ResistanceType.Poison, 41, 45);
+            this.SetResistance(ResistanceType.Energy, 54, 55);
 
-            Fame = 18000;
-            Karma = -18000;
+            this.SetSkill(SkillName.Wrestling, 80.5, 88.6);
+            this.SetSkill(SkillName.Tactics, 88.5, 95.1);
+            this.SetSkill(SkillName.MagicResist, 102.7, 102.9);
+            this.SetSkill(SkillName.Magery, 100.0, 106.6);
+            this.SetSkill(SkillName.EvalInt, 99.6, 106.9);
+            this.SetSkill(SkillName.Necromancy, 100.0, 106.6);
+            this.SetSkill(SkillName.SpiritSpeak, 99.6, 106.9);
+
+            this.Fame = 18000;
+            this.Karma = -18000;
 
             if (Utility.RandomBool())
-                PackNecroScroll(Utility.RandomMinMax(5, 9));
+                this.PackNecroScroll(Utility.RandomMinMax(5, 9));
             else
-                PackScroll(4, 7);
+                this.PackScroll(4, 7);
 
-            PackReg(7);
-            PackReg(7);
-            PackReg(8);
+            this.PackReg(7);
+            this.PackReg(7);
+            this.PackReg(8);
         }
 
         public MasterJonath(Serial serial)
@@ -53,33 +55,38 @@ namespace Server.Mobiles
         {
         }
 
+        public override void OnDeath( Container c )
+        {
+            base.OnDeath( c );
+
+            if ( Utility.RandomDouble() < 0.05 )
+            c.DropItem( new ParrotItem() );
+
+            if ( Utility.RandomDouble() < 0.15 )
+            c.DropItem( new DisintegratingThesisNotes() );
+
+            if ( Paragon.ChestChance > Utility.RandomDouble() )
+            c.DropItem( new ParagonChest( Name, TreasureMapLevel ) );
+
+        }
+
         public override bool GivesMLMinorArtifact
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override int TreasureMapLevel
         {
-            get { return 5; }
+            get
+            {
+                return 5;
+            }
         }
-
-        public override void OnDeath(Container c)
-        {
-            base.OnDeath(c);
-
-            if (Utility.RandomDouble() < 0.05)
-                c.DropItem(new ParrotItem());
-
-            if (Utility.RandomDouble() < 0.15)
-                c.DropItem(new DisintegratingThesisNotes());
-
-            if (Paragon.ChestChance > Utility.RandomDouble())
-                c.DropItem(new ParagonChest(Name, TreasureMapLevel));
-        }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.UltraRich, 3);
+            this.AddLoot(LootPack.UltraRich, 3);
         }
 
         // TODO: Special move?
@@ -87,14 +94,14 @@ namespace Server.Mobiles
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

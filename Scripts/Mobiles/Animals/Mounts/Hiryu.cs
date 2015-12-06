@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using Server.Engines.Plants;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -9,47 +8,46 @@ namespace Server.Mobiles
     public class Hiryu : BaseMount
     {
         private static readonly Hashtable m_Table = new Hashtable();
-
         [Constructable]
         public Hiryu()
             : base("a hiryu", 243, 0x3E94, AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Hue = GetHue();
+            this.Hue = GetHue();
 
-            SetStr(1201, 1410);
-            SetDex(171, 270);
-            SetInt(301, 325);
+            this.SetStr(1201, 1410);
+            this.SetDex(171, 270);
+            this.SetInt(301, 325);
 
-            SetHits(901, 1100);
-            SetMana(60);
+            this.SetHits(901, 1100);
+            this.SetMana(60);
 
-            SetDamage(20, 30);
+            this.SetDamage(20, 30);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 55, 70);
-            SetResistance(ResistanceType.Fire, 70, 90);
-            SetResistance(ResistanceType.Cold, 15, 25);
-            SetResistance(ResistanceType.Poison, 40, 50);
-            SetResistance(ResistanceType.Energy, 40, 50);
+            this.SetResistance(ResistanceType.Physical, 55, 70);
+            this.SetResistance(ResistanceType.Fire, 70, 90);
+            this.SetResistance(ResistanceType.Cold, 15, 25);
+            this.SetResistance(ResistanceType.Poison, 40, 50);
+            this.SetResistance(ResistanceType.Energy, 40, 50);
 
-            SetSkill(SkillName.Anatomy, 75.1, 80.0);
-            SetSkill(SkillName.MagicResist, 85.1, 100.0);
-            SetSkill(SkillName.Tactics, 100.1, 110.0);
-            SetSkill(SkillName.Wrestling, 100.1, 120.0);
+            this.SetSkill(SkillName.Anatomy, 75.1, 80.0);
+            this.SetSkill(SkillName.MagicResist, 85.1, 100.0);
+            this.SetSkill(SkillName.Tactics, 100.1, 110.0);
+            this.SetSkill(SkillName.Wrestling, 100.1, 120.0);
 
-            Fame = 18000;
-            Karma = -18000;
+            this.Fame = 18000;
+            this.Karma = -18000;
 
-            Tamable = true;
-            ControlSlots = 4;
-            MinTameSkill = 98.7;
+            this.Tamable = true;
+            this.ControlSlots = 4;
+            this.MinTameSkill = 98.7;
 
             if (Utility.RandomDouble() < .33)
-                PackItem(Seed.RandomBonsaiSeed());
+                this.PackItem(Engines.Plants.Seed.RandomBonsaiSeed());
 
             if (Core.ML && Utility.RandomDouble() < .33)
-                PackItem(Seed.RandomPeculiarSeed(3));
+                this.PackItem(Engines.Plants.Seed.RandomPeculiarSeed(3));
         }
 
         public Hiryu(Serial serial)
@@ -59,34 +57,46 @@ namespace Server.Mobiles
 
         public override bool StatLossAfterTame
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override int TreasureMapLevel
         {
-            get { return 5; }
+            get
+            {
+                return 5;
+            }
         }
-
         public override int Meat
         {
-            get { return 16; }
+            get
+            {
+                return 16;
+            }
         }
-
         public override int Hides
         {
-            get { return 60; }
+            get
+            {
+                return 60;
+            }
         }
-
         public override FoodType FavoriteFood
         {
-            get { return FoodType.Meat; }
+            get
+            {
+                return FoodType.Meat;
+            }
         }
-
         public override bool CanAngerOnTame
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override WeaponAbility GetWeaponAbility()
         {
             return WeaponAbility.Dismount;
@@ -119,8 +129,8 @@ namespace Server.Mobiles
 
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.FilthyRich, 3);
-            AddLoot(LootPack.Gems, 4);
+            this.AddLoot(LootPack.FilthyRich, 3);
+            this.AddLoot(LootPack.Gems, 4);
         }
 
         public override void OnGaveMeleeAttack(Mobile defender)
@@ -135,7 +145,7 @@ namespace Server.Mobiles
                 * End cliloc: 1070838
                 * Effect: Type: "3" - From: "0x57D4F5B" (player) - To: "0x0" - ItemId: "0x37B9" - ItemIdName: "glow" - FromLocation: "(1149 808, 32)" - ToLocation: "(1149 808, 32)" - Speed: "10" - Duration: "5" - FixedDirection: "True" - Explode: "False"
                 */
-                var timer = (ExpireTimer) m_Table[defender];
+                ExpireTimer timer = (ExpireTimer)m_Table[defender];
 
                 if (timer != null)
                 {
@@ -143,12 +153,11 @@ namespace Server.Mobiles
                     defender.SendLocalizedMessage(1070837); // The creature lands another blow in your weakened state.
                 }
                 else
-                    defender.SendLocalizedMessage(1070836);
-                        // The blow from the creature's claws has made you more susceptible to physical attacks.
+                    defender.SendLocalizedMessage(1070836); // The blow from the creature's claws has made you more susceptible to physical attacks.
 
-                var effect = -(defender.PhysicalResistance*15/100);
+                int effect = -(defender.PhysicalResistance * 15 / 100);
 
-                var mod = new ResistanceMod(ResistanceType.Physical, effect);
+                ResistanceMod mod = new ResistanceMod(ResistanceType.Physical, effect);
 
                 defender.FixedEffect(0x37B9, 10, 5);
                 defender.AddResistanceMod(mod);
@@ -162,13 +171,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(2);
+            writer.Write((int)2);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
 
             if (version == 0)
                 Timer.DelayCall(TimeSpan.Zero, delegate { this.Hue = GetHue(); });
@@ -184,13 +193,13 @@ namespace Server.Mobiles
 
             if (version < 2)
             {
-                for (var i = 0; i < Skills.Length; ++i)
+                for (int i = 0; i < this.Skills.Length; ++i)
                 {
-                    Skills[i].Cap = Math.Max(100.0, Skills[i].Cap*0.9);
+                    this.Skills[i].Cap = Math.Max(100.0, this.Skills[i].Cap * 0.9);
 
-                    if (Skills[i].Base > Skills[i].Cap)
+                    if (this.Skills[i].Base > this.Skills[i].Cap)
                     {
-                        Skills[i].Base = Skills[i].Cap;
+                        this.Skills[i].Base = this.Skills[i].Cap;
                     }
                 }
             }
@@ -198,7 +207,7 @@ namespace Server.Mobiles
 
         private static int GetHue()
         {
-            var rand = Utility.Random(1075);
+            int rand = Utility.Random(1075);
 
             /*
             1000	1075	No Hue Color	93.02%	0x0
@@ -225,31 +234,31 @@ namespace Server.Mobiles
 
             if (rand <= 0)
                 return 0x855C;
-            if (rand <= 1)
+            else if (rand <= 1)
                 return 0x8490;
-            if (rand <= 3)
+            else if (rand <= 3)
                 return 0x8030;
-            if (rand <= 5)
+            else if (rand <= 5)
                 return 0x8037;
-            if (rand <= 8)
+            else if (rand <= 8)
                 return 0x8295;
-            if (rand <= 11)
+            else if (rand <= 11)
                 return 0x8123;
-            if (rand <= 16)
+            else if (rand <= 16)
                 return 0x8482;
-            if (rand <= 24)
+            else if (rand <= 24)
                 return 0x8487;
-            if (rand <= 34)
+            else if (rand <= 34)
                 return 0x8032;
-            if (rand <= 44)
+            else if (rand <= 44)
                 return 0x8899;
-            if (rand <= 54)
+            else if (rand <= 54)
                 return 0x8495;
-            if (rand <= 64)
+            else if (rand <= 64)
                 return 0x848D;
-            if (rand <= 74)
+            else if (rand <= 74)
                 return 0x847F;
-
+			
             return 0;
         }
 
@@ -257,26 +266,25 @@ namespace Server.Mobiles
         {
             private readonly Mobile m_Mobile;
             private readonly ResistanceMod m_Mod;
-
             public ExpireTimer(Mobile m, ResistanceMod mod, TimeSpan delay)
                 : base(delay)
             {
-                m_Mobile = m;
-                m_Mod = mod;
-                Priority = TimerPriority.TwoFiftyMS;
+                this.m_Mobile = m;
+                this.m_Mod = mod;
+                this.Priority = TimerPriority.TwoFiftyMS;
             }
 
             public void DoExpire()
             {
-                m_Mobile.RemoveResistanceMod(m_Mod);
-                Stop();
-                m_Table.Remove(m_Mobile);
+                this.m_Mobile.RemoveResistanceMod(this.m_Mod);
+                this.Stop();
+                m_Table.Remove(this.m_Mobile);
             }
 
             protected override void OnTick()
             {
-                m_Mobile.SendLocalizedMessage(1070838); // Your resistance to physical attacks has returned.
-                DoExpire();
+                this.m_Mobile.SendLocalizedMessage(1070838); // Your resistance to physical attacks has returned.
+                this.DoExpire();
             }
         }
     }

@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -9,34 +10,34 @@ namespace Server.Mobiles
         public Ravager()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a ravager";
-            Body = 314;
-            BaseSoundID = 357;
+            this.Name = "a ravager";
+            this.Body = 314;
+            this.BaseSoundID = 357;
 
-            SetStr(251, 275);
-            SetDex(101, 125);
-            SetInt(66, 90);
+            this.SetStr(251, 275);
+            this.SetDex(101, 125);
+            this.SetInt(66, 90);
 
-            SetHits(161, 175);
+            this.SetHits(161, 175);
 
-            SetDamage(15, 20);
+            this.SetDamage(15, 20);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 50, 60);
-            SetResistance(ResistanceType.Fire, 50, 60);
-            SetResistance(ResistanceType.Cold, 60, 70);
-            SetResistance(ResistanceType.Poison, 30, 40);
-            SetResistance(ResistanceType.Energy, 20, 30);
+            this.SetResistance(ResistanceType.Physical, 50, 60);
+            this.SetResistance(ResistanceType.Fire, 50, 60);
+            this.SetResistance(ResistanceType.Cold, 60, 70);
+            this.SetResistance(ResistanceType.Poison, 30, 40);
+            this.SetResistance(ResistanceType.Energy, 20, 30);
 
-            SetSkill(SkillName.MagicResist, 50.1, 75.0);
-            SetSkill(SkillName.Tactics, 75.1, 100.0);
-            SetSkill(SkillName.Wrestling, 70.1, 90.0);
+            this.SetSkill(SkillName.MagicResist, 50.1, 75.0);
+            this.SetSkill(SkillName.Tactics, 75.1, 100.0);
+            this.SetSkill(SkillName.Wrestling, 70.1, 90.0);
 
-            Fame = 3500;
-            Karma = -3500;
+            this.Fame = 3500;
+            this.Karma = -3500;
 
-            VirtualArmor = 54;
+            this.VirtualArmor = 54;
         }
 
         public Ravager(Serial serial)
@@ -51,19 +52,19 @@ namespace Server.Mobiles
 
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Rich);
+            this.AddLoot(LootPack.Rich);
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

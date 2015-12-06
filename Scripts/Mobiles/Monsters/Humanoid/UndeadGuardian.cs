@@ -1,4 +1,4 @@
-using Server.Items;
+using System;
 
 namespace Server.Mobiles
 {
@@ -9,31 +9,31 @@ namespace Server.Mobiles
         public UndeadGuardian()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "an undead guardian";
-            Body = 722;
+            this.Name = "an undead guardian";
+            this.Body = 722; 
 
-            SetStr(212);
-            SetDex(76);
-            SetInt(56);
+            this.SetStr(212);
+            this.SetDex(76);
+            this.SetInt(56);
 
-            SetHits(138);
+            this.SetHits(138);
 
-            SetDamage(8, 18);
+            this.SetDamage(8, 18);
 
-            SetDamageType(ResistanceType.Physical, 40);
-            SetDamageType(ResistanceType.Cold, 60);
+            this.SetDamageType(ResistanceType.Physical, 40);
+            this.SetDamageType(ResistanceType.Cold, 60);
 
-            SetResistance(ResistanceType.Physical, 38);
-            SetResistance(ResistanceType.Fire, 24);
-            SetResistance(ResistanceType.Cold, 58);
-            SetResistance(ResistanceType.Poison, 28);
-            SetResistance(ResistanceType.Energy, 38);
+            this.SetResistance(ResistanceType.Physical, 38);
+            this.SetResistance(ResistanceType.Fire, 24);
+            this.SetResistance(ResistanceType.Cold, 58);
+            this.SetResistance(ResistanceType.Poison, 28);
+            this.SetResistance(ResistanceType.Energy, 38);
 
-            SetSkill(SkillName.MagicResist, 66.6);
-            SetSkill(SkillName.Tactics, 86.2);
-            SetSkill(SkillName.Wrestling, 86.9);
+            this.SetSkill(SkillName.MagicResist, 66.6);
+            this.SetSkill(SkillName.Tactics, 86.2);
+            this.SetSkill(SkillName.Wrestling, 86.9);
 
-            PackNecroReg(10, 15); /// Stratics didn't specify
+            this.PackNecroReg(10, 15); /// Stratics didn't specify
         }
 
         public UndeadGuardian(Serial serial)
@@ -43,12 +43,14 @@ namespace Server.Mobiles
 
         public override int Meat
         {
-            get { return 1; }
+            get
+            {
+                return 1;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.FilthyRich, 3);
+            this.AddLoot(LootPack.FilthyRich, 3);
         }
 
         public override int GetIdleSound()
@@ -71,26 +73,16 @@ namespace Server.Mobiles
             return 1607;
         }
 
-        public override void OnDeath(Container c)
-        {
-            base.OnDeath(c);
-
-            if (Utility.RandomDouble() < 0.05)
-            {
-                c.DropItem(new UndyingFlesh());
-            }
-        }
-
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

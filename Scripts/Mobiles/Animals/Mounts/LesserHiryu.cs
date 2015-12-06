@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using Server.Engines.Plants;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -9,44 +8,43 @@ namespace Server.Mobiles
     public class LesserHiryu : BaseMount
     {
         private static readonly Hashtable m_Table = new Hashtable();
-
         [Constructable]
         public LesserHiryu()
             : base("a lesser hiryu", 243, 0x3E94, AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Hue = GetHue();
+            this.Hue = GetHue();
 
-            SetStr(301, 410);
-            SetDex(171, 270);
-            SetInt(301, 325);
+            this.SetStr(301, 410);
+            this.SetDex(171, 270);
+            this.SetInt(301, 325);
 
-            SetHits(401, 600);
-            SetMana(60);
+            this.SetHits(401, 600);
+            this.SetMana(60);
 
-            SetDamage(18, 23);
+            this.SetDamage(18, 23);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 45, 70);
-            SetResistance(ResistanceType.Fire, 60, 80);
-            SetResistance(ResistanceType.Cold, 5, 15);
-            SetResistance(ResistanceType.Poison, 30, 40);
-            SetResistance(ResistanceType.Energy, 30, 40);
+            this.SetResistance(ResistanceType.Physical, 45, 70);
+            this.SetResistance(ResistanceType.Fire, 60, 80);
+            this.SetResistance(ResistanceType.Cold, 5, 15);
+            this.SetResistance(ResistanceType.Poison, 30, 40);
+            this.SetResistance(ResistanceType.Energy, 30, 40);
 
-            SetSkill(SkillName.Anatomy, 75.1, 80.0);
-            SetSkill(SkillName.MagicResist, 85.1, 100.0);
-            SetSkill(SkillName.Tactics, 100.1, 110.0);
-            SetSkill(SkillName.Wrestling, 100.1, 120.0);
+            this.SetSkill(SkillName.Anatomy, 75.1, 80.0);
+            this.SetSkill(SkillName.MagicResist, 85.1, 100.0);
+            this.SetSkill(SkillName.Tactics, 100.1, 110.0);
+            this.SetSkill(SkillName.Wrestling, 100.1, 120.0);
 
-            Fame = 10000;
-            Karma = -10000;
+            this.Fame = 10000;
+            this.Karma = -10000;
 
-            Tamable = true;
-            ControlSlots = 3;
-            MinTameSkill = 98.7;
+            this.Tamable = true;
+            this.ControlSlots = 3;
+            this.MinTameSkill = 98.7;
 
             if (Utility.RandomDouble() < .33)
-                PackItem(Seed.RandomBonsaiSeed());
+                this.PackItem(Engines.Plants.Seed.RandomBonsaiSeed());
         }
 
         public LesserHiryu(Serial serial)
@@ -56,34 +54,46 @@ namespace Server.Mobiles
 
         public override bool StatLossAfterTame
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override int TreasureMapLevel
         {
-            get { return 3; }
+            get
+            {
+                return 3;
+            }
         }
-
         public override int Meat
         {
-            get { return 16; }
+            get
+            {
+                return 16;
+            }
         }
-
         public override int Hides
         {
-            get { return 60; }
+            get
+            {
+                return 60;
+            }
         }
-
         public override FoodType FavoriteFood
         {
-            get { return FoodType.Meat; }
+            get
+            {
+                return FoodType.Meat;
+            }
         }
-
         public override bool CanAngerOnTame
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override WeaponAbility GetWeaponAbility()
         {
             return WeaponAbility.Dismount;
@@ -91,7 +101,7 @@ namespace Server.Mobiles
 
         public override bool OverrideBondingReqs()
         {
-            if (ControlMaster.Skills[SkillName.Bushido].Base >= 90.0)
+            if (this.ControlMaster.Skills[SkillName.Bushido].Base >= 90.0)
                 return true;
             return false;
         }
@@ -123,27 +133,27 @@ namespace Server.Mobiles
 
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.FilthyRich, 2);
-            AddLoot(LootPack.Gems, 4);
+            this.AddLoot(LootPack.FilthyRich, 2);
+            this.AddLoot(LootPack.Gems, 4);
         }
 
         public override double GetControlChance(Mobile m, bool useBaseSkill)
         {
-            var tamingChance = base.GetControlChance(m, useBaseSkill);
+            double tamingChance = base.GetControlChance(m, useBaseSkill);
 
             if (tamingChance >= 0.95)
             {
                 return tamingChance;
             }
 
-            var skill = (useBaseSkill ? m.Skills.Bushido.Base : m.Skills.Bushido.Value);
+            double skill = (useBaseSkill ? m.Skills.Bushido.Base : m.Skills.Bushido.Value);
 
             if (skill < 90.0)
             {
                 return tamingChance;
             }
 
-            var bushidoChance = (skill - 30.0)/100;
+            double bushidoChance = (skill - 30.0) / 100;
 
             if (m.Skills.Bushido.Base >= 120)
                 bushidoChance += 0.05;
@@ -163,7 +173,7 @@ namespace Server.Mobiles
                 * End cliloc: 1070838
                 * Effect: Type: "3" - From: "0x57D4F5B" (player) - To: "0x0" - ItemId: "0x37B9" - ItemIdName: "glow" - FromLocation: "(1149 808, 32)" - ToLocation: "(1149 808, 32)" - Speed: "10" - Duration: "5" - FixedDirection: "True" - Explode: "False"
                 */
-                var timer = (ExpireTimer) m_Table[defender];
+                ExpireTimer timer = (ExpireTimer)m_Table[defender];
 
                 if (timer != null)
                 {
@@ -171,12 +181,11 @@ namespace Server.Mobiles
                     defender.SendLocalizedMessage(1070837); // The creature lands another blow in your weakened state.
                 }
                 else
-                    defender.SendLocalizedMessage(1070836);
-                        // The blow from the creature's claws has made you more susceptible to physical attacks.
+                    defender.SendLocalizedMessage(1070836); // The blow from the creature's claws has made you more susceptible to physical attacks.
 
-                var effect = -(defender.PhysicalResistance*15/100);
+                int effect = -(defender.PhysicalResistance * 15 / 100);
 
-                var mod = new ResistanceMod(ResistanceType.Physical, effect);
+                ResistanceMod mod = new ResistanceMod(ResistanceType.Physical, effect);
 
                 defender.FixedEffect(0x37B9, 10, 5);
                 defender.AddResistanceMod(mod);
@@ -190,13 +199,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(2);
+            writer.Write((int)2);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
 
             if (version == 0)
                 Timer.DelayCall(TimeSpan.Zero, delegate { this.Hue = GetHue(); });
@@ -212,13 +221,13 @@ namespace Server.Mobiles
 
             if (version < 2)
             {
-                for (var i = 0; i < Skills.Length; ++i)
+                for (int i = 0; i < this.Skills.Length; ++i)
                 {
-                    Skills[i].Cap = Math.Max(100.0, Skills[i].Cap*0.9);
+                    this.Skills[i].Cap = Math.Max(100.0, this.Skills[i].Cap * 0.9);
 
-                    if (Skills[i].Base > Skills[i].Cap)
+                    if (this.Skills[i].Base > this.Skills[i].Cap)
                     {
-                        Skills[i].Base = Skills[i].Cap;
+                        this.Skills[i].Base = this.Skills[i].Cap;
                     }
                 }
             }
@@ -226,7 +235,7 @@ namespace Server.Mobiles
 
         private static int GetHue()
         {
-            var rand = Utility.Random(527);
+            int rand = Utility.Random(527);
 
             /*
 
@@ -241,13 +250,13 @@ namespace Server.Mobiles
 
             if (rand <= 0)
                 return 0x8258;
-            if (rand <= 1)
+            else if (rand <= 1)
                 return 0x88AB;
-            if (rand <= 6)
+            else if (rand <= 6)
                 return 0x87D4;
-            if (rand <= 16)
+            else if (rand <= 16)
                 return 0x8163;
-            if (rand <= 26)
+            else if (rand <= 26)
                 return 0x8295;
 
             return 0;
@@ -257,26 +266,25 @@ namespace Server.Mobiles
         {
             private readonly Mobile m_Mobile;
             private readonly ResistanceMod m_Mod;
-
             public ExpireTimer(Mobile m, ResistanceMod mod, TimeSpan delay)
                 : base(delay)
             {
-                m_Mobile = m;
-                m_Mod = mod;
-                Priority = TimerPriority.TwoFiftyMS;
+                this.m_Mobile = m;
+                this.m_Mod = mod;
+                this.Priority = TimerPriority.TwoFiftyMS;
             }
 
             public void DoExpire()
             {
-                m_Mobile.RemoveResistanceMod(m_Mod);
-                Stop();
-                m_Table.Remove(m_Mobile);
+                this.m_Mobile.RemoveResistanceMod(this.m_Mod);
+                this.Stop();
+                m_Table.Remove(this.m_Mobile);
             }
 
             protected override void OnTick()
             {
-                m_Mobile.SendLocalizedMessage(1070838); // Your resistance to physical attacks has returned.
-                DoExpire();
+                this.m_Mobile.SendLocalizedMessage(1070838); // Your resistance to physical attacks has returned.
+                this.DoExpire();
             }
         }
     }

@@ -9,51 +9,50 @@ namespace Server.Mobiles
     {
         private DateTime m_NextBomb;
         private int m_Thrown;
-
         [Constructable]
         public OrcBomber()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Body = 182;
+            this.Body = 182;
 
-            Name = "an orc bomber";
-            BaseSoundID = 0x45A;
+            this.Name = "an orc bomber";
+            this.BaseSoundID = 0x45A;
 
-            SetStr(147, 215);
-            SetDex(91, 115);
-            SetInt(61, 85);
+            this.SetStr(147, 215);
+            this.SetDex(91, 115);
+            this.SetInt(61, 85);
 
-            SetHits(95, 123);
+            this.SetHits(95, 123);
 
-            SetDamage(1, 8);
+            this.SetDamage(1, 8);
 
-            SetDamageType(ResistanceType.Physical, 75);
-            SetDamageType(ResistanceType.Fire, 25);
+            this.SetDamageType(ResistanceType.Physical, 75);
+            this.SetDamageType(ResistanceType.Fire, 25);
 
-            SetResistance(ResistanceType.Physical, 25, 35);
-            SetResistance(ResistanceType.Fire, 30, 40);
-            SetResistance(ResistanceType.Cold, 15, 25);
-            SetResistance(ResistanceType.Poison, 15, 20);
-            SetResistance(ResistanceType.Energy, 25, 30);
+            this.SetResistance(ResistanceType.Physical, 25, 35);
+            this.SetResistance(ResistanceType.Fire, 30, 40);
+            this.SetResistance(ResistanceType.Cold, 15, 25);
+            this.SetResistance(ResistanceType.Poison, 15, 20);
+            this.SetResistance(ResistanceType.Energy, 25, 30);
 
-            SetSkill(SkillName.MagicResist, 70.1, 85.0);
-            SetSkill(SkillName.Swords, 60.1, 85.0);
-            SetSkill(SkillName.Tactics, 75.1, 90.0);
-            SetSkill(SkillName.Wrestling, 60.1, 85.0);
+            this.SetSkill(SkillName.MagicResist, 70.1, 85.0);
+            this.SetSkill(SkillName.Swords, 60.1, 85.0);
+            this.SetSkill(SkillName.Tactics, 75.1, 90.0);
+            this.SetSkill(SkillName.Wrestling, 60.1, 85.0);
 
-            Fame = 2500;
-            Karma = -2500;
+            this.Fame = 2500;
+            this.Karma = -2500;
 
-            VirtualArmor = 30;
+            this.VirtualArmor = 30;
 
-            PackItem(new SulfurousAsh(Utility.RandomMinMax(6, 10)));
-            PackItem(new MandrakeRoot(Utility.RandomMinMax(6, 10)));
-            PackItem(new BlackPearl(Utility.RandomMinMax(6, 10)));
-            PackItem(new MortarPestle());
-            PackItem(new LesserExplosionPotion());
+            this.PackItem(new SulfurousAsh(Utility.RandomMinMax(6, 10)));
+            this.PackItem(new MandrakeRoot(Utility.RandomMinMax(6, 10)));
+            this.PackItem(new BlackPearl(Utility.RandomMinMax(6, 10)));
+            this.PackItem(new MortarPestle());
+            this.PackItem(new LesserExplosionPotion());
 
             if (0.2 > Utility.RandomDouble())
-                PackItem(new BolaBall());
+                this.PackItem(new BolaBall());
         }
 
         public OrcBomber(Serial serial)
@@ -63,23 +62,29 @@ namespace Server.Mobiles
 
         public override InhumanSpeech SpeechType
         {
-            get { return InhumanSpeech.Orc; }
+            get
+            {
+                return InhumanSpeech.Orc;
+            }
         }
-
         public override bool CanRummageCorpses
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override OppositionGroup OppositionGroup
         {
-            get { return OppositionGroup.SavagesAndOrcs; }
+            get
+            {
+                return OppositionGroup.SavagesAndOrcs;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Average);
-            AddLoot(LootPack.Meager);
+            this.AddLoot(LootPack.Average);
+            this.AddLoot(LootPack.Meager);
         }
 
         public override bool IsEnemy(Mobile m)
@@ -94,7 +99,7 @@ namespace Server.Mobiles
         {
             base.AggressiveAction(aggressor, criminal);
 
-            var item = aggressor.FindItemOnLayer(Layer.Helm);
+            Item item = aggressor.FindItemOnLayer(Layer.Helm);
 
             if (item is OrcishKinMask)
             {
@@ -107,31 +112,29 @@ namespace Server.Mobiles
 
         public override void OnActionCombat()
         {
-            var combatant = Combatant;
+            Mobile combatant = this.Combatant;
 
-            if (combatant == null || combatant.Deleted || combatant.Map != Map || !InRange(combatant, 12) ||
-                !CanBeHarmful(combatant) || !InLOS(combatant))
+            if (combatant == null || combatant.Deleted || combatant.Map != this.Map || !this.InRange(combatant, 12) || !this.CanBeHarmful(combatant) || !this.InLOS(combatant))
                 return;
 
-            if (DateTime.UtcNow >= m_NextBomb)
+            if (DateTime.UtcNow >= this.m_NextBomb)
             {
-                ThrowBomb(combatant);
+                this.ThrowBomb(combatant);
 
-                m_Thrown++;
+                this.m_Thrown++;
 
-                if (0.75 >= Utility.RandomDouble() && (m_Thrown%2) == 1) // 75% chance to quickly throw another bomb
-                    m_NextBomb = DateTime.UtcNow + TimeSpan.FromSeconds(3.0);
+                if (0.75 >= Utility.RandomDouble() && (this.m_Thrown % 2) == 1) // 75% chance to quickly throw another bomb
+                    this.m_NextBomb = DateTime.UtcNow + TimeSpan.FromSeconds(3.0);
                 else
-                    m_NextBomb = DateTime.UtcNow + TimeSpan.FromSeconds(5.0 + (10.0*Utility.RandomDouble()));
-                        // 5-15 seconds
+                    this.m_NextBomb = DateTime.UtcNow + TimeSpan.FromSeconds(5.0 + (10.0 * Utility.RandomDouble())); // 5-15 seconds
             }
         }
 
         public void ThrowBomb(Mobile m)
         {
-            DoHarmful(m);
+            this.DoHarmful(m);
 
-            MovingParticles(m, 0x1C19, 1, 0, false, true, 0, 0, 9502, 6014, 0x11D, EffectLayer.Waist, 0);
+            this.MovingParticles(m, 0x1C19, 1, 0, false, true, 0, 0, 9502, 6014, 0x11D, EffectLayer.Waist, 0);
 
             new InternalTimer(m, this).Start();
         }
@@ -139,32 +142,31 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
 
         private class InternalTimer : Timer
         {
-            private readonly Mobile m_From;
             private readonly Mobile m_Mobile;
-
+            private readonly Mobile m_From;
             public InternalTimer(Mobile m, Mobile from)
                 : base(TimeSpan.FromSeconds(1.0))
             {
-                m_Mobile = m;
-                m_From = from;
-                Priority = TimerPriority.TwoFiftyMS;
+                this.m_Mobile = m;
+                this.m_From = from;
+                this.Priority = TimerPriority.TwoFiftyMS;
             }
 
             protected override void OnTick()
             {
-                m_Mobile.PlaySound(0x11D);
-                AOS.Damage(m_Mobile, m_From, Utility.RandomMinMax(10, 20), 0, 100, 0, 0, 0);
+                this.m_Mobile.PlaySound(0x11D);
+                AOS.Damage(this.m_Mobile, this.m_From, Utility.RandomMinMax(10, 20), 0, 100, 0, 0, 0);
             }
         }
     }

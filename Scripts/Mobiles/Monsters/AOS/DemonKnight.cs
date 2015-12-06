@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -6,94 +7,91 @@ namespace Server.Mobiles
     [CorpseName("a demon knight corpse")]
     public class DemonKnight : BaseCreature
     {
-        private static readonly Type[] m_ArtifactRarity10 =
+        private static readonly Type[] m_ArtifactRarity10 = new Type[]
         {
-            typeof (LegacyOfTheDreadLord),
-            typeof (TheTaskmaster)
+            typeof(LegacyOfTheDreadLord),
+            typeof(TheTaskmaster)
         };
-
-        private static readonly Type[] m_ArtifactRarity11 =
+        private static readonly Type[] m_ArtifactRarity11 = new Type[]
         {
-            typeof (TheDragonSlayer),
-            typeof (ArmorOfFortune),
-            typeof (GauntletsOfNobility),
-            typeof (HelmOfInsight),
-            typeof (HolyKnightsBreastplate),
-            typeof (JackalsCollar),
-            typeof (LeggingsOfBane),
-            typeof (MidnightBracers),
-            typeof (OrnateCrownOfTheHarrower),
-            typeof (ShadowDancerLeggings),
-            typeof (TunicOfFire),
-            typeof (VoiceOfTheFallenKing),
-            typeof (BraceletOfHealth),
-            typeof (OrnamentOfTheMagician),
-            typeof (RingOfTheElements),
-            typeof (RingOfTheVile),
-            typeof (Aegis),
-            typeof (ArcaneShield),
-            typeof (AxeOfTheHeavens),
-            typeof (BladeOfInsanity),
-            typeof (BoneCrusher),
-            typeof (BreathOfTheDead),
-            typeof (Frostbringer),
-            typeof (SerpentsFang),
-            typeof (StaffOfTheMagi),
-            typeof (TheBeserkersMaul),
-            typeof (TheDryadBow),
-            typeof (DivineCountenance),
-            typeof (HatOfTheMagi),
-            typeof (HuntersHeaddress),
-            typeof (SpiritOfTheTotem)
+            typeof(TheDragonSlayer),
+            typeof(ArmorOfFortune),
+            typeof(GauntletsOfNobility),
+            typeof(HelmOfInsight),
+            typeof(HolyKnightsBreastplate),
+            typeof(JackalsCollar),
+            typeof(LeggingsOfBane),
+            typeof(MidnightBracers),
+            typeof(OrnateCrownOfTheHarrower),
+            typeof(ShadowDancerLeggings),
+            typeof(TunicOfFire),
+            typeof(VoiceOfTheFallenKing),
+            typeof(BraceletOfHealth),
+            typeof(OrnamentOfTheMagician),
+            typeof(RingOfTheElements),
+            typeof(RingOfTheVile),
+            typeof(Aegis),
+            typeof(ArcaneShield),
+            typeof(AxeOfTheHeavens),
+            typeof(BladeOfInsanity),
+            typeof(BoneCrusher),
+            typeof(BreathOfTheDead),
+            typeof(Frostbringer),
+            typeof(SerpentsFang),
+            typeof(StaffOfTheMagi),
+            typeof(TheBeserkersMaul),
+            typeof(TheDryadBow),
+            typeof(DivineCountenance),
+            typeof(HatOfTheMagi),
+            typeof(HuntersHeaddress),
+            typeof(SpiritOfTheTotem)
         };
-
         private static bool m_InHere;
-
         [Constructable]
         public DemonKnight()
             : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = NameList.RandomName("demon knight");
-            Title = "the Dark Father";
-            Body = 318;
-            BaseSoundID = 0x165;
+            this.Name = NameList.RandomName("demon knight");
+            this.Title = "the Dark Father";
+            this.Body = 318;
+            this.BaseSoundID = 0x165;
 
-            SetStr(500);
-            SetDex(100);
-            SetInt(1000);
+            this.SetStr(500);
+            this.SetDex(100);
+            this.SetInt(1000);
 
-            SetHits(30000);
-            SetMana(5000);
+            this.SetHits(30000);
+            this.SetMana(5000);
 
-            SetDamage(17, 21);
+            this.SetDamage(17, 21);
 
-            SetDamageType(ResistanceType.Physical, 20);
-            SetDamageType(ResistanceType.Fire, 20);
-            SetDamageType(ResistanceType.Cold, 20);
-            SetDamageType(ResistanceType.Poison, 20);
-            SetDamageType(ResistanceType.Energy, 20);
+            this.SetDamageType(ResistanceType.Physical, 20);
+            this.SetDamageType(ResistanceType.Fire, 20);
+            this.SetDamageType(ResistanceType.Cold, 20);
+            this.SetDamageType(ResistanceType.Poison, 20);
+            this.SetDamageType(ResistanceType.Energy, 20);
 
-            SetResistance(ResistanceType.Physical, 30);
-            SetResistance(ResistanceType.Fire, 30);
-            SetResistance(ResistanceType.Cold, 30);
-            SetResistance(ResistanceType.Poison, 30);
-            SetResistance(ResistanceType.Energy, 30);
+            this.SetResistance(ResistanceType.Physical, 30);
+            this.SetResistance(ResistanceType.Fire, 30);
+            this.SetResistance(ResistanceType.Cold, 30);
+            this.SetResistance(ResistanceType.Poison, 30);
+            this.SetResistance(ResistanceType.Energy, 30);
 
-            SetSkill(SkillName.Necromancy, 120, 120.0);
-            SetSkill(SkillName.SpiritSpeak, 120.0, 120.0);
+            this.SetSkill(SkillName.Necromancy, 120, 120.0);
+            this.SetSkill(SkillName.SpiritSpeak, 120.0, 120.0);
 
-            SetSkill(SkillName.DetectHidden, 80.0);
-            SetSkill(SkillName.EvalInt, 100.0);
-            SetSkill(SkillName.Magery, 100.0);
-            SetSkill(SkillName.Meditation, 120.0);
-            SetSkill(SkillName.MagicResist, 150.0);
-            SetSkill(SkillName.Tactics, 100.0);
-            SetSkill(SkillName.Wrestling, 120.0);
+            this.SetSkill(SkillName.DetectHidden, 80.0);
+            this.SetSkill(SkillName.EvalInt, 100.0);
+            this.SetSkill(SkillName.Magery, 100.0);
+            this.SetSkill(SkillName.Meditation, 120.0);
+            this.SetSkill(SkillName.MagicResist, 150.0);
+            this.SetSkill(SkillName.Tactics, 100.0);
+            this.SetSkill(SkillName.Wrestling, 120.0);
 
-            Fame = 28000;
-            Karma = -28000;
+            this.Fame = 28000;
+            this.Karma = -28000;
 
-            VirtualArmor = 64;
+            this.VirtualArmor = 64;
         }
 
         public DemonKnight(Serial serial)
@@ -103,61 +101,77 @@ namespace Server.Mobiles
 
         public static Type[] ArtifactRarity10
         {
-            get { return m_ArtifactRarity10; }
+            get
+            {
+                return m_ArtifactRarity10;
+            }
         }
-
         public static Type[] ArtifactRarity11
         {
-            get { return m_ArtifactRarity11; }
+            get
+            {
+                return m_ArtifactRarity11;
+            }
         }
-
         public override bool IgnoreYoungProtection
         {
-            get { return Core.ML; }
+            get
+            {
+                return Core.ML;
+            }
         }
-
         public override bool BardImmune
         {
-            get { return !Core.SE; }
+            get
+            {
+                return !Core.SE;
+            }
         }
-
         public override bool Unprovokable
         {
-            get { return Core.SE; }
+            get
+            {
+                return Core.SE;
+            }
         }
-
         public override bool AreaPeaceImmune
         {
-            get { return Core.SE; }
+            get
+            {
+                return Core.SE;
+            }
         }
-
         public override Poison PoisonImmune
         {
-            get { return Poison.Lethal; }
+            get
+            {
+                return Poison.Lethal;
+            }
         }
-
         public override int TreasureMapLevel
         {
-            get { return 1; }
+            get
+            {
+                return 1;
+            }
         }
-
         public static Item CreateRandomArtifact()
         {
             if (!Core.AOS)
                 return null;
 
-            var count = (m_ArtifactRarity10.Length*5) + (m_ArtifactRarity11.Length*4);
-            var random = Utility.Random(count);
+            int count = (m_ArtifactRarity10.Length * 5) + (m_ArtifactRarity11.Length * 4);
+            int random = Utility.Random(count);
             Type type;
 
-            if (random < (m_ArtifactRarity10.Length*5))
+            if (random < (m_ArtifactRarity10.Length * 5))
             {
-                type = m_ArtifactRarity10[random/5];
+                type = m_ArtifactRarity10[random / 5];
             }
             else
             {
-                random -= m_ArtifactRarity10.Length*5;
-                type = m_ArtifactRarity11[random/4];
+                random -= m_ArtifactRarity10.Length * 5;
+                type = m_ArtifactRarity11[random / 4];
             }
 
             return Loot.Construct(type);
@@ -165,11 +179,11 @@ namespace Server.Mobiles
 
         public static Mobile FindRandomPlayer(BaseCreature creature)
         {
-            var rights = GetLootingRights(creature.DamageEntries, creature.HitsMax);
+            List<DamageStore> rights = BaseCreature.GetLootingRights(creature.DamageEntries, creature.HitsMax);
 
-            for (var i = rights.Count - 1; i >= 0; --i)
+            for (int i = rights.Count - 1; i >= 0; --i)
             {
-                var ds = rights[i];
+                DamageStore ds = rights[i];
 
                 if (!ds.m_HasRight)
                     rights.RemoveAt(i);
@@ -201,13 +215,12 @@ namespace Server.Mobiles
             if (to == null || artifact == null)
                 return;
 
-            var pack = to.Backpack;
+            Container pack = to.Backpack;
 
             if (pack == null || !pack.TryDropItem(to, artifact, false))
                 to.BankBox.DropItem(artifact);
 
-            to.SendLocalizedMessage(1062317);
-                // For your valor in combating the fallen beast, a special artifact has been bestowed on you.
+            to.SendLocalizedMessage(1062317); // For your valor in combating the fallen beast, a special artifact has been bestowed on you.
         }
 
         public static int GetArtifactChance(Mobile boss)
@@ -215,13 +228,13 @@ namespace Server.Mobiles
             if (!Core.AOS)
                 return 0;
 
-            var luck = LootPack.GetLuckChanceForKiller(boss);
+            int luck = LootPack.GetLuckChanceForKiller(boss);
             int chance;
 
             if (boss is DemonKnight)
-                chance = 1500 + (luck/5);
+                chance = 1500 + (luck / 5);
             else
-                chance = 750 + (luck/10);
+                chance = 750 + (luck / 10);
 
             return chance;
         }
@@ -233,7 +246,7 @@ namespace Server.Mobiles
 
         public override WeaponAbility GetWeaponAbility()
         {
-            switch (Utility.Random(3))
+            switch ( Utility.Random(3) )
             {
                 default:
                 case 0:
@@ -249,14 +262,14 @@ namespace Server.Mobiles
         {
             base.OnDeath(c);
 
-            if (!Summoned && !NoKillAwards && CheckArtifactChance(this))
-                DistributeArtifact(this);
+            if (!this.Summoned && !this.NoKillAwards && DemonKnight.CheckArtifactChance(this))
+                DemonKnight.DistributeArtifact(this);
         }
 
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.SuperBoss, 2);
-            AddLoot(LootPack.HighScrolls, Utility.RandomMinMax(6, 60));
+            this.AddLoot(LootPack.SuperBoss, 2);
+            this.AddLoot(LootPack.HighScrolls, Utility.RandomMinMax(6, 60));
         }
 
         public override void OnDamage(int amount, Mobile from, bool willKill)
@@ -266,8 +279,8 @@ namespace Server.Mobiles
                 m_InHere = true;
                 AOS.Damage(from, this, Utility.RandomMinMax(8, 20), 100, 0, 0, 0, 0);
 
-                MovingEffect(from, 0xECA, 10, 0, false, false, 0, 0);
-                PlaySound(0x491);
+                this.MovingEffect(from, 0xECA, 10, 0, false, false, 0, 0);
+                this.PlaySound(0x491);
 
                 if (0.05 > Utility.RandomDouble())
                     Timer.DelayCall(TimeSpan.FromSeconds(1.0), new TimerStateCallback(CreateBones_Callback), from);
@@ -278,19 +291,19 @@ namespace Server.Mobiles
 
         public virtual void CreateBones_Callback(object state)
         {
-            var from = (Mobile) state;
-            var map = from.Map;
+            Mobile from = (Mobile)state;
+            Map map = from.Map;
 
             if (map == null)
                 return;
 
-            var count = Utility.RandomMinMax(1, 3);
+            int count = Utility.RandomMinMax(1, 3);
 
-            for (var i = 0; i < count; ++i)
+            for (int i = 0; i < count; ++i)
             {
-                var x = from.X + Utility.RandomMinMax(-1, 1);
-                var y = from.Y + Utility.RandomMinMax(-1, 1);
-                var z = from.Z;
+                int x = from.X + Utility.RandomMinMax(-1, 1);
+                int y = from.Y + Utility.RandomMinMax(-1, 1);
+                int z = from.Z;
 
                 if (!map.CanFit(x, y, z, 16, false, true))
                 {
@@ -300,7 +313,7 @@ namespace Server.Mobiles
                         continue;
                 }
 
-                var bone = new UnholyBone();
+                UnholyBone bone = new UnholyBone();
 
                 bone.Hue = 0;
                 bone.Name = "unholy bones";
@@ -313,13 +326,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

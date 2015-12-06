@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -9,85 +10,85 @@ namespace Server.Mobiles
         public HumanBrigand()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Race = Race.Human;
+            this.Race = Race.Human;
 
-            if (Female = Utility.RandomBool())
+            if (this.Female = Utility.RandomBool())
             {
-                Body = 401;
-                Name = NameList.RandomName("female");
+                this.Body = 401;
+                this.Name = NameList.RandomName("female");
             }
             else
             {
-                Body = 400;
-                Name = NameList.RandomName("male");
+                this.Body = 400;
+                this.Name = NameList.RandomName("male");
             }
 
-            Title = "the brigand";
-            Hue = Race.RandomSkinHue();
+            this.Title = "the brigand";
+            this.Hue = this.Race.RandomSkinHue();
 
-            SetStr(86, 100);
-            SetDex(81, 95);
-            SetInt(61, 75);
+            this.SetStr(86, 100);
+            this.SetDex(81, 95);
+            this.SetInt(61, 75);
 
-            SetDamage(10, 23);
+            this.SetDamage(10, 23);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 10, 15);
-            SetResistance(ResistanceType.Fire, 10, 15);
-            SetResistance(ResistanceType.Poison, 10, 15);
-            SetResistance(ResistanceType.Energy, 10, 15);
+            this.SetResistance(ResistanceType.Physical, 10, 15);
+            this.SetResistance(ResistanceType.Fire, 10, 15);
+            this.SetResistance(ResistanceType.Poison, 10, 15);
+            this.SetResistance(ResistanceType.Energy, 10, 15);
 
-            SetSkill(SkillName.MagicResist, 25.0, 47.5);
-            SetSkill(SkillName.Tactics, 65.0, 87.5);
-            SetSkill(SkillName.Wrestling, 15.0, 37.5);
+            this.SetSkill(SkillName.MagicResist, 25.0, 47.5);
+            this.SetSkill(SkillName.Tactics, 65.0, 87.5);
+            this.SetSkill(SkillName.Wrestling, 15.0, 37.5);
 
-            Fame = 1000;
-            Karma = -1000;
+            this.Fame = 1000;
+            this.Karma = -1000;
 
             // outfit
-            AddItem(new Shirt(Utility.RandomNeutralHue()));
+            this.AddItem(new Shirt(Utility.RandomNeutralHue()));
 
             switch (Utility.Random(4))
             {
                 case 0:
-                    AddItem(new Sandals());
+                    this.AddItem(new Sandals());
                     break;
                 case 1:
-                    AddItem(new Shoes());
+                    this.AddItem(new Shoes());
                     break;
                 case 2:
-                    AddItem(new Boots());
+                    this.AddItem(new Boots());
                     break;
                 case 3:
-                    AddItem(new ThighBoots());
+                    this.AddItem(new ThighBoots());
                     break;
             }
 
-            if (Female)
+            if (this.Female)
             {
                 if (Utility.RandomBool())
-                    AddItem(new Skirt(Utility.RandomNeutralHue()));
+                    this.AddItem(new Skirt(Utility.RandomNeutralHue()));
                 else
-                    AddItem(new Kilt(Utility.RandomNeutralHue()));
+                    this.AddItem(new Kilt(Utility.RandomNeutralHue()));
             }
             else
-                AddItem(new ShortPants(Utility.RandomNeutralHue()));
+                this.AddItem(new ShortPants(Utility.RandomNeutralHue()));
 
             // hair, facial hair			
-            HairItemID = Race.RandomHair(Female);
-            HairHue = Race.RandomHairHue();
-            FacialHairItemID = Race.RandomFacialHair(Female);
+            this.HairItemID = this.Race.RandomHair(this.Female);
+            this.HairHue = this.Race.RandomHairHue();
+            this.FacialHairItemID = this.Race.RandomFacialHair(this.Female);
 
             // weapon, shield
             Item weapon = Loot.RandomWeapon();
 
-            AddItem(weapon);
+            this.AddItem(weapon);
 
             if (weapon.Layer == Layer.OneHanded && Utility.RandomBool())
-                AddItem(Loot.RandomShield());
+                this.AddItem(Loot.RandomShield());
 
-            PackGold(50, 150);
+            this.PackGold(50, 150);
         }
 
         public HumanBrigand(Serial serial)
@@ -97,14 +98,18 @@ namespace Server.Mobiles
 
         public override bool AlwaysMurderer
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override bool ShowFameTitle
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
-
         public override void OnDeath(Container c)
         {
             base.OnDeath(c);
@@ -117,14 +122,14 @@ namespace Server.Mobiles
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

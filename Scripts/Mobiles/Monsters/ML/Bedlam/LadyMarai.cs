@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -8,33 +9,34 @@ namespace Server.Mobiles
         [Constructable]
         public LadyMarai()
         {
-            Name = "Lady Marai";
-            Hue = 0x21;
 
-            SetStr(221, 304);
-            SetDex(98, 138);
-            SetInt(54, 99);
+            this.Name = "Lady Marai";
+            this.Hue = 0x21;
 
-            SetHits(694, 846);
+            this.SetStr(221, 304);
+            this.SetDex(98, 138);
+            this.SetInt(54, 99);
 
-            SetDamage(15, 25);
+            this.SetHits(694, 846);
 
-            SetDamageType(ResistanceType.Physical, 40);
-            SetDamageType(ResistanceType.Cold, 60);
+            this.SetDamage(15, 25);
 
-            SetResistance(ResistanceType.Physical, 55, 65);
-            SetResistance(ResistanceType.Fire, 40, 50);
-            SetResistance(ResistanceType.Cold, 70, 80);
-            SetResistance(ResistanceType.Poison, 40, 50);
-            SetResistance(ResistanceType.Energy, 50, 60);
+            this.SetDamageType(ResistanceType.Physical, 40);
+            this.SetDamageType(ResistanceType.Cold, 60);
 
-            SetSkill(SkillName.Wrestling, 126.6, 137.2);
-            SetSkill(SkillName.Tactics, 128.7, 134.5);
-            SetSkill(SkillName.MagicResist, 102.1, 119.1);
-            SetSkill(SkillName.Anatomy, 126.2, 136.5);
+            this.SetResistance(ResistanceType.Physical, 55, 65);
+            this.SetResistance(ResistanceType.Fire, 40, 50);
+            this.SetResistance(ResistanceType.Cold, 70, 80);
+            this.SetResistance(ResistanceType.Poison, 40, 50);
+            this.SetResistance(ResistanceType.Energy, 50, 60);
 
-            Fame = 18000;
-            Karma = -18000;
+            this.SetSkill(SkillName.Wrestling, 126.6, 137.2);
+            this.SetSkill(SkillName.Tactics, 128.7, 134.5);
+            this.SetSkill(SkillName.MagicResist, 102.1, 119.1);
+            this.SetSkill(SkillName.Anatomy, 126.2, 136.5);
+
+            this.Fame = 18000;
+            this.Karma = -18000;
         }
 
         public LadyMarai(Serial serial)
@@ -42,25 +44,27 @@ namespace Server.Mobiles
         {
         }
 
+        public override void OnDeath( Container c )
+        {
+            base.OnDeath( c );
+
+            if ( Utility.RandomDouble() < 0.15 )
+            c.DropItem( new DisintegratingThesisNotes() );
+
+            if ( Utility.RandomDouble() < 0.1 )
+            c.DropItem( new ParrotItem() );
+        }
+
         public override bool GivesMLMinorArtifact
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
-        public override void OnDeath(Container c)
-        {
-            base.OnDeath(c);
-
-            if (Utility.RandomDouble() < 0.15)
-                c.DropItem(new DisintegratingThesisNotes());
-
-            if (Utility.RandomDouble() < 0.1)
-                c.DropItem(new ParrotItem());
-        }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.UltraRich, 3);
+            this.AddLoot(LootPack.UltraRich, 3);
         }
 
         public override WeaponAbility GetWeaponAbility()
@@ -72,14 +76,14 @@ namespace Server.Mobiles
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

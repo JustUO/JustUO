@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Mobiles
 {
     [CorpseName("a vampire bat corpse")]
@@ -7,35 +9,35 @@ namespace Server.Mobiles
         public VampireBat()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a vampire bat";
-            Body = 317;
-            BaseSoundID = 0x270;
+            this.Name = "a vampire bat";
+            this.Body = 317;
+            this.BaseSoundID = 0x270;
 
-            SetStr(91, 110);
-            SetDex(91, 115);
-            SetInt(26, 50);
+            this.SetStr(91, 110);
+            this.SetDex(91, 115);
+            this.SetInt(26, 50);
 
-            SetHits(55, 66);
+            this.SetHits(55, 66);
 
-            SetDamage(7, 9);
+            this.SetDamage(7, 9);
 
-            SetDamageType(ResistanceType.Physical, 80);
-            SetDamageType(ResistanceType.Poison, 20);
+            this.SetDamageType(ResistanceType.Physical, 80);
+            this.SetDamageType(ResistanceType.Poison, 20);
 
-            SetResistance(ResistanceType.Physical, 35, 45);
-            SetResistance(ResistanceType.Fire, 15, 25);
-            SetResistance(ResistanceType.Cold, 15, 25);
-            SetResistance(ResistanceType.Poison, 60, 70);
-            SetResistance(ResistanceType.Energy, 40, 50);
+            this.SetResistance(ResistanceType.Physical, 35, 45);
+            this.SetResistance(ResistanceType.Fire, 15, 25);
+            this.SetResistance(ResistanceType.Cold, 15, 25);
+            this.SetResistance(ResistanceType.Poison, 60, 70);
+            this.SetResistance(ResistanceType.Energy, 40, 50);
 
-            SetSkill(SkillName.MagicResist, 70.1, 95.0);
-            SetSkill(SkillName.Tactics, 55.1, 80.0);
-            SetSkill(SkillName.Wrestling, 30.1, 55.0);
+            this.SetSkill(SkillName.MagicResist, 70.1, 95.0);
+            this.SetSkill(SkillName.Tactics, 55.1, 80.0);
+            this.SetSkill(SkillName.Wrestling, 30.1, 55.0);
 
-            Fame = 1000;
-            Karma = -1000;
+            this.Fame = 1000;
+            this.Karma = -1000;
 
-            VirtualArmor = 14;
+            this.VirtualArmor = 14;
         }
 
         public VampireBat(Serial serial)
@@ -45,7 +47,7 @@ namespace Server.Mobiles
 
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Poor);
+            this.AddLoot(LootPack.Poor);
         }
 
         public override int GetIdleSound()
@@ -56,13 +58,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

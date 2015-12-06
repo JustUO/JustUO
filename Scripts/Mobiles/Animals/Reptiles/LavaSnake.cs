@@ -1,5 +1,5 @@
+using System;
 using Server.Items;
-using Server.Services;
 
 namespace Server.Mobiles
 {
@@ -40,7 +40,6 @@ namespace Server.Mobiles
             Karma = -600;
 
             VirtualArmor = 24;
-
             QLPoints = 2;
 
             PackItem(new SulfurousAsh());
@@ -53,43 +52,63 @@ namespace Server.Mobiles
 
         public override bool DeathAdderCharmable
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override bool HasBreath
         {
-            get { return true; }
-        } // fire breath enabled
-
+            get
+            {
+                return true;
+            }
+        }// fire breath enabled
         public override int Meat
         {
-            get { return 1; }
+            get
+            {
+                return 1;
+            }
         }
-
         public override void GenerateLoot()
         {
             AddLoot(LootPack.Poor);
         }
-
         public override void OnDeath(Container c)
         {
+
             base.OnDeath(c);
-
-            SARegionDrops.GetSADrop(c);
+            Region reg = Region.Find(c.GetWorldLocation(), c.Map);
+            if (0.25 > Utility.RandomDouble() && reg.Name == "Crimson Veins")
+            {
+                if (Utility.RandomDouble() < 0.6)
+                    c.DropItem(new EssencePrecision());
+            }
+            
+            if (0.25 > Utility.RandomDouble() && reg.Name == "Fire Temple Ruins")
+            {
+                if (Utility.RandomDouble() < 0.6)
+                    c.DropItem(new EssencePrecision());
+            }
+            if (0.25 > Utility.RandomDouble() && reg.Name == "Lava Caldera")
+            {
+                if (Utility.RandomDouble() < 0.6)
+                    c.DropItem(new EssencePassion());
+            }
         }
-
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

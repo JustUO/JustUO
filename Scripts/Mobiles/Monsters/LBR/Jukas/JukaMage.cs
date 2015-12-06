@@ -1,5 +1,4 @@
 using System;
-using Server.Engines.Plants;
 using Server.Items;
 using Server.Spells;
 
@@ -9,50 +8,49 @@ namespace Server.Mobiles
     public class JukaMage : BaseCreature
     {
         private DateTime m_NextAbilityTime;
-
         [Constructable]
         public JukaMage()
             : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a juka mage";
-            Body = 765;
+            this.Name = "a juka mage";
+            this.Body = 765;
 
-            SetStr(201, 300);
-            SetDex(71, 90);
-            SetInt(451, 500);
+            this.SetStr(201, 300);
+            this.SetDex(71, 90);
+            this.SetInt(451, 500);
 
-            SetHits(121, 180);
+            this.SetHits(121, 180);
 
-            SetDamage(4, 10);
+            this.SetDamage(4, 10);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 20, 30);
-            SetResistance(ResistanceType.Fire, 35, 45);
-            SetResistance(ResistanceType.Cold, 30, 40);
-            SetResistance(ResistanceType.Poison, 10, 20);
-            SetResistance(ResistanceType.Energy, 35, 45);
+            this.SetResistance(ResistanceType.Physical, 20, 30);
+            this.SetResistance(ResistanceType.Fire, 35, 45);
+            this.SetResistance(ResistanceType.Cold, 30, 40);
+            this.SetResistance(ResistanceType.Poison, 10, 20);
+            this.SetResistance(ResistanceType.Energy, 35, 45);
 
-            SetSkill(SkillName.Anatomy, 80.1, 90.0);
-            SetSkill(SkillName.EvalInt, 80.2, 100.0);
-            SetSkill(SkillName.Magery, 99.1, 100.0);
-            SetSkill(SkillName.Meditation, 80.2, 100.0);
-            SetSkill(SkillName.MagicResist, 140.1, 150.0);
-            SetSkill(SkillName.Tactics, 80.1, 90.0);
-            SetSkill(SkillName.Wrestling, 80.1, 90.0);
+            this.SetSkill(SkillName.Anatomy, 80.1, 90.0);
+            this.SetSkill(SkillName.EvalInt, 80.2, 100.0);
+            this.SetSkill(SkillName.Magery, 99.1, 100.0);
+            this.SetSkill(SkillName.Meditation, 80.2, 100.0);
+            this.SetSkill(SkillName.MagicResist, 140.1, 150.0);
+            this.SetSkill(SkillName.Tactics, 80.1, 90.0);
+            this.SetSkill(SkillName.Wrestling, 80.1, 90.0);
 
-            Fame = 15000;
-            Karma = -15000;
+            this.Fame = 15000;
+            this.Karma = -15000;
 
-            VirtualArmor = 16;
+            this.VirtualArmor = 16;
 
             Container bag = new Bag();
 
-            var count = Utility.RandomMinMax(10, 20);
+            int count = Utility.RandomMinMax(10, 20);
 
-            for (var i = 0; i < count; ++i)
+            for (int i = 0; i < count; ++i)
             {
-                var item = Loot.RandomReagent();
+                Item item = Loot.RandomReagent();
 
                 if (item == null)
                     continue;
@@ -61,14 +59,14 @@ namespace Server.Mobiles
                     item.Delete();
             }
 
-            PackItem(bag);
+            this.PackItem(bag);
 
-            PackItem(new ArcaneGem());
+            this.PackItem(new ArcaneGem());
 
             if (Core.ML && Utility.RandomDouble() < .33)
-                PackItem(Seed.RandomPeculiarSeed(4));
+                this.PackItem(Engines.Plants.Seed.RandomPeculiarSeed(4));
 
-            m_NextAbilityTime = DateTime.UtcNow + TimeSpan.FromSeconds(Utility.RandomMinMax(2, 5));
+            this.m_NextAbilityTime = DateTime.UtcNow + TimeSpan.FromSeconds(Utility.RandomMinMax(2, 5));
         }
 
         public JukaMage(Serial serial)
@@ -78,23 +76,29 @@ namespace Server.Mobiles
 
         public override bool AlwaysMurderer
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override bool CanRummageCorpses
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override int Meat
         {
-            get { return 1; }
+            get
+            {
+                return 1;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Average, 2);
-            AddLoot(LootPack.MedScrolls, 2);
+            this.AddLoot(LootPack.Average, 2);
+            this.AddLoot(LootPack.MedScrolls, 2);
         }
 
         public override int GetIdleSound()
@@ -119,36 +123,35 @@ namespace Server.Mobiles
 
         public override void OnThink()
         {
-            if (DateTime.UtcNow >= m_NextAbilityTime)
+            if (DateTime.UtcNow >= this.m_NextAbilityTime)
             {
                 JukaLord toBuff = null;
 
-                foreach (var m in GetMobilesInRange(8))
+                foreach (Mobile m in this.GetMobilesInRange(8))
                 {
-                    if (m is JukaLord && IsFriend(m) && m.Combatant != null && CanBeBeneficial(m) &&
-                        m.CanBeginAction(typeof (JukaMage)) && InLOS(m))
+                    if (m is JukaLord && this.IsFriend(m) && m.Combatant != null && this.CanBeBeneficial(m) && m.CanBeginAction(typeof(JukaMage)) && this.InLOS(m))
                     {
-                        toBuff = (JukaLord) m;
+                        toBuff = (JukaLord)m;
                         break;
                     }
                 }
 
                 if (toBuff != null)
                 {
-                    if (CanBeBeneficial(toBuff) && toBuff.BeginAction(typeof (JukaMage)))
+                    if (this.CanBeBeneficial(toBuff) && toBuff.BeginAction(typeof(JukaMage)))
                     {
-                        m_NextAbilityTime = DateTime.UtcNow + TimeSpan.FromSeconds(Utility.RandomMinMax(30, 60));
+                        this.m_NextAbilityTime = DateTime.UtcNow + TimeSpan.FromSeconds(Utility.RandomMinMax(30, 60));
 
                         toBuff.Say(true, "Give me the power to destroy my enemies!");
-                        Say(true, "Fight well my lord!");
+                        this.Say(true, "Fight well my lord!");
 
-                        DoBeneficial(toBuff);
+                        this.DoBeneficial(toBuff);
 
-                        object[] state = {toBuff, toBuff.HitsMaxSeed, toBuff.RawStr, toBuff.RawDex};
+                        object[] state = new object[] { toBuff, toBuff.HitsMaxSeed, toBuff.RawStr, toBuff.RawDex };
 
                         SpellHelper.Turn(this, toBuff);
 
-                        var toScale = toBuff.HitsMaxSeed;
+                        int toScale = toBuff.HitsMaxSeed;
 
                         if (toScale > 0)
                         {
@@ -180,7 +183,7 @@ namespace Server.Mobiles
                 }
                 else
                 {
-                    m_NextAbilityTime = DateTime.UtcNow + TimeSpan.FromSeconds(Utility.RandomMinMax(2, 5));
+                    this.m_NextAbilityTime = DateTime.UtcNow + TimeSpan.FromSeconds(Utility.RandomMinMax(2, 5));
                 }
             }
 
@@ -190,29 +193,29 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
 
         private void Unbuff(object state)
         {
-            var states = (object[]) state;
+            object[] states = (object[])state;
 
-            var toDebuff = (JukaLord) states[0];
+            JukaLord toDebuff = (JukaLord)states[0];
 
-            toDebuff.EndAction(typeof (JukaMage));
+            toDebuff.EndAction(typeof(JukaMage));
 
             if (toDebuff.Deleted)
                 return;
 
-            toDebuff.HitsMaxSeed = (int) states[1];
-            toDebuff.RawStr = (int) states[2];
-            toDebuff.RawDex = (int) states[3];
+            toDebuff.HitsMaxSeed = (int)states[1];
+            toDebuff.RawStr = (int)states[2];
+            toDebuff.RawDex = (int)states[3];
 
             toDebuff.Hits = toDebuff.Hits;
             toDebuff.Stam = toDebuff.Stam;

@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Mobiles
 {
     [CorpseName("a hell cat corpse")]
@@ -8,37 +10,37 @@ namespace Server.Mobiles
         public PredatorHellCat()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a hell cat";
-            Body = 127;
-            BaseSoundID = 0xBA;
+            this.Name = "a hell cat";
+            this.Body = 127;
+            this.BaseSoundID = 0xBA;
 
-            SetStr(161, 185);
-            SetDex(96, 115);
-            SetInt(76, 100);
+            this.SetStr(161, 185);
+            this.SetDex(96, 115);
+            this.SetInt(76, 100);
 
-            SetHits(97, 131);
+            this.SetHits(97, 131);
 
-            SetDamage(5, 17);
+            this.SetDamage(5, 17);
 
-            SetDamageType(ResistanceType.Physical, 75);
-            SetDamageType(ResistanceType.Fire, 25);
+            this.SetDamageType(ResistanceType.Physical, 75);
+            this.SetDamageType(ResistanceType.Fire, 25);
 
-            SetResistance(ResistanceType.Physical, 25, 35);
-            SetResistance(ResistanceType.Fire, 30, 40);
-            SetResistance(ResistanceType.Energy, 5, 15);
+            this.SetResistance(ResistanceType.Physical, 25, 35);
+            this.SetResistance(ResistanceType.Fire, 30, 40);
+            this.SetResistance(ResistanceType.Energy, 5, 15);
 
-            SetSkill(SkillName.MagicResist, 75.1, 90.0);
-            SetSkill(SkillName.Tactics, 50.1, 65.0);
-            SetSkill(SkillName.Wrestling, 50.1, 65.0);
+            this.SetSkill(SkillName.MagicResist, 75.1, 90.0);
+            this.SetSkill(SkillName.Tactics, 50.1, 65.0);
+            this.SetSkill(SkillName.Wrestling, 50.1, 65.0);
 
-            Fame = 2500;
-            Karma = -2500;
+            this.Fame = 2500;
+            this.Karma = -2500;
 
-            VirtualArmor = 30;
+            this.VirtualArmor = 30;
 
-            Tamable = true;
-            ControlSlots = 1;
-            MinTameSkill = 89.1;
+            this.Tamable = true;
+            this.ControlSlots = 1;
+            this.MinTameSkill = 89.1;
         }
 
         public PredatorHellCat(Serial serial)
@@ -48,46 +50,56 @@ namespace Server.Mobiles
 
         public override bool HasBreath
         {
-            get { return true; }
-        } // fire breath enabled
-
+            get
+            {
+                return true;
+            }
+        }// fire breath enabled
         public override int Hides
         {
-            get { return 10; }
+            get
+            {
+                return 10;
+            }
         }
-
         public override HideType HideType
         {
-            get { return HideType.Spined; }
+            get
+            {
+                return HideType.Spined;
+            }
         }
-
         public override FoodType FavoriteFood
         {
-            get { return FoodType.Meat; }
+            get
+            {
+                return FoodType.Meat;
+            }
         }
-
         public override PackInstinct PackInstinct
         {
-            get { return PackInstinct.Feline; }
+            get
+            {
+                return PackInstinct.Feline;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Average);
+            this.AddLoot(LootPack.Average);
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

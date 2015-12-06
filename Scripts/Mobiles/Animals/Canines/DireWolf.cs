@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Mobiles
 {
     [CorpseName("a dire wolf corpse")]
@@ -6,41 +8,41 @@ namespace Server.Mobiles
     {
         [Constructable]
         public DireWolf()
-            : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
+            : base(AIType.AI_Melee,FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a dire wolf";
-            Body = 23;
-            BaseSoundID = 0xE5;
+            this.Name = "a dire wolf";
+            this.Body = 23;
+            this.BaseSoundID = 0xE5;
 
-            SetStr(96, 120);
-            SetDex(81, 105);
-            SetInt(36, 60);
+            this.SetStr(96, 120);
+            this.SetDex(81, 105);
+            this.SetInt(36, 60);
 
-            SetHits(58, 72);
-            SetMana(0);
+            this.SetHits(58, 72);
+            this.SetMana(0);
 
-            SetDamage(11, 17);
+            this.SetDamage(11, 17);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 20, 25);
-            SetResistance(ResistanceType.Fire, 10, 20);
-            SetResistance(ResistanceType.Cold, 5, 10);
-            SetResistance(ResistanceType.Poison, 5, 10);
-            SetResistance(ResistanceType.Energy, 10, 15);
+            this.SetResistance(ResistanceType.Physical, 20, 25);
+            this.SetResistance(ResistanceType.Fire, 10, 20);
+            this.SetResistance(ResistanceType.Cold, 5, 10);
+            this.SetResistance(ResistanceType.Poison, 5, 10);
+            this.SetResistance(ResistanceType.Energy, 10, 15);
 
-            SetSkill(SkillName.MagicResist, 57.6, 75.0);
-            SetSkill(SkillName.Tactics, 50.1, 70.0);
-            SetSkill(SkillName.Wrestling, 60.1, 80.0);
+            this.SetSkill(SkillName.MagicResist, 57.6, 75.0);
+            this.SetSkill(SkillName.Tactics, 50.1, 70.0);
+            this.SetSkill(SkillName.Wrestling, 60.1, 80.0);
 
-            Fame = 2500;
-            Karma = -2500;
+            this.Fame = 2500;
+            this.Karma = -2500;
 
-            VirtualArmor = 22;
+            this.VirtualArmor = 22;
 
-            Tamable = true;
-            ControlSlots = 1;
-            MinTameSkill = 83.1;
+            this.Tamable = true;
+            this.ControlSlots = 1;
+            this.MinTameSkill = 83.1;
         }
 
         public DireWolf(Serial serial)
@@ -50,41 +52,51 @@ namespace Server.Mobiles
 
         public override int Meat
         {
-            get { return 1; }
+            get
+            {
+                return 1;
+            }
         }
-
         public override int Hides
         {
-            get { return 7; }
+            get
+            {
+                return 7;
+            }
         }
-
         public override HideType HideType
         {
-            get { return HideType.Spined; }
+            get
+            {
+                return HideType.Spined;
+            }
         }
-
         public override FoodType FavoriteFood
         {
-            get { return FoodType.Meat; }
+            get
+            {
+                return FoodType.Meat;
+            }
         }
-
         public override PackInstinct PackInstinct
         {
-            get { return PackInstinct.Canine; }
+            get
+            {
+                return PackInstinct.Canine;
+            }
         }
-
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

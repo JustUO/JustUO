@@ -75,10 +75,10 @@ namespace Server.Engines.Quests
                 return ret;
             }
         }
-
-        public override bool DropToItem(Mobile from, Item target, Point3D p)
+        #region Enhance Client
+        public override bool DropToItem(Mobile from, Item target, Point3D p, byte gridloc)
         {
-            bool ret = base.DropToItem(from, target, p);
+            bool ret = base.DropToItem(from, target, p, gridloc);
 
             if (ret && !this.Accepted && this.Parent != from.Backpack)
             {
@@ -101,6 +101,7 @@ namespace Server.Engines.Quests
                 return ret;
             }
         }
+        #endregion
 
         public override DeathMoveResult OnParentDeath(Mobile parent)
         {

@@ -6,35 +6,35 @@ namespace Server.Mobiles
     [CorpseName("a leviathan corpse")]
     public class Leviathan : BaseCreature
     {
-        private static readonly Type[] m_Artifacts =
+        private static readonly Type[] m_Artifacts = new Type[]
         {
             // Decorations
-            typeof (CandelabraOfSouls),
-            typeof (GhostShipAnchor),
-            typeof (GoldBricks),
-            typeof (PhillipsWoodenSteed),
-            typeof (SeahorseStatuette),
-            typeof (ShipModelOfTheHMSCape),
-            typeof (AdmiralsHeartyRum),
+            typeof(CandelabraOfSouls),
+            typeof(GhostShipAnchor),
+            typeof(GoldBricks),
+            typeof(PhillipsWoodenSteed),
+            typeof(SeahorseStatuette),
+            typeof(ShipModelOfTheHMSCape),
+            typeof(AdmiralsHeartyRum),
 
             // Equipment
-            typeof (AlchemistsBauble),
-            typeof (ArcticDeathDealer),
-            typeof (BlazeOfDeath),
-            typeof (BurglarsBandana),
-            typeof (CaptainQuacklebushsCutlass),
-            typeof (CavortingClub),
-            typeof (DreadPirateHat),
-            typeof (EnchantedTitanLegBone),
-            typeof (GwennosHarp),
-            typeof (IolosLute),
-            typeof (LunaLance),
-            typeof (NightsKiss),
-            typeof (NoxRangersHeavyCrossbow),
-            typeof (PolarBearMask),
-            typeof (VioletCourage)
+            typeof(AlchemistsBauble),
+            typeof(ArcticDeathDealer),
+            typeof(BlazeOfDeath),
+            typeof(BurglarsBandana),
+            typeof(CaptainQuacklebushsCutlass),
+            typeof(CavortingClub),
+            typeof(DreadPirateHat),
+            typeof(EnchantedTitanLegBone),
+            typeof(GwennosHarp),
+            typeof(IolosLute),
+            typeof(LunaLance),
+            typeof(NightsKiss),
+            typeof(NoxRangersHeavyCrossbow),
+            typeof(PolarBearMask),
+            typeof(VioletCourage)
         };
-
+        private Mobile m_Fisher;
         [Constructable]
         public Leviathan()
             : this(null)
@@ -45,56 +45,56 @@ namespace Server.Mobiles
         public Leviathan(Mobile fisher)
             : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Fisher = fisher;
+            this.m_Fisher = fisher;
 
             // May not be OSI accurate; mostly copied from krakens
-            Name = "a leviathan";
-            Body = 77;
-            BaseSoundID = 353;
+            this.Name = "a leviathan";
+            this.Body = 77;
+            this.BaseSoundID = 353;
 
-            Hue = 0x481;
+            this.Hue = 0x481;
 
-            SetStr(1000);
-            SetDex(501, 520);
-            SetInt(501, 515);
+            this.SetStr(1000);
+            this.SetDex(501, 520);
+            this.SetInt(501, 515);
 
-            SetHits(1500);
+            this.SetHits(1500);
 
-            SetDamage(25, 33);
+            this.SetDamage(25, 33);
 
-            SetDamageType(ResistanceType.Physical, 70);
-            SetDamageType(ResistanceType.Cold, 30);
+            this.SetDamageType(ResistanceType.Physical, 70);
+            this.SetDamageType(ResistanceType.Cold, 30);
 
-            SetResistance(ResistanceType.Physical, 55, 65);
-            SetResistance(ResistanceType.Fire, 45, 55);
-            SetResistance(ResistanceType.Cold, 45, 55);
-            SetResistance(ResistanceType.Poison, 35, 45);
-            SetResistance(ResistanceType.Energy, 25, 35);
+            this.SetResistance(ResistanceType.Physical, 55, 65);
+            this.SetResistance(ResistanceType.Fire, 45, 55);
+            this.SetResistance(ResistanceType.Cold, 45, 55);
+            this.SetResistance(ResistanceType.Poison, 35, 45);
+            this.SetResistance(ResistanceType.Energy, 25, 35);
 
-            SetSkill(SkillName.EvalInt, 97.6, 107.5);
-            SetSkill(SkillName.Magery, 97.6, 107.5);
-            SetSkill(SkillName.MagicResist, 97.6, 107.5);
-            SetSkill(SkillName.Meditation, 97.6, 107.5);
-            SetSkill(SkillName.Tactics, 97.6, 107.5);
-            SetSkill(SkillName.Wrestling, 97.6, 107.5);
+            this.SetSkill(SkillName.EvalInt, 97.6, 107.5);
+            this.SetSkill(SkillName.Magery, 97.6, 107.5);
+            this.SetSkill(SkillName.MagicResist, 97.6, 107.5);
+            this.SetSkill(SkillName.Meditation, 97.6, 107.5);
+            this.SetSkill(SkillName.Tactics, 97.6, 107.5);
+            this.SetSkill(SkillName.Wrestling, 97.6, 107.5);
 
-            Fame = 24000;
-            Karma = -24000;
+            this.Fame = 24000;
+            this.Karma = -24000;
 
-            VirtualArmor = 50;
+            this.VirtualArmor = 50;
 
-            CanSwim = true;
-            CantWalk = true;
+            this.CanSwim = true;
+            this.CantWalk = true;
 
-            PackItem(new MessageInABottle());
+            this.PackItem(new MessageInABottle());
 
-            var rope = new Rope();
+            Rope rope = new Rope();
             rope.ItemID = 0x14F8;
-            PackItem(rope);
+            this.PackItem(rope);
 
             rope = new Rope();
             rope.ItemID = 0x14FA;
-            PackItem(rope);
+            this.PackItem(rope);
         }
 
         public Leviathan(Serial serial)
@@ -104,94 +104,123 @@ namespace Server.Mobiles
 
         public static Type[] Artifacts
         {
-            get { return m_Artifacts; }
+            get
+            {
+                return m_Artifacts;
+            }
         }
-
-        public Mobile Fisher { get; set; }
-
+        public Mobile Fisher
+        {
+            get
+            {
+                return this.m_Fisher;
+            }
+            set
+            {
+                this.m_Fisher = value;
+            }
+        }
         public override bool HasBreath
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override int BreathPhysicalDamage
         {
-            get { return 70; }
-        } // TODO: Verify damage type
-
+            get
+            {
+                return 70;
+            }
+        }// TODO: Verify damage type
         public override int BreathColdDamage
         {
-            get { return 30; }
+            get
+            {
+                return 30;
+            }
         }
-
         public override int BreathFireDamage
         {
-            get { return 0; }
+            get
+            {
+                return 0;
+            }
         }
-
         public override int BreathEffectHue
         {
-            get { return 0x1ED; }
+            get
+            {
+                return 0x1ED;
+            }
         }
-
         public override double BreathDamageScalar
         {
-            get { return 0.05; }
+            get
+            {
+                return 0.05;
+            }
         }
-
         public override double BreathMinDelay
         {
-            get { return 5.0; }
+            get
+            {
+                return 5.0;
+            }
         }
-
         public override double BreathMaxDelay
         {
-            get { return 7.5; }
+            get
+            {
+                return 7.5;
+            }
         }
-
         public override double TreasureMapChance
         {
-            get { return 0.25; }
+            get
+            {
+                return 0.25;
+            }
         }
-
         public override int TreasureMapLevel
         {
-            get { return 5; }
+            get
+            {
+                return 5;
+            }
         }
-
         public static void GiveArtifactTo(Mobile m)
         {
-            var item = Loot.Construct(m_Artifacts);
+            Item item = Loot.Construct(m_Artifacts);
 
             if (item == null)
                 return;
 
             // TODO: Confirm messages
             if (m.AddToBackpack(item))
-                m.SendMessage(
-                    "As a reward for slaying the mighty leviathan, an artifact has been placed in your backpack.");
+                m.SendMessage("As a reward for slaying the mighty leviathan, an artifact has been placed in your backpack.");
             else
-                m.SendMessage(
-                    "As your backpack is full, your reward for destroying the legendary leviathan has been placed at your feet.");
+                m.SendMessage("As your backpack is full, your reward for destroying the legendary leviathan has been placed at your feet.");
         }
 
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.FilthyRich, 5);
+            this.AddLoot(LootPack.FilthyRich, 5);
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
 
         public override void OnKilledBy(Mobile mob)
@@ -202,8 +231,8 @@ namespace Server.Mobiles
             {
                 GiveArtifactTo(mob);
 
-                if (mob == Fisher)
-                    Fisher = null;
+                if (mob == this.m_Fisher)
+                    this.m_Fisher = null;
             }
         }
 
@@ -211,10 +240,10 @@ namespace Server.Mobiles
         {
             base.OnDeath(c);
 
-            if (Fisher != null && 25 > Utility.Random(100))
-                GiveArtifactTo(Fisher);
+            if (this.m_Fisher != null && 25 > Utility.Random(100))
+                GiveArtifactTo(this.m_Fisher);
 
-            Fisher = null;
+            this.m_Fisher = null;
         }
     }
 }

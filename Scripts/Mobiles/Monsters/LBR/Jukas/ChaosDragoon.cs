@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -9,22 +10,22 @@ namespace Server.Mobiles
         public ChaosDragoon()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.15, 0.4)
         {
-            Name = "a chaos dragoon";
-            Body = 0x190;
-            Hue = Utility.RandomSkinHue();
+            this.Name = "a chaos dragoon";
+            this.Body = 0x190;
+            this.Hue = Utility.RandomSkinHue();
 
-            SetStr(176, 225);
-            SetDex(81, 95);
-            SetInt(61, 85);
+            this.SetStr(176, 225);
+            this.SetDex(81, 95);
+            this.SetInt(61, 85);
 
-            SetHits(176, 225);
+            this.SetHits(176, 225);
 
-            SetDamage(24, 26);
+            this.SetDamage(24, 26);
 
-            SetDamageType(ResistanceType.Physical, 25);
-            SetDamageType(ResistanceType.Fire, 25);
-            SetDamageType(ResistanceType.Cold, 25);
-            SetDamageType(ResistanceType.Energy, 25);
+            this.SetDamageType(ResistanceType.Physical, 25);
+            this.SetDamageType(ResistanceType.Fire, 25);
+            this.SetDamageType(ResistanceType.Cold, 25);
+            this.SetDamageType(ResistanceType.Energy, 25);
 
             //SetResistance( ResistanceType.Physical, 25, 38 );
             //SetResistance( ResistanceType.Fire, 25, 38 );
@@ -32,18 +33,18 @@ namespace Server.Mobiles
             //SetResistance( ResistanceType.Poison, 25, 38 );
             //SetResistance( ResistanceType.Energy, 25, 38 );
 
-            SetSkill(SkillName.Fencing, 77.6, 92.5);
-            SetSkill(SkillName.Healing, 60.3, 90.0);
-            SetSkill(SkillName.Macing, 77.6, 92.5);
-            SetSkill(SkillName.Anatomy, 77.6, 87.5);
-            SetSkill(SkillName.MagicResist, 77.6, 97.5);
-            SetSkill(SkillName.Swords, 77.6, 92.5);
-            SetSkill(SkillName.Tactics, 77.6, 87.5);
+            this.SetSkill(SkillName.Fencing, 77.6, 92.5);
+            this.SetSkill(SkillName.Healing, 60.3, 90.0);
+            this.SetSkill(SkillName.Macing, 77.6, 92.5);
+            this.SetSkill(SkillName.Anatomy, 77.6, 87.5);
+            this.SetSkill(SkillName.MagicResist, 77.6, 97.5);
+            this.SetSkill(SkillName.Swords, 77.6, 92.5);
+            this.SetSkill(SkillName.Tactics, 77.6, 87.5);
 
-            Fame = 5000;
-            Karma = -5000;
+            this.Fame = 5000;
+            this.Karma = -5000;
 
-            var res = CraftResource.None;
+            CraftResource res = CraftResource.None;
 
             switch (Utility.Random(6))
             {
@@ -83,61 +84,61 @@ namespace Server.Mobiles
             }
 
             melee.Movable = false;
-            AddItem(melee);
+            this.AddItem(melee);
 
-            var helm = new DragonHelm();
+            DragonHelm helm = new DragonHelm();
             helm.Resource = res;
             helm.Movable = false;
-            AddItem(helm);
+            this.AddItem(helm);
 
-            var chest = new DragonChest();
+            DragonChest chest = new DragonChest();
             chest.Resource = res;
             chest.Movable = false;
-            AddItem(chest);
+            this.AddItem(chest);
 
-            var arms = new DragonArms();
+            DragonArms arms = new DragonArms();
             arms.Resource = res;
             arms.Movable = false;
-            AddItem(arms);
+            this.AddItem(arms);
 
-            var gloves = new DragonGloves();
+            DragonGloves gloves = new DragonGloves();
             gloves.Resource = res;
             gloves.Movable = false;
-            AddItem(gloves);
+            this.AddItem(gloves);
 
-            var legs = new DragonLegs();
+            DragonLegs legs = new DragonLegs();
             legs.Resource = res;
             legs.Movable = false;
-            AddItem(legs);
+            this.AddItem(legs);
 
-            var shield = new ChaosShield();
+            ChaosShield shield = new ChaosShield();
             shield.Movable = false;
-            AddItem(shield);
+            this.AddItem(shield);
 
-            AddItem(new Shirt());
-            AddItem(new Boots());
+            this.AddItem(new Shirt());
+            this.AddItem(new Boots());
 
-            var amount = Utility.RandomMinMax(1, 3);
+            int amount = Utility.RandomMinMax(1, 3);
 
-            switch (res)
+            switch ( res )
             {
                 case CraftResource.BlackScales:
-                    AddItem(new BlackScales(amount));
+                    this.AddItem(new BlackScales(amount));
                     break;
                 case CraftResource.RedScales:
-                    AddItem(new RedScales(amount));
+                    this.AddItem(new RedScales(amount));
                     break;
                 case CraftResource.BlueScales:
-                    AddItem(new BlueScales(amount));
+                    this.AddItem(new BlueScales(amount));
                     break;
                 case CraftResource.YellowScales:
-                    AddItem(new YellowScales(amount));
+                    this.AddItem(new YellowScales(amount));
                     break;
                 case CraftResource.GreenScales:
-                    AddItem(new GreenScales(amount));
+                    this.AddItem(new GreenScales(amount));
                     break;
                 case CraftResource.WhiteScales:
-                    AddItem(new WhiteScales(amount));
+                    this.AddItem(new WhiteScales(amount));
                     break;
             }
 
@@ -151,34 +152,46 @@ namespace Server.Mobiles
 
         public override bool HasBreath
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override bool AutoDispel
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override bool BardImmune
         {
-            get { return !Core.AOS; }
+            get
+            {
+                return !Core.AOS;
+            }
         }
-
         public override bool CanRummageCorpses
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override bool AlwaysMurderer
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override bool ShowFameTitle
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
-
         public override int GetIdleSound()
         {
             return 0x2CE;
@@ -201,13 +214,13 @@ namespace Server.Mobiles
 
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Rich);
+            this.AddLoot(LootPack.Rich);
             //AddLoot( LootPack.Gems );	
         }
 
         public override bool OnBeforeDeath()
         {
-            var mount = Mount;
+            IMount mount = this.Mount;
 
             if (mount != null)
                 mount.Rider = null;
@@ -217,21 +230,20 @@ namespace Server.Mobiles
 
         public override void AlterMeleeDamageTo(Mobile to, ref int damage)
         {
-            if (to is Dragon || to is WhiteWyrm || to is SwampDragon || to is Drake || to is Nightmare || to is Hiryu ||
-                to is LesserHiryu || to is Daemon)
+            if (to is Dragon || to is WhiteWyrm || to is SwampDragon || to is Drake || to is Nightmare || to is Hiryu || to is LesserHiryu || to is Daemon)
                 damage *= 3;
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

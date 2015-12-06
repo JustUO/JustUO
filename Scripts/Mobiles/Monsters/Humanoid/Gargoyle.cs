@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -9,45 +10,44 @@ namespace Server.Mobiles
         public Gargoyle()
             : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a gargoyle";
-            Body = 4;
-            BaseSoundID = 372;
+            this.Name = "a gargoyle";
+            this.Body = 4;
+            this.BaseSoundID = 372;
 
-            SetStr(146, 175);
-            SetDex(76, 95);
-            SetInt(81, 105);
+            this.SetStr(146, 175);
+            this.SetDex(76, 95);
+            this.SetInt(81, 105);
 
-            SetHits(88, 105);
+            this.SetHits(88, 105);
 
-            SetDamage(7, 14);
+            this.SetDamage(7, 14);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 30, 35);
-            SetResistance(ResistanceType.Fire, 25, 35);
-            SetResistance(ResistanceType.Cold, 5, 10);
-            SetResistance(ResistanceType.Poison, 15, 25);
+            this.SetResistance(ResistanceType.Physical, 30, 35);
+            this.SetResistance(ResistanceType.Fire, 25, 35);
+            this.SetResistance(ResistanceType.Cold, 5, 10);
+            this.SetResistance(ResistanceType.Poison, 15, 25);
 
-            SetSkill(SkillName.EvalInt, 70.1, 85.0);
-            SetSkill(SkillName.Magery, 70.1, 85.0);
-            SetSkill(SkillName.MagicResist, 70.1, 85.0);
-            SetSkill(SkillName.Tactics, 50.1, 70.0);
-            SetSkill(SkillName.Wrestling, 40.1, 80.0);
+            this.SetSkill(SkillName.EvalInt, 70.1, 85.0);
+            this.SetSkill(SkillName.Magery, 70.1, 85.0);
+            this.SetSkill(SkillName.MagicResist, 70.1, 85.0);
+            this.SetSkill(SkillName.Tactics, 50.1, 70.0);
+            this.SetSkill(SkillName.Wrestling, 40.1, 80.0);
 
-            Fame = 3500;
-            Karma = -3500;
+            this.Fame = 3500;
+            this.Karma = -3500;
 
-            VirtualArmor = 32;
+            this.VirtualArmor = 32;
 
             if (0.025 > Utility.RandomDouble())
-                PackItem(new GargoylesPickaxe());
+                this.PackItem(new GargoylesPickaxe());
 
-            switch (Utility.Random(6))
+			switch (Utility.Random(6))
             {
-                case 0:
-                    PackItem(new PainSpikeScroll());
-                    break;
-            }
+                case 0: PackItem(new PainSpikeScroll()); break;
+			}
+
         }
 
         public Gargoyle(Serial serial)
@@ -57,36 +57,42 @@ namespace Server.Mobiles
 
         public override int TreasureMapLevel
         {
-            get { return 1; }
+            get
+            {
+                return 1;
+            }
         }
-
         public override int Meat
         {
-            get { return 1; }
+            get
+            {
+                return 1;
+            }
         }
-
         public override bool CanFly
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Average);
-            AddLoot(LootPack.MedScrolls);
-            AddLoot(LootPack.Gems, Utility.RandomMinMax(1, 4));
+            this.AddLoot(LootPack.Average);
+            this.AddLoot(LootPack.MedScrolls);
+            this.AddLoot(LootPack.Gems, Utility.RandomMinMax(1, 4));
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

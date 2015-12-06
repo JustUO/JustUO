@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -9,35 +10,35 @@ namespace Server.Mobiles
         public SummonedFireElemental()
             : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a fire elemental";
-            Body = 15;
-            BaseSoundID = 838;
+            this.Name = "a fire elemental";
+            this.Body = 15;
+            this.BaseSoundID = 838;
 
-            SetStr(200);
-            SetDex(200);
-            SetInt(100);
+            this.SetStr(200);
+            this.SetDex(200);
+            this.SetInt(100);
 
-            SetDamage(9, 14);
+            this.SetDamage(9, 14);
 
-            SetDamageType(ResistanceType.Physical, 0);
-            SetDamageType(ResistanceType.Fire, 100);
+            this.SetDamageType(ResistanceType.Physical, 0);
+            this.SetDamageType(ResistanceType.Fire, 100);
 
-            SetResistance(ResistanceType.Physical, 50, 60);
-            SetResistance(ResistanceType.Fire, 70, 80);
-            SetResistance(ResistanceType.Cold, 0, 10);
-            SetResistance(ResistanceType.Poison, 50, 60);
-            SetResistance(ResistanceType.Energy, 50, 60);
+            this.SetResistance(ResistanceType.Physical, 50, 60);
+            this.SetResistance(ResistanceType.Fire, 70, 80);
+            this.SetResistance(ResistanceType.Cold, 0, 10);
+            this.SetResistance(ResistanceType.Poison, 50, 60);
+            this.SetResistance(ResistanceType.Energy, 50, 60);
 
-            SetSkill(SkillName.EvalInt, 90.0);
-            SetSkill(SkillName.Magery, 90.0);
-            SetSkill(SkillName.MagicResist, 85.0);
-            SetSkill(SkillName.Tactics, 100.0);
-            SetSkill(SkillName.Wrestling, 92.0);
+            this.SetSkill(SkillName.EvalInt, 90.0);
+            this.SetSkill(SkillName.Magery, 90.0);
+            this.SetSkill(SkillName.MagicResist, 85.0);
+            this.SetSkill(SkillName.Tactics, 100.0);
+            this.SetSkill(SkillName.Wrestling, 92.0);
 
-            VirtualArmor = 40;
-            ControlSlots = 4;
+            this.VirtualArmor = 40;
+            this.ControlSlots = 4;
 
-            AddItem(new LightSource());
+            this.AddItem(new LightSource());
         }
 
         public SummonedFireElemental(Serial serial)
@@ -47,24 +48,28 @@ namespace Server.Mobiles
 
         public override double DispelDifficulty
         {
-            get { return 117.5; }
+            get
+            {
+                return 117.5;
+            }
         }
-
         public override double DispelFocus
         {
-            get { return 45.0; }
+            get
+            {
+                return 45.0;
+            }
         }
-
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

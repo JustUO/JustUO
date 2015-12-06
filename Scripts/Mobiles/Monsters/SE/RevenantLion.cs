@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -9,70 +10,70 @@ namespace Server.Mobiles
         public RevenantLion()
             : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a Revenant Lion";
-            Body = 251;
+            this.Name = "a Revenant Lion";
+            this.Body = 251;
 
-            SetStr(276, 325);
-            SetDex(156, 175);
-            SetInt(76, 105);
+            this.SetStr(276, 325);
+            this.SetDex(156, 175);
+            this.SetInt(76, 105);
 
-            SetHits(251, 280);
+            this.SetHits(251, 280);
 
-            SetDamage(18, 24);
+            this.SetDamage(18, 24);
 
-            SetDamageType(ResistanceType.Physical, 30);
-            SetDamageType(ResistanceType.Cold, 30);
-            SetDamageType(ResistanceType.Poison, 10);
-            SetDamageType(ResistanceType.Energy, 30);
+            this.SetDamageType(ResistanceType.Physical, 30);
+            this.SetDamageType(ResistanceType.Cold, 30);
+            this.SetDamageType(ResistanceType.Poison, 10);
+            this.SetDamageType(ResistanceType.Energy, 30);
 
-            SetResistance(ResistanceType.Physical, 40, 60);
-            SetResistance(ResistanceType.Fire, 20, 30);
-            SetResistance(ResistanceType.Cold, 50, 60);
-            SetResistance(ResistanceType.Poison, 55, 65);
-            SetResistance(ResistanceType.Energy, 40, 50);
+            this.SetResistance(ResistanceType.Physical, 40, 60);
+            this.SetResistance(ResistanceType.Fire, 20, 30);
+            this.SetResistance(ResistanceType.Cold, 50, 60);
+            this.SetResistance(ResistanceType.Poison, 55, 65);
+            this.SetResistance(ResistanceType.Energy, 40, 50);
 
-            SetSkill(SkillName.EvalInt, 80.1, 90.0);
-            SetSkill(SkillName.Magery, 80.1, 90.0);
-            SetSkill(SkillName.Poisoning, 120.1, 130.0);
-            SetSkill(SkillName.MagicResist, 70.1, 90.0);
-            SetSkill(SkillName.Tactics, 60.1, 80.0);
-            SetSkill(SkillName.Wrestling, 80.1, 88.0);
+            this.SetSkill(SkillName.EvalInt, 80.1, 90.0);
+            this.SetSkill(SkillName.Magery, 80.1, 90.0);
+            this.SetSkill(SkillName.Poisoning, 120.1, 130.0);
+            this.SetSkill(SkillName.MagicResist, 70.1, 90.0);
+            this.SetSkill(SkillName.Tactics, 60.1, 80.0);
+            this.SetSkill(SkillName.Wrestling, 80.1, 88.0);
 
-            Fame = 4000;
-            Karma = -4000;
-            PackNecroReg(6, 8);
-
-            switch (Utility.Random(10))
+            this.Fame = 4000;
+            this.Karma = -4000;
+            this.PackNecroReg(6, 8);
+			
+            switch ( Utility.Random(10))
             {
                 case 0:
-                    PackItem(new LeftArm());
+                    this.PackItem(new LeftArm());
                     break;
                 case 1:
-                    PackItem(new RightArm());
+                    this.PackItem(new RightArm());
                     break;
                 case 2:
-                    PackItem(new Torso());
+                    this.PackItem(new Torso());
                     break;
                 case 3:
-                    PackItem(new Bone());
+                    this.PackItem(new Bone());
                     break;
                 case 4:
-                    PackItem(new RibCage());
+                    this.PackItem(new RibCage());
                     break;
                 case 5:
-                    PackItem(new RibCage());
+                    this.PackItem(new RibCage());
                     break;
                 case 6:
-                    PackItem(new BonePile());
+                    this.PackItem(new BonePile());
                     break;
                 case 7:
-                    PackItem(new BonePile());
+                    this.PackItem(new BonePile());
                     break;
                 case 8:
-                    PackItem(new BonePile());
+                    this.PackItem(new BonePile());
                     break;
                 case 9:
-                    PackItem(new BonePile());
+                    this.PackItem(new BonePile());
                     break;
             }
         }
@@ -84,19 +85,25 @@ namespace Server.Mobiles
 
         public override bool BleedImmune
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override Poison PoisonImmune
         {
-            get { return Poison.Greater; }
+            get
+            {
+                return Poison.Greater;
+            }
         }
-
         public override Poison HitPoison
         {
-            get { return Poison.Greater; }
+            get
+            {
+                return Poison.Greater;
+            }
         }
-
         public override WeaponAbility GetWeaponAbility()
         {
             return WeaponAbility.BleedAttack;
@@ -129,21 +136,21 @@ namespace Server.Mobiles
 
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Rich, 2);
-            AddLoot(LootPack.MedScrolls, 2);
+            this.AddLoot(LootPack.Rich, 2);
+            this.AddLoot(LootPack.MedScrolls, 2);
             // TODO: Bone Pile
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

@@ -1,4 +1,4 @@
-using Server.Engines.Plants;
+using System;
 
 namespace Server.Mobiles
 {
@@ -9,41 +9,41 @@ namespace Server.Mobiles
         public SerpentineDragon()
             : base(AIType.AI_Mage, FightMode.Evil, 10, 1, 0.2, 0.4)
         {
-            Name = "a serpentine dragon";
-            Body = 103;
-            BaseSoundID = 362;
+            this.Name = "a serpentine dragon";
+            this.Body = 103;
+            this.BaseSoundID = 362;
 
-            SetStr(111, 140);
-            SetDex(201, 220);
-            SetInt(1001, 1040);
+            this.SetStr(111, 140);
+            this.SetDex(201, 220);
+            this.SetInt(1001, 1040);
 
-            SetHits(480);
+            this.SetHits(480);
 
-            SetDamage(5, 12);
+            this.SetDamage(5, 12);
 
-            SetDamageType(ResistanceType.Physical, 75);
-            SetDamageType(ResistanceType.Poison, 25);
+            this.SetDamageType(ResistanceType.Physical, 75);
+            this.SetDamageType(ResistanceType.Poison, 25);
 
-            SetResistance(ResistanceType.Physical, 35, 40);
-            SetResistance(ResistanceType.Fire, 25, 35);
-            SetResistance(ResistanceType.Cold, 25, 35);
-            SetResistance(ResistanceType.Poison, 25, 35);
-            SetResistance(ResistanceType.Energy, 25, 35);
+            this.SetResistance(ResistanceType.Physical, 35, 40);
+            this.SetResistance(ResistanceType.Fire, 25, 35);
+            this.SetResistance(ResistanceType.Cold, 25, 35);
+            this.SetResistance(ResistanceType.Poison, 25, 35);
+            this.SetResistance(ResistanceType.Energy, 25, 35);
 
-            SetSkill(SkillName.EvalInt, 100.1, 110.0);
-            SetSkill(SkillName.Magery, 110.1, 120.0);
-            SetSkill(SkillName.Meditation, 100.0);
-            SetSkill(SkillName.MagicResist, 100.0);
-            SetSkill(SkillName.Tactics, 50.1, 60.0);
-            SetSkill(SkillName.Wrestling, 30.1, 100.0);
+            this.SetSkill(SkillName.EvalInt, 100.1, 110.0);
+            this.SetSkill(SkillName.Magery, 110.1, 120.0);
+            this.SetSkill(SkillName.Meditation, 100.0);
+            this.SetSkill(SkillName.MagicResist, 100.0);
+            this.SetSkill(SkillName.Tactics, 50.1, 60.0);
+            this.SetSkill(SkillName.Wrestling, 30.1, 100.0);
 
-            Fame = 15000;
-            Karma = 15000;
+            this.Fame = 15000;
+            this.Karma = 15000;
 
-            VirtualArmor = 36;
+            this.VirtualArmor = 36;
 
             if (Core.ML && Utility.RandomDouble() < .33)
-                PackItem(Seed.RandomPeculiarSeed(2));
+                this.PackItem(Engines.Plants.Seed.RandomPeculiarSeed(2));
         }
 
         public SerpentineDragon(Serial serial)
@@ -53,58 +53,78 @@ namespace Server.Mobiles
 
         public override bool ReacquireOnMovement
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override bool HasBreath
         {
-            get { return true; }
-        } // fire breath enabled
-
+            get
+            {
+                return true;
+            }
+        }// fire breath enabled
         public override double BonusPetDamageScalar
         {
-            get { return (Core.SE) ? 3.0 : 1.0; }
+            get
+            {
+                return (Core.SE) ? 3.0 : 1.0;
+            }
         }
-
         public override bool AutoDispel
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override HideType HideType
         {
-            get { return HideType.Barbed; }
+            get
+            {
+                return HideType.Barbed;
+            }
         }
-
         public override int Hides
         {
-            get { return 20; }
+            get
+            {
+                return 20;
+            }
         }
-
         public override int Meat
         {
-            get { return 19; }
+            get
+            {
+                return 19;
+            }
         }
-
         public override int Scales
         {
-            get { return 6; }
+            get
+            {
+                return 6;
+            }
         }
-
         public override ScaleType ScaleType
         {
-            get { return (Utility.RandomBool() ? ScaleType.Black : ScaleType.White); }
+            get
+            {
+                return (Utility.RandomBool() ? ScaleType.Black : ScaleType.White);
+            }
         }
-
         public override int TreasureMapLevel
         {
-            get { return 4; }
+            get
+            {
+                return 4;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.FilthyRich, 2);
-            AddLoot(LootPack.Gems, 2);
+            this.AddLoot(LootPack.FilthyRich, 2);
+            this.AddLoot(LootPack.Gems, 2);
         }
 
         public override int GetIdleSound()
@@ -138,7 +158,7 @@ namespace Server.Mobiles
 
             if (!Core.SE && 0.2 > Utility.RandomDouble() && attacker is BaseCreature)
             {
-                var c = (BaseCreature) attacker;
+                BaseCreature c = (BaseCreature)attacker;
 
                 if (c.Controlled && c.ControlMaster != null)
                 {
@@ -152,13 +172,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

@@ -1,54 +1,54 @@
+using System;
 using Server.Items;
 
 namespace Server.Mobiles
 {
-    [CorpseName("a wolf spider spider corpse")]
+    [CorpseName("a wolf spider corpse")]
     public class WolfSpider : BaseCreature
     {
         [Constructable]
         public WolfSpider()
-            : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
+            : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a Wolf spider";
-            Body = 737;
-            Hue = 1141;
+            this.Name = "a Wolf spider";
+            this.Body = 736;
+            this.Hue = 0;
 
-            SetStr(225, 268);
-            SetDex(145, 165);
-            SetInt(285, 310);
+            this.SetStr(225, 268);
+            this.SetDex(145, 165);
+            this.SetInt(285, 310);
 
-            SetHits(150, 160);
-            SetMana(285, 310);
-            SetStam(145, 165);
+            this.SetHits(150, 200);
+	    this.SetMana(285, 310);
+	    this.SetStam(145, 165);
 
-            SetDamage(15, 18);
+            this.SetDamage(15, 18);
 
-            SetDamageType(ResistanceType.Physical, 70);
-            SetDamageType(ResistanceType.Poison, 30);
+            this.SetDamageType(ResistanceType.Physical, 70);
+            this.SetDamageType(ResistanceType.Poison, 30);
 
-            SetResistance(ResistanceType.Physical, 30, 35);
-            SetResistance(ResistanceType.Fire, 20, 30);
-            SetResistance(ResistanceType.Cold, 25, 35);
-            SetResistance(ResistanceType.Poison, 100);
-            SetResistance(ResistanceType.Energy, 25, 35);
+            this.SetResistance(ResistanceType.Physical, 30, 35);
+            this.SetResistance(ResistanceType.Fire, 20, 30);
+            this.SetResistance(ResistanceType.Cold, 25, 35);
+            this.SetResistance(ResistanceType.Poison, 100);
+            this.SetResistance(ResistanceType.Energy, 25, 35);
 
-            SetSkill(SkillName.Anatomy, 80.0, 90.0);
-            SetSkill(SkillName.MagicResist, 60.0, 75.0);
-            SetSkill(SkillName.Poisoning, 62.3, 77.2);
-            SetSkill(SkillName.Tactics, 84.1, 95.9);
-            SetSkill(SkillName.Wrestling, 80.2, 90.0);
-            SetSkill(SkillName.Hiding, 105.0, 110.0);
-            SetSkill(SkillName.Stealth, 105.0, 110.0);
+            this.SetSkill(SkillName.Anatomy, 80.0, 90.0);
+            this.SetSkill(SkillName.MagicResist, 60.0, 75.0);
+            this.SetSkill(SkillName.Poisoning, 62.3, 77.2);
+            this.SetSkill(SkillName.Tactics, 84.1, 95.9);
+            this.SetSkill(SkillName.Wrestling, 80.2, 90.0);
 
-            Tamable = true;
-            ControlSlots = 2;
-            MinTameSkill = 59.1;
+            this.Fame = 5000;
+            this.Karma = -5000;
 
-            QLPoints = 10;
+            this.Tamable = true;
+            this.ControlSlots = 2;
+            this.MinTameSkill = 59.1;
 
-            AddItem(new Gold(300));
-            PackItem(new SpidersSilk(8));
-            PackMagicItems(1, 2);
+            this.AddItem(new Gold(300));
+            this.PackItem(new SpidersSilk(8));
+            this.PackMagicItems(1, 2);
         }
 
         public WolfSpider(Serial serial)
@@ -58,27 +58,35 @@ namespace Server.Mobiles
 
         public override FoodType FavoriteFood
         {
-            get { return FoodType.Meat; }
+            get
+            {
+                return FoodType.Meat;
+            }
         }
-
         public override PackInstinct PackInstinct
         {
-            get { return PackInstinct.Arachnid; }
+            get
+            {
+                return PackInstinct.Arachnid;
+            }
         }
-
         public override Poison PoisonImmune
         {
-            get { return Poison.Regular; }
+            get
+            {
+                return Poison.Regular;
+            }
         }
-
         public override Poison HitPoison
         {
-            get { return Poison.Regular; }
+            get
+            {
+                return Poison.Regular;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Gems, 2);
+            this.AddLoot(LootPack.Gems, 2);
         }
 
         public override void OnDeath(Container c)
@@ -87,10 +95,6 @@ namespace Server.Mobiles
 
             if (Utility.RandomDouble() < 0.15)
                 c.DropItem(new BottleIchor());
-
-            if (Utility.RandomDouble() < 0.05)
-                c.DropItem(new SpiderCarapace());
-
         }
 
         public override int GetIdleSound()
@@ -116,13 +120,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

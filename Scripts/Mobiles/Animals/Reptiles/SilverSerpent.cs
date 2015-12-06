@@ -1,6 +1,5 @@
-using Server.Ethics;
+using System;
 using Server.Factions;
-using Server.Items;
 
 namespace Server.Mobiles
 {
@@ -12,36 +11,36 @@ namespace Server.Mobiles
         public SilverSerpent()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Body = 92;
-            Name = "a silver serpent";
-            BaseSoundID = 219;
+            this.Body = 92;
+            this.Name = "a silver serpent";
+            this.BaseSoundID = 219;
 
-            SetStr(161, 360);
-            SetDex(151, 300);
-            SetInt(21, 40);
+            this.SetStr(161, 360);
+            this.SetDex(151, 300);
+            this.SetInt(21, 40);
 
-            SetHits(97, 216);
+            this.SetHits(97, 216);
 
-            SetDamage(5, 21);
+            this.SetDamage(5, 21);
 
-            SetDamageType(ResistanceType.Physical, 50);
-            SetDamageType(ResistanceType.Poison, 50);
+            this.SetDamageType(ResistanceType.Physical, 50);
+            this.SetDamageType(ResistanceType.Poison, 50);
 
-            SetResistance(ResistanceType.Physical, 35, 45);
-            SetResistance(ResistanceType.Fire, 5, 10);
-            SetResistance(ResistanceType.Cold, 5, 10);
-            SetResistance(ResistanceType.Poison, 100);
-            SetResistance(ResistanceType.Energy, 5, 10);
+            this.SetResistance(ResistanceType.Physical, 35, 45);
+            this.SetResistance(ResistanceType.Fire, 5, 10);
+            this.SetResistance(ResistanceType.Cold, 5, 10);
+            this.SetResistance(ResistanceType.Poison, 100);
+            this.SetResistance(ResistanceType.Energy, 5, 10);
 
-            SetSkill(SkillName.Poisoning, 90.1, 100.0);
-            SetSkill(SkillName.MagicResist, 95.1, 100.0);
-            SetSkill(SkillName.Tactics, 80.1, 95.0);
-            SetSkill(SkillName.Wrestling, 85.1, 100.0);
+            this.SetSkill(SkillName.Poisoning, 90.1, 100.0);
+            this.SetSkill(SkillName.MagicResist, 95.1, 100.0);
+            this.SetSkill(SkillName.Tactics, 80.1, 95.0);
+            this.SetSkill(SkillName.Wrestling, 85.1, 100.0);
 
-            Fame = 7000;
-            Karma = -7000;
+            this.Fame = 7000;
+            this.Karma = -7000;
 
-            VirtualArmor = 40;
+            this.VirtualArmor = 40;
         }
 
         public SilverSerpent(Serial serial)
@@ -51,69 +50,67 @@ namespace Server.Mobiles
 
         public override Faction FactionAllegiance
         {
-            get { return TrueBritannians.Instance; }
+            get
+            {
+                return TrueBritannians.Instance;
+            }
         }
-
-        public override Ethic EthicAllegiance
+        public override Ethics.Ethic EthicAllegiance
         {
-            get { return Ethic.Hero; }
+            get
+            {
+                return Ethics.Ethic.Hero;
+            }
         }
-
         public override bool DeathAdderCharmable
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override int Meat
         {
-            get { return 1; }
+            get
+            {
+                return 1;
+            }
         }
-
         public override Poison PoisonImmune
         {
-            get { return Poison.Lethal; }
+            get
+            {
+                return Poison.Lethal;
+            }
         }
-
         public override Poison HitPoison
         {
-            get { return Poison.Lethal; }
+            get
+            {
+                return Poison.Lethal;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Average);
-            AddLoot(LootPack.Gems, 2);
-        }
-
-        public override void OnDeath(Container c)
-        {
-            base.OnDeath(c);
-
-            if (0.1 > Utility.RandomDouble() && c.Map == Map.TerMur)
-            {
-                c.DropItem(new SilverSerpentVenom());
-            }
-            if (0.05 > Utility.RandomDouble() && c.Map == Map.TerMur)
-            {
-                c.DropItem(new SilverSnakeSkin());
-            }
+            this.AddLoot(LootPack.Average);
+            this.AddLoot(LootPack.Gems, 2);
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
 
-            if (BaseSoundID == -1)
-                BaseSoundID = 219;
+            if (this.BaseSoundID == -1)
+                this.BaseSoundID = 219;
         }
     }
 }

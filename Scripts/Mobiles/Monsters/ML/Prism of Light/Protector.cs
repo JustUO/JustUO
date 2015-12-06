@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -9,50 +10,50 @@ namespace Server.Mobiles
         public Protector()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Body = 401;
-            Female = true;
-            Hue = Race.Human.RandomSkinHue();
-            HairItemID = Race.Human.RandomHair(this);
-            HairHue = Race.Human.RandomHairHue();
+            this.Body = 401;
+            this.Female = true;
+            this.Hue = Race.Human.RandomSkinHue();
+            this.HairItemID = Race.Human.RandomHair(this);
+            this.HairHue = Race.Human.RandomHairHue();
 
-            Name = "a Protector";
-            Title = "the mystic llamaherder";
+            this.Name = "a Protector";
+            this.Title = "the mystic llamaherder";
 
-            SetStr(700, 800);
-            SetDex(100, 150);
-            SetInt(50, 75);
+            this.SetStr(700, 800);
+            this.SetDex(100, 150);
+            this.SetInt(50, 75);
 
-            SetHits(350, 450);
+            this.SetHits(350, 450);
 
-            SetDamage(6, 12);
+            this.SetDamage(6, 12);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 30, 40);
-            SetResistance(ResistanceType.Fire, 20, 30);
-            SetResistance(ResistanceType.Cold, 35, 40);
-            SetResistance(ResistanceType.Poison, 30, 40);
-            SetResistance(ResistanceType.Energy, 30, 40);
+            this.SetResistance(ResistanceType.Physical, 30, 40);
+            this.SetResistance(ResistanceType.Fire, 20, 30);
+            this.SetResistance(ResistanceType.Cold, 35, 40);
+            this.SetResistance(ResistanceType.Poison, 30, 40);
+            this.SetResistance(ResistanceType.Energy, 30, 40);
 
-            SetSkill(SkillName.Wrestling, 70.0, 100.0);
-            SetSkill(SkillName.Tactics, 80.0, 100.0);
-            SetSkill(SkillName.MagicResist, 50.0, 70.0);
-            SetSkill(SkillName.Anatomy, 70.0, 100.0);
+            this.SetSkill(SkillName.Wrestling, 70.0, 100.0);
+            this.SetSkill(SkillName.Tactics, 80.0, 100.0);
+            this.SetSkill(SkillName.MagicResist, 50.0, 70.0);
+            this.SetSkill(SkillName.Anatomy, 70.0, 100.0);
 
-            Fame = 10000;
-            Karma = -10000;
+            this.Fame = 10000;
+            this.Karma = -10000;
 
             Item boots = new ThighBoots();
             boots.Movable = false;
             boots.Hue = Utility.Random(2);
 
-            var shroud = new Item(0x204E);
+            Item shroud = new Item(0x204E);
             shroud.Layer = Layer.OuterTorso;
             shroud.Movable = false;
             shroud.Hue = Utility.Random(2);
 
-            AddItem(boots);
-            AddItem(shroud);
+            this.AddItem(boots);
+            this.AddItem(shroud);
         }
 
         public Protector(Serial serial)
@@ -62,19 +63,25 @@ namespace Server.Mobiles
 
         public override bool AlwaysMurderer
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override bool PropertyTitle
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
-
         public override bool ShowFameTitle
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
-
         public override void GenerateLoot(bool spawning)
         {
             if (spawning)
@@ -86,7 +93,7 @@ namespace Server.Mobiles
 
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.FilthyRich);
+            this.AddLoot(LootPack.FilthyRich);
         }
 
         /*
@@ -99,19 +106,18 @@ namespace Server.Mobiles
         c.DropItem( new ProtectorsEssence() );
         }
         */
-
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Mobiles
 {
     [CorpseName("an putrid undead guardian corpse")]
@@ -7,30 +9,30 @@ namespace Server.Mobiles
         public PutridUndeadGuardian()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "an putrid undead guardian";
-            Body = 722;
+            this.Name = "an putrid undead guardian";
+            this.Body = 722; 
 
-            SetStr(79);
-            SetDex(63);
-            SetInt(187);
+            this.SetStr(79);
+            this.SetDex(63);
+            this.SetInt(187);
 
-            SetHits(553);
+            this.SetHits(553);
 
-            SetDamage(3, 7);
+            this.SetDamage(3, 7);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 40);
-            SetResistance(ResistanceType.Fire, 23);
-            SetResistance(ResistanceType.Cold, 57);
-            SetResistance(ResistanceType.Poison, 29);
-            SetResistance(ResistanceType.Energy, 39);
+            this.SetResistance(ResistanceType.Physical, 40);
+            this.SetResistance(ResistanceType.Fire, 23);
+            this.SetResistance(ResistanceType.Cold, 57);
+            this.SetResistance(ResistanceType.Poison, 29);
+            this.SetResistance(ResistanceType.Energy, 39);
 
-            SetSkill(SkillName.MagicResist, 62.7);
-            SetSkill(SkillName.Tactics, 45.4);
-            SetSkill(SkillName.Wrestling, 50.7);
+            this.SetSkill(SkillName.MagicResist, 62.7);
+            this.SetSkill(SkillName.Tactics, 45.4);
+            this.SetSkill(SkillName.Wrestling, 50.7);
 
-            PackNecroReg(10, 15); /// Stratics didn't specify
+            this.PackNecroReg(10, 15); /// Stratics didn't specify
         }
 
         public PutridUndeadGuardian(Serial serial)
@@ -40,12 +42,14 @@ namespace Server.Mobiles
 
         public override int Meat
         {
-            get { return 1; }
+            get
+            {
+                return 1;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.FilthyRich, 3);
+            this.AddLoot(LootPack.FilthyRich, 3);
         }
 
         public override int GetIdleSound()
@@ -71,13 +75,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

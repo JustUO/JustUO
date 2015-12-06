@@ -330,6 +330,8 @@ namespace Server.Engines.BulkOrders
 
         private class NameBookPrompt : Prompt
         {
+            // Type in the new name of the book:
+            public override int MessageCliloc { get { return 1062479; } }
             private readonly BulkOrderBook m_Book;
             public NameBookPrompt(BulkOrderBook book)
             {

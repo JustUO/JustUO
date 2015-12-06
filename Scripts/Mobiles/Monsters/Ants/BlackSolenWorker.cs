@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -9,41 +10,41 @@ namespace Server.Mobiles
         public BlackSolenWorker()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a black solen worker";
-            Body = 805;
-            BaseSoundID = 959;
-            Hue = 0x453;
+            this.Name = "a black solen worker";
+            this.Body = 805;
+            this.BaseSoundID = 959;
+            this.Hue = 0x453;
 
-            SetStr(96, 120);
-            SetDex(81, 105);
-            SetInt(36, 60);
+            this.SetStr(96, 120);
+            this.SetDex(81, 105);
+            this.SetInt(36, 60);
 
-            SetHits(58, 72);
+            this.SetHits(58, 72);
 
-            SetDamage(5, 7);
+            this.SetDamage(5, 7);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 25, 30);
-            SetResistance(ResistanceType.Fire, 20, 30);
-            SetResistance(ResistanceType.Cold, 10, 20);
-            SetResistance(ResistanceType.Poison, 10, 20);
-            SetResistance(ResistanceType.Energy, 20, 30);
+            this.SetResistance(ResistanceType.Physical, 25, 30);
+            this.SetResistance(ResistanceType.Fire, 20, 30);
+            this.SetResistance(ResistanceType.Cold, 10, 20);
+            this.SetResistance(ResistanceType.Poison, 10, 20);
+            this.SetResistance(ResistanceType.Energy, 20, 30);
 
-            SetSkill(SkillName.MagicResist, 60.0);
-            SetSkill(SkillName.Tactics, 65.0);
-            SetSkill(SkillName.Wrestling, 60.0);
+            this.SetSkill(SkillName.MagicResist, 60.0);
+            this.SetSkill(SkillName.Tactics, 65.0);
+            this.SetSkill(SkillName.Wrestling, 60.0);
 
-            Fame = 1500;
-            Karma = -1500;
+            this.Fame = 1500;
+            this.Karma = -1500;
 
-            VirtualArmor = 28;
+            this.VirtualArmor = 28;
 
-            PackGold(Utility.Random(100, 180));
+            this.PackGold(Utility.Random(100, 180));
 
             SolenHelper.PackPicnicBasket(this);
 
-            PackItem(new ZoogiFungus());
+            this.PackItem(new ZoogiFungus((0.05 > Utility.RandomDouble()) ? 1 : 6));
         }
 
         public BlackSolenWorker(Serial serial)
@@ -78,14 +79,15 @@ namespace Server.Mobiles
 
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Gems, Utility.RandomMinMax(1, 2));
+            this.AddLoot(LootPack.Gems, Utility.RandomMinMax(1, 2));
         }
 
         public override bool IsEnemy(Mobile m)
         {
             if (SolenHelper.CheckBlackFriendship(m))
                 return false;
-            return base.IsEnemy(m);
+            else
+                return base.IsEnemy(m);
         }
 
         public override void OnDamage(int amount, Mobile from, bool willKill)
@@ -98,13 +100,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

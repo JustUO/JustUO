@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Mobiles
 {
     [CorpseName("a bull frog corpse")]
@@ -8,36 +10,36 @@ namespace Server.Mobiles
         public BullFrog()
             : base(AIType.AI_Animal, FightMode.Aggressor, 10, 1, 0.2, 0.4)
         {
-            Name = "a bull frog";
-            Body = 81;
-            Hue = Utility.RandomList(0x5AC, 0x5A3, 0x59A, 0x591, 0x588, 0x57F);
-            BaseSoundID = 0x266;
+            this.Name = "a bull frog";
+            this.Body = 81;
+            this.Hue = Utility.RandomList(0x5AC, 0x5A3, 0x59A, 0x591, 0x588, 0x57F);
+            this.BaseSoundID = 0x266;
 
-            SetStr(46, 70);
-            SetDex(6, 25);
-            SetInt(11, 20);
+            this.SetStr(46, 70);
+            this.SetDex(6, 25);
+            this.SetInt(11, 20);
 
-            SetHits(28, 42);
-            SetMana(0);
+            this.SetHits(28, 42);
+            this.SetMana(0);
 
-            SetDamage(1, 2);
+            this.SetDamage(1, 2);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 5, 10);
+            this.SetResistance(ResistanceType.Physical, 5, 10);
 
-            SetSkill(SkillName.MagicResist, 25.1, 40.0);
-            SetSkill(SkillName.Tactics, 40.1, 60.0);
-            SetSkill(SkillName.Wrestling, 40.1, 60.0);
+            this.SetSkill(SkillName.MagicResist, 25.1, 40.0);
+            this.SetSkill(SkillName.Tactics, 40.1, 60.0);
+            this.SetSkill(SkillName.Wrestling, 40.1, 60.0);
 
-            Fame = 350;
-            Karma = 0;
+            this.Fame = 350;
+            this.Karma = 0;
 
-            VirtualArmor = 6;
+            this.VirtualArmor = 6;
 
-            Tamable = true;
-            ControlSlots = 1;
-            MinTameSkill = 23.1;
+            this.Tamable = true;
+            this.ControlSlots = 1;
+            this.MinTameSkill = 23.1;
         }
 
         public BullFrog(Serial serial)
@@ -47,36 +49,42 @@ namespace Server.Mobiles
 
         public override int Meat
         {
-            get { return 1; }
+            get
+            {
+                return 1;
+            }
         }
-
         public override int Hides
         {
-            get { return 4; }
+            get
+            {
+                return 4;
+            }
         }
-
         public override FoodType FavoriteFood
         {
-            get { return FoodType.Fish | FoodType.Meat; }
+            get
+            {
+                return FoodType.Fish | FoodType.Meat;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Poor);
+            this.AddLoot(LootPack.Poor);
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

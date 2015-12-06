@@ -1,5 +1,5 @@
+using System;
 using Server.Items;
-using Server.Services;
 
 namespace Server.Mobiles
 {
@@ -10,29 +10,37 @@ namespace Server.Mobiles
         public AcidSlug()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "an acid slug";
-            Body = 51;
-            Hue = 44;
+            this.Name = "an acid slug";
+            this.Body = 51;
+            this.Hue = 44;
 
-            SetStr(213, 294);
-            SetDex(80, 82);
-            SetInt(18, 22);
+			this.SetStr(213, 294);
+			this.SetDex(80, 82);
+            this.SetInt(18, 22);
 
-            SetHits(333, 370);
+			this.SetHits(333, 370);
 
-            SetDamage(21, 28);
+			this.SetDamage(21, 28);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 10, 15);
-            SetResistance(ResistanceType.Fire, 0);
-            SetResistance(ResistanceType.Cold, 10, 15);
-            SetResistance(ResistanceType.Poison, 60, 70);
-            SetResistance(ResistanceType.Energy, 10, 15);
+            this.SetResistance(ResistanceType.Physical, 10, 15);
+            this.SetResistance(ResistanceType.Fire, 0);
+            this.SetResistance(ResistanceType.Cold, 10, 15);
+            this.SetResistance(ResistanceType.Poison, 60, 70);
+            this.SetResistance(ResistanceType.Energy, 10, 15);
 
-            SetSkill(SkillName.MagicResist, 25.0);
-            SetSkill(SkillName.Tactics, 30.0, 50.0);
-            SetSkill(SkillName.Wrestling, 30.0, 80.0);
+            this.SetSkill(SkillName.MagicResist, 25.0);
+            this.SetSkill(SkillName.Tactics, 30.0, 50.0);
+            this.SetSkill(SkillName.Wrestling, 30.0, 80.0);
+
+            if (0.1 > Utility.RandomDouble())
+                this.PackItem(new VialOfVitriol());
+
+            if (0.75 > Utility.RandomDouble())
+                this.PackItem(new AcidSac());
+
+            this.PackItem(new CongealedSlugAcid());
         }
 
         public AcidSlug(Serial serial)
@@ -42,31 +50,23 @@ namespace Server.Mobiles
 
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Average);
+            this.AddLoot(LootPack.Average);
         }
-
         public override void OnDeath(Container c)
         {
+
             base.OnDeath(c);
-
-            SARegionDrops.GetSADrop(c);
-
-            if (Utility.RandomDouble() < 0.25)
+            Region reg = Region.Find(c.GetWorldLocation(), c.Map);
+            if (0.25 > Utility.RandomDouble() && reg.Name == "Passage of Tears")
             {
-                c.DropItem(new VialOfVitriol());
-            }
+                switch (Utility.Random(2))
+                {
+                    case 0: c.DropItem(new EssenceSingularity()); break;
+                    case 1: c.DropItem(new VialOfVitriol()); break;
 
-            if (Utility.RandomDouble() < 0.25)
-            {
-                c.DropItem(new CongealedSlugAcid());
-            }
-
-            if (Utility.RandomDouble() < 0.75)
-            {
-                c.DropItem(new AcidSac());
+                }
             }
         }
-
         public override int GetIdleSound()
         {
             return 1499;
@@ -90,13 +90,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

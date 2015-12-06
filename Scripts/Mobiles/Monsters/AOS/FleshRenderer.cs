@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -9,36 +10,36 @@ namespace Server.Mobiles
         public FleshRenderer()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a fleshrenderer";
-            Body = 315;
+            this.Name = "a fleshrenderer";
+            this.Body = 315;
 
-            SetStr(401, 460);
-            SetDex(201, 210);
-            SetInt(221, 260);
+            this.SetStr(401, 460);
+            this.SetDex(201, 210);
+            this.SetInt(221, 260);
 
-            SetHits(4500);
+            this.SetHits(4500);
 
-            SetDamage(16, 20);
+            this.SetDamage(16, 20);
 
-            SetDamageType(ResistanceType.Physical, 80);
-            SetDamageType(ResistanceType.Poison, 20);
+            this.SetDamageType(ResistanceType.Physical, 80);
+            this.SetDamageType(ResistanceType.Poison, 20);
 
-            SetResistance(ResistanceType.Physical, 80, 90);
-            SetResistance(ResistanceType.Fire, 50, 60);
-            SetResistance(ResistanceType.Cold, 50, 60);
-            SetResistance(ResistanceType.Poison, 100);
-            SetResistance(ResistanceType.Energy, 70, 80);
+            this.SetResistance(ResistanceType.Physical, 80, 90);
+            this.SetResistance(ResistanceType.Fire, 50, 60);
+            this.SetResistance(ResistanceType.Cold, 50, 60);
+            this.SetResistance(ResistanceType.Poison, 100);
+            this.SetResistance(ResistanceType.Energy, 70, 80);
 
-            SetSkill(SkillName.DetectHidden, 80.0);
-            SetSkill(SkillName.MagicResist, 155.1, 160.0);
-            SetSkill(SkillName.Meditation, 100.0);
-            SetSkill(SkillName.Tactics, 100.0);
-            SetSkill(SkillName.Wrestling, 90.1, 100.0);
+            this.SetSkill(SkillName.DetectHidden, 80.0);
+            this.SetSkill(SkillName.MagicResist, 155.1, 160.0);
+            this.SetSkill(SkillName.Meditation, 100.0);
+            this.SetSkill(SkillName.Tactics, 100.0);
+            this.SetSkill(SkillName.Wrestling, 90.1, 100.0);
 
-            Fame = 23000;
-            Karma = -23000;
+            this.Fame = 23000;
+            this.Karma = -23000;
 
-            VirtualArmor = 24;
+            this.VirtualArmor = 24;
         }
 
         public FleshRenderer(Serial serial)
@@ -48,39 +49,53 @@ namespace Server.Mobiles
 
         public override bool IgnoreYoungProtection
         {
-            get { return Core.ML; }
+            get
+            {
+                return Core.ML;
+            }
         }
-
         public override bool AutoDispel
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override bool BardImmune
         {
-            get { return !Core.SE; }
+            get
+            {
+                return !Core.SE;
+            }
         }
-
         public override bool Unprovokable
         {
-            get { return Core.SE; }
+            get
+            {
+                return Core.SE;
+            }
         }
-
         public override bool AreaPeaceImmune
         {
-            get { return Core.SE; }
+            get
+            {
+                return Core.SE;
+            }
         }
-
         public override Poison PoisonImmune
         {
-            get { return Poison.Lethal; }
+            get
+            {
+                return Poison.Lethal;
+            }
         }
-
         public override int TreasureMapLevel
         {
-            get { return 1; }
+            get
+            {
+                return 1;
+            }
         }
-
         public override WeaponAbility GetWeaponAbility()
         {
             return Utility.RandomBool() ? WeaponAbility.Dismount : WeaponAbility.ParalyzingBlow;
@@ -88,14 +103,14 @@ namespace Server.Mobiles
 
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.UltraRich, 2);
+            this.AddLoot(LootPack.UltraRich, 2);
         }
 
         public override void OnDeath(Container c)
         {
             base.OnDeath(c);
 
-            if (!Summoned && !NoKillAwards && DemonKnight.CheckArtifactChance(this))
+            if (!this.Summoned && !this.NoKillAwards && DemonKnight.CheckArtifactChance(this))
                 DemonKnight.DistributeArtifact(this);
         }
 
@@ -127,16 +142,16 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
 
-            if (BaseSoundID == 660)
-                BaseSoundID = -1;
+            if (this.BaseSoundID == 660)
+                this.BaseSoundID = -1;
         }
     }
 }

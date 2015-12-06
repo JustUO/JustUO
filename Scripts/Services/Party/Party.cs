@@ -215,10 +215,25 @@ namespace Server.Engines.PartySystem
 
                     if (f != m)
                     {
+                        #region Enhance Client
                         f.Send(new MobileStatusCompact(m.CanBeRenamedBy(f), m));
                         f.Send(attrs);
+                        f.Send(new KRDisplayWaypoint(m, WaypointType.PartyMember, false, 1062613, m.Name));
                         m.Send(new MobileStatusCompact(f.CanBeRenamedBy(m), f));
                         m.Send(new MobileAttributesN(f));
+                        m.Send(new KRDisplayWaypoint(f, WaypointType.PartyMember, false, 1062613, f.Name));
+                        /*
+                        for (int i2 = 0; i2 < m_Members.Count; ++i2)
+                        {
+                            Mobile f2 = ((PartyMemberInfo)m_Members[i2]).Mobile;
+
+                            if (f2.NetState != null && f2.NetState.IsKRClient)
+                            {
+                                f2.NetState.Send(new DisplayWaypoint(f.Serial, f.X, f.Y, f.Z, f.Map.MapID, WaypointType.PartyMember, f.Name));
+                            }
+                        }
+                         */
+                        #endregion
                     }
                 }
 
@@ -496,8 +511,9 @@ namespace Server.Engines.PartySystem
                         m.Send(message);
                         m.Send(new MobileStatusCompact(this.m_Mobile.CanBeRenamedBy(m), this.m_Mobile));
                         m.Send(attrs);
-                        this.m_Mobile.Send(new MobileStatusCompact(m.CanBeRenamedBy(this.m_Mobile), m));
-                        this.m_Mobile.Send(new MobileAttributesN(m));
+                        m_Mobile.Send(new MobileStatusCompact(m.CanBeRenamedBy(this.m_Mobile), m));
+                        m_Mobile.Send(new MobileAttributesN(m));
+                        m_Mobile.Send(new KRDisplayWaypoint(m, WaypointType.PartyMember, false, 1062613, m.Name));
                     }
                 }
 

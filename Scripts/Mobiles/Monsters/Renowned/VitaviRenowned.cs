@@ -4,7 +4,7 @@ using Server.Misc;
 
 namespace Server.Mobiles
 {
-    [CorpseName("Vitavi [Renowned] corpse")]
+    [CorpseName("Vitavi [Renowned] corpse")] 
     public class VitaviRenowned : BaseRenowned
     {
         [Constructable]
@@ -41,6 +41,8 @@ namespace Server.Mobiles
             Fame = 7500;
             Karma = -7500;
 
+            QLPoints = 50;
+
             VirtualArmor = 44;
 
             PackItem(new EssenceBalance());
@@ -57,39 +59,60 @@ namespace Server.Mobiles
 
         public override Type[] UniqueSAList
         {
-            get { return new Type[] {}; }
+            get
+            {
+                return new Type[] { };
+            }
         }
-
         public override Type[] SharedSAList
         {
-            get { return new[] {typeof (AxeOfAbandon), typeof (DemonBridleRing), typeof (VoidInfusedKilt)}; }
+            get
+            {
+                return new Type[] { typeof(AxeOfAbandon), typeof(DemonBridleRing), typeof(VoidInfusedKilt) };
+            }
         }
-
         public override InhumanSpeech SpeechType
         {
-            get { return InhumanSpeech.Ratman; }
+            get
+            {
+                return InhumanSpeech.Ratman;
+            }
         }
-
         public override bool CanRummageCorpses
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
+        public override bool AllureImmune
+        {
+            get
+            {
+                return true;
+            }
+        }
         public override int Meat
         {
-            get { return 1; }
+            get
+            {
+                return 1;
+            }
         }
-
         public override int Hides
         {
-            get { return 8; }
+            get
+            {
+                return 8;
+            }
         }
-
         public override HideType HideType
         {
-            get { return HideType.Spined; }
+            get
+            {
+                return HideType.Spined;
+            }
         }
-
         public override void GenerateLoot()
         {
             AddLoot(LootPack.Rich);
@@ -99,13 +122,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
 
             if (Body == 42)
             {

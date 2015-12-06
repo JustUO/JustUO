@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -7,29 +8,30 @@ namespace Server.Mobiles
     {
         [Constructable]
         public Saliva()
+            : base()
         {
-            Name = "a saliva";
-            Hue = 0x11E;
+            this.Name = "a saliva";
+            this.Hue = 0x11E;
 
-            SetStr(136, 206);
-            SetDex(123, 222);
-            SetInt(118, 127);
+            this.SetStr(136, 206);
+            this.SetDex(123, 222);
+            this.SetInt(118, 127);
 
-            SetHits(409, 842);
+            this.SetHits(409, 842);
 
-            SetDamage(19, 28);
+            this.SetDamage(19, 28);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 46, 47);
-            SetResistance(ResistanceType.Fire, 32, 40);
-            SetResistance(ResistanceType.Cold, 34, 49);
-            SetResistance(ResistanceType.Poison, 40, 48);
-            SetResistance(ResistanceType.Energy, 35, 39);
+            this.SetResistance(ResistanceType.Physical, 46, 47);
+            this.SetResistance(ResistanceType.Fire, 32, 40);
+            this.SetResistance(ResistanceType.Cold, 34, 49);
+            this.SetResistance(ResistanceType.Poison, 40, 48);
+            this.SetResistance(ResistanceType.Energy, 35, 39);
 
-            SetSkill(SkillName.Wrestling, 106.4, 128.8);
-            SetSkill(SkillName.Tactics, 129.9, 141.0);
-            SetSkill(SkillName.MagicResist, 84.3, 90.1);
+            this.SetSkill(SkillName.Wrestling, 106.4, 128.8);
+            this.SetSkill(SkillName.Tactics, 129.9, 141.0);
+            this.SetSkill(SkillName.MagicResist, 84.3, 90.1);
         }
 
         public Saliva(Serial serial)
@@ -39,31 +41,31 @@ namespace Server.Mobiles
 
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.AosUltraRich, 2);
+            this.AddLoot(LootPack.AosUltraRich, 2);
         }
 
         public override void OnDeath(Container c)
         {
-            base.OnDeath(c);
-
+            base.OnDeath(c);		
+			
             c.DropItem(new SalivasFeather());
-
-            if (Utility.RandomDouble() < 0.1)
+			
+            if (Utility.RandomDouble() < 0.1)				
                 c.DropItem(new ParrotItem());
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-
-            writer.Write(0); // version
+			
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-
-            var version = reader.ReadInt();
+			
+            int version = reader.ReadInt();
         }
     }
 }

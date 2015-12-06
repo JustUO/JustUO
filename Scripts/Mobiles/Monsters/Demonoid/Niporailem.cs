@@ -1,289 +1,257 @@
 using System;
-using System.Collections;
 using Server.Items;
+using Server.Targeting;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Server.Mobiles
 {
-    [CorpseName("the corpse of niporailem")]
-    public class Niporailem : BaseSABosses
-    {
-        private DateTime m_NextTreasure;
-        private int m_Thrown;
+	[CorpseName( "the corpse of niporailem" )]
+	public class Niporailem : BaseSABosses
+	{
+                public override Type[] UniqueSAList { get { return new Type[] { }; } }
+	        public override Type[] SharedSAList{ get { return new Type[] { typeof(BladeOfBattle), typeof(DemonBridleRing), typeof(GiantSteps), typeof(SwordOfShatteredHopes) }; } }
+        
+		[Constructable]
+		public Niporailem() : base( AIType.AI_NecroMage, FightMode.Closest, 10, 1, 0.2, 0.4 )
+		{
+			Name = "Niporailem";
+			Title = "the Thief";
 
-        [Constructable]
-        public Niporailem() : base(AIType.AI_NecroMage, FightMode.Closest, 10, 1, 0.2, 0.4)
-        {
-            Name = "Niporailem";
-            Title = "the Thief";
+			Body = 722; 
 
-            Body = 722;
+			SetStr( 1000, 1200 );
+			SetDex( 1200 );
+			SetInt( 1200 );
 
-            SetStr(1000, 1200);
-            SetDex(1200);
-            SetInt(1200);
+			SetHits( 2654, 3988 );
 
-            SetHits(2654, 3988);
+			SetDamage( 15, 27 );
 
-            SetDamage(15, 27);
+			SetDamageType( ResistanceType.Physical, 40 );
+			SetDamageType( ResistanceType.Cold, 60 );
 
-            SetDamageType(ResistanceType.Physical, 40);
-            SetDamageType(ResistanceType.Cold, 60);
+			SetResistance( ResistanceType.Physical, 42 );
+			SetResistance( ResistanceType.Fire, 29 );
+			SetResistance( ResistanceType.Cold, 53, 56 );
+			SetResistance( ResistanceType.Poison, 23, 24 );
+			SetResistance( ResistanceType.Energy, 34, 39 );
 
-            SetResistance(ResistanceType.Physical, 42);
-            SetResistance(ResistanceType.Fire, 29);
-            SetResistance(ResistanceType.Cold, 53, 56);
-            SetResistance(ResistanceType.Poison, 23, 24);
-            SetResistance(ResistanceType.Energy, 34, 39);
+			SetSkill( SkillName.MagicResist, 87.7, 93.5 );
+			SetSkill( SkillName.Tactics, 56.1, 65.0 );
+			SetSkill( SkillName.Wrestling, 68.8, 76.2 );
+                        SetSkill( SkillName.EvalInt, 120.0 );
+			SetSkill( SkillName.Magery, 120.0 );
+			SetSkill( SkillName.Meditation, 120.0 );
+                        SetSkill( SkillName.Necromancy, 120.0 );
+                        SetSkill( SkillName.SpiritSpeak, 120.0 );     
 
-            SetSkill(SkillName.MagicResist, 87.7, 93.5);
-            SetSkill(SkillName.Tactics, 56.1, 65.0);
-            SetSkill(SkillName.Wrestling, 68.8, 76.2);
-            SetSkill(SkillName.EvalInt, 120.0);
-            SetSkill(SkillName.Magery, 120.0);
-            SetSkill(SkillName.Meditation, 120.0);
-            SetSkill(SkillName.Necromancy, 120.0);
-            SetSkill(SkillName.SpiritSpeak, 120.0);
+			PackNecroReg( 12, 24 ); /// Stratics didn't specify
 
-            PackNecroReg(12, 24); /// Stratics didn't specify
+            		Fame = 15000;
+            		Karma = -15000;
+		}
 
-            Fame = 15000;
-            Karma = -15000;
+		public override void GenerateLoot()
+		{
+			AddLoot( LootPack.FilthyRich, 6 );
+            		AddLoot(LootPack.Gems, 6);
+		}
 
-            QLPoints = 10;
-        }
+		public override int Meat{ get{ return 1; } }
+          	public override bool AlwaysMurderer{ get{ return true; } }
 
-        public Niporailem(Serial serial) : base(serial)
-        {
-        }
+		public override int GetIdleSound() { return 1609; } 
+		public override int GetAngerSound() { return 1606; } 
+		public override int GetHurtSound() { return 1608; } 
+		public override int GetDeathSound()	{ return 1607; }
+                public override bool GivesSAArtifact { get { return true; } }
 
-        public override Type[] UniqueSAList
-        {
-            get { return new Type[] {}; }
-        }
+		public Niporailem( Serial serial ) : base( serial )
+		{
+		}
 
-        public override Type[] SharedSAList
-        {
-            get
-            {
-                return new[]
-                {typeof (BladeOfBattle), typeof (DemonBridleRing), typeof (GiantSteps), typeof (SwordOfShatteredHopes)};
-            }
-        }
+		public override void Serialize( GenericWriter writer )
+		{
+			base.Serialize( writer );
+			writer.Write( (int) 0 );
+		}
 
-        public override int Meat
-        {
-            get { return 1; }
-        }
+		public override void Deserialize( GenericReader reader )
+		{
+			base.Deserialize( reader );
+			int version = reader.ReadInt();
+		}
+               
+                public override void OnGotMeleeAttack( Mobile attacker )
+		{
+			base.OnGotMeleeAttack( attacker );
 
-        public override bool AlwaysMurderer
-        {
-            get { return true; }
-        }
+			if ( this.Hits > (this.HitsMax / 4) )
+			{
+				if ( 0.25 >= Utility.RandomDouble() )
+					SpawnSpectralArmour( attacker );
+			}
+			else if ( 0.10 >= Utility.RandomDouble() )
+			{
+				SpawnSpectralArmour( attacker );
+			}
+		}
+   
+		public void SpawnSpectralArmour( Mobile m )
+		{
+			Map map = this.Map;
 
-        public override bool GivesSAArtifact
-        {
-            get { return true; }
-        }
+			if ( map == null )
+				return;
 
-        public override void GenerateLoot()
-        {
-            AddLoot(LootPack.FilthyRich, 6);
-            AddLoot(LootPack.Gems, 6);
-        }
+			SpectralArmour spawned = new SpectralArmour();
 
-        public override int GetIdleSound()
-        {
-            return 1609;
-        }
+			spawned.Team = this.Team;
 
-        public override int GetAngerSound()
-        {
-            return 1606;
-        }
+			bool validLocation = false;
+			Point3D loc = this.Location;
 
-        public override int GetHurtSound()
-        {
-            return 1608;
-        }
+			for ( int j = 0; !validLocation && j < 10; ++j )
+			{
+				int x = X + Utility.Random( 3 ) - 1;
+				int y = Y + Utility.Random( 3 ) - 1;
+				int z = map.GetAverageZ( x, y );
 
-        public override int GetDeathSound()
-        {
-            return 1607;
-        }
+				if ( validLocation = map.CanFit( x, y, this.Z, 16, false, false ) )
+					loc = new Point3D( x, y, Z );
+				else if ( validLocation = map.CanFit( x, y, z, 16, false, false ) )
+					loc = new Point3D( x, y, z );
+			}
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
-            writer.Write(0);
-        }
+			spawned.MoveToWorld( loc, map );
+			spawned.Combatant = m;
+  
+                        foreach ( Mobile anim in this.GetMobilesInRange( 20 ) )
+		        {
+			   if ( anim is SpectralArmour && (anim is BaseCreature) )
+			   {
+                              ((BaseCreature)anim).SummonMaster = this;
+			   }	
+	                }	 
+		}
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
-            var version = reader.ReadInt();
-        }
+                public void DeleteSpectralArmour( Mobile target )
+		{
+		                ArrayList list = new ArrayList(); 
+	
+				
+                        foreach ( Mobile m in this.GetMobilesInRange( 30 ) )
+			{
+				
+				if ( m is SpectralArmour )
+					list.Add( m );
+				
+			}
 
-        public override void OnGotMeleeAttack(Mobile attacker)
-        {
-            base.OnGotMeleeAttack(attacker);
+			foreach ( Mobile m in list )
+			{
+				m.Delete();                    
+			}     	
+                 } 
+  
 
-            if (Hits > (HitsMax/4))
-            {
-                if (0.25 >= Utility.RandomDouble())
-                    SpawnSpectralArmour(attacker);
-            }
-            else if (0.10 >= Utility.RandomDouble())
-            {
-                SpawnSpectralArmour(attacker);
-            }
-        }
+                 public void DeleteNipoTreasure()
+		 {
+                               
+                   ArrayList items = new ArrayList(World.Items.Values); 
+                   ArrayList list = new ArrayList(); 
+                
+                   foreach (Item item in items) 
+                   { 
+                       if ( item is NiporailemsTreasure || item is TreasureSand ) 
+                              list.Add( item ); 
+                   
+                   } 
 
-        public void SpawnSpectralArmour(Mobile m)
-        {
-            var map = Map;
-
-            if (map == null)
-                return;
-
-            var spawned = new SpectralArmour();
-
-            spawned.Team = Team;
-
-            var validLocation = false;
-            var loc = Location;
-
-            for (var j = 0; !validLocation && j < 10; ++j)
-            {
-                var x = X + Utility.Random(3) - 1;
-                var y = Y + Utility.Random(3) - 1;
-                var z = map.GetAverageZ(x, y);
-
-                if (validLocation = map.CanFit(x, y, Z, 16, false, false))
-                    loc = new Point3D(x, y, Z);
-                else if (validLocation = map.CanFit(x, y, z, 16, false, false))
-                    loc = new Point3D(x, y, z);
-            }
-
-            spawned.MoveToWorld(loc, map);
-            spawned.Combatant = m;
-
-            foreach (var anim in GetMobilesInRange(20))
-            {
-                if (anim is SpectralArmour && (anim is BaseCreature))
-                {
-                    ((BaseCreature) anim).SummonMaster = this;
+                   foreach (Item item in list) 
+                           item.Delete(); 
+    
                 }
-            }
-        }
 
-        public void DeleteSpectralArmour(Mobile target)
-        {
-            var list = new ArrayList();
+                public override void OnAfterDelete()
+		{                        
+			 DeleteSpectralArmour( this );
 
+                         DeleteNipoTreasure();
+                                                   
+			 base.OnAfterDelete();
+                }
 
-            foreach (var m in GetMobilesInRange(30))
-            {
-                if (m is SpectralArmour)
-                    list.Add(m);
-            }
+		public override bool OnBeforeDeath()
+		{      
+                        DeleteSpectralArmour( this ); 
 
-            foreach (Mobile m in list)
-            {
-                m.Delete();
-            }
-        }
+                        DeleteNipoTreasure();
+  
+			return base.OnBeforeDeath();
 
-        public void DeleteNipoTreasure()
-        {
-            var items = new ArrayList(World.Items.Values);
-            var list = new ArrayList();
+                }  
+                
+                public override void OnDelete() 
+                { 
+                        DeleteSpectralArmour( this );
 
-            foreach (Item item in items)
-            {
-                if (item is NiporailemsTreasure || item is TreasureSand)
-                    list.Add(item);
-            }
+                        DeleteNipoTreasure();
 
-            foreach (Item item in list)
-                item.Delete();
-        }
+                        base.OnDelete(); 
+                } 
 
-        public override void OnAfterDelete()
-        {
-            DeleteSpectralArmour(this);
+		private DateTime m_NextTreasure;
+		private int m_Thrown;
 
-            DeleteNipoTreasure();
+		public override void OnActionCombat()
+		{
+			Mobile combatant = Combatant;
 
-            base.OnAfterDelete();
-        }
+			if ( combatant == null || combatant.Deleted || combatant.Map != Map || !InRange( combatant, 20 ) || !CanBeHarmful( combatant ) || !InLOS( combatant ) )
+				return;
 
-        public override bool OnBeforeDeath()
-        {
-            DeleteSpectralArmour(this);
+			if ( DateTime.UtcNow >= m_NextTreasure )
+			{
+				ThrowTreasure( combatant );
 
-            DeleteNipoTreasure();
+				m_Thrown++;
 
-            return base.OnBeforeDeath();
-        }
+				if ( 0.75 >= Utility.RandomDouble() && (m_Thrown % 2) == 1 ) // 75% chance to toss a second one
+					m_NextTreasure = DateTime.UtcNow + TimeSpan.FromSeconds( 3.0 );
+				else
+					m_NextTreasure = DateTime.UtcNow + TimeSpan.FromSeconds( 5.0 + (10.0 * Utility.RandomDouble()) ); // 5-15 seconds
+			}
+		}
 
-        public override void OnDelete()
-        {
-            DeleteSpectralArmour(this);
+		public void ThrowTreasure( Mobile m )
+		{
+			DoHarmful( m );
 
-            DeleteNipoTreasure();
+			this.MovingParticles( m, 0xEEF, 1, 0, false, true, 0, 0, 9502, 6014, 0x11D, EffectLayer.Waist, 0 );
 
-            base.OnDelete();
-        }
+			new InternalTimer( m, this ).Start();
+		}
 
-        public override void OnActionCombat()
-        {
-            var combatant = Combatant;
+		private class InternalTimer : Timer
+		{
+			private Mobile m_Mobile, m_From;
 
-            if (combatant == null || combatant.Deleted || combatant.Map != Map || !InRange(combatant, 20) ||
-                !CanBeHarmful(combatant) || !InLOS(combatant))
-                return;
+			public InternalTimer( Mobile m, Mobile from ) : base( TimeSpan.FromSeconds( 1.0 ) )
+			{
+				m_Mobile = m;
+				m_From = from;
+				Priority = TimerPriority.TwoFiftyMS;
+			}
 
-            if (DateTime.UtcNow >= m_NextTreasure)
-            {
-                ThrowTreasure(combatant);
+			protected override void OnTick()
+			{
+				m_Mobile.PlaySound( 0x033 );
+				m_Mobile.AddToBackpack( new NiporailemsTreasure() );
+				m_Mobile.SendLocalizedMessage( 1112111 ); // To steal my gold? To give it freely!
+			}
+		}
 
-                m_Thrown++;
-
-                if (0.75 >= Utility.RandomDouble() && (m_Thrown%2) == 1) // 75% chance to toss a second one
-                    m_NextTreasure = DateTime.UtcNow + TimeSpan.FromSeconds(3.0);
-                else
-                    m_NextTreasure = DateTime.UtcNow + TimeSpan.FromSeconds(5.0 + (10.0*Utility.RandomDouble()));
-                        // 5-15 seconds
-            }
-        }
-
-        public void ThrowTreasure(Mobile m)
-        {
-            DoHarmful(m);
-
-            MovingParticles(m, 0xEEF, 1, 0, false, true, 0, 0, 9502, 6014, 0x11D, EffectLayer.Waist, 0);
-
-            new InternalTimer(m, this).Start();
-        }
-
-        private class InternalTimer : Timer
-        {
-            private Mobile m_From;
-            private readonly Mobile m_Mobile;
-
-            public InternalTimer(Mobile m, Mobile from) : base(TimeSpan.FromSeconds(1.0))
-            {
-                m_Mobile = m;
-                m_From = from;
-                Priority = TimerPriority.TwoFiftyMS;
-            }
-
-            protected override void OnTick()
-            {
-                m_Mobile.PlaySound(0x033);
-                m_Mobile.AddToBackpack(new NiporailemsTreasure());
-                m_Mobile.SendLocalizedMessage(1112111); // To steal my gold? To give it freely!
-            }
-        }
-    }
+	}
 }

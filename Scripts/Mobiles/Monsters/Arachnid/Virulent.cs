@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -9,41 +10,41 @@ namespace Server.Mobiles
         public Virulent()
             : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a Virulent";
-            Body = 11;
-            Hue = 0x8FF;
-            BaseSoundID = 1170;
+            this.Name = "a Virulent";
+            this.Body = 11;
+            this.Hue = 0x8FF;
+            this.BaseSoundID = 1170;
 
-            SetStr(207, 252);
-            SetDex(156, 194);
-            SetInt(346, 398);
+            this.SetStr(207, 252);
+            this.SetDex(156, 194);
+            this.SetInt(346, 398);
 
-            SetHits(616, 740);
-            SetStam(156, 194);
-            SetMana(346, 398);
+            this.SetHits(616, 740);
+            this.SetStam(156, 194);
+            this.SetMana(346, 398);
 
-            SetDamage(15, 25);
+            this.SetDamage(15, 25);
 
-            SetDamageType(ResistanceType.Physical, 20);
-            SetDamageType(ResistanceType.Poison, 80);
+            this.SetDamageType(ResistanceType.Physical, 20);
+            this.SetDamageType(ResistanceType.Poison, 80);
 
-            SetResistance(ResistanceType.Physical, 60, 68);
-            SetResistance(ResistanceType.Fire, 40, 49);
-            SetResistance(ResistanceType.Cold, 41, 50);
-            SetResistance(ResistanceType.Poison, 100);
-            SetResistance(ResistanceType.Energy, 40, 49);
+            this.SetResistance(ResistanceType.Physical, 60, 68);
+            this.SetResistance(ResistanceType.Fire, 40, 49);
+            this.SetResistance(ResistanceType.Cold, 41, 50);
+            this.SetResistance(ResistanceType.Poison, 100);
+            this.SetResistance(ResistanceType.Energy, 40, 49);
 
-            SetSkill(SkillName.Wrestling, 92.8, 111.7);
-            SetSkill(SkillName.Tactics, 91.6, 107.4);
-            SetSkill(SkillName.MagicResist, 78.1, 93.3);
-            SetSkill(SkillName.Poisoning, 120.0);
-            SetSkill(SkillName.Magery, 104.2, 119.8);
-            SetSkill(SkillName.EvalInt, 102.8, 116.8);
+            this.SetSkill(SkillName.Wrestling, 92.8, 111.7);
+            this.SetSkill(SkillName.Tactics, 91.6, 107.4);
+            this.SetSkill(SkillName.MagicResist, 78.1, 93.3);
+            this.SetSkill(SkillName.Poisoning, 120.0);
+            this.SetSkill(SkillName.Magery, 104.2, 119.8);
+            this.SetSkill(SkillName.EvalInt, 102.8, 116.8);
+			
+            this.PackItem(new SpidersSilk(8));
 
-            PackItem(new SpidersSilk(8));
-
-            Fame = 21000;
-            Karma = -21000;
+            this.Fame = 21000;
+            this.Karma = -21000;
         }
 
         public Virulent(Serial serial)
@@ -53,36 +54,44 @@ namespace Server.Mobiles
 
         public override bool GivesMLMinorArtifact
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override Poison PoisonImmune
         {
-            get { return Poison.Lethal; }
+            get
+            {
+                return Poison.Lethal;
+            }
         }
-
         public override Poison HitPoison
         {
-            get { return Poison.Lethal; }
+            get
+            {
+                return Poison.Lethal;
+            }
         }
-
         public override OppositionGroup OppositionGroup
         {
-            get { return OppositionGroup.FeyAndUndead; }
+            get
+            {
+                return OppositionGroup.FeyAndUndead;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.AosUltraRich, 4);
+            this.AddLoot(LootPack.AosUltraRich, 4);
         }
 
         public override void OnDeath(Container c)
         {
-            base.OnDeath(c);
-
+            base.OnDeath(c);		
+			
             if (Utility.RandomDouble() < 0.025)
             {
-                switch (Utility.Random(2))
+                switch ( Utility.Random(2) )
                 {
                     case 0:
                         c.DropItem(new HunterLegs());
@@ -92,7 +101,7 @@ namespace Server.Mobiles
                         break;
                 }
             }
-
+				
             if (Utility.RandomDouble() < 0.1)
                 c.DropItem(new ParrotItem());
         }
@@ -105,15 +114,15 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-
-            writer.Write(0); // version
+			
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-
-            var version = reader.ReadInt();
+			
+            int version = reader.ReadInt();
         }
     }
 }

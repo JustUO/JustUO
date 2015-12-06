@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Mobiles
 {
     [CorpseName("a grizzly bear corpse")]
@@ -8,37 +10,37 @@ namespace Server.Mobiles
         public RagingGrizzlyBear()
             : base(AIType.AI_Animal, FightMode.Aggressor, 10, 1, 0.2, 0.4)
         {
-            Name = "a raging grizzly bear";
-            Body = 212;
-            BaseSoundID = 0xA3;
+            this.Name = "a raging grizzly bear";
+            this.Body = 212;
+            this.BaseSoundID = 0xA3;
 
-            SetStr(1251, 1550);
-            SetDex(801, 1050);
-            SetInt(151, 400);
+            this.SetStr(1251, 1550);
+            this.SetDex(801, 1050);
+            this.SetInt(151, 400);
 
-            SetHits(751, 930);
-            SetMana(0);
+            this.SetHits(751, 930);
+            this.SetMana(0);
 
-            SetDamage(18, 23);
+            this.SetDamage(18, 23);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 50, 70);
-            SetResistance(ResistanceType.Cold, 30, 50);
-            SetResistance(ResistanceType.Poison, 10, 20);
-            SetResistance(ResistanceType.Energy, 10, 20);
+            this.SetResistance(ResistanceType.Physical, 50, 70);
+            this.SetResistance(ResistanceType.Cold, 30, 50);
+            this.SetResistance(ResistanceType.Poison, 10, 20);
+            this.SetResistance(ResistanceType.Energy, 10, 20);
 
-            SetSkill(SkillName.Wrestling, 73.4, 88.1);
-            SetSkill(SkillName.Tactics, 73.6, 110.5);
-            SetSkill(SkillName.MagicResist, 32.8, 54.6);
-            SetSkill(SkillName.Anatomy, 0, 0);
+            this.SetSkill(SkillName.Wrestling, 73.4, 88.1);
+            this.SetSkill(SkillName.Tactics, 73.6, 110.5);
+            this.SetSkill(SkillName.MagicResist, 32.8, 54.6);
+            this.SetSkill(SkillName.Anatomy, 0, 0);
 
-            Fame = 10000; //Guessing here
-            Karma = 10000; //Guessing here
+            this.Fame = 10000;  //Guessing here
+            this.Karma = 10000;  //Guessing here
 
-            VirtualArmor = 24;
+            this.VirtualArmor = 24;
 
-            Tamable = false;
+            this.Tamable = false;
         }
 
         public RagingGrizzlyBear(Serial serial)
@@ -48,31 +50,37 @@ namespace Server.Mobiles
 
         public override int Meat
         {
-            get { return 4; }
+            get
+            {
+                return 4;
+            }
         }
-
         public override int Hides
         {
-            get { return 32; }
+            get
+            {
+                return 32;
+            }
         }
-
         public override PackInstinct PackInstinct
         {
-            get { return PackInstinct.Bear; }
+            get
+            {
+                return PackInstinct.Bear;
+            }
         }
-
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

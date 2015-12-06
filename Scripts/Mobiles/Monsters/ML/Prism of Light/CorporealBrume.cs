@@ -9,33 +9,33 @@ namespace Server.Mobiles
         public CorporealBrume()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = "a corporeal brume";
-            Body = 0x104; // TODO: Verify
-            BaseSoundID = 0x56B;
+            this.Name = "a corporeal brume";
+            this.Body = 0x104; // TODO: Verify
+            this.BaseSoundID = 0x56B;
 
-            SetStr(400, 450);
-            SetDex(100, 150);
-            SetInt(50, 60);
+            this.SetStr(400, 450);
+            this.SetDex(100, 150);
+            this.SetInt(50, 60);
 
-            SetHits(1150, 1250);
+            this.SetHits(1150, 1250);
 
-            SetDamage(21, 25);
+            this.SetDamage(21, 25);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 100);
-            SetResistance(ResistanceType.Fire, 40, 50);
-            SetResistance(ResistanceType.Cold, 40, 50);
-            SetResistance(ResistanceType.Poison, 50, 60);
-            SetResistance(ResistanceType.Energy, 30, 40);
+            this.SetResistance(ResistanceType.Physical, 100);
+            this.SetResistance(ResistanceType.Fire, 40, 50);
+            this.SetResistance(ResistanceType.Cold, 40, 50);
+            this.SetResistance(ResistanceType.Poison, 50, 60);
+            this.SetResistance(ResistanceType.Energy, 30, 40);
 
-            SetSkill(SkillName.Wrestling, 110.0, 115.0);
-            SetSkill(SkillName.Tactics, 110.0, 115.0);
-            SetSkill(SkillName.MagicResist, 80.0, 95.0);
-            SetSkill(SkillName.Anatomy, 100.0, 110.0);
+            this.SetSkill(SkillName.Wrestling, 110.0, 115.0);
+            this.SetSkill(SkillName.Tactics, 110.0, 115.0);
+            this.SetSkill(SkillName.MagicResist, 80.0, 95.0);
+            this.SetSkill(SkillName.Anatomy, 100.0, 110.0);
 
-            Fame = 12000;
-            Karma = -12000;
+            this.Fame = 12000;
+            this.Karma = -12000;
         }
 
         public CorporealBrume(Serial serial)
@@ -46,38 +46,50 @@ namespace Server.Mobiles
         // TODO: Verify area attack specifics
         public override bool HasAura
         {
-            get { return (Combatant != null); }
+            get
+            {
+                return (this.Combatant != null);
+            }
         }
-
         public override TimeSpan AuraInterval
         {
-            get { return TimeSpan.FromSeconds(20); }
+            get
+            {
+                return TimeSpan.FromSeconds(20);
+            }
         }
-
         public override int AuraRange
         {
-            get { return 10; }
+            get
+            {
+                return 10;
+            }
         }
-
         public override int AuraBaseDamage
         {
-            get { return Utility.RandomMinMax(25, 35); }
+            get
+            {
+                return Utility.RandomMinMax(25, 35);
+            }
         }
-
         public override int AuraFireDamage
         {
-            get { return 0; }
+            get
+            {
+                return 0;
+            }
         }
-
         public override int AuraColdDamage
         {
-            get { return 100; }
+            get
+            {
+                return 100;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.FilthyRich);
-            AddLoot(LootPack.Rich);
+            this.AddLoot(LootPack.FilthyRich);
+            this.AddLoot(LootPack.Rich);
         }
 
         public override void AuraEffect(Mobile m)
@@ -90,14 +102,14 @@ namespace Server.Mobiles
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

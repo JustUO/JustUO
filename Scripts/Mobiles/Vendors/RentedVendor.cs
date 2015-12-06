@@ -384,6 +384,9 @@ namespace Server.Mobiles
 
         private class RefundOfferPrompt : Prompt
         {
+            // Enter the amount of gold you wish to offer the renter in exchange for immediate termination of this contract?
+            public override int MessageCliloc { get { return 1062503; } }
+
             private readonly RentedVendor m_Vendor;
             public RefundOfferPrompt(RentedVendor vendor)
             {

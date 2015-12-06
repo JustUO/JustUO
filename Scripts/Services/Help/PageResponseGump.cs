@@ -6,6 +6,8 @@ namespace Server.Engines.Help
 {
     public class PageResponseGump : Gump
     {
+        public override int TypeID { get { return 0x29F; } }
+
         private readonly Mobile m_From;
         private readonly string m_Name;
         private readonly string m_Text;

@@ -11,77 +11,77 @@ namespace Server.Mobiles
         public GreenGoblinAlchemistRenowned()
             : base(AIType.AI_Melee)
         {
-            Name = "Green Goblin Alchemist";
-            Title = "[Renowned]";
-            Body = 723;
-            BaseSoundID = 437;
+            this.Name = "Green Goblin Alchemist";
+            this.Title = "[Renowned]";
+            this.Body = 723;
+            this.BaseSoundID = 437;
 
-            SetStr(600, 650);
-            SetDex(50, 70);
-            SetInt(100, 250);
+            this.SetStr(600, 650);
+            this.SetDex(50, 70);
+            this.SetInt(100, 250);
 
-            SetHits(1000, 1500);
+            this.SetHits(1000, 1500);
 
-            SetDamage(5, 7);
+            this.SetDamage(5, 7);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 50, 55);
-            SetResistance(ResistanceType.Fire, 55, 60);
-            SetResistance(ResistanceType.Cold, 40, 50);
-            SetResistance(ResistanceType.Poison, 40, 50);
-            SetResistance(ResistanceType.Energy, 20, 25);
+            this.SetResistance(ResistanceType.Physical, 50, 55);
+            this.SetResistance(ResistanceType.Fire, 55, 60);
+            this.SetResistance(ResistanceType.Cold, 40, 50);
+            this.SetResistance(ResistanceType.Poison, 40, 50);
+            this.SetResistance(ResistanceType.Energy, 20, 25);
 
-            SetSkill(SkillName.MagicResist, 120.0, 125.0);
-            SetSkill(SkillName.Tactics, 95.0, 100.0);
-            SetSkill(SkillName.Wrestling, 100.0, 110.0);
+            this.SetSkill(SkillName.MagicResist, 120.0, 125.0);
+            this.SetSkill(SkillName.Tactics, 95.0, 100.0);
+            this.SetSkill(SkillName.Wrestling, 100.0, 110.0);
 
-            Fame = 1500;
-            Karma = -1500;
+            this.Fame = 1500;
+            this.Karma = -1500;
 
-            VirtualArmor = 28;
+            this.VirtualArmor = 28;
+			
+            this.PackItem(new EssenceControl());
 
-            PackItem(new EssenceControl());
-
-            switch (Utility.Random(20))
+            switch ( Utility.Random(20) )
             {
                 case 0:
-                    PackItem(new Scimitar());
+                    this.PackItem(new Scimitar());
                     break;
                 case 1:
-                    PackItem(new Katana());
+                    this.PackItem(new Katana());
                     break;
                 case 2:
-                    PackItem(new WarMace());
+                    this.PackItem(new WarMace());
                     break;
                 case 3:
-                    PackItem(new WarHammer());
+                    this.PackItem(new WarHammer());
                     break;
                 case 4:
-                    PackItem(new Kryss());
+                    this.PackItem(new Kryss());
                     break;
                 case 5:
-                    PackItem(new Pitchfork());
+                    this.PackItem(new Pitchfork());
                     break;
             }
 
-            PackItem(new ThighBoots());
+            this.PackItem(new ThighBoots());
 
-            switch (Utility.Random(3))
+            switch ( Utility.Random(3) )
             {
                 case 0:
-                    PackItem(new Ribs());
+                    this.PackItem(new Ribs());
                     break;
                 case 1:
-                    PackItem(new Shaft());
+                    this.PackItem(new Shaft());
                     break;
                 case 2:
-                    PackItem(new Candle());
+                    this.PackItem(new Candle());
                     break;
             }
 
             if (0.2 > Utility.RandomDouble())
-                PackItem(new BolaBall());
+                this.PackItem(new BolaBall());
         }
 
         public GreenGoblinAlchemistRenowned(Serial serial)
@@ -91,35 +91,41 @@ namespace Server.Mobiles
 
         public override Type[] UniqueSAList
         {
-            get { return new[] {typeof (ObsidianEarrings), typeof (TheImpalersPick)}; }
+            get
+            {
+                return new Type[] { typeof(ObsidianEarrings), typeof(TheImpalersPick) };
+            }
         }
-
         public override Type[] SharedSAList
         {
-            get { return new Type[] {}; }
+            get
+            {
+                return new Type[] { };
+            }
         }
-
         public override InhumanSpeech SpeechType
         {
-            get { return InhumanSpeech.Orc; }
+            get
+            {
+                return InhumanSpeech.Orc;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.Meager);
+            this.AddLoot(LootPack.Meager);
             // TODO: weapon, misc
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

@@ -48,7 +48,7 @@ namespace Server.Mobiles
                 this.Add(new GenericBuyInfo(typeof(VacationWafer), 67, 20, 0x971, 0));
                 this.Add(new GenericBuyInfo(typeof(AquariumNorthDeed), 250002, 20, 0x14F0, 0));
                 this.Add(new GenericBuyInfo(typeof(AquariumEastDeed), 250002, 20, 0x14F0, 0));
-                this.Add(new GenericBuyInfo(typeof(NewAquariumBook), 15, 20, 0xFF2, 0));
+                //this.Add(new GenericBuyInfo(typeof(NewAquariumBook), 15, 20, 0xFF2, 0));
                 #endregion
             }
         }

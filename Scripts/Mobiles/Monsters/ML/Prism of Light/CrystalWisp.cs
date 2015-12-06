@@ -1,3 +1,5 @@
+using System;
+
 namespace Server.Mobiles
 {
     public class CrystalWisp : Wisp
@@ -5,10 +7,10 @@ namespace Server.Mobiles
         [Constructable]
         public CrystalWisp()
         {
-            Name = "a crystal wisp";
-            Hue = 0x482;
+            this.Name = "a crystal wisp";
+            this.Hue = 0x482;
 
-            PackArcaneScroll(0, 1);
+            this.PackArcaneScroll(0, 1);
         }
 
         public CrystalWisp(Serial serial)
@@ -20,14 +22,14 @@ namespace Server.Mobiles
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
         }
     }
 }

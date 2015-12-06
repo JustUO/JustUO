@@ -1,5 +1,5 @@
+using System;
 using Server.Items;
-using Server.SkillHandlers;
 
 namespace Server.Mobiles
 {
@@ -10,44 +10,44 @@ namespace Server.Mobiles
         public GreaterDragon()
             : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.3, 0.5)
         {
-            Name = "a greater dragon";
-            Body = Utility.RandomList(12, 59);
-            BaseSoundID = 362;
+            this.Name = "a greater dragon";
+            this.Body = Utility.RandomList(12, 59);
+            this.BaseSoundID = 362;
 
-            SetStr(1025, 1425);
-            SetDex(81, 148);
-            SetInt(475, 675);
+            this.SetStr(1025, 1425);
+            this.SetDex(81, 148);
+            this.SetInt(475, 675);
 
-            SetHits(1000, 2000);
-            SetStam(120, 135);
+            this.SetHits(1000, 2000);
+            this.SetStam(120, 135);
 
-            SetDamage(24, 33);
+            this.SetDamage(24, 33);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 60, 85);
-            SetResistance(ResistanceType.Fire, 65, 90);
-            SetResistance(ResistanceType.Cold, 40, 55);
-            SetResistance(ResistanceType.Poison, 40, 60);
-            SetResistance(ResistanceType.Energy, 50, 75);
+            this.SetResistance(ResistanceType.Physical, 60, 85);
+            this.SetResistance(ResistanceType.Fire, 65, 90);
+            this.SetResistance(ResistanceType.Cold, 40, 55);
+            this.SetResistance(ResistanceType.Poison, 40, 60);
+            this.SetResistance(ResistanceType.Energy, 50, 75);
 
-            SetSkill(SkillName.Meditation, 0);
-            SetSkill(SkillName.EvalInt, 110.0, 140.0);
-            SetSkill(SkillName.Magery, 110.0, 140.0);
-            SetSkill(SkillName.Poisoning, 0);
-            SetSkill(SkillName.Anatomy, 0);
-            SetSkill(SkillName.MagicResist, 110.0, 140.0);
-            SetSkill(SkillName.Tactics, 110.0, 140.0);
-            SetSkill(SkillName.Wrestling, 115.0, 145.0);
+            this.SetSkill(SkillName.Meditation, 0);
+            this.SetSkill(SkillName.EvalInt, 110.0, 140.0);
+            this.SetSkill(SkillName.Magery, 110.0, 140.0);
+            this.SetSkill(SkillName.Poisoning, 0);
+            this.SetSkill(SkillName.Anatomy, 0);
+            this.SetSkill(SkillName.MagicResist, 110.0, 140.0);
+            this.SetSkill(SkillName.Tactics, 110.0, 140.0);
+            this.SetSkill(SkillName.Wrestling, 115.0, 145.0);
 
-            Fame = 22000;
-            Karma = -15000;
+            this.Fame = 22000;
+            this.Karma = -15000;
 
-            VirtualArmor = 60;
+            this.VirtualArmor = 60;
 
-            Tamable = true;
-            ControlSlots = 5;
-            MinTameSkill = 104.7;
+            this.Tamable = true;
+            this.ControlSlots = 5;
+            this.MinTameSkill = 104.7;
         }
 
         public GreaterDragon(Serial serial)
@@ -57,73 +57,99 @@ namespace Server.Mobiles
 
         public override bool StatLossAfterTame
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override bool ReacquireOnMovement
         {
-            get { return !Controlled; }
+            get
+            {
+                return !this.Controlled;
+            }
         }
-
         public override bool HasBreath
         {
-            get { return true; }
-        } // fire breath enabled
-
+            get
+            {
+                return true;
+            }
+        }// fire breath enabled
         public override bool AutoDispel
         {
-            get { return !Controlled; }
+            get
+            {
+                return !this.Controlled;
+            }
         }
-
         public override int TreasureMapLevel
         {
-            get { return 5; }
+            get
+            {
+                return 5;
+            }
         }
-
         public override int Meat
         {
-            get { return 19; }
+            get
+            {
+                return 19;
+            }
         }
-
         public override int Hides
         {
-            get { return 30; }
+            get
+            {
+                return 30;
+            }
         }
-
         public override HideType HideType
         {
-            get { return HideType.Barbed; }
+            get
+            {
+                return HideType.Barbed;
+            }
         }
-
         public override int Scales
         {
-            get { return 7; }
+            get
+            {
+                return 7;
+            }
         }
-
         public override ScaleType ScaleType
         {
-            get { return (Body == 12 ? ScaleType.Yellow : ScaleType.Red); }
+            get
+            {
+                return (this.Body == 12 ? ScaleType.Yellow : ScaleType.Red);
+            }
         }
-
         public override FoodType FavoriteFood
         {
-            get { return FoodType.Meat; }
+            get
+            {
+                return FoodType.Meat;
+            }
         }
-
         public override bool CanAngerOnTame
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override bool CanFly
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
-
         public override void GenerateLoot()
         {
-            AddLoot(LootPack.FilthyRich, 4);
-            AddLoot(LootPack.Gems, 8);
+            this.AddLoot(LootPack.FilthyRich, 4);
+            this.AddLoot(LootPack.Gems, 8);
         }
 
         public override WeaponAbility GetWeaponAbility()
@@ -134,22 +160,21 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(1);
+            writer.Write((int)1);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            var version = reader.ReadInt();
+            int version = reader.ReadInt();
 
-            SetDamage(24, 33);
+            this.SetDamage(24, 33);
 
             if (version == 0)
             {
-                AnimalTaming.ScaleStats(this, 0.50);
-                AnimalTaming.ScaleSkills(this, 0.80, 0.90); // 90% * 80% = 72% of original skills trainable to 90%
-                Skills[SkillName.Magery].Base = Skills[SkillName.Magery].Cap;
-                    // Greater dragons have a 90% cap reduction and 90% skill reduction on magery
+                Server.SkillHandlers.AnimalTaming.ScaleStats(this, 0.50);
+                Server.SkillHandlers.AnimalTaming.ScaleSkills(this, 0.80, 0.90); // 90% * 80% = 72% of original skills trainable to 90%
+                this.Skills[SkillName.Magery].Base = this.Skills[SkillName.Magery].Cap; // Greater dragons have a 90% cap reduction and 90% skill reduction on magery
             }
         }
     }
