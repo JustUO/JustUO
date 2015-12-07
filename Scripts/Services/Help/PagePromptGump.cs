@@ -6,62 +6,53 @@ namespace Server.Engines.Help
 {
     public class PagePromptGump : Gump
     {
-        public override int TypeID { get { return 0x2A0; } }
-
         private readonly Mobile m_From;
         private readonly PageType m_Type;
         public PagePromptGump(Mobile from, PageType type)
             : base(0, 0)
         {
-            m_From = from;
-            m_Type = type;
+            this.m_From = from;
+            this.m_Type = type;
 
             from.CloseGump(typeof(PagePromptGump));
 
-            AddBackground(50, 50, 540, 350, 2600);
+            this.AddBackground(50, 50, 540, 350, 2600);
 
-            AddPage(0);
+            this.AddPage(0);
 
-            AddHtmlLocalized(264, 80, 200, 24, 1062524, false, false); // Enter Description
-            AddHtmlLocalized(120, 108, 420, 48, 1062638, false, false); // Please enter a brief description (up to 200 characters) of your problem:
+            this.AddHtmlLocalized(264, 80, 200, 24, 1062524, false, false); // Enter Description
+            this.AddHtmlLocalized(120, 108, 420, 48, 1062638, false, false); // Please enter a brief description (up to 200 characters) of your problem:
 
-            AddBackground(100, 148, 440, 200, 3500);
-            AddTextEntry(120, 168, 400, 200, 1153, 0, "");
+            this.AddBackground(100, 148, 440, 200, 3500);
+            this.AddTextEntry(120, 168, 400, 200, 1153, 0, "");
 
-            AddButton(175, 355, 2074, 2075, 1, GumpButtonType.Reply, 0); // Okay
-            AddButton(405, 355, 2073, 2072, 0, GumpButtonType.Reply, 0); // Cancel
+            this.AddButton(175, 355, 2074, 2075, 1, GumpButtonType.Reply, 0); // Okay
+            this.AddButton(405, 355, 2073, 2072, 0, GumpButtonType.Reply, 0); // Cancel
         }
 
         public override void OnResponse(NetState sender, RelayInfo info)
         {
             if (info.ButtonID == 0)
             {
-                m_From.SendLocalizedMessage(501235, "", 0x35); // Help request aborted.
+                this.m_From.SendLocalizedMessage(501235, "", 0x35); // Help request aborted.
             }
             else
             {
                 TextRelay entry = info.GetTextEntry(0);
                 string text = (entry == null ? "" : entry.Text.Trim());
 
-                if (m_Type == PageType.VerbalHarassment || m_Type == PageType.PhysicalHarassment)
-                {
-                    m_From.SendGump(new SelectComplaintTargetsGump(text, m_Type));
-
-                    return;
-                }
-
                 if (text.Length == 0)
                 {
-                    m_From.SendMessage(0x35, "You must enter a description.");
-                    m_From.SendGump(new PagePromptGump(m_From, m_Type));
+                    this.m_From.SendMessage(0x35, "You must enter a description.");
+                    this.m_From.SendGump(new PagePromptGump(this.m_From, this.m_Type));
                 }
                 else
                 {
-                    m_From.SendLocalizedMessage(501234, "", 0x35); /* The next available Counselor/Game Master will respond as soon as possible.
-																	  * Please check your Journal for messages every few minutes.
-																	  */
+                    this.m_From.SendLocalizedMessage(501234, "", 0x35); /* The next available Counselor/Game Master will respond as soon as possible.
+                    * Please check your Journal for messages every few minutes.
+                    */
 
-                    PageQueue.Enqueue(new PageEntry(m_From, text, m_Type));
+                    PageQueue.Enqueue(new PageEntry(this.m_From, text, this.m_Type));
                 }
             }
         }

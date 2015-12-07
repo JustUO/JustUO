@@ -6,58 +6,11 @@ namespace Server.Gumps
 {
     public class TithingGump : Gump
     {
-        public override int TypeID { get { return 0x293; } }
-
         private readonly Mobile m_From;
         private int m_Offer;
         public TithingGump(Mobile from, int offer)
             : base(160, 40)
         {
-            int totalGold = from.TotalGold;
-
-            if (offer > totalGold)
-                offer = totalGold;
-            else if (offer < 0)
-                offer = 0;
-
-            m_From = from;
-            m_Offer = offer;
-
-            Intern(offer.ToString());
-            Intern((totalGold - offer).ToString());
-            Intern(">");
-            Intern("<");
-
-            AddPage(0);
-
-            AddImage(30, 30, 102);
-
-            AddHtmlLocalized(95, 100, 120, 100, 1060198, 0, false, false); // May your wealth bring blessings to those in need, if tithed upon this most sacred site.
-
-            AddHtmlLocalized(57, 274, 200, 25, 3000311, false, false); // Gold:
-            AddHtmlLocalized(137, 274, 200, 25, 1079251, false, false); // Tithe:
-
-            AddLabelIntern(87, 274, 53, 1);
-            AddLabelIntern(172, 274, 53, 0);
-
-            AddButton(105, 230, 5220, 5220, 2, GumpButtonType.Reply, 0);
-            AddButton(113, 230, 5222, 5222, 2, GumpButtonType.Reply, 0);
-            AddLabelIntern(108, 228, 0, 3);
-            AddLabelIntern(112, 228, 0, 3);
-
-            AddButton(127, 230, 5223, 5223, 1, GumpButtonType.Reply, 0);
-            AddLabelIntern(131, 228, 0, 3);
-
-            AddButton(147, 230, 5224, 5224, 3, GumpButtonType.Reply, 0);
-            AddLabelIntern(153, 228, 0, 2);
-
-            AddButton(168, 230, 5220, 5220, 4, GumpButtonType.Reply, 0);
-            AddButton(176, 230, 5222, 5222, 4, GumpButtonType.Reply, 0);
-            AddLabelIntern(172, 228, 0, 2);
-            AddLabelIntern(176, 228, 0, 2);
-
-            AddButton(217, 272, 4023, 4024, 5, GumpButtonType.Reply, 0);
-            /*
             int totalGold = from.TotalGold;
 
             if (offer > totalGold)
@@ -97,7 +50,6 @@ namespace Server.Gumps
             this.AddLabel(176, 228, 0, ">");
 
             this.AddButton(217, 272, 4023, 4024, 5, GumpButtonType.Reply, 0);
-             */
         }
 
         public override void OnResponse(NetState sender, RelayInfo info)

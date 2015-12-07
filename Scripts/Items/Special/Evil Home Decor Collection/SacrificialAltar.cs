@@ -77,10 +77,10 @@ namespace Server.Items
 
             return true;
         }
-        #region Enhance Client
-        public override bool OnDragDropInto(Mobile from, Item item, Point3D p, byte gridloc)
+
+        public override bool OnDragDropInto(Mobile from, Item item, Point3D p)
         {
-            if (!base.OnDragDropInto(from, item, p, gridloc))
+            if (!base.OnDragDropInto(from, item, p))
                 return false;
 
             if (this.TotalItems >= 50)
@@ -100,7 +100,6 @@ namespace Server.Items
 
             return true;
         }
-        #endregion
 
         public override void Serialize(GenericWriter writer)
         {

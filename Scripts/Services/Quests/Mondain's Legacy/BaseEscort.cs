@@ -9,42 +9,21 @@ namespace Server.Engines.Quests
     {
         private static readonly TimeSpan m_EscortDelay = TimeSpan.FromMinutes(5.0);
         private static readonly Dictionary<Mobile, Mobile> m_EscortTable = new Dictionary<Mobile, Mobile>();
-
-        public override bool InitialInnocent { get { return true; } }
-        public override bool IsInvulnerable { get { return false; } }
-        public override bool Commandable { get { return false; } }
-        public override Type[] Quests { get { return null; } }
-
         private BaseQuest m_Quest;
-
-        public BaseQuest Quest
-        {
-            get { return m_Quest; }
-            set { m_Quest = value; }
-        }
-
         private DateTime m_LastSeenEscorter;
-
-        public DateTime LastSeenEscorter
-        {
-            get { return m_LastSeenEscorter; }
-            set { m_LastSeenEscorter = value; }
-        }
-
         private Timer m_DeleteTimer;
         private bool m_Checked;
-
         public BaseEscort()
             : base()
         {
-            AI = AIType.AI_Melee;
-            FightMode = FightMode.Aggressor;
-            RangePerception = 22;
-            RangeFight = 1;
-            ActiveSpeed = 0.2;
-            PassiveSpeed = 1.0;
+            this.AI = AIType.AI_Melee;
+            this.FightMode = FightMode.Aggressor;
+            this.RangePerception = 22;
+            this.RangeFight = 1;
+            this.ActiveSpeed = 0.2;
+            this.PassiveSpeed = 1.0;
 
-            ControlSlots = 0;
+            this.ControlSlots = 0;
         }
 
         public BaseEscort(Serial serial)
@@ -52,6 +31,56 @@ namespace Server.Engines.Quests
         {
         }
 
+        public override bool InitialInnocent
+        {
+            get
+            {
+                return true;
+            }
+        }
+        public override bool IsInvulnerable
+        {
+            get
+            {
+                return false;
+            }
+        }
+        public override bool Commandable
+        {
+            get
+            {
+                return false;
+            }
+        }
+        public override Type[] Quests
+        {
+            get
+            {
+                return null;
+            }
+        }
+        public BaseQuest Quest
+        {
+            get
+            {
+                return this.m_Quest;
+            }
+            set
+            {
+                this.m_Quest = value;
+            }
+        }
+        public DateTime LastSeenEscorter
+        {
+            get
+            {
+                return this.m_LastSeenEscorter;
+            }
+            set
+            {
+                this.m_LastSeenEscorter = value;
+            }
+        }
         public override void OnTalk(PlayerMobile player)
         {
             if (this.AcceptEscorter(player))
@@ -73,17 +102,6 @@ namespace Server.Engines.Quests
 
         public override void OnAfterDelete()
         {
-            if (m_Quest != null)
-            {
-                m_Quest.RemoveQuest();
-                m_EscortTable.Remove(m_Quest.Owner);
-            }
-
-            base.OnAfterDelete();
-        }
-        /*
-        public override void OnAfterDelete()
-        {
             if (this.m_Quest != null)
             {
                 this.m_Quest.RemoveQuest();
@@ -94,13 +112,12 @@ namespace Server.Engines.Quests
 
             base.OnAfterDelete();
         }
-         */
 
         public override void OnThink()
         {
             base.OnThink();
 			
-            CheckAtDestination();
+            this.CheckAtDestination();
         }
 
         public override bool CanBeDamaged()
@@ -110,14 +127,14 @@ namespace Server.Engines.Quests
 
         public override void InitBody()
         {
-            SetStr(90, 100);
-            SetDex(90, 100);
-            SetInt(15, 25);
+            this.SetStr(90, 100);
+            this.SetDex(90, 100);
+            this.SetInt(15, 25);
 
-            Hue = Utility.RandomSkinHue();
-            Female = Utility.RandomBool();
-            Name = NameList.RandomName(Female ? "female" : "male");
-            Race = Race.Human;
+            this.Hue = Utility.RandomSkinHue();
+            this.Female = Utility.RandomBool();
+            this.Name = NameList.RandomName(this.Female ? "female" : "male");
+            this.Race = Race.Human;
 
             Utility.AssignRandomHair(this);
             Utility.AssignRandomFacialHair(this);
@@ -131,7 +148,7 @@ namespace Server.Engines.Quests
 
             writer.Write(this.m_DeleteTimer != null);
 
-            if (m_DeleteTimer != null)
+            if (this.m_DeleteTimer != null)
                 writer.WriteDeltaTime(this.m_DeleteTimer.Next);
         }
 
@@ -155,41 +172,41 @@ namespace Server.Engines.Quests
 
         public virtual void StartFollow()
         {
-            StartFollow(this.ControlMaster);
+            this.StartFollow(this.ControlMaster);
         }
 
         public virtual void StartFollow(Mobile escorter)
-        {
-            ActiveSpeed = 0.1;
-            PassiveSpeed = 0.2;
+        { 
+            this.ActiveSpeed = 0.1;
+            this.PassiveSpeed = 0.2;
 
-            ControlOrder = OrderType.Follow;
-            ControlTarget = escorter;
+            this.ControlOrder = OrderType.Follow;
+            this.ControlTarget = escorter;
 
-            CurrentSpeed = 0.1;
+            this.CurrentSpeed = 0.1;
         }
 
         public virtual void StopFollow()
         {
-            ActiveSpeed = 0.2;
-            PassiveSpeed = 1.0;
+            this.ActiveSpeed = 0.2;
+            this.PassiveSpeed = 1.0;
 
-            ControlOrder = OrderType.None;
-            ControlTarget = null;
+            this.ControlOrder = OrderType.None;
+            this.ControlTarget = null;
 
-            CurrentSpeed = 1.0;
+            this.CurrentSpeed = 1.0;
 
-            SetControlMaster(null);
+            this.SetControlMaster(null);
         }
 
         public virtual void BeginDelete(Mobile m)
         {
-            StopFollow();
-
+            this.StopFollow();
+			
             if (m != null)
                 m_EscortTable.Remove(m);
-
-            m_DeleteTimer = Timer.DelayCall(TimeSpan.FromSeconds(45.0), new TimerCallback(Delete));
+			
+            this.m_DeleteTimer = Timer.DelayCall(TimeSpan.FromSeconds(45.0), new TimerCallback(Delete));
         }
 
         public virtual bool AcceptEscorter(Mobile m)
@@ -198,38 +215,35 @@ namespace Server.Engines.Quests
             {
                 return false;
             }
-            else if (m_DeleteTimer != null)
+            else if (this.m_DeleteTimer != null)
             {
-                Say(500898); // I am sorry, but I do not wish to go anywhere.
+                this.Say(500898); // I am sorry, but I do not wish to go anywhere.
                 return false;
             }
-            else if (Controlled)
+            else if (this.Controlled)
             {
-                if (m == ControlMaster)
-                {
-                    m.CloseGump(typeof(BaseQuestGump));
+                if (m == this.ControlMaster)
                     m.SendGump(new MondainQuestGump(this.m_Quest, MondainQuestGump.Section.InProgress, false));
-                }
                 else
-                    Say(500897); // I am already being led!
-
+                    this.Say(500897); // I am already being led!
+				
                 return false;
             }
-            else if (!m.InRange(Location, 5))
+            else if (!m.InRange(this.Location, 5))
             {
-                Say(500348); // I am too far away to do that.
+                this.Say(500348); // I am too far away to do that.
                 return false;
             }
             else if (m_EscortTable.ContainsKey(m))
             {
-                Say(500896); // I see you already have an escort.
+                this.Say(500896); // I see you already have an escort.
                 return false;
             }
             else if (m is PlayerMobile && (((PlayerMobile)m).LastEscortTime + m_EscortDelay) >= DateTime.UtcNow)
             {
                 int minutes = (int)Math.Ceiling(((((PlayerMobile)m).LastEscortTime + m_EscortDelay) - DateTime.UtcNow).TotalMinutes);
 
-                Say("You must rest {0} minute{1} before we set out on this journey.", minutes, minutes == 1 ? "" : "s");
+                this.Say("You must rest {0} minute{1} before we set out on this journey.", minutes, minutes == 1 ? "" : "s");
                 return false;
             }
 
@@ -238,11 +252,11 @@ namespace Server.Engines.Quests
 
         public virtual EscortObjective GetObjective()
         {
-            if (m_Quest != null)
+            if (this.m_Quest != null)
             {
-                for (int i = 0; i < m_Quest.Objectives.Count; i++)
+                for (int i = 0; i < this.m_Quest.Objectives.Count; i++)
                 {
-                    EscortObjective escort = m_Quest.Objectives[i] as EscortObjective;
+                    EscortObjective escort = this.m_Quest.Objectives[i] as EscortObjective;
 
                     if (escort != null && !escort.Completed && !escort.Failed)
                         return escort;
@@ -254,19 +268,19 @@ namespace Server.Engines.Quests
 
         public virtual Mobile GetEscorter()
         {
-            Mobile master = ControlMaster;
+            Mobile master = this.ControlMaster;
 
-            if (master == null || !Controlled)
+            if (master == null || !this.Controlled)
             {
                 return master;
             }
-            else if (master.Map != Map || !master.InRange(Location, 30) || !master.Alive)
+            else if (master.Map != this.Map || !master.InRange(this.Location, 30) || !master.Alive)
             {
-                TimeSpan lastSeenDelay = DateTime.UtcNow - m_LastSeenEscorter;
+                TimeSpan lastSeenDelay = DateTime.UtcNow - this.m_LastSeenEscorter;
 
                 if (lastSeenDelay >= TimeSpan.FromMinutes(2.0))
                 {
-                    EscortObjective escort = GetObjective();
+                    EscortObjective escort = this.GetObjective();
 
                     if (escort != null)
                     {
@@ -276,25 +290,25 @@ namespace Server.Engines.Quests
                     }
 
                     master.SendLocalizedMessage(1042473); // You have lost the person you were escorting.
-                    Say(1005653); // Hmmm.  I seem to have lost my master.
+                    this.Say(1005653); // Hmmm.  I seem to have lost my master.
 
-                    StopFollow();
+                    this.StopFollow();
                     m_EscortTable.Remove(master);
-                    m_DeleteTimer = Timer.DelayCall(TimeSpan.FromSeconds(5.0), new TimerCallback(Delete));
+                    this.m_DeleteTimer = Timer.DelayCall(TimeSpan.FromSeconds(5.0), new TimerCallback(Delete));
 
                     return null;
                 }
                 else
                 {
-                    ControlOrder = OrderType.Stay;
+                    this.ControlOrder = OrderType.Stay;
                 }
             }
             else
             {
-                if (ControlOrder != OrderType.Follow)
-                    StartFollow(master);
+                if (this.ControlOrder != OrderType.Follow)
+                    this.StartFollow(master);
 
-                m_LastSeenEscorter = DateTime.UtcNow;
+                this.m_LastSeenEscorter = DateTime.UtcNow;
             }
 
             return master;
@@ -307,43 +321,38 @@ namespace Server.Engines.Quests
 
         public virtual bool CheckAtDestination()
         {
-            if (m_Quest != null)
+            if (this.m_Quest != null)
             {
-                EscortObjective escort = GetObjective();
+                EscortObjective escort = this.GetObjective();
 
                 if (escort == null)
                     return false;
 
-                Mobile escorter = GetEscorter();
+                Mobile escorter = this.GetEscorter();
 
                 if (escorter == null)
                     return false;
 
-                if (escort.Region != null && escort.Region.Contains(Location))
+                if (escort.Region != null && escort.Region.Contains(this.Location))
                 {
-                    Say(1042809, escorter.Name); // We have arrived! I thank thee, ~1_PLAYER_NAME~! I have no further need of thy services. Here is thy pay.
+                    this.Say(1042809, escorter.Name); // We have arrived! I thank thee, ~1_PLAYER_NAME~! I have no further need of thy services. Here is thy pay.
 
                     escort.Complete();
 
-                    escorter.PlaySound(m_Quest.UpdateSound);
-
-                    if (m_Quest.Completed)
+                    if (this.m_Quest.Completed)
                     {
                         escorter.SendLocalizedMessage(1046258, null, 0x23); // Your quest is complete.		
 
-                        if (QuestHelper.AnyRewards(m_Quest))
-                        {
-                            escorter.CloseGump(typeof(BaseQuestGump));
-                            escorter.SendGump(new MondainQuestGump(m_Quest, MondainQuestGump.Section.Rewards, false, true));
-                        }
+                        if (QuestHelper.AnyRewards(this.m_Quest))
+                            escorter.SendGump(new MondainQuestGump(this.m_Quest, MondainQuestGump.Section.Rewards, false, true));
                         else
-                            m_Quest.GiveRewards();
+                            this.m_Quest.GiveRewards();
 
-                        escorter.PlaySound(m_Quest.CompleteSound);
+                        escorter.PlaySound(this.m_Quest.CompleteSound);
 
-                        StopFollow();
+                        this.StopFollow();
                         m_EscortTable.Remove(escorter);
-                        m_DeleteTimer = Timer.DelayCall(TimeSpan.FromSeconds(5.0), new TimerCallback(Delete));
+                        this.m_DeleteTimer = Timer.DelayCall(TimeSpan.FromSeconds(5.0), new TimerCallback(Delete));
 
                         // fame
                         Misc.Titles.AwardFame(escorter, escort.Fame, true);
@@ -367,6 +376,8 @@ namespace Server.Engines.Quests
                             }
                             else if (VirtueHelper.Award(pm, VirtueName.Compassion, escort.Compassion, ref gainedPath))
                             {
+                                pm.SendLocalizedMessage(1074949, null, 0x2A);  // You have demonstrated your compassion!  Your kind actions have been noted.
+
                                 if (gainedPath)
                                     pm.SendLocalizedMessage(1053005); // You have achieved a path in compassion!
                                 else
@@ -381,18 +392,20 @@ namespace Server.Engines.Quests
                             }
                         }
                     }
+                    else
+                        escorter.PlaySound(this.m_Quest.UpdateSound);
 
                     return true;
                 }
             }
             else if (!this.m_Checked)
             {
-                Region region = GetDestination();
+                Region region = this.GetDestination();
 
-                if (region != null && region.Contains(Location))
+                if (region != null && region.Contains(this.Location))
                 {
-                    m_DeleteTimer = Timer.DelayCall(TimeSpan.FromSeconds(5.0), new TimerCallback(Delete));
-                    m_Checked = true;
+                    this.m_DeleteTimer = Timer.DelayCall(TimeSpan.FromSeconds(5.0), new TimerCallback(Delete));
+                    this.m_Checked = true;
                 }
             }
 
@@ -405,14 +418,14 @@ namespace Server.Engines.Quests
             public AbandonEscortEntry(BaseEscort m)
                 : base(6102, 3)
             {
-                m_Mobile = m;
+                this.m_Mobile = m;
             }
 
             public override void OnClick()
             {
-                Owner.From.SendLocalizedMessage(1071194); // You have failed your escort quest…
-                Owner.From.PlaySound(0x5B3);
-                m_Mobile.Delete();
+                this.Owner.From.SendLocalizedMessage(1071194); // You have failed your escort quest…
+                this.Owner.From.PlaySound(0x5B3);
+                this.m_Mobile.Delete();
             }
         }
     }

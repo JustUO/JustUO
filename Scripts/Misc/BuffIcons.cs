@@ -230,126 +230,56 @@ namespace Server
         DismountPrevention = 0x3E9,
         NoRearm = 0x3EA,
         //Currently, no 0x3EB or 0x3EC
-        NightSight = 0x3ED,
+        NightSight = 0x3ED,	//*
         DeathStrike,
         EvilOmen,
-        HonoredDebuff,
-        AchievePerfection,
-        DivineFury,
-        EnemyOfOne,
-        HidingAndOrStealth,
-        ActiveMeditation,
-        BloodOathCaster,
-        BloodOathCurse,
-        CorpseSkin,
-        Mindrot,
-        PainSpike,
+        UnknownStandingSwirl,	//Which is healing throttle & Stamina throttle?
+        UnknownKneelingSword,
+        DivineFury,			//*
+        EnemyOfOne,			//*
+        HidingAndOrStealth,	//*
+        ActiveMeditation,	//*
+        BloodOathCaster,	//*
+        BloodOathCurse,		//*
+        CorpseSkin,			//*
+        Mindrot,			//*
+        PainSpike,			//*
         Strangle,
-        GiftOfRenewal,
-        AttuneWeapon,
-        Thunderstorm,
-        EssenceOfWind,
-        EtherealVoyage,
-        GiftOfLife,
-        ArcaneEmpowerment,
+        GiftOfRenewal,		//*
+        AttuneWeapon,		//*
+        Thunderstorm,		//*
+        EssenceOfWind,		//*
+        EtherealVoyage,		//*
+        GiftOfLife,			//*
+        ArcaneEmpowerment,	//*
         MortalStrike,
-        ReactiveArmor,
-        Protection,
+        ReactiveArmor,		//*
+        Protection,			//*
         ArchProtection,
-        MagicReflection,
-        Incognito,
+        MagicReflection,	//*
+        Incognito,			//*
         Disguised,
         AnimalForm,
         Polymorph,
-        Invisibility,
-        Paralyze,
+        Invisibility,		//*
+        Paralyze,			//*
         Poison,
         Bleed,
-        Clumsy,
-        FeebleMind,
-        Weaken,
-        Curse,
+        Clumsy,				//*
+        FeebleMind,			//*
+        Weaken,				//*
+        Curse,				//*
         MassCurse,
-        Agility,
-        Cunning,
-        Strength,
-        Bless,
+        Agility,			//*
+        Cunning,			//*
+        Strength,			//*
+        Bless,				//*
         Sleep,
         StoneForm,
         SpellPlague,
-        Berserk,
-        MassSleep,
-        Flying,
-        Inspire,
-        Invigorate,
-        Resilience,
-        Perseverance,
-        TribulationTarget,
-        DespairTarget,
-        MagicFish = 0x426,
-        HitLowerAttack,
-        HitLowerDefense,
-        DualWield,
-        Block,
-        DefenseMastery,
-        DespairCaster,
-        Healing,
-        SpellFocusingBuff,
-        SpellFocusingDebuff,
-        RageFocusingDebuff,
-        RageFocusingBuff,
-        Warding,
-        TribulationCaster,
-        ForceArrow,
-        Disarm,
-        Surge,
-        Feint,
-        TalonStrike,
-        PsychicAttack,
-        ConsecrateWeapon,
-        GrapesOfWrath,
-        EnemyOfOneDebuff,
-        HorrificBeast,
-        LichForm,
-        VampiricEmbrace,
-        CurseWeapon,
-        ReaperForm,
-        ImmolatingWeapon,
-        Enchant,
-        HonorableExecution,
-        Confidence,
-        Evasion,
-        CounterAttack,
-        LightningStrike,
-        MomentumStrike,
-        OrangePetals,
-        RoseOfTrinsic,
-        PoisonImmunity,
-        Veterinary,
-        Perfection,
-        Honored,
-        ManaPhase,
-        FanDancerFanFire,
-        Rage,
-        Webbing,
-        MedusaStone,
-        TrueFear,
-        AuraOfNausea,
-        HowlOfCacophony,
-        GazeDespair,
-        HiryuPhysicalResistance,
-        RuneBeetleCorruption,
-        BloodwormAnemia,
-        RotwormBloodDisease,
-        SkillUseDelay,
-        FactionStatLoss,
-        HeatOfBattleStatus,
-        CriminalStatus,
-        ArmorPierce,
-        SplinteringEffect,
-        SwingSpeedDebuff,
-        WraithForm,
-        CityTradeDeal = 0x466
+        SpellTrigger,
+        NetherBolt,
+        Fly      
     }
 
     public sealed class AddBuffPacket : Packet

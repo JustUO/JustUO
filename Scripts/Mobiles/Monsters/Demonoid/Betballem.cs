@@ -1,4 +1,3 @@
-using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -35,9 +34,9 @@ namespace Server.Mobiles
             Fame = 500;
             Karma = -500;
 
-            QLPoints = 10;
-
             VirtualArmor = 38;
+
+            QLPoints = 10;
 
             AddItem(new LightSource());
 
@@ -52,39 +51,29 @@ namespace Server.Mobiles
 
         public override bool Unprovokable
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override bool AlwaysMurderer
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override bool BardImmune
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override bool CanRummageCorpses
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override bool BleedImmune
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override void GenerateLoot()
         {
             AddLoot(LootPack.Rich);
@@ -141,13 +130,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write((int)0);
+            writer.Write(0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

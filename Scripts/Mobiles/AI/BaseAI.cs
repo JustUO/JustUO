@@ -184,10 +184,7 @@ namespace Server.Mobiles
 								}
 								else
 								{
-                                    if (m_Mobile.IsDeadPet)
-                                        m_From.SendGump(new Gumps.ConfirmReleaseDeadPetGump(m_From, m_Mobile));
-                                    else
-                                        m_From.SendGump(new Gumps.ConfirmReleaseGump(m_From, m_Mobile));
+									m_From.SendGump(new ConfirmReleaseGump(m_From, m_Mobile));
 								}
 
 								break;
@@ -766,10 +763,7 @@ namespace Server.Mobiles
 									{
 										if (!m_Mobile.Summoned)
 										{
-                                            if (m_Mobile.IsDeadPet)
-                                                e.Mobile.SendGump(new Gumps.ConfirmReleaseDeadPetGump(e.Mobile, m_Mobile));
-                                            else
-                                                e.Mobile.SendGump(new Gumps.ConfirmReleaseGump(e.Mobile, m_Mobile));
+											e.Mobile.SendGump(new ConfirmReleaseGump(e.Mobile, m_Mobile));
 										}
 										else
 										{

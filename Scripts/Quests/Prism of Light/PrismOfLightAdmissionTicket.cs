@@ -66,9 +66,9 @@ namespace Server.Items
             return ret;
         }
 
-        public override bool DropToItem(Mobile from, Item target, Point3D p, byte gridloc)
+        public override bool DropToItem(Mobile from, Item target, Point3D p)
         {
-            var ret = base.DropToItem(from, target, p, gridloc);
+            var ret = base.DropToItem(from, target, p);
 
             if (ret && Parent != from.Backpack)
                 DestroyItem(from);

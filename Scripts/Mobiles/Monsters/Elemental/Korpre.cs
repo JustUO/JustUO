@@ -1,4 +1,3 @@
-using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -38,9 +37,9 @@ namespace Server.Mobiles
             Fame = 300;
             Karma = -300;
 
-            QLPoints = 3;
-
             VirtualArmor = 8;
+
+            QLPoints = 3;
         }
 
         //TODO: Damage weapon via acid
@@ -51,25 +50,19 @@ namespace Server.Mobiles
 
         public override Poison PoisonImmune
         {
-            get
-            {
-                return Poison.Regular;
-            }
+            get { return Poison.Regular; }
         }
+
         public override Poison HitPoison
         {
-            get
-            {
-                return Poison.Regular;
-            }
+            get { return Poison.Regular; }
         }
+
         public override FoodType FavoriteFood
         {
-            get
-            {
-                return FoodType.Fish;
-            }
+            get { return FoodType.Fish; }
         }
+
         /*		public override void OnGotMeleeAttack(Mobile attacker)
         {
         base.OnGotMeleeAttack(attacker);
@@ -103,6 +96,7 @@ namespace Server.Mobiles
         Spawn.Mobile(new Ortanord);
         }
         }*/
+
         public override void GenerateLoot()
         {
             AddLoot(LootPack.Poor);
@@ -111,8 +105,8 @@ namespace Server.Mobiles
 
         public override void OnDeath(Container c)
         {
-            base.OnDeath(c);		
-			
+            base.OnDeath(c);
+
             if (Utility.RandomDouble() < 0.05)
             {
                 c.DropItem(new VoidOrb());
@@ -122,13 +116,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write((int)0);
+            writer.Write(0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

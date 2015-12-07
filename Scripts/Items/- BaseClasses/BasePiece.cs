@@ -101,12 +101,11 @@ namespace Server.Items
         {
             return false;
         }
-        #region Enhance Client
-        public override bool DropToItem(Mobile from, Item target, Point3D p, byte gridloc)
+
+        public override bool DropToItem(Mobile from, Item target, Point3D p)
         {
-            return (target == this.m_Board && p.X != -1 && p.Y != -1 && base.DropToItem(from, target, p, gridloc));
+            return (target == this.m_Board && p.X != -1 && p.Y != -1 && base.DropToItem(from, target, p));
         }
-        #endregion
 
         public override bool DropToWorld(Mobile from, Point3D p)
         {

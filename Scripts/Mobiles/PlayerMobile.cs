@@ -129,7 +129,7 @@ namespace Server.Mobiles
 				Freeze(TimeSpan.FromSeconds(1));
 				Animate(61, 10, 1, true, false, 0);
 				Flying = false;
-                BuffInfo.RemoveBuff(this, BuffIcon.Flying);
+				BuffInfo.RemoveBuff(this, BuffIcon.Fly);
 				SendMessage("You have landed.");
 
 				BaseMount.Dismount(this);
@@ -181,7 +181,7 @@ namespace Server.Mobiles
 				else
 				{
 					Flying = false;
-                    BuffInfo.RemoveBuff(this, BuffIcon.Flying);
+					BuffInfo.RemoveBuff(this, BuffIcon.Fly);
 				}
 			}
 		}
@@ -2557,43 +2557,10 @@ namespace Server.Mobiles
 				if (!EquipItem(deathRobe))
 				{
 					deathRobe.Delete();
-                }
-                #region Enhance Client
-                if (this.NetState != null && this.NetState.IsKRClient)
-                {
-                    List<BaseHealer> listHealers = new List<BaseHealer>();
-                    List<MondainQuester> listQuesters = new List<MondainQuester>();
-                    foreach (Mobile m_mobile in World.Mobiles.Values)
-                    {
-                        MondainQuester mQuester = m_mobile as MondainQuester;
-                        if (mQuester != null)
-                            listQuesters.Add(mQuester);
+				}
 
-                        BaseHealer mHealer = m_mobile as BaseHealer;
-                        if (mHealer != null)
-                            listHealers.Add(mHealer);
-                    }
-
-                    if (this.Corpse != null)
-                        this.NetState.Send(new DisplayWaypoint(this.Corpse.Serial, this.Corpse.X, this.Corpse.Y, this.Corpse.Z, this.Corpse.Map.MapID, WaypointType.Corpse, this.Name));
-
-                    foreach (BaseHealer healer in listHealers)
-                        this.NetState.Send(new RemoveWaypoint(healer.Serial));
-
-                    foreach (MondainQuester quester in listQuesters)
-                    {
-                        string name = string.Empty;
-                        if (quester.Name != null)
-                            name += quester.Name;
-                        if (quester.Title != null)
-                            name += " " + quester.Title;
-                        this.Send(new DisplayWaypoint(quester.Serial, quester.X, quester.Y, quester.Z, quester.Map.MapID, WaypointType.QuestGiver, name));
-                    }
-                }
-                #endregion
-
-                #region Scroll of Alacrity
-                if (AcceleratedStart > DateTime.UtcNow)
+				#region Scroll of Alacrity
+				if (AcceleratedStart > DateTime.UtcNow)
 				{
 					BuffInfo.AddBuff(this, new BuffInfo(BuffIcon.ArcaneEmpowerment, 1078511, 1078512, AcceleratedSkill.ToString()));
 				}
@@ -2828,7 +2795,7 @@ namespace Server.Mobiles
 			if (Flying)
 			{
 				Flying = false;
-                BuffInfo.RemoveBuff(this, BuffIcon.Flying);
+				BuffInfo.RemoveBuff(this, BuffIcon.Fly);
 			}
 			#endregion
 
@@ -2933,40 +2900,6 @@ namespace Server.Mobiles
 				m_DuelContext.OnDeath(this, c);
 			}
 			#endregion
-            #region Enhance Client
-            if (this.NetState != null && this.NetState.IsKRClient)
-            {
-                List<BaseHealer> listHealers = new List<BaseHealer>();
-                List<MondainQuester> listQuesters = new List<MondainQuester>();
-
-                foreach (Mobile m_mobile in World.Mobiles.Values)
-                {
-                    MondainQuester mQuester = m_mobile as MondainQuester;
-                    if (mQuester != null)
-                        listQuesters.Add(mQuester);
-
-                    BaseHealer mHealer = m_mobile as BaseHealer;
-                    if (mHealer != null)
-                        listHealers.Add(mHealer);
-                }
-
-                foreach (BaseHealer healer in listHealers)
-                {
-                    string name = string.Empty;
-                    if (healer.Name != null)
-                        name += healer.Name;
-                    if (healer.Title != null)
-                        name += " " + healer.Title;
-                    this.NetState.Send(new DisplayWaypoint(healer.Serial, healer.X, healer.Y, healer.Z, healer.Map.MapID, WaypointType.Resurrection, name));
-                }
-
-                foreach (MondainQuester quester in listQuesters)
-                    this.NetState.Send(new RemoveWaypoint(quester.Serial));
-
-                if (this.Corpse != null)
-                    this.NetState.Send(new RemoveWaypoint(this.Corpse.Serial));
-            }
-            #endregion
 
 			if (m_BuffTable != null)
 			{

@@ -3,7 +3,7 @@ using Server.Items;
 
 namespace Server.Mobiles
 {
-    [CorpseName("Wyvern [Renowned] corpse")] 
+    [CorpseName("Wyvern [Renowned] corpse")]
     public class WyvernRenowned : BaseRenowned
     {
         [Constructable]
@@ -41,10 +41,8 @@ namespace Server.Mobiles
             Fame = 24000;
             Karma = -24000;
 
-            QLPoints = 50;
-
             VirtualArmor = 70;
-			
+
             PackItem(new EssenceDiligence());
         }
 
@@ -55,81 +53,59 @@ namespace Server.Mobiles
 
         public override Type[] UniqueSAList
         {
-            get
-            {
-                return new Type[] { };
-            }
+            get { return new Type[] {}; }
         }
+
         public override Type[] SharedSAList
         {
-            get
-            {
-                return new Type[] { typeof(AnimatedLegsoftheInsaneTinker), typeof(PillarOfStrength) };
-            }
+            get { return new[] {typeof (AnimatedLegsoftheInsaneTinker), typeof (PillarOfStrength)}; }
         }
+
         public override bool ReacquireOnMovement
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override Poison PoisonImmune
         {
-            get
-            {
-                return Poison.Deadly;
-            }
+            get { return Poison.Deadly; }
         }
+
         public override Poison HitPoison
         {
-            get
-            {
-                return Poison.Deadly;
-            }
+            get { return Poison.Deadly; }
         }
+
         public override bool AutoDispel
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override bool BardImmune
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override int TreasureMapLevel
         {
-            get
-            {
-                return 5;
-            }
+            get { return 5; }
         }
+
         public override int Meat
         {
-            get
-            {
-                return 10;
-            }
+            get { return 10; }
         }
+
         public override int Hides
         {
-            get
-            {
-                return 20;
-            }
+            get { return 20; }
         }
+
         public override HideType HideType
         {
-            get
-            {
-                return HideType.Horned;
-            }
+            get { return HideType.Horned; }
         }
+
         public override void GenerateLoot()
         {
             AddLoot(LootPack.FilthyRich, 3);
@@ -164,13 +140,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write((int)0);
+            writer.Write(0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

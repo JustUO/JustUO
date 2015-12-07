@@ -175,8 +175,6 @@ namespace Server.Factions
 
         private class BroadcastPrompt : Prompt
         {
-            // Enter Faction Message
-            public override int MessageCliloc { get { return 1010265; } }
             private readonly Faction m_Faction;
 
             public BroadcastPrompt(Faction faction)

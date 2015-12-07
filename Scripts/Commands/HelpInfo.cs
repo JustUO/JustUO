@@ -272,7 +272,7 @@ namespace Server.Commands
 
                 int last = (int)AccessLevel.Player - 1;
 
-                for (int i = m_Page * EntriesPerPage, line = 0, extra = 0; line < EntriesPerPage && i < m_List.Count; ++i, ++line)
+                for (int i = m_Page * EntriesPerPage, line = 0; line < EntriesPerPage && i < m_List.Count; ++i, ++line)
                 {
                     CommandInfo c = m_List[i];
                     if (from.AccessLevel >= c.AccessLevel)
@@ -284,7 +284,6 @@ namespace Server.Commands
                             AddEntryHtml(20 + OffsetSize + 160, Color(c.AccessLevel.ToString(), 0xFF0000));
                             AddEntryHeader(20);
                             line++;
-                            extra++;
                         }
 
                         last = (int)c.AccessLevel;

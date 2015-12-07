@@ -1,6 +1,7 @@
-using System;
+using Server.Ethics;
 using Server.Factions;
 using Server.Items;
+using Server.Services;
 
 namespace Server.Mobiles
 {
@@ -40,18 +41,28 @@ namespace Server.Mobiles
             Fame = 15000;
             Karma = -15000;
 
-            QLPoints = 5;
-
             VirtualArmor = 58;
 
-			switch (Utility.Random(20))
+            QLPoints = 5;
+
+            switch (Utility.Random(20))
             {
-                case 0: PackItem(new LichFormScroll()); break;
-                case 1: PackItem(new PoisonStrikeScroll()); break;
-                case 2: PackItem(new StrangleScroll()); break;
-                case 3: PackItem(new VengefulSpiritScroll()); break;
-				case 4: PackItem(new WitherScroll()); break;
-			}
+                case 0:
+                    PackItem(new LichFormScroll());
+                    break;
+                case 1:
+                    PackItem(new PoisonStrikeScroll());
+                    break;
+                case 2:
+                    PackItem(new StrangleScroll());
+                    break;
+                case 3:
+                    PackItem(new VengefulSpiritScroll());
+                    break;
+                case 4:
+                    PackItem(new WitherScroll());
+                    break;
+            }
 
 
             ControlSlots = Core.SE ? 4 : 5;
@@ -64,94 +75,72 @@ namespace Server.Mobiles
 
         public override double DispelDifficulty
         {
-            get
-            {
-                return 125.0;
-            }
+            get { return 125.0; }
         }
+
         public override double DispelFocus
         {
-            get
-            {
-                return 45.0;
-            }
+            get { return 45.0; }
         }
+
         public override Faction FactionAllegiance
         {
-            get
-            {
-                return Shadowlords.Instance;
-            }
+            get { return Shadowlords.Instance; }
         }
-        public override Ethics.Ethic EthicAllegiance
+
+        public override Ethic EthicAllegiance
         {
-            get
-            {
-                return Ethics.Ethic.Evil;
-            }
+            get { return Ethic.Evil; }
         }
+
         public override bool CanRummageCorpses
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override Poison PoisonImmune
         {
-            get
-            {
-                return Poison.Regular;
-            }
+            get { return Poison.Regular; }
         }
+
         public override int TreasureMapLevel
         {
-            get
-            {
-                return 4;
-            }
+            get { return 4; }
         }
+
         public override int Meat
         {
-            get
-            {
-                return 1;
-            }
+            get { return 1; }
         }
+
         public override bool CanFly
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override void GenerateLoot()
         {
             AddLoot(LootPack.Rich);
             AddLoot(LootPack.Average, 2);
             AddLoot(LootPack.MedScrolls, 2);
         }
+
         public override void OnDeath(Container c)
         {
-
             base.OnDeath(c);
-            Region reg = Region.Find(c.GetWorldLocation(), c.Map);
-            if (0.25 > Utility.RandomDouble() && reg.Name == "Abyssal Lair Entrance")
-            {
-                if (Utility.RandomDouble() < 0.6)
-                    c.DropItem(new EssenceAchievement());
-            }
+            SARegionDrops.GetSADrop(c);
         }
+
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write((int)0);
+            writer.Write(0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

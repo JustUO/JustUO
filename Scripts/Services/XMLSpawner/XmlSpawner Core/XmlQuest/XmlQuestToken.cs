@@ -84,15 +84,14 @@ namespace Server.Items
         {
             return false;
         }
-        #region Enhance Client
-        public override bool OnDragDropInto(Mobile from, Item item, Point3D p, byte gridloc)
+
+        public override bool OnDragDropInto(Mobile from, Item item, Point3D p)
         {
             return false;
         }
-        #endregion
 
 #if(NEWPARENT)
-        public override void OnAdded(IEntity target)
+		public override void OnAdded(IEntity target)
 #else
 		public override void OnAdded(object target)
 #endif

@@ -245,9 +245,7 @@ namespace Server.Gumps
             switch ( m.AccessLevel )
             {
                 case AccessLevel.Owner:
-                    return 0x489;
                 case AccessLevel.Developer:
-                    return 0x22A;
                 case AccessLevel.Administrator:
                     return 0x516;
                 case AccessLevel.Seer:

@@ -105,7 +105,7 @@ namespace Server.Misc
 			}
 			catch (Exception x)
 			{
-				//x.ToConsole();
+				x.ToConsole();
 				e.Rejected = true;
 			}
 		}

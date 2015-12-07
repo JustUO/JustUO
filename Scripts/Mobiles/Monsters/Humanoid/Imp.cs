@@ -1,5 +1,5 @@
-using System;
 using Server.Items;
+using Server.Services;
 
 namespace Server.Mobiles
 {
@@ -10,58 +10,85 @@ namespace Server.Mobiles
         public Imp()
             : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            this.Name = "an imp";
-            this.Body = 74;
-            this.BaseSoundID = 422;
+            Name = "an imp";
+            Body = 74;
+            BaseSoundID = 422;
 
-            this.SetStr(91, 115);
-            this.SetDex(61, 80);
-            this.SetInt(86, 105);
+            SetStr(91, 115);
+            SetDex(61, 80);
+            SetInt(86, 105);
 
-            this.SetHits(55, 70);
+            SetHits(55, 70);
 
-            this.SetDamage(10, 14);
+            SetDamage(10, 14);
 
-            this.SetDamageType(ResistanceType.Physical, 0);
-            this.SetDamageType(ResistanceType.Fire, 50);
-            this.SetDamageType(ResistanceType.Poison, 50);
+            SetDamageType(ResistanceType.Physical, 0);
+            SetDamageType(ResistanceType.Fire, 50);
+            SetDamageType(ResistanceType.Poison, 50);
 
-            this.SetResistance(ResistanceType.Physical, 25, 35);
-            this.SetResistance(ResistanceType.Fire, 40, 50);
-            this.SetResistance(ResistanceType.Cold, 20, 30);
-            this.SetResistance(ResistanceType.Poison, 30, 40);
-            this.SetResistance(ResistanceType.Energy, 30, 40);
+            SetResistance(ResistanceType.Physical, 25, 35);
+            SetResistance(ResistanceType.Fire, 40, 50);
+            SetResistance(ResistanceType.Cold, 20, 30);
+            SetResistance(ResistanceType.Poison, 30, 40);
+            SetResistance(ResistanceType.Energy, 30, 40);
 
-            this.SetSkill(SkillName.EvalInt, 20.1, 30.0);
-            this.SetSkill(SkillName.Magery, 90.1, 100.0);
-            this.SetSkill(SkillName.MagicResist, 30.1, 50.0);
-            this.SetSkill(SkillName.Tactics, 42.1, 50.0);
-            this.SetSkill(SkillName.Wrestling, 40.1, 44.0);
+            SetSkill(SkillName.EvalInt, 20.1, 30.0);
+            SetSkill(SkillName.Magery, 90.1, 100.0);
+            SetSkill(SkillName.MagicResist, 30.1, 50.0);
+            SetSkill(SkillName.Tactics, 42.1, 50.0);
+            SetSkill(SkillName.Wrestling, 40.1, 44.0);
 
-            this.Fame = 2500;
-            this.Karma = -2500;
-			switch (Utility.Random(104))
+            Fame = 2500;
+            Karma = -2500;
+            switch (Utility.Random(104))
             {
-                case 0: PackItem(new BloodOathScroll()); break;
-                case 1: PackItem(new CorpseSkinScroll()); break;
-                case 2: PackItem(new CurseWeaponScroll()); break;
-                case 3: PackItem(new EvilOmenScroll()); break;
-				case 4: PackItem(new HorrificBeastScroll()); break;
-				case 5: PackItem(new LichFormScroll()); break;
-				case 6: PackItem(new MindRotScroll()); break;
-				case 7: PackItem(new PainSpikeScroll()); break;
-				case 8: PackItem(new PoisonStrikeScroll()); break;
-				case 9: PackItem(new StrangleScroll()); break;
-				case 10: PackItem(new SummonFamiliarScroll()); break;
-				case 11: PackItem(new WitherScroll()); break;
-				case 12: PackItem(new WraithFormScroll()); break;
-			}
+                case 0:
+                    PackItem(new BloodOathScroll());
+                    break;
+                case 1:
+                    PackItem(new CorpseSkinScroll());
+                    break;
+                case 2:
+                    PackItem(new CurseWeaponScroll());
+                    break;
+                case 3:
+                    PackItem(new EvilOmenScroll());
+                    break;
+                case 4:
+                    PackItem(new HorrificBeastScroll());
+                    break;
+                case 5:
+                    PackItem(new LichFormScroll());
+                    break;
+                case 6:
+                    PackItem(new MindRotScroll());
+                    break;
+                case 7:
+                    PackItem(new PainSpikeScroll());
+                    break;
+                case 8:
+                    PackItem(new PoisonStrikeScroll());
+                    break;
+                case 9:
+                    PackItem(new StrangleScroll());
+                    break;
+                case 10:
+                    PackItem(new SummonFamiliarScroll());
+                    break;
+                case 11:
+                    PackItem(new WitherScroll());
+                    break;
+                case 12:
+                    PackItem(new WraithFormScroll());
+                    break;
+            }
 
-            this.VirtualArmor = 30;
+            VirtualArmor = 30;
+            CanSwim = true;
 
-            this.Tamable = true;
-            this.ControlSlots = 2;
-            this.MinTameSkill = 83.1;
+            Tamable = true;
+            ControlSlots = 2;
+            MinTameSkill = 83.1;
         }
 
         public Imp(Serial serial)
@@ -71,72 +98,56 @@ namespace Server.Mobiles
 
         public override int Meat
         {
-            get
-            {
-                return 1;
-            }
+            get { return 1; }
         }
+
         public override int Hides
         {
-            get
-            {
-                return 6;
-            }
+            get { return 6; }
         }
+
         public override HideType HideType
         {
-            get
-            {
-                return HideType.Spined;
-            }
+            get { return HideType.Spined; }
         }
+
         public override FoodType FavoriteFood
         {
-            get
-            {
-                return FoodType.Meat;
-            }
+            get { return FoodType.Meat; }
         }
+
         public override PackInstinct PackInstinct
         {
-            get
-            {
-                return PackInstinct.Daemon;
-            }
+            get { return PackInstinct.Daemon; }
         }
+
         public override bool CanFly
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override void GenerateLoot()
         {
-            this.AddLoot(LootPack.Meager);
-            this.AddLoot(LootPack.MedScrolls, 2);
+            AddLoot(LootPack.Meager);
+            AddLoot(LootPack.MedScrolls, 2);
         }
+
         public override void OnDeath(Container c)
         {
-
             base.OnDeath(c);
-            Region reg = Region.Find(c.GetWorldLocation(), c.Map);
-            if (0.25 > Utility.RandomDouble() && reg.Name == "Abyssal Lair Entrance")
-            {
-                if (Utility.RandomDouble() < 0.6)
-                    c.DropItem(new EssenceAchievement());
-            }
+            SARegionDrops.GetSADrop(c);
         }
+
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write((int)0);
+            writer.Write(0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

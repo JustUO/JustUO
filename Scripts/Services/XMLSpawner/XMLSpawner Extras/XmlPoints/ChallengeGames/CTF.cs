@@ -208,19 +208,18 @@ namespace Server.Items
 		public CTFFlag( Serial serial ) : base( serial )
 		{
 		}
-        #region Enhance Client
-        public override bool OnDroppedInto(Mobile from, Container target, Point3D p, byte gridloc)
+
+		public override bool OnDroppedInto( Mobile from, Container target, Point3D p )
         {
             // allow movement within a players backpack
             if(from != null && from.Backpack == target)
             {
-                return base.OnDroppedInto(from, target, p, gridloc);
+                return base.OnDroppedInto(from, target, p);
             }
 
             return false;
         }
-        #endregion
-
+        
         public override bool OnDroppedOnto( Mobile from, Item target )
         {
             return false;

@@ -1,5 +1,5 @@
-using System;
 using Server.Items;
+using Server.Services;
 
 namespace Server.Mobiles
 {
@@ -10,51 +10,51 @@ namespace Server.Mobiles
         public Skeleton()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            this.Name = "a skeleton";
-            this.Body = Utility.RandomList(50, 56);
-            this.BaseSoundID = 0x48D;
+            Name = "a skeleton";
+            Body = Utility.RandomList(50, 56);
+            BaseSoundID = 0x48D;
 
-            this.SetStr(56, 80);
-            this.SetDex(56, 75);
-            this.SetInt(16, 40);
+            SetStr(56, 80);
+            SetDex(56, 75);
+            SetInt(16, 40);
 
-            this.SetHits(34, 48);
+            SetHits(34, 48);
 
-            this.SetDamage(3, 7);
+            SetDamage(3, 7);
 
-            this.SetDamageType(ResistanceType.Physical, 100);
+            SetDamageType(ResistanceType.Physical, 100);
 
-            this.SetResistance(ResistanceType.Physical, 15, 20);
-            this.SetResistance(ResistanceType.Fire, 5, 10);
-            this.SetResistance(ResistanceType.Cold, 25, 40);
-            this.SetResistance(ResistanceType.Poison, 25, 35);
-            this.SetResistance(ResistanceType.Energy, 5, 15);
+            SetResistance(ResistanceType.Physical, 15, 20);
+            SetResistance(ResistanceType.Fire, 5, 10);
+            SetResistance(ResistanceType.Cold, 25, 40);
+            SetResistance(ResistanceType.Poison, 25, 35);
+            SetResistance(ResistanceType.Energy, 5, 15);
 
-            this.SetSkill(SkillName.MagicResist, 45.1, 60.0);
-            this.SetSkill(SkillName.Tactics, 45.1, 60.0);
-            this.SetSkill(SkillName.Wrestling, 45.1, 55.0);
+            SetSkill(SkillName.MagicResist, 45.1, 60.0);
+            SetSkill(SkillName.Tactics, 45.1, 60.0);
+            SetSkill(SkillName.Wrestling, 45.1, 55.0);
 
-            this.Fame = 450;
-            this.Karma = -450;
+            Fame = 450;
+            Karma = -450;
 
-            this.VirtualArmor = 16;
+            VirtualArmor = 16;
 
-            switch ( Utility.Random(5))
+            switch (Utility.Random(5))
             {
                 case 0:
-                    this.PackItem(new BoneArms());
+                    PackItem(new BoneArms());
                     break;
                 case 1:
-                    this.PackItem(new BoneChest());
+                    PackItem(new BoneChest());
                     break;
                 case 2:
-                    this.PackItem(new BoneGloves());
+                    PackItem(new BoneGloves());
                     break;
                 case 3:
-                    this.PackItem(new BoneLegs());
+                    PackItem(new BoneLegs());
                     break;
                 case 4:
-                    this.PackItem(new BoneHelm());
+                    PackItem(new BoneHelm());
                     break;
             }
         }
@@ -66,56 +66,40 @@ namespace Server.Mobiles
 
         public override bool BleedImmune
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override Poison PoisonImmune
         {
-            get
-            {
-                return Poison.Lesser;
-            }
+            get { return Poison.Lesser; }
         }
+
         public override OppositionGroup OppositionGroup
         {
-            get
-            {
-                return OppositionGroup.FeyAndUndead;
-            }
+            get { return OppositionGroup.FeyAndUndead; }
         }
+
         public override void GenerateLoot()
         {
-            this.AddLoot(LootPack.Poor);
+            AddLoot(LootPack.Poor);
         }
+
         public override void OnDeath(Container c)
         {
-
             base.OnDeath(c);
-            Region reg = Region.Find(c.GetWorldLocation(), c.Map);
-            if (0.25> Utility.RandomDouble() && reg.Name == "The Lands of the Lich")
-            {
-                if (Utility.RandomDouble() < 0.6)
-                    c.DropItem(new EssenceDirection());
-            }
-            if (0.25 > Utility.RandomDouble() && reg.Name == "Skeletal Dragon")
-            {
-                if (Utility.RandomDouble() < 0.6)
-                    c.DropItem(new EssencePersistence());
-
-            }
+            SARegionDrops.GetSADrop(c);
         }
+
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write((int)0);
+            writer.Write(0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

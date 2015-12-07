@@ -1,5 +1,5 @@
 /* Based on Gargoyle, still no infos on Undead Gargoyle... Have to get also the correct body ID */
-using System;
+
 using Server.Items;
 
 namespace Server.Mobiles
@@ -11,41 +11,41 @@ namespace Server.Mobiles
         public UndeadGargoyle()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            this.Name = "an Undead Gargoyle";
-            this.Body = 722;
-            this.BaseSoundID = 372;
+            Name = "an Undead Gargoyle";
+            Body = 722;
+            BaseSoundID = 372;
 
-            this.SetStr(250, 350);
-            this.SetDex(120, 140);
-            this.SetInt(250, 350);
+            SetStr(250, 350);
+            SetDex(120, 140);
+            SetInt(250, 350);
 
-            this.SetHits(200, 300);
+            SetHits(200, 300);
 
-            this.SetDamage(15, 27);
+            SetDamage(15, 27);
 
-            this.SetDamageType(ResistanceType.Physical, 10);
-            this.SetDamageType(ResistanceType.Cold, 50);
-            this.SetDamageType(ResistanceType.Energy, 40);
+            SetDamageType(ResistanceType.Physical, 10);
+            SetDamageType(ResistanceType.Cold, 50);
+            SetDamageType(ResistanceType.Energy, 40);
 
-            this.SetResistance(ResistanceType.Physical, 45, 55);
-            this.SetResistance(ResistanceType.Fire, 30, 40);
-            this.SetResistance(ResistanceType.Cold, 40, 55);
-            this.SetResistance(ResistanceType.Poison, 55, 65);
-            this.SetResistance(ResistanceType.Energy, 40, 50);
+            SetResistance(ResistanceType.Physical, 45, 55);
+            SetResistance(ResistanceType.Fire, 30, 40);
+            SetResistance(ResistanceType.Cold, 40, 55);
+            SetResistance(ResistanceType.Poison, 55, 65);
+            SetResistance(ResistanceType.Energy, 40, 50);
 
-            this.SetSkill(SkillName.EvalInt, 90.1, 110.0);
-            this.SetSkill(SkillName.Magery, 120);
-            this.SetSkill(SkillName.MagicResist, 100.1, 120.0);
-            this.SetSkill(SkillName.Tactics, 60.1, 70.0);
-            this.SetSkill(SkillName.Wrestling, 60.1, 70.0);
+            SetSkill(SkillName.EvalInt, 90.1, 110.0);
+            SetSkill(SkillName.Magery, 120);
+            SetSkill(SkillName.MagicResist, 100.1, 120.0);
+            SetSkill(SkillName.Tactics, 60.1, 70.0);
+            SetSkill(SkillName.Wrestling, 60.1, 70.0);
 
-            this.Fame = 3500;
-            this.Karma = -3500;
+            Fame = 3500;
+            Karma = -3500;
 
-            this.VirtualArmor = 32;
+            VirtualArmor = 32;
 
             if (0.025 > Utility.RandomDouble())
-                this.PackItem(new GargoylesPickaxe());
+                PackItem(new GargoylesPickaxe());
         }
 
         public UndeadGargoyle(Serial serial)
@@ -55,35 +55,48 @@ namespace Server.Mobiles
 
         public override int TreasureMapLevel
         {
-            get
-            {
-                return 1;
-            }
+            get { return 1; }
         }
+
         public override int Meat
         {
-            get
-            {
-                return 1;
-            }
+            get { return 1; }
         }
+
+        public override void OnDeath(Container c)
+        {
+            base.OnDeath(c);
+
+            if (Utility.RandomDouble() < 0.25)
+
+                switch (Utility.Random(2))
+                {
+                    case 0:
+                        c.DropItem(new UndeadGargMedallion());
+                        break;
+                    case 1:
+                        c.DropItem(new UndeadGargHorn());
+                        break;
+                }
+        }
+
         public override void GenerateLoot()
         {
-            this.AddLoot(LootPack.Average);
-            this.AddLoot(LootPack.MedScrolls);
-            this.AddLoot(LootPack.Gems, Utility.RandomMinMax(1, 4));
+            AddLoot(LootPack.Average);
+            AddLoot(LootPack.MedScrolls);
+            AddLoot(LootPack.Gems, Utility.RandomMinMax(1, 4));
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write((int)0);
+            writer.Write(0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

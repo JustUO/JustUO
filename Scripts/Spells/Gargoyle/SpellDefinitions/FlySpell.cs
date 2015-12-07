@@ -90,11 +90,11 @@ namespace Server.Spells
         public override void OnCast()
         {
             this.Caster.Flying = false;
-            BuffInfo.RemoveBuff(this.Caster, BuffIcon.Flying);
+            BuffInfo.RemoveBuff(this.Caster, BuffIcon.Fly);
             this.Caster.Animate(60, 10, 1, true, false, 0);
             this.Caster.SendLocalizedMessage(1112567); // You are flying.
             this.Caster.Flying = true;
-            BuffInfo.AddBuff(this.Caster, new BuffInfo(BuffIcon.Flying, 1112567));
+            BuffInfo.AddBuff(this.Caster, new BuffInfo(BuffIcon.Fly, 1112567));
             this.FinishSequence();
         }
     }

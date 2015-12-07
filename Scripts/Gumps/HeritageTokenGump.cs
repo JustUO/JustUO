@@ -318,7 +318,7 @@ namespace Server.Gumps
                     cliloc = 1075196;
                     break;
                 case 0x6E:
-                    types.Add(typeof(FountainOfLife));
+                    types.Add(typeof(FountainOfLifeDeed));
                     cliloc = 1075197;
                     break;
                 case 0x6F:

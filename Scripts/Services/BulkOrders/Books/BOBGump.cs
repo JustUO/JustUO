@@ -663,8 +663,6 @@ namespace Server.Engines.BulkOrders
 
         private class SetPricePrompt : Prompt
         {
-            // Type in a price for the deed:
-            public override int MessageCliloc { get { return 1062383; } }
             private readonly BulkOrderBook m_Book;
             private readonly object m_Object;
             private readonly int m_Page;

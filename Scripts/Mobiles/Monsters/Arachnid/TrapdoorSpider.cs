@@ -1,4 +1,4 @@
-using System;
+using Server.Items;
 
 namespace Server.Mobiles
 {
@@ -6,11 +6,10 @@ namespace Server.Mobiles
     public class TrapdoorSpider : BaseCreature
     {
         [Constructable]
-        public TrapdoorSpider()
-            : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
+        public TrapdoorSpider() : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
             Name = "a trapdoor spider";
-            Body = 737; 
+            Body = 737;
 
             SetStr(100, 104);
             SetDex(162, 165);
@@ -34,18 +33,45 @@ namespace Server.Mobiles
             SetSkill(SkillName.Poisoning, 70.5, 73.5);
             SetSkill(SkillName.Tactics, 73.3, 78.9);
             SetSkill(SkillName.Wrestling, 92.5, 94.6);
+            SetSkill(SkillName.Hiding, 110.3, 119.9);
+            SetSkill(SkillName.Stealth, 110.5, 119.6);
 
             QLPoints = 5;
         }
 
-        public TrapdoorSpider(Serial serial)
-            : base(serial)
+        public TrapdoorSpider(Serial serial) : base(serial)
         {
+        }
+
+        public override WeaponAbility GetWeaponAbility()
+        {
+            return WeaponAbility.ShadowStrike;
         }
 
         public override void GenerateLoot()
         {
             AddLoot(LootPack.Rich);
+        }
+
+        public override void OnDeath(Container c)
+        {
+            base.OnDeath(c);
+
+            if (Utility.RandomDouble() < 0.12)
+                c.DropItem(new BottleIchor());
+
+            if (Utility.RandomDouble() < 0.05)
+            {
+                switch (Utility.Random(2))
+                {
+                    case 0:
+                        c.DropItem(new SpiderCarapace());
+                        break;
+                    case 1:
+                        c.DropItem(new TatteredAncientScroll());
+                        break;
+                }
+            }
         }
 
         public override int GetIdleSound()
@@ -71,13 +97,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write((int)0);
+            writer.Write(0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

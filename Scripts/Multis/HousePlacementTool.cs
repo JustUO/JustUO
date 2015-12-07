@@ -5,7 +5,6 @@ using Server.Mobiles;
 using Server.Multis;
 using Server.Regions;
 using Server.Targeting;
-using Server.Network;
 
 namespace Server.Items
 {
@@ -15,8 +14,8 @@ namespace Server.Items
         public HousePlacementTool()
             : base(0x14F6)
         {
-            Weight = 3.0;
-            LootType = LootType.Blessed;
+            this.Weight = 3.0;
+            this.LootType = LootType.Blessed;
         }
 
         public HousePlacementTool(Serial serial)
@@ -33,7 +32,7 @@ namespace Server.Items
         }// a house placement tool
         public override void OnDoubleClick(Mobile from)
         {
-            if (IsChildOf(from.Backpack))
+            if (this.IsChildOf(from.Backpack))
                 from.SendGump(new HousePlacementCategoryGump(from));
             else
                 from.SendLocalizedMessage(1042001); // That must be in your pack for you to use it.
@@ -52,8 +51,8 @@ namespace Server.Items
 
             int version = reader.ReadInt();
 
-            if (Weight == 0.0)
-                Weight = 3.0;
+            if (this.Weight == 0.0)
+                this.Weight = 3.0;
         }
     }
 
@@ -65,53 +64,53 @@ namespace Server.Items
         public HousePlacementCategoryGump(Mobile from)
             : base(50, 50)
         {
-            m_From = from;
+            this.m_From = from;
 
             from.CloseGump(typeof(HousePlacementCategoryGump));
             from.CloseGump(typeof(HousePlacementListGump));
 
-            AddPage(0);
+            this.AddPage(0);
 
-            AddBackground(0, 0, 270, 145, 5054);
+            this.AddBackground(0, 0, 270, 145, 5054);
 
-            AddImageTiled(10, 10, 250, 125, 2624);
-            AddAlphaRegion(10, 10, 250, 125);
+            this.AddImageTiled(10, 10, 250, 125, 2624);
+            this.AddAlphaRegion(10, 10, 250, 125);
 
-            AddHtmlLocalized(10, 10, 250, 20, 1060239, LabelColor, false, false); // <CENTER>HOUSE PLACEMENT TOOL</CENTER>
+            this.AddHtmlLocalized(10, 10, 250, 20, 1060239, LabelColor, false, false); // <CENTER>HOUSE PLACEMENT TOOL</CENTER>
 
-            AddButton(10, 110, 4017, 4019, 0, GumpButtonType.Reply, 0);
-            AddHtmlLocalized(45, 110, 150, 20, 3000363, LabelColor, false, false); // Close
+            this.AddButton(10, 110, 4017, 4019, 0, GumpButtonType.Reply, 0);
+            this.AddHtmlLocalized(45, 110, 150, 20, 3000363, LabelColor, false, false); // Close
 
-            AddButton(10, 40, 4005, 4007, 1, GumpButtonType.Reply, 0);
-            AddHtmlLocalized(45, 40, 200, 20, 1060390, LabelColor, false, false); // Classic Houses
+            this.AddButton(10, 40, 4005, 4007, 1, GumpButtonType.Reply, 0);
+            this.AddHtmlLocalized(45, 40, 200, 20, 1060390, LabelColor, false, false); // Classic Houses
 
-            AddButton(10, 60, 4005, 4007, 2, GumpButtonType.Reply, 0);
-            AddHtmlLocalized(45, 60, 200, 20, 1060391, LabelColor, false, false); // 2-Story Customizable Houses
+            this.AddButton(10, 60, 4005, 4007, 2, GumpButtonType.Reply, 0);
+            this.AddHtmlLocalized(45, 60, 200, 20, 1060391, LabelColor, false, false); // 2-Story Customizable Houses
 
-            AddButton(10, 80, 4005, 4007, 3, GumpButtonType.Reply, 0);
-            AddHtmlLocalized(45, 80, 200, 20, 1060392, LabelColor, false, false); // 3-Story Customizable Houses
+            this.AddButton(10, 80, 4005, 4007, 3, GumpButtonType.Reply, 0);
+            this.AddHtmlLocalized(45, 80, 200, 20, 1060392, LabelColor, false, false); // 3-Story Customizable Houses
         }
 
-        public override void OnResponse(NetState sender, RelayInfo info)
+        public override void OnResponse(Server.Network.NetState sender, RelayInfo info)
         {
-            if (!m_From.CheckAlive() || m_From.Backpack == null || m_From.Backpack.FindItemByType(typeof(HousePlacementTool)) == null)
+            if (!this.m_From.CheckAlive() || this.m_From.Backpack == null || this.m_From.Backpack.FindItemByType(typeof(HousePlacementTool)) == null)
                 return;
 
             switch ( info.ButtonID )
             {
                 case 1: // Classic Houses
                     {
-                        m_From.SendGump(new HousePlacementListGump(m_From, HousePlacementEntry.ClassicHouses));
+                        this.m_From.SendGump(new HousePlacementListGump(this.m_From, HousePlacementEntry.ClassicHouses));
                         break;
                     }
                 case 2: // 2-Story Customizable Houses
                     {
-                        m_From.SendGump(new HousePlacementListGump(m_From, HousePlacementEntry.TwoStoryFoundations));
+                        this.m_From.SendGump(new HousePlacementListGump(this.m_From, HousePlacementEntry.TwoStoryFoundations));
                         break;
                     }
                 case 3: // 3-Story Customizable Houses
                     {
-                        m_From.SendGump(new HousePlacementListGump(m_From, HousePlacementEntry.ThreeStoryFoundations));
+                        this.m_From.SendGump(new HousePlacementListGump(this.m_From, HousePlacementEntry.ThreeStoryFoundations));
                         break;
                     }
             }
@@ -124,47 +123,46 @@ namespace Server.Items
         private const int LabelHue = 0x480;
         private readonly Mobile m_From;
         private readonly HousePlacementEntry[] m_Entries;
-
         public HousePlacementListGump(Mobile from, HousePlacementEntry[] entries)
             : base(50, 50)
         {
-            m_From = from;
-            m_Entries = entries;
+            this.m_From = from;
+            this.m_Entries = entries;
 
             from.CloseGump(typeof(HousePlacementCategoryGump));
             from.CloseGump(typeof(HousePlacementListGump));
 
-            AddPage(0);
+            this.AddPage(0);
 
-            AddBackground(0, 0, 520, 420, 5054);
+            this.AddBackground(0, 0, 520, 420, 5054);
 
-            AddImageTiled(10, 10, 500, 20, 2624);
-            AddAlphaRegion(10, 10, 500, 20);
+            this.AddImageTiled(10, 10, 500, 20, 2624);
+            this.AddAlphaRegion(10, 10, 500, 20);
 
-            AddHtmlLocalized(10, 10, 500, 20, 1060239, LabelColor, false, false); // <CENTER>HOUSE PLACEMENT TOOL</CENTER>
+            this.AddHtmlLocalized(10, 10, 500, 20, 1060239, LabelColor, false, false); // <CENTER>HOUSE PLACEMENT TOOL</CENTER>
 
-            AddImageTiled(10, 40, 500, 20, 2624);
-            AddAlphaRegion(10, 40, 500, 20);
+            this.AddImageTiled(10, 40, 500, 20, 2624);
+            this.AddAlphaRegion(10, 40, 500, 20);
 
-            AddHtmlLocalized(50, 40, 225, 20, 1060235, LabelColor, false, false); // House Description
-            AddHtmlLocalized(275, 40, 75, 20, 1060236, LabelColor, false, false); // Storage
-            AddHtmlLocalized(350, 40, 75, 20, 1060237, LabelColor, false, false); // Lockdowns
-            AddHtmlLocalized(425, 40, 75, 20, 1060034, LabelColor, false, false); // Cost
+            this.AddHtmlLocalized(50, 40, 225, 20, 1060235, LabelColor, false, false); // House Description
+            this.AddHtmlLocalized(275, 40, 75, 20, 1060236, LabelColor, false, false); // Storage
+            this.AddHtmlLocalized(350, 40, 75, 20, 1060237, LabelColor, false, false); // Lockdowns
+            this.AddHtmlLocalized(425, 40, 75, 20, 1060034, LabelColor, false, false); // Cost
 
-            AddImageTiled(10, 70, 500, 280, 2624);
-            AddAlphaRegion(10, 70, 500, 280);
+            this.AddImageTiled(10, 70, 500, 280, 2624);
+            this.AddAlphaRegion(10, 70, 500, 280);
 
-            AddImageTiled(10, 360, 500, 20, 2624);
-            AddAlphaRegion(10, 360, 500, 20);
+            this.AddImageTiled(10, 360, 500, 20, 2624);
+            this.AddAlphaRegion(10, 360, 500, 20);
 
-            AddHtmlLocalized(10, 360, 250, 20, 1060645, LabelColor, false, false); // Bank Balance:
-            AddLabel(250, 360, LabelHue, Banker.GetBalance(from).ToString());
+            this.AddHtmlLocalized(10, 360, 250, 20, 1060645, LabelColor, false, false); // Bank Balance:
+            this.AddLabel(250, 360, LabelHue, Banker.GetBalance(from).ToString());
 
-            AddImageTiled(10, 390, 500, 20, 2624);
-            AddAlphaRegion(10, 390, 500, 20);
+            this.AddImageTiled(10, 390, 500, 20, 2624);
+            this.AddAlphaRegion(10, 390, 500, 20);
 
-            AddButton(10, 390, 4017, 4019, 0, GumpButtonType.Reply, 0);
-            AddHtmlLocalized(50, 390, 100, 20, 3000363, LabelColor, false, false); // Close
+            this.AddButton(10, 390, 4017, 4019, 0, GumpButtonType.Reply, 0);
+            this.AddHtmlLocalized(50, 390, 100, 20, 3000363, LabelColor, false, false); // Close
 
             for (int i = 0; i < entries.Length; ++i)
             {
@@ -175,16 +173,16 @@ namespace Server.Items
                 {
                     if (page > 1)
                     {
-                        AddButton(450, 390, 4005, 4007, 0, GumpButtonType.Page, page);
-                        AddHtmlLocalized(400, 390, 100, 20, 3000406, LabelColor, false, false); // Next
+                        this.AddButton(450, 390, 4005, 4007, 0, GumpButtonType.Page, page);
+                        this.AddHtmlLocalized(400, 390, 100, 20, 3000406, LabelColor, false, false); // Next
                     }
 
-                    AddPage(page);
+                    this.AddPage(page);
 
                     if (page > 1)
                     {
-                        AddButton(200, 390, 4014, 4016, 0, GumpButtonType.Page, page - 1);
-                        AddHtmlLocalized(250, 390, 100, 20, 3000405, LabelColor, false, false); // Previous
+                        this.AddButton(200, 390, 4014, 4016, 0, GumpButtonType.Page, page - 1);
+                        this.AddHtmlLocalized(250, 390, 100, 20, 3000405, LabelColor, false, false); // Previous
                     }
                 }
 
@@ -192,31 +190,31 @@ namespace Server.Items
 
                 int y = 70 + (index * 20);
 
-                AddButton(10, y, 4005, 4007, 1 + i, GumpButtonType.Reply, 0);
-                AddHtmlLocalized(50, y, 225, 20, entry.Description, LabelColor, false, false);
-                AddLabel(275, y, LabelHue, entry.Storage.ToString());
-                AddLabel(350, y, LabelHue, entry.Lockdowns.ToString());
-                AddLabel(425, y, LabelHue, entry.Cost.ToString());
+                this.AddButton(10, y, 4005, 4007, 1 + i, GumpButtonType.Reply, 0);
+                this.AddHtmlLocalized(50, y, 225, 20, entry.Description, LabelColor, false, false);
+                this.AddLabel(275, y, LabelHue, entry.Storage.ToString());
+                this.AddLabel(350, y, LabelHue, entry.Lockdowns.ToString());
+                this.AddLabel(425, y, LabelHue, entry.Cost.ToString());
             }
         }
 
-        public override void OnResponse(NetState sender, RelayInfo info)
+        public override void OnResponse(Server.Network.NetState sender, RelayInfo info)
         {
-            if (!m_From.CheckAlive() || m_From.Backpack == null || m_From.Backpack.FindItemByType(typeof(HousePlacementTool)) == null)
+            if (!this.m_From.CheckAlive() || this.m_From.Backpack == null || this.m_From.Backpack.FindItemByType(typeof(HousePlacementTool)) == null)
                 return;
 
             int index = info.ButtonID - 1;
 
-            if (index >= 0 && index < m_Entries.Length)
+            if (index >= 0 && index < this.m_Entries.Length)
             {
-                if (m_From.AccessLevel < AccessLevel.GameMaster && BaseHouse.HasAccountHouse(m_From))
-                    m_From.SendLocalizedMessage(501271); // You already own a house, you may not place another!
+                if (this.m_From.AccessLevel < AccessLevel.GameMaster && BaseHouse.HasAccountHouse(this.m_From))
+                    this.m_From.SendLocalizedMessage(501271); // You already own a house, you may not place another!
                 else
-                    m_From.Target = new NewHousePlacementTarget(m_Entries, m_Entries[index]);
+                    this.m_From.Target = new NewHousePlacementTarget(this.m_Entries, this.m_Entries[index]);
             }
             else
             {
-                m_From.SendGump(new HousePlacementCategoryGump(m_From));
+                this.m_From.SendGump(new HousePlacementCategoryGump(this.m_From));
             }
         }
     }
@@ -226,14 +224,13 @@ namespace Server.Items
         private readonly HousePlacementEntry m_Entry;
         private readonly HousePlacementEntry[] m_Entries;
         private bool m_Placed;
-
         public NewHousePlacementTarget(HousePlacementEntry[] entries, HousePlacementEntry entry)
             : base(entry.MultiID, entry.Offset)
         {
-            Range = 14;
+            this.Range = 14;
 
-            m_Entries = entries;
-            m_Entry = entry;
+            this.m_Entries = entries;
+            this.m_Entry = entry;
         }
 
         protected override void OnTarget(Mobile from, object o)
@@ -249,10 +246,11 @@ namespace Server.Items
                     ip = ((Item)ip).GetWorldTop();
 
                 Point3D p = new Point3D(ip);
+
                 Region reg = Region.Find(new Point3D(p), from.Map);
 
                 if (from.AccessLevel >= AccessLevel.GameMaster || reg.AllowHousing(from, p))
-                    m_Placed = m_Entry.OnPlacement(from, p);
+                    this.m_Placed = this.m_Entry.OnPlacement(from, p);
                 else if (reg.IsPartOf(typeof(TempNoHousingRegion)))
                     from.SendLocalizedMessage(501270); // Lord British has decreed a 'no build' period, thus you cannot build this house at this time.
                 else if (reg.IsPartOf(typeof(TreasureRegion)) || reg.IsPartOf(typeof(HouseRegion)))
@@ -269,8 +267,8 @@ namespace Server.Items
             if (!from.CheckAlive() || from.Backpack == null || from.Backpack.FindItemByType(typeof(HousePlacementTool)) == null)
                 return;
 
-            if (!m_Placed)
-                from.SendGump(new HousePlacementListGump(from, m_Entries));
+            if (!this.m_Placed)
+                from.SendGump(new HousePlacementListGump(from, this.m_Entries));
         }
     }
 
@@ -278,26 +276,26 @@ namespace Server.Items
     {
         private static readonly HousePlacementEntry[] m_ClassicHouses = new HousePlacementEntry[]
         {
-            new HousePlacementEntry(typeof(SmallOldHouse),  1011303,	425,	212,	489,	244,	10,	37000, 0,	4,	0,	0x0064),
-            new HousePlacementEntry(typeof(SmallOldHouse),  1011304,	425,	212,	489,	244,	10,	37000, 0,	4,	0,	0x0066),
-            new HousePlacementEntry(typeof(SmallOldHouse),  1011305,	425,	212,	489,	244,	10,	36750, 0,	4,	0,	0x0068),
-            new HousePlacementEntry(typeof(SmallOldHouse),  1011306,	425,	212,	489,	244,	10,	35250, 0,	4,	0,	0x006A),
-            new HousePlacementEntry(typeof(SmallOldHouse),  1011307,	425,	212,	489,	244,	10,	36750, 0,	4,	0,	0x006C),
-            new HousePlacementEntry(typeof(SmallOldHouse),  1011308,	425,	212,	489,	244,	10,	36750, 0,	4,	0,	0x006E),
-            new HousePlacementEntry(typeof(SmallShop),      1011321,	425,	212,	489,	244,	10,	50500, -1,	4,	0,	0x00A0),
-            new HousePlacementEntry(typeof(SmallShop),      1011322,	425,	212,	489,	244,	10,	52500, 0,	4,	0,	0x00A2),
-            new HousePlacementEntry(typeof(SmallTower),     1011317,	580,	290,	667,	333,	14,	73500, 3,	4,	0,	0x0098),
-            new HousePlacementEntry(typeof(TwoStoryVilla),  1011319,	1100,	550,	1265,	632,	24,	113750, 3,	6,	0,	0x009E),
+            new HousePlacementEntry(typeof(SmallOldHouse), 1011303,	425,	212,	489,	244,	10,	37000, 0,	4,	0,	0x0064),
+            new HousePlacementEntry(typeof(SmallOldHouse), 1011304,	425,	212,	489,	244,	10,	37000, 0,	4,	0,	0x0066),
+            new HousePlacementEntry(typeof(SmallOldHouse), 1011305,	425,	212,	489,	244,	10,	36750, 0,	4,	0,	0x0068),
+            new HousePlacementEntry(typeof(SmallOldHouse), 1011306,	425,	212,	489,	244,	10,	35250, 0,	4,	0,	0x006A),
+            new HousePlacementEntry(typeof(SmallOldHouse), 1011307,	425,	212,	489,	244,	10,	36750, 0,	4,	0,	0x006C),
+            new HousePlacementEntry(typeof(SmallOldHouse), 1011308,	425,	212,	489,	244,	10,	36750, 0,	4,	0,	0x006E),
+            new HousePlacementEntry(typeof(SmallShop), 1011321,	425,	212,	489,	244,	10,	50500, -1,	4,	0,	0x00A0),
+            new HousePlacementEntry(typeof(SmallShop), 1011322,	425,	212,	489,	244,	10,	52500, 0,	4,	0,	0x00A2),
+            new HousePlacementEntry(typeof(SmallTower), 1011317,	580,	290,	667,	333,	14,	73500, 3,	4,	0,	0x0098),
+            new HousePlacementEntry(typeof(TwoStoryVilla), 1011319,	1100,	550,	1265,	632,	24,	113750, 3,	6,	0,	0x009E),
             new HousePlacementEntry(typeof(SandStonePatio), 1011320,	850,	425,	1265,	632,	24,	76500, -1,	4,	0,	0x009C),
-            new HousePlacementEntry(typeof(LogCabin),       1011318,	1100,	550,	1265,	632,	24,	81750, 1,	6,	0,	0x009A),
-            new HousePlacementEntry(typeof(GuildHouse),     1011309,	1370,	685,	1576,	788,	28,	131500, -1,	7,	0,	0x0074),
-            new HousePlacementEntry(typeof(TwoStoryHouse),  1011310,	1370,	685,	1576,	788,	28,	162750, -3,	7,	0,	0x0076),
-            new HousePlacementEntry(typeof(TwoStoryHouse),  1011311,	1370,	685,	1576,	788,	28,	162000, -3,	7,	0,	0x0078),
-            new HousePlacementEntry(typeof(LargePatioHouse),  1011315,	1370,	685,	1576,	788,	28,	129250, -4,	7,	0,	0x008C),
-            new HousePlacementEntry(typeof(LargeMarbleHouse), 1011316,	1370,	685,	1576,	788,	28,	160500, -4,	7,	0,	0x0096),
-            new HousePlacementEntry(typeof(Tower),            1011312,	2119,	1059,	2437,	1218,	42,	366500, 0,	7,	0,	0x007A),
-            new HousePlacementEntry(typeof(Keep),             1011313,	2625,	1312,	3019,	1509,	52,	572750, 0, 11,	0,	0x007C),
-            new HousePlacementEntry(typeof(Castle),           1011314,	4076,	2038,	4688,	2344,	78,	865250, 0, 16,	0,	0x007E)
+            new HousePlacementEntry(typeof(LogCabin), 1011318,	1100,	550,	1265,	632,	24,	81750, 1,	6,	0,	0x009A),
+            new HousePlacementEntry(typeof(GuildHouse), 1011309,	1370,	685,	1576,	788,	28,	131500, -1,	7,	0,	0x0074),
+            new HousePlacementEntry(typeof(TwoStoryHouse), 1011310,	1370,	685,	1576,	788,	28,	162750, -3,	7,	0,	0x0076),
+            new HousePlacementEntry(typeof(TwoStoryHouse), 1011311,	1370,	685,	1576,	788,	28,	162000, -3,	7,	0,	0x0078),
+            new HousePlacementEntry(typeof(LargePatioHouse), 1011315,	1370,	685,	1576,	788,	28,	129250, -4,	7,	0,	0x008C),
+            new HousePlacementEntry(typeof(LargeMarbleHouse),	1011316,	1370,	685,	1576,	788,	28,	160500, -4,	7,	0,	0x0096),
+            new HousePlacementEntry(typeof(Tower), 1011312,	2119,	1059,	2437,	1218,	42,	366500, 0,	7,	0,	0x007A),
+            new HousePlacementEntry(typeof(Keep), 1011313,	2625,	1312,	3019,	1509,	52,	572750, 0, 11,	0,	0x007C),
+            new HousePlacementEntry(typeof(Castle), 1011314,	4076,	2038,	4688,	2344,	78,	865250, 0, 16,	0,	0x007E)
         };
         private static readonly HousePlacementEntry[] m_TwoStoryFoundations = new HousePlacementEntry[]
         {
@@ -407,7 +405,6 @@ namespace Server.Items
             new HousePlacementEntry(typeof(HouseFoundation), 1060383,	2119,	1059,	2437,	1218,	42,	169500, 0,	9,	0,	0x147A), // 18x17 3-Story Customizable House
             new HousePlacementEntry(typeof(HouseFoundation), 1060384,	2119,	1059,	2437,	1218,	42,	179000, 0,	10,	0,	0x147B)// 18x18 3-Story Customizable House
         };
-
         private static Hashtable m_Table;
         private readonly Type m_Type;
         private readonly int m_Description;
@@ -419,21 +416,20 @@ namespace Server.Items
         private readonly int m_Cost;
         private readonly int m_MultiID;
         private readonly Point3D m_Offset;
-
         public HousePlacementEntry(Type type, int description, int storage, int lockdowns, int newStorage, int newLockdowns, int vendors, int cost, int xOffset, int yOffset, int zOffset, int multiID)
         {
-            m_Type = type;
-            m_Description = description;
-            m_Storage = storage;
-            m_Lockdowns = lockdowns;
-            m_NewStorage = newStorage;
-            m_NewLockdowns = newLockdowns;
-            m_Vendors = vendors;
-            m_Cost = cost;
+            this.m_Type = type;
+            this.m_Description = description;
+            this.m_Storage = storage;
+            this.m_Lockdowns = lockdowns;
+            this.m_NewStorage = newStorage;
+            this.m_NewLockdowns = newLockdowns;
+            this.m_Vendors = vendors;
+            this.m_Cost = cost;
 
-            m_Offset = new Point3D(xOffset, yOffset, zOffset);
+            this.m_Offset = new Point3D(xOffset, yOffset, zOffset);
 
-            m_MultiID = multiID;
+            this.m_MultiID = multiID;
         }
 
         static HousePlacementEntry()
@@ -445,18 +441,83 @@ namespace Server.Items
             FillTable(m_ThreeStoryFoundations);
         }
 
-        public static HousePlacementEntry[] ClassicHouses { get { return m_ClassicHouses; } }
-        public static HousePlacementEntry[] TwoStoryFoundations { get { return m_TwoStoryFoundations; } }
-        public static HousePlacementEntry[] ThreeStoryFoundations { get { return m_ThreeStoryFoundations; } }
-        public Type Type { get { return m_Type; } }
-        public int Description { get { return m_Description; } }
-        public int Storage { get { return BaseHouse.NewVendorSystem ? m_NewStorage : m_Storage; } }
-        public int Lockdowns { get { return BaseHouse.NewVendorSystem ? m_NewLockdowns : m_Lockdowns; } }
-        public int Vendors { get { return m_Vendors; } }
-        public int Cost { get { return m_Cost; } }
-        public int MultiID { get { return m_MultiID; } }
-        public Point3D Offset { get { return m_Offset; } }
-
+        public static HousePlacementEntry[] ClassicHouses
+        {
+            get
+            {
+                return m_ClassicHouses;
+            }
+        }
+        public static HousePlacementEntry[] TwoStoryFoundations
+        {
+            get
+            {
+                return m_TwoStoryFoundations;
+            }
+        }
+        public static HousePlacementEntry[] ThreeStoryFoundations
+        {
+            get
+            {
+                return m_ThreeStoryFoundations;
+            }
+        }
+        public Type Type
+        {
+            get
+            {
+                return this.m_Type;
+            }
+        }
+        public int Description
+        {
+            get
+            {
+                return this.m_Description;
+            }
+        }
+        public int Storage
+        {
+            get
+            {
+                return BaseHouse.NewVendorSystem ? this.m_NewStorage : this.m_Storage;
+            }
+        }
+        public int Lockdowns
+        {
+            get
+            {
+                return BaseHouse.NewVendorSystem ? this.m_NewLockdowns : this.m_Lockdowns;
+            }
+        }
+        public int Vendors
+        {
+            get
+            {
+                return this.m_Vendors;
+            }
+        }
+        public int Cost
+        {
+            get
+            {
+                return this.m_Cost;
+            }
+        }
+        public int MultiID
+        {
+            get
+            {
+                return this.m_MultiID;
+            }
+        }
+        public Point3D Offset
+        {
+            get
+            {
+                return this.m_Offset;
+            }
+        }
         public static HousePlacementEntry Find(BaseHouse house)
         {
             object obj = m_Table[house.GetType()];
@@ -473,8 +534,7 @@ namespace Server.Items
                 {
                     HousePlacementEntry e = (HousePlacementEntry)list[i];
 
-                    //if (e.m_MultiID == house.ItemID)
-                    if (e.m_MultiID == (house.ItemID & TileData.MaxItemValue))
+                    if (e.m_MultiID == house.ItemID)
                         return e;
                 }
             }
@@ -482,40 +542,10 @@ namespace Server.Items
             {
                 Hashtable table = (Hashtable)obj;
 
-                //obj = table[house.ItemID];
-                obj = table[house.ItemID & TileData.MaxItemValue];
+                obj = table[house.ItemID];
 
                 if (obj is HousePlacementEntry)
                     return (HousePlacementEntry)obj;
-            }
-
-            return null;
-        }
-
-        public static HousePlacementEntry Find(int multiID)
-        {
-            for (int i = 0; i < m_ClassicHouses.Length; i++)
-            {
-                HousePlacementEntry e = (HousePlacementEntry)m_ClassicHouses[i];
-
-                if (e.MultiID == multiID)
-                    return e;
-            }
-
-            for (int i = 0; i < m_TwoStoryFoundations.Length; i++)
-            {
-                HousePlacementEntry e = (HousePlacementEntry)m_TwoStoryFoundations[i];
-
-                if (e.MultiID == multiID)
-                    return e;
-            }
-
-            for (int i = 0; i < m_ThreeStoryFoundations.Length; i++)
-            {
-                HousePlacementEntry e = (HousePlacementEntry)m_ThreeStoryFoundations[i];
-
-                if (e.MultiID == multiID)
-                    return e;
             }
 
             return null;
@@ -527,14 +557,14 @@ namespace Server.Items
             {
                 object[] args;
 
-                if (m_Type == typeof(HouseFoundation))
-                    args = new object[4] { from, m_MultiID, m_Storage, m_Lockdowns };
-                else if (m_Type == typeof(SmallOldHouse) || m_Type == typeof(SmallShop) || m_Type == typeof(TwoStoryHouse))
-                    args = new object[2] { from, m_MultiID };
+                if (this.m_Type == typeof(HouseFoundation))
+                    args = new object[4] { from, this.m_MultiID, this.m_Storage, this.m_Lockdowns };
+                else if (this.m_Type == typeof(SmallOldHouse) || this.m_Type == typeof(SmallShop) || this.m_Type == typeof(TwoStoryHouse))
+                    args = new object[2] { from, this.m_MultiID };
                 else
                     args = new object[1] { from };
 
-                return Activator.CreateInstance(m_Type, args) as BaseHouse;
+                return Activator.CreateInstance(this.m_Type, args) as BaseHouse;
             }
             catch
             {
@@ -567,13 +597,13 @@ namespace Server.Items
             }
 
             Point3D center = prevHouse.Location;
-            //Map map = prevHouse.Map;
+            Map map = prevHouse.Map;
 
             prevHouse.Delete();
 
             ArrayList toMove;
             //Point3D center = new Point3D( p.X - m_Offset.X, p.Y - m_Offset.Y, p.Z - m_Offset.Z );
-            HousePlacementResult res = HousePlacement.Check(from, m_MultiID, center, out toMove);
+            HousePlacementResult res = HousePlacement.Check(from, this.m_MultiID, center, out toMove);
 
             switch ( res )
             {
@@ -585,22 +615,22 @@ namespace Server.Items
                         }
                         else
                         {
-                            BaseHouse house = ConstructHouse(from);
+                            BaseHouse house = this.ConstructHouse(from);
 
                             if (house == null)
                                 return;
 
-                            house.Price = m_Cost;
+                            house.Price = this.m_Cost;
 
                             if (from.AccessLevel >= AccessLevel.GameMaster)
                             {
-                                from.SendMessage("{0} gold would have been withdrawn from your bank if you were not a GM.", m_Cost.ToString());
+                                from.SendMessage("{0} gold would have been withdrawn from your bank if you were not a GM.", this.m_Cost.ToString());
                             }
                             else
                             {
-                                if (Banker.Withdraw(from, m_Cost))
+                                if (Banker.Withdraw(from, this.m_Cost))
                                 {
-                                    from.SendLocalizedMessage(1060398, m_Cost.ToString()); // ~1_AMOUNT~ gold has been withdrawn from your bank box.
+                                    from.SendLocalizedMessage(1060398, this.m_Cost.ToString()); // ~1_AMOUNT~ gold has been withdrawn from your bank box.
                                 }
                                 else
                                 {
@@ -669,8 +699,8 @@ namespace Server.Items
                 return false;
 
             ArrayList toMove;
-            Point3D center = new Point3D(p.X - m_Offset.X, p.Y - m_Offset.Y, p.Z - m_Offset.Z);
-            HousePlacementResult res = HousePlacement.Check(from, m_MultiID, center, out toMove);
+            Point3D center = new Point3D(p.X - this.m_Offset.X, p.Y - this.m_Offset.Y, p.Z - this.m_Offset.Z);
+            HousePlacementResult res = HousePlacement.Check(from, this.m_MultiID, center, out toMove);
 
             switch ( res )
             {
@@ -684,7 +714,7 @@ namespace Server.Items
                         {
                             from.SendLocalizedMessage(1011576); // This is a valid location.
 
-                            PreviewHouse prev = new PreviewHouse(m_MultiID);
+                            PreviewHouse prev = new PreviewHouse(this.m_MultiID);
 
                             MultiComponentList mcl = prev.Components;
 
@@ -777,8 +807,7 @@ namespace Server.Items
         {
             for (int i = 0; i < entries.Length; ++i)
             {
-               //HousePlacementEntry e = entries[i];
-                HousePlacementEntry e = (HousePlacementEntry)entries[i];
+                HousePlacementEntry e = entries[i];
 
                 object obj = m_Table[e.m_Type];
 
@@ -804,9 +833,7 @@ namespace Server.Items
                         Hashtable table = new Hashtable();
 
                         for (int j = 0; j < list.Count; ++j)
-                        {
                             table[((HousePlacementEntry)list[j]).m_MultiID] = list[j];
-                        }
 
                         table[e.m_MultiID] = e;
 

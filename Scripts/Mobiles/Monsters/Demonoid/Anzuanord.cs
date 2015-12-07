@@ -1,4 +1,3 @@
-using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -42,9 +41,9 @@ namespace Server.Mobiles
             Fame = 2500;
             Karma = -2500;
 
-            QLPoints = 10;
-
             VirtualArmor = 50;
+
+            QLPoints = 10;
         }
 
         public Anzuanord(Serial serial)
@@ -54,53 +53,39 @@ namespace Server.Mobiles
 
         public override bool AlwaysMurderer
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override bool BardImmune
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override int Meat
         {
-            get
-            {
-                return 1;
-            }
+            get { return 1; }
         }
+
         public override int Hides
         {
-            get
-            {
-                return 7;
-            }
+            get { return 7; }
         }
+
         public override HideType HideType
         {
-            get
-            {
-                return HideType.Spined;
-            }
+            get { return HideType.Spined; }
         }
+
         public override FoodType FavoriteFood
         {
-            get
-            {
-                return FoodType.Meat;
-            }
+            get { return FoodType.Meat; }
         }
+
         public override PackInstinct PackInstinct
         {
-            get
-            {
-                return PackInstinct.Daemon;
-            }
+            get { return PackInstinct.Daemon; }
         }
+
         public override void GenerateLoot()
         {
             AddLoot(LootPack.Meager);
@@ -118,13 +103,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write((int)0);
+            writer.Write(0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

@@ -1,4 +1,4 @@
-using System;
+using Server.Items;
 
 namespace Server.Mobiles
 {
@@ -42,11 +42,11 @@ namespace Server.Mobiles
 
             VirtualArmor = 16;
 
-            QLPoints = 3;
-
             Tamable = false;
             ControlSlots = 1;
             MinTameSkill = 59.1;
+
+            QLPoints = 3;
         }
 
         public CoralSnake(Serial serial)
@@ -56,45 +56,37 @@ namespace Server.Mobiles
 
         public override Poison PoisonImmune
         {
-            get
-            {
-                return Poison.Lesser;
-            }
+            get { return Poison.Lesser; }
         }
+
         public override Poison HitPoison
         {
-            get
-            {
-                return Poison.Deadly;
-            }
+            get { return Poison.Deadly; }
         }
+
         //public override bool DeathAdderCharmable{ get{ return true; } }
         public override int Meat
         {
-            get
-            {
-                return 1;
-            }
+            get { return 1; }
         }
+
         public override FoodType FavoriteFood
         {
-            get
-            {
-                return FoodType.Eggs;
-            }
+            get { return FoodType.Eggs; }
         }
+
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write((int)0);
+            writer.Write(0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

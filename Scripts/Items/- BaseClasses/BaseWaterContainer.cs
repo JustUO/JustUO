@@ -114,17 +114,16 @@
                 base.GetProperties(list);
             }
         }
-        #region Enhance Client
-        public override bool OnDragDropInto(Mobile from, Item item, Point3D p, byte gridloc)
+
+        public override bool OnDragDropInto(Mobile from, Item item, Point3D p)
         {
             if (!this.IsEmpty)
             {
                 return false;
             }
 
-            return base.OnDragDropInto(from, item, p, gridloc);
+            return base.OnDragDropInto(from, item, p);
         }
-        #endregion
 
         public override void Serialize(GenericWriter writer)
         {

@@ -26,8 +26,20 @@ namespace Server.Multis
         }// Is new player vendor system enabled?
 
         public const int MaxCoOwners = 15;
-        public static int MaxFriends { get { return !Core.AOS ? 50 : 140; } }
-        public static int MaxBans { get { return !Core.AOS ? 50 : 140; } }
+        public static int MaxFriends
+        {
+            get
+            {
+                return !Core.AOS ? 50 : 140;
+            }
+        }
+        public static int MaxBans
+        {
+            get
+            {
+                return !Core.AOS ? 50 : 140;
+            }
+        }
 
         #region Dynamic decay system
         private DecayLevel m_CurrentStage;
@@ -76,12 +88,38 @@ namespace Server.Multis
         private bool m_RestrictDecay;
 
         [CommandProperty(AccessLevel.GameMaster)]
-        public DateTime LastRefreshed { get { return m_LastRefreshed; } set { m_LastRefreshed = value; } }
+        public DateTime LastRefreshed
+        {
+            get
+            {
+                return this.m_LastRefreshed;
+            }
+            set
+            {
+                this.m_LastRefreshed = value;
+            }
+        }
 
         [CommandProperty(AccessLevel.GameMaster)]
-        public bool RestrictDecay { get { return m_RestrictDecay; } set { m_RestrictDecay = value; } }
+        public bool RestrictDecay
+        {
+            get
+            {
+                return this.m_RestrictDecay;
+            }
+            set
+            {
+                this.m_RestrictDecay = value;
+            }
+        }
 
-        public virtual TimeSpan DecayPeriod { get { return TimeSpan.FromDays(StartupReader.GetHousedecay()); } }
+        public virtual TimeSpan DecayPeriod
+        {
+            get
+            {
+                return TimeSpan.FromDays(StartupReader.GetHousedecay());
+            }
+        }
 
         public virtual DecayType DecayType
         {
@@ -281,7 +319,13 @@ namespace Server.Multis
             this.Delete();
         }
 
-        public virtual TimeSpan RestrictedPlacingTime { get { return TimeSpan.FromHours(1.0); } }
+        public virtual TimeSpan RestrictedPlacingTime
+        {
+            get
+            {
+                return TimeSpan.FromHours(1.0);
+            }
+        }
 
         [CommandProperty(AccessLevel.GameMaster)]
         public virtual double BonusStorageScalar
@@ -333,9 +377,21 @@ namespace Server.Multis
 
         private static readonly Dictionary<Mobile, List<BaseHouse>> m_Table = new Dictionary<Mobile, List<BaseHouse>>();
 
-        public virtual bool IsAosRules { get { return Core.AOS; } }
+        public virtual bool IsAosRules
+        {
+            get
+            {
+                return Core.AOS;
+            }
+        }
 
-        public virtual bool IsActive { get { return true; } }
+        public virtual bool IsActive
+        {
+            get
+            {
+                return true;
+            }
+        }
 
         public virtual HousePlacementEntry GetAosEntry()
         {

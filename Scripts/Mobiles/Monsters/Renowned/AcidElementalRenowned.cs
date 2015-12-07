@@ -10,44 +10,44 @@ namespace Server.Mobiles
         public AcidElementalRenowned()
             : base(AIType.AI_Mage)
         {
-            this.Name = "Acid Elemental";
-            this.Title = "[Renowned]";
-            this.Body = 0x9E;
-            this.BaseSoundID = 278;
+            Name = "Acid Elemental";
+            Title = "[Renowned]";
+            Body = 0x9E;
+            BaseSoundID = 278;
 
-            this.SetStr(450, 600);
-            this.SetDex(120, 185);
-            this.SetInt(361, 435);
+            SetStr(450, 600);
+            SetDex(120, 185);
+            SetInt(361, 435);
 
-            this.SetHits(2000, 2400);
+            SetHits(2000, 2400);
 
-            this.SetDamage(9, 15);
+            SetDamage(9, 15);
 
-            this.SetDamageType(ResistanceType.Physical, 25);
-            this.SetDamageType(ResistanceType.Poison, 50);
-            this.SetDamageType(ResistanceType.Energy, 25);
+            SetDamageType(ResistanceType.Physical, 25);
+            SetDamageType(ResistanceType.Poison, 50);
+            SetDamageType(ResistanceType.Energy, 25);
 
-            this.SetResistance(ResistanceType.Physical, 40, 70);
-            this.SetResistance(ResistanceType.Fire, 30, 50);
-            this.SetResistance(ResistanceType.Cold, 20, 40);
-            this.SetResistance(ResistanceType.Poison, 10, 30);
-            this.SetResistance(ResistanceType.Energy, 20, 50);
+            SetResistance(ResistanceType.Physical, 40, 70);
+            SetResistance(ResistanceType.Fire, 30, 50);
+            SetResistance(ResistanceType.Cold, 20, 40);
+            SetResistance(ResistanceType.Poison, 10, 30);
+            SetResistance(ResistanceType.Energy, 20, 50);
 
-            this.SetSkill(SkillName.EvalInt, 80.1, 100.0);
-            this.SetSkill(SkillName.Magery, 80.1, 100.0);
-            this.SetSkill(SkillName.MagicResist, 65.2, 100.0);
-            this.SetSkill(SkillName.Tactics, 90.1, 100.0);
-            this.SetSkill(SkillName.Wrestling, 80.1, 100.0);
+            SetSkill(SkillName.EvalInt, 80.1, 100.0);
+            SetSkill(SkillName.Magery, 80.1, 100.0);
+            SetSkill(SkillName.MagicResist, 65.2, 100.0);
+            SetSkill(SkillName.Tactics, 90.1, 100.0);
+            SetSkill(SkillName.Wrestling, 80.1, 100.0);
 
-            this.Fame = 12500;
-            this.Karma = -12500;
+            Fame = 12500;
+            Karma = -12500;
 
-            this.VirtualArmor = 70;
+            VirtualArmor = 70;
 
-            this.PackItem(new EssenceSingularity());
+            PackItem(new EssenceSingularity());
 
-            this.PackItem(new Nightshade(4));
-            this.PackItem(new LesserPoisonPotion());
+            PackItem(new Nightshade(4));
+            PackItem(new LesserPoisonPotion());
         }
 
         public AcidElementalRenowned(Serial serial)
@@ -59,47 +59,56 @@ namespace Server.Mobiles
         {
             get
             {
-                return new Type[] { typeof(CoagulatedLegs /*Costumes*/) };
+                return new[]
+                {
+                    typeof (CoagulatedLegs),
+                    typeof (SkeletonCostume), typeof (GazerCostume), typeof (BloodwormCostume),
+                    typeof (ShadowWyrmCostume), typeof (DreamWraithCostume), typeof (CentaurCostume),
+                    typeof (CyclopsCostume), typeof (DrakeCostume), typeof (EtherealWarriorCostume),
+                    typeof (ExodusMinionCostume), typeof (FireElementalCostume), typeof (GiantPixieCostume),
+                    typeof (GiantToadCostume), typeof (GoreFiendCostume), typeof (LadyOfTheSnowCostume),
+                    typeof (MaddeningHorrorCostume), typeof (MinotaurCostume), typeof (MongbatCostume),
+                    typeof (OniCostume), typeof (OphidianMatriarchCostume), typeof (OphidianWarriorCostume),
+                    typeof (PixieCostume), typeof (SatyrCostume), typeof (SkitteringHopperCostume),
+                    typeof (SolenWarriorCostume), typeof (TerathanWarriorCostume), typeof (TitanCostume),
+                    typeof (VoidWandererCostume), typeof (WispCostume), typeof (WolfSpiderCostume),
+                    typeof (ZombieCostume)
+                };
             }
         }
+
         public override Type[] SharedSAList
         {
-            get
-            {
-                return new Type[] { typeof(MysticsGarb), typeof(BreastplateOfTheBerserker) };
-            }
+            get { return new[] {typeof (MysticsGarb), typeof (CoagulatedLegs), typeof (BreastplateOfTheBerserker)}; }
         }
+
         public override bool BleedImmune
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override Poison PoisonImmune
         {
-            get
-            {
-                return Poison.Lethal;
-            }
+            get { return Poison.Lethal; }
         }
+
         public override void GenerateLoot()
         {
-            this.AddLoot(LootPack.FilthyRich);
-            this.AddLoot(LootPack.Rich);
-            this.AddLoot(LootPack.MedScrolls);
+            AddLoot(LootPack.FilthyRich);
+            AddLoot(LootPack.Rich);
+            AddLoot(LootPack.MedScrolls);
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write((int)0);
+            writer.Write(0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

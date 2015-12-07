@@ -20,8 +20,6 @@ namespace Joeku.SR
         public bool IsRunebook;
         public Point3D TargetLoc;
         public Map TargetMap;
-        public override int MessageCliloc { get { return 501804; } }
-
         public SR_NewRunePrompt(SR_RuneAccount runeAcc)
         {
             this.RuneAcc = runeAcc;

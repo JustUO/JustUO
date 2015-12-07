@@ -60,7 +60,7 @@ namespace Services.Toolbar.Core
 			ToolbarModule module = m.GetModule(typeof(ToolbarModule)) as ToolbarModule ?? new ToolbarModule(m);
 
 			m.CloseGump(typeof(ToolbarGump));
-            m.SendGump(new ToolbarGump(module.ToolbarInfo, m));
+			m.SendGump(new ToolbarGump(module.ToolbarInfo));
 		}
 
 		public ToolbarCore()

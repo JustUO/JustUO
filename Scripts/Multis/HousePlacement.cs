@@ -28,22 +28,15 @@ namespace Server.Multis
         // Any land tile which matches one of these ID numbers is considered a road and cannot be placed over.
         private static readonly int[] m_RoadIDs = new int[]
         {
-            	0x071, 0x08C,
-				0x0E8, 0x0EB,
-				0x14C, 0x14F,
-				0x161, 0x174,
-				0x1F0, 0x1F3,
-				0x26E, 0x279,
-				0x27E, 0x281,
-				0x324, 0x3AC,
-				0x547, 0x556,
-				0x597, 0x5A6,
-				0x637, 0x63A,
-				0x7AE, 0x7B1,
-				0x442, 0x479, // Sand stones
-				0x501, 0x510, // Sand stones
-				0x009, 0x015, // Furrows
-				0x150, 0x15C  // Furrows 
+            0x0071, 0x0078,
+            0x00E8, 0x00EB,
+            0x07AE, 0x07B1,
+            0x3FF4, 0x3FF4,
+            0x3FF8, 0x3FFB,
+            0x0442, 0x0479, // Sand stones
+            0x0501, 0x0510, // Sand stones
+            0x0009, 0x0015, // Furrows
+            0x0150, 0x015C  // Furrows
         };
         private const int YardSize = 5;
         public static HousePlacementResult Check(Mobile from, int multiID, Point3D center, out ArrayList toMove)
@@ -101,6 +94,7 @@ namespace Server.Multis
             * 4) The foundation must rest flatly on a surface. Any bumps around the foundation are not allowed.
             * 5) No foundation tile may reside over terrain which is viewed as a road.
             */
+
             for (int x = 0; x < mcl.Width; ++x)
             {
                 for (int y = 0; y < mcl.Height; ++y)

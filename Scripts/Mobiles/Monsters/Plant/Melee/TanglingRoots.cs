@@ -1,4 +1,3 @@
-using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -7,91 +6,83 @@ namespace Server.Mobiles
     public class TanglingRoots : BaseCreature
     {
         [Constructable]
-        public TanglingRoots()
-            : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
+        public TanglingRoots() : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            this.Name = "a tangling root";
-            this.Body = 743;
-            this.BaseSoundID = 684;
+            Name = "a tangling root";
+            Body = 743;
+            BaseSoundID = 684;
 
-            this.SetStr(150, 157);
-            this.SetDex(55, 60);
-            this.SetInt(30, 35);
+            SetStr(150, 157);
+            SetDex(55, 60);
+            SetInt(30, 35);
 
-            this.SetHits(200, 232);
-            this.SetStam(55, 60);
+            SetHits(200, 232);
+            SetStam(55, 60);
 
-            this.SetDamage(10, 23);
+            SetDamage(10, 23);
 
-            this.SetDamageType(ResistanceType.Physical, 60);
-            this.SetDamageType(ResistanceType.Poison, 40);
+            SetDamageType(ResistanceType.Physical, 60);
+            SetDamageType(ResistanceType.Poison, 40);
 
-            this.SetResistance(ResistanceType.Physical, 15, 20);
-            this.SetResistance(ResistanceType.Fire, 15, 25);
-            this.SetResistance(ResistanceType.Cold, 10, 20);
-            this.SetResistance(ResistanceType.Poison, 20, 30);
+            SetResistance(ResistanceType.Physical, 15, 20);
+            SetResistance(ResistanceType.Fire, 15, 25);
+            SetResistance(ResistanceType.Cold, 10, 20);
+            SetResistance(ResistanceType.Poison, 20, 30);
 
-            this.SetSkill(SkillName.MagicResist, 15.1, 18.5);
-            this.SetSkill(SkillName.Tactics, 45.1, 59.5);
-            this.SetSkill(SkillName.Wrestling, 45.1, 60.0);
+            SetSkill(SkillName.MagicResist, 15.1, 18.5);
+            SetSkill(SkillName.Tactics, 45.1, 59.5);
+            SetSkill(SkillName.Wrestling, 45.1, 60.0);
 
-            this.Fame = 1000;
-            this.Karma = -1000;
+            Fame = 1000;
+            Karma = -1000;
 
-            this.VirtualArmor = 18;
+            VirtualArmor = 18;
 
             if (0.25 > Utility.RandomDouble())
-                this.PackItem(new Board(10));
+                PackItem(new Board(10));
             else
-                this.PackItem(new Log(10));
+                PackItem(new Log(10));
 
-            this.PackItem(new MandrakeRoot(3));
+            PackItem(new MandrakeRoot(3));
         }
 
-        public TanglingRoots(Serial serial)
-            : base(serial)
+        public TanglingRoots(Serial serial) : base(serial)
         {
         }
 
         public override Poison PoisonImmune
         {
-            get
-            {
-                return Poison.Lesser;
-            }
+            get { return Poison.Lesser; }
         }
+
         public override bool DisallowAllMoves
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override OppositionGroup OppositionGroup
         {
-            get
-            {
-                return OppositionGroup.FeyAndUndead;
-            }
+            get { return OppositionGroup.FeyAndUndead; }
         }
+
         public override void GenerateLoot()
         {
-            this.AddLoot(LootPack.Meager);
+            AddLoot(LootPack.Meager);
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write((int)0);
+            writer.Write(0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
 
-            if (this.BaseSoundID == 352)
-                this.BaseSoundID = 684;
+            if (BaseSoundID == 352)
+                BaseSoundID = 684;
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <startupinfo>
-  <shardname>test</shardname>
-  <clientpath>C:\Program Files\EA Games\ToL Part 4</clientpath>
+  <shardname>My Shard</shardname>
+  <clientpath>C:\Program Files (x86)\Electronic Arts\Ultima Online Classic</clientpath>
   <saves>15</saves>
   <rewards>30</rewards>
   <skillcap>7000</skillcap>

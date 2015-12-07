@@ -1,4 +1,3 @@
-using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -44,27 +43,17 @@ namespace Server.Mobiles
             : base(serial)
         {
         }
-        public override bool AllureImmune
-        {
-            get
-            {
-                return true;
-            }
-        }
+
         public override bool GivesMLMinorArtifact
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override int TreasureMapLevel
         {
-            get
-            {
-                return 4;
-            }
+            get { return 4; }
         }
+
         public override void GenerateLoot()
         {
             AddLoot(LootPack.UltraRich, 2);
@@ -79,14 +68,14 @@ namespace Server.Mobiles
         {
             base.Serialize(writer);
 
-            writer.Write((int)0); // version
+            writer.Write(0); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

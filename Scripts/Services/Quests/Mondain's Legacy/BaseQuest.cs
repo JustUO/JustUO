@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Server.Mobiles;
-using Server.Network;
 
 namespace Server.Engines.Quests
 { 
@@ -281,16 +280,15 @@ namespace Server.Engines.Quests
 		
         public virtual void OnAccept()
         {
-            BaseQuest q = Quester as BaseQuest;
-            m_Owner.PlaySound(this.AcceptSound);
-            m_Owner.SendLocalizedMessage(1049019); // You have accepted the Quest.
-            m_Owner.Quests.Add(this);
+            this.m_Owner.PlaySound(this.AcceptSound);
+            this.m_Owner.SendLocalizedMessage(1049019); // You have accepted the Quest.
+            this.m_Owner.Quests.Add(this);
 			
             // give items if any		
-            for (int i = 0; i < this.m_Objectives.Count; i++)
+            for (int i = 0; i < this.m_Objectives.Count; i ++)
             {
                 BaseObjective objective = this.m_Objectives[i];
-
+				
                 objective.OnAccept();
             }
 			
@@ -308,13 +306,9 @@ namespace Server.Engines.Quests
                     Region region = escort.GetDestination();
 
                     if (region != null)
-                    {
                         escort.Say(1042806, region.Name); // Lead on! Payment will be made when we arrive at ~1_DESTINATION~!
-                    }
                     else
-                    {
                         escort.Say(1042806, "destination"); // Lead on! Payment will be made when we arrive at ~1_DESTINATION~!
-                    }
 
                     this.m_Owner.LastEscortTime = DateTime.UtcNow;
                 }

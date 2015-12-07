@@ -1,5 +1,6 @@
 // Created by Peoharen for the Mobile Abilities Package.
 // #define ML // Used for the Bardic Peace ability
+
 using System;
 using System.Collections.Generic;
 using Server.Engines.PartySystem;
@@ -29,17 +30,44 @@ namespace Server
         {
             if (!CanUse(from) || target == null)
                 return false;
-            else if (!from.CanSee(target))
+            if (!@from.CanSee(target))
                 return false;
-            else
-                return CanTarget(from, target, harm);
+            return CanTarget(@from, target, harm);
         }
 
+        #region SimpleFlame
+
+        public static void SimpleFlame(Mobile from, Mobile target)
+        {
+            if (!CanUse(from, target))
+                return;
+
+            from.Say("*Ul Flam*");
+
+            Effects.SendLocationParticles(
+                EffectItem.Create(new Point3D(from.X - 1, from.Y - 1, from.Z), from.Map, EffectItem.DefaultDuration),
+                0x3709, 10, 30, 0, 4, 0, 0);
+            Effects.SendLocationParticles(
+                EffectItem.Create(new Point3D(from.X - 1, from.Y + 1, from.Z), from.Map, EffectItem.DefaultDuration),
+                0x3709, 10, 30, 0, 4, 0, 0);
+            Effects.SendLocationParticles(
+                EffectItem.Create(new Point3D(from.X + 1, from.Y - 1, from.Z), from.Map, EffectItem.DefaultDuration),
+                0x3709, 10, 30, 0, 4, 0, 0);
+            Effects.SendLocationParticles(
+                EffectItem.Create(new Point3D(from.X + 1, from.Y + 1, from.Z), from.Map, EffectItem.DefaultDuration),
+                0x3709, 10, 30, 0, 4, 0, 0);
+
+            new SimpleFlameTimer(from, target).Start();
+        }
+
+        #endregion
+
         #region Aura
+
         // Support for the old Aura permaiters
         public static void Aura(Mobile from, int min, int max, int type, int range, int poisons, string text)
         {
-            ResistanceType rt = ResistanceType.Physical;
+            var rt = ResistanceType.Physical;
             Poison p = null;
 
             switch (type)
@@ -81,32 +109,36 @@ namespace Server
         }
 
         // Mobile based Aura
-        public static void Aura(Mobile from, int min, int max, ResistanceType type, int range, Poison poison, string text)
+        public static void Aura(Mobile from, int min, int max, ResistanceType type, int range, Poison poison,
+            string text)
         {
             Aura(from.Location, from.Map, from, min, max, type, range, poison, text, true, false, false, 0, 0);
         }
 
         // Null based Aura
-        public static void Aura(Point3D location, Map map, Mobile from, int min, int max, ResistanceType type, int range, Poison poison, string text)
+        public static void Aura(Point3D location, Map map, Mobile from, int min, int max, ResistanceType type, int range,
+            Poison poison, string text)
         {
             Aura(location, map, from, min, max, type, range, poison, text, true, false, false, 0, 0);
         }
 
         // No Effects
-        public static void Aura(Point3D location, Map map, Mobile from, int min, int max, ResistanceType type, int range, Poison poison, string text, bool scales, bool allownull)
+        public static void Aura(Point3D location, Map map, Mobile from, int min, int max, ResistanceType type, int range,
+            Poison poison, string text, bool scales, bool allownull)
         {
             Aura(location, map, from, min, max, type, range, poison, text, scales, allownull, false, 0, 0);
         }
 
         // Main Aura Method
-        public static void Aura(Point3D location, Map map, Mobile from, int min, int max, ResistanceType type, int range, Poison poison, string text, bool scales, bool allownull, bool effects, int itemid, int hue)
+        public static void Aura(Point3D location, Map map, Mobile from, int min, int max, ResistanceType type, int range,
+            Poison poison, string text, bool scales, bool allownull, bool effects, int itemid, int hue)
         {
             if (from == null && !allownull)
                 return;
 
-            List<Mobile> targets = new List<Mobile>();
+            var targets = new List<Mobile>();
 
-            foreach (Mobile m in Map.AllMaps[map.MapID].GetMobilesInRange(location, range))
+            foreach (var m in Map.AllMaps[map.MapID].GetMobilesInRange(location, range))
             {
                 if (CanTarget(from, m, true, false, allownull))
                     targets.Add(m);
@@ -115,24 +147,25 @@ namespace Server
             if (effects && from != null)
                 from.Animate(12, 5, 1, true, false, 0);
 
-            for (int i = 0; i < targets.Count; i++)
+            for (var i = 0; i < targets.Count; i++)
             {
-                Mobile m = (Mobile)targets[i];
+                var m = targets[i];
                 m.RevealingAction();
 
                 if (text != "")
                     m.SendMessage(text);
 
-                int auradamage = Utility.RandomMinMax(min, max);
+                var auradamage = Utility.RandomMinMax(min, max);
 
                 if (scales)
-                    auradamage = (int)((auradamage / GetDist(location, m.Location)) * range);
+                    auradamage = (int) ((auradamage/GetDist(location, m.Location))*range);
 
                 if (poison != null)
                     m.ApplyPoison((from == null) ? m : from, poison);
 
                 if (effects)
-                    m.FixedParticles(itemid, 10, 15, 5030/*what the hell does this number do?*/, hue, 0, EffectLayer.Waist);
+                    m.FixedParticles(itemid, 10, 15, 5030 /*what the hell does this number do?*/, hue, 0,
+                        EffectLayer.Waist);
 
                 switch (type)
                 {
@@ -160,6 +193,7 @@ namespace Server
         #endregion
 
         #region UseBandage
+
         public static int UseBandage(BaseCreature from)
         {
             return UseBandage(from, false);
@@ -170,14 +204,15 @@ namespace Server
             if (from.IsDeadPet)
                 return 12;
 
-            int delay = (500 + (50 * ((120 - from.Dex) / 10))) / 100;
+            var delay = (500 + (50*((120 - from.Dex)/10)))/100;
 
             if (delay < 3)
                 delay = 3;
 
-            if (from.Controlled && from.ControlMaster != null && from.Hits >= (from.Hits / 2) && healmaster)
+            if (from.Controlled && from.ControlMaster != null && from.Hits >= (from.Hits/2) && healmaster)
             {
-                if (from.InRange(from.ControlMaster, 2) && from.ControlMaster.Alive && from.ControlMaster.Hits < from.ControlMaster.HitsMax)
+                if (from.InRange(from.ControlMaster, 2) && from.ControlMaster.Alive &&
+                    from.ControlMaster.Hits < from.ControlMaster.HitsMax)
                     BandageContext.BeginHeal(from, from.ControlMaster);
             }
             else if (from.Hits < from.HitsMax)
@@ -191,17 +226,18 @@ namespace Server
         #endregion
 
         #region Bard Skills
+
         // Warning: Untested
         public static bool CheckBarding(BaseCreature from)
         {
-            BaseInstrument inst = BaseInstrument.GetInstrument(from);
+            var inst = BaseInstrument.GetInstrument(from);
 
             if (inst == null)
             {
                 if (from.Backpack == null)
                     return false;
 
-                inst = (BaseInstrument)from.Backpack.FindItemByType(typeof(BaseInstrument));
+                inst = (BaseInstrument) from.Backpack.FindItemByType(typeof (BaseInstrument));
 
                 if (inst == null)
                 {
@@ -245,47 +281,50 @@ namespace Server
                     from.Target.Invoke(from, from.Combatant);
                 else
                 {
-                    double effect = -(from.Skills[SkillName.Discordance].Value / 5.0);
-                    TimeSpan duration = TimeSpan.FromSeconds(from.Skills[SkillName.Discordance].Value * 2);
+                    var effect = -(from.Skills[SkillName.Discordance].Value/5.0);
+                    var duration = TimeSpan.FromSeconds(from.Skills[SkillName.Discordance].Value*2);
 
-                    ResistanceMod[] mods = 
+                    ResistanceMod[] mods =
                     {
-                        new ResistanceMod(ResistanceType.Physical, (int)(effect * 0.01)),
-                        new ResistanceMod(ResistanceType.Fire, (int)(effect * 0.01)),
-                        new ResistanceMod(ResistanceType.Cold, (int)(effect * 0.01)),
-                        new ResistanceMod(ResistanceType.Poison, (int)(effect * 0.01)),
-                        new ResistanceMod(ResistanceType.Energy, (int)(effect * 0.01))
+                        new ResistanceMod(ResistanceType.Physical, (int) (effect*0.01)),
+                        new ResistanceMod(ResistanceType.Fire, (int) (effect*0.01)),
+                        new ResistanceMod(ResistanceType.Cold, (int) (effect*0.01)),
+                        new ResistanceMod(ResistanceType.Poison, (int) (effect*0.01)),
+                        new ResistanceMod(ResistanceType.Energy, (int) (effect*0.01))
                     };
 
                     TimedResistanceMod.AddMod(from.Combatant, "Discordance", mods, duration);
-                    from.Combatant.AddStatMod(new StatMod(StatType.Str, "DiscordanceStr", (int)(from.Combatant.RawStr * effect), duration));
-                    from.Combatant.AddStatMod(new StatMod(StatType.Int, "DiscordanceInt", (int)(from.Combatant.RawInt * effect), duration));
-                    from.Combatant.AddStatMod(new StatMod(StatType.Dex, "DiscordanceDex", (int)(from.Combatant.RawDex * effect), duration));
+                    from.Combatant.AddStatMod(new StatMod(StatType.Str, "DiscordanceStr",
+                        (int) (from.Combatant.RawStr*effect), duration));
+                    from.Combatant.AddStatMod(new StatMod(StatType.Int, "DiscordanceInt",
+                        (int) (from.Combatant.RawInt*effect), duration));
+                    from.Combatant.AddStatMod(new StatMod(StatType.Dex, "DiscordanceDex",
+                        (int) (from.Combatant.RawDex*effect), duration));
                 }
         }
 
         public class DiscordEffectTimer : Timer
         {
-            public Mobile Mob;
             public int Count;
             public int MaxCount;
+            public Mobile Mob;
 
             public DiscordEffectTimer(Mobile mob, TimeSpan duration)
                 : base(TimeSpan.FromSeconds(1.25), TimeSpan.FromSeconds(1.25))
             {
-                this.Mob = mob;
-                this.Count = 0;
-                this.MaxCount = (int)((double)duration.TotalSeconds / 1.25);
+                Mob = mob;
+                Count = 0;
+                MaxCount = (int) (duration.TotalSeconds/1.25);
             }
 
             protected override void OnTick()
             {
-                if (this.Count >= this.MaxCount)
-                    this.Stop();
+                if (Count >= MaxCount)
+                    Stop();
                 else
                 {
-                    this.Mob.FixedEffect(0x376A, 1, 32);
-                    this.Count++;
+                    Mob.FixedEffect(0x376A, 1, 32);
+                    Count++;
                 }
             }
         }
@@ -300,7 +339,7 @@ namespace Server
 
             if (from.Combatant is PlayerMobile)
             {
-                #if ML
+#if ML
                                 PlayerMobile pm = (PlayerMobile)from.Combatant;
                                 if ( pm.PeacedUntil <= DateTime.UtcNow )
                                 {
@@ -324,7 +363,7 @@ namespace Server
             if (!from.UseSkill(SkillName.Provocation))
                 return;
 
-            Mobile targetone = FindRandomTarget(from, randomly);
+            var targetone = FindRandomTarget(from, randomly);
 
             if (targetone == null)
                 return;
@@ -332,7 +371,7 @@ namespace Server
             if (from.Target != null)
                 from.Target.Invoke(from, targetone);
 
-            Mobile targettwo = randomly ? FindRandomTarget(from, randomly) : from.Combatant;
+            var targettwo = randomly ? FindRandomTarget(from, randomly) : from.Combatant;
 
             if (targettwo == null)
                 return;
@@ -344,15 +383,16 @@ namespace Server
         #endregion
 
         #region MimicThem
+
         public static void MimicThem(BaseCreature from)
         {
-            Mobile targ = from.Combatant;
+            var targ = from.Combatant;
             MimicThem(from, false, false);
         }
 
         public static void MimicThem(BaseCreature from, bool allowskillchanges, bool allowAIchanges)
         {
-            Mobile targ = from.Combatant;
+            var targ = from.Combatant;
             MimicThem(from, targ, allowskillchanges, allowAIchanges);
         }
 
@@ -374,7 +414,7 @@ namespace Server
 
                 from.VirtualArmor = targ.VirtualArmor;
 
-                foreach (Item item in targ.Items)
+                foreach (var item in targ.Items)
                 {
                     if (item.Layer != Layer.Backpack && item.Layer != Layer.Mount)
                     {
@@ -385,7 +425,7 @@ namespace Server
                         */
                         if (item is BaseShield)
                         {
-                            Buckler shieldtomake = new Buckler();
+                            var shieldtomake = new Buckler();
                             shieldtomake.PoisonBonus = 0;
                             shieldtomake.ItemID = item.ItemID;
                             shieldtomake.Hue = item.Hue;
@@ -396,14 +436,14 @@ namespace Server
                         }
                         else if (item is BaseWeapon)
                         {
-                            Broadsword weapontomake = new Broadsword();
+                            var weapontomake = new Broadsword();
                             weapontomake.ItemID = item.ItemID;
                             weapontomake.Hue = item.Hue;
                             weapontomake.Layer = item.Layer;
                             weapontomake.Movable = false;
                             weapontomake.Name = item.Name;
 
-                            BaseWeapon weapon = item as BaseWeapon;
+                            var weapon = item as BaseWeapon;
                             weapontomake.Animation = weapon.Animation;
                             weapontomake.HitSound = weapon.HitSound;
                             weapontomake.MissSound = weapon.MissSound;
@@ -414,7 +454,7 @@ namespace Server
                         }
                         else
                         {
-                            Item itemtomake = new Item(item.ItemID);
+                            var itemtomake = new Item(item.ItemID);
                             itemtomake.Hue = item.Hue;
                             itemtomake.Layer = item.Layer;
                             itemtomake.Movable = false;
@@ -432,7 +472,7 @@ namespace Server
                 */
 
                 if (allowskillchanges)
-                    for (int i = 0; i < targ.Skills.Length && i < from.Skills.Length; i++)
+                    for (var i = 0; i < targ.Skills.Length && i < from.Skills.Length; i++)
                         from.Skills[i].Base = targ.Skills[i].Base;
             }
             else
@@ -448,9 +488,9 @@ namespace Server
 
                 from.VirtualArmor = 0;
 
-                List<Item> list = new List<Item>(from.Items);
+                var list = new List<Item>(from.Items);
 
-                foreach (Item item in list)
+                foreach (var item in list)
                 {
                     if (item != null)
                         item.Delete();
@@ -458,17 +498,16 @@ namespace Server
 
                 if (allowskillchanges)
                 {
-                    for (int i = 0; i < targ.Skills.Length; ++i)
+                    for (var i = 0; i < targ.Skills.Length; ++i)
                         from.Skills[i].Base = 50.0;
                 }
             }
-
-            return;
         }
 
         #endregion
 
         #region DarkKnightAbilities
+
         /* Bull Rush
         He gathers energy and then slams into you from a
         distance, dealing heavy damage and physically knocking
@@ -482,12 +521,12 @@ namespace Server
 
         public static void BullRush(Mobile from, string text, int duration)
         {
-            Mobile target = from.Combatant;
+            var target = from.Combatant;
 
             if (target == null || CanUse(from, target))
                 return;
 
-            int dist = from.Str / 20;
+            var dist = from.Str/20;
             SlideAway(target, from.Location, (dist > 12) ? 12 : dist);
 
             if (text != "")
@@ -507,18 +546,18 @@ namespace Server
             from.Paralyze(TimeSpan.FromSeconds(1));
             from.Animate(17, 5, 1, true, false, 0);
 
-            List<Mobile> mobiles = new List<Mobile>();
+            var mobiles = new List<Mobile>();
             Point3D point;
 
-            foreach (Mobile m in from.Map.GetMobilesInRange(from.Location, 14))
+            foreach (var m in from.Map.GetMobilesInRange(from.Location, 14))
             {
                 if (m != from && CanTarget(from, m, true, false, false))
                     mobiles.Add(m);
             }
 
-            for (int i = 0; i < mobiles.Count; i++)
+            for (var i = 0; i < mobiles.Count; i++)
             {
-                Mobile m = mobiles[i];
+                var m = mobiles[i];
 
                 if (Utility.Random(5) == 0)
                 {
@@ -565,36 +604,38 @@ namespace Server
 
         private class RallyTimer : Timer
         {
-            private Mobile m_User;
             private int m_Count;
-            private int m_MaxCount;
+            private readonly int m_MaxCount;
+            private readonly Mobile m_User;
 
             public RallyTimer(Mobile user, int delay)
                 : base(TimeSpan.FromMilliseconds(100.0), TimeSpan.FromMilliseconds(100.0))
             {
-                this.m_User = user;
-                this.m_Count = 0;
-                this.m_MaxCount = delay;
+                m_User = user;
+                m_Count = 0;
+                m_MaxCount = delay;
             }
 
             protected override void OnTick()
             {
-                if (this.m_Count >= (this.m_MaxCount + 1) || this.m_User == null || !this.m_User.Paralyzed)
-                    this.Stop();
+                if (m_Count >= (m_MaxCount + 1) || m_User == null || !m_User.Paralyzed)
+                    Stop();
 
-                if (this.m_Count == this.m_MaxCount)
+                if (m_Count == m_MaxCount)
                 {
-                    this.m_User.Heal((this.m_User.HitsMax / 2));
-                    this.m_User.FixedParticles(0x376A, 9, 32, 5030, EffectLayer.Waist);
-                    this.m_User.PlaySound(0x202);
+                    m_User.Heal((m_User.HitsMax/2));
+                    m_User.FixedParticles(0x376A, 9, 32, 5030, EffectLayer.Waist);
+                    m_User.PlaySound(0x202);
                 }
 
-                this.m_Count++;
+                m_Count++;
             }
         }
+
         #endregion
 
         #region MiscAbilities
+
         public static void EtherealDrain(Mobile from, Mobile to, int type)
         {
             if (from == null || to == null)
@@ -604,15 +645,15 @@ namespace Server
             {
                 from.Say(1042156); //Your power is mine to use as I wish
 
-                int amount = Utility.RandomMinMax(40, 80);
+                var amount = Utility.RandomMinMax(40, 80);
                 to.Damage(amount, from);
-                from.Hits += (amount / 2); //Halved to account for 50% resistance the target may have.
+                from.Hits += (amount/2); //Halved to account for 50% resistance the target may have.
             }
             else if (type == 2)
             {
                 from.Say(1042156); //Your power is mine to use as I wish
 
-                int amount = (to.Mana * (100 - Utility.RandomMinMax(50, 90))) / 100;
+                var amount = (to.Mana*(100 - Utility.RandomMinMax(50, 90)))/100;
                 to.Mana -= amount;
                 from.Mana += amount;
             }
@@ -620,7 +661,7 @@ namespace Server
             {
                 from.Say(1042157); //You shalt go nowhere unless I deem it be so
 
-                int amount = (to.Stam * (100 - Utility.RandomMinMax(50, 100))) / 100;
+                var amount = (to.Stam*(100 - Utility.RandomMinMax(50, 100)))/100;
                 to.Stam -= amount;
                 from.Stam += amount;
             }
@@ -631,8 +672,8 @@ namespace Server
             if (target.GetStatMod("LowerStats") != null)
                 return;
 
-            StatType stattype = StatType.Str;
-            int offset = Utility.Random(minloss, maxloss);
+            var stattype = StatType.Str;
+            var offset = Utility.Random(minloss, maxloss);
 
             if (type <= 0 || type >= 4)
                 type = Utility.RandomMinMax(1, 3);
@@ -650,7 +691,8 @@ namespace Server
                     break;
             }
 
-            target.AddStatMod(new StatMod(stattype, "LowerStats", -offset, TimeSpan.FromSeconds(Utility.Random(mintime, maxtime))));
+            target.AddStatMod(new StatMod(stattype, "LowerStats", -offset,
+                TimeSpan.FromSeconds(Utility.Random(mintime, maxtime))));
         }
 
         public static void DamageArmor(Mobile target, int min, int max)
@@ -660,8 +702,8 @@ namespace Server
 
         public static void DamageArmor(Mobile target, int min, int max, int place)
         {
-            double positionchance = Utility.RandomDouble();
-            int ruin = Utility.RandomMinMax(min, max);
+            var positionchance = Utility.RandomDouble();
+            var ruin = Utility.RandomMinMax(min, max);
 
             if (place == 7 && target.Weapon is BaseWeapon)
             {
@@ -698,19 +740,20 @@ namespace Server
             if (from == null)
                 return;
 
-            Mobile target = from.Combatant;
+            var target = from.Combatant;
 
             if (target == null)
                 return;
-            else if (!target.Mounted)
+            if (!target.Mounted)
                 return;
 
-            from.NonlocalOverheadMessage(MessageType.Emote, 0x3B2, 1049633, from.Name); // ~1_NAME~ begins to menacingly swing a bola...
+            from.NonlocalOverheadMessage(MessageType.Emote, 0x3B2, 1049633, from.Name);
+                // ~1_NAME~ begins to menacingly swing a bola...
             from.Direction = from.GetDirectionTo(target);
             from.Animate(11, 5, 1, true, false, 0);
             from.MovingEffect(target, 0x26AC, 10, 0, false, false);
 
-            IMount mt = target.Mount;
+            var mt = target.Mount;
 
             if (mt != null)
             {
@@ -724,7 +767,7 @@ namespace Server
         {
             if (target is BaseCreature)
             {
-                BaseCreature c = (BaseCreature)target;
+                var c = (BaseCreature) target;
 
                 if (c.Controlled && c.ControlMaster != null)
                 {
@@ -735,7 +778,7 @@ namespace Server
             }
         }
 
-        private static int EnergyDrainCount = 0;
+        private static int EnergyDrainCount;
 
         public static void EnergyDrain(Mobile from, Mobile target)
         {
@@ -747,16 +790,19 @@ namespace Server
             if (amount < 0)
                 amount = 1;
 
-            target.AddStatMod(new StatMod(StatType.Str, "Energy Drain Str: " + EnergyDrainCount.ToString(), -amount, TimeSpan.FromMinutes(5)));
-            target.AddStatMod(new StatMod(StatType.Dex, "Energy Drain Dex: " + EnergyDrainCount.ToString(), -amount, TimeSpan.FromMinutes(5)));
-            target.AddStatMod(new StatMod(StatType.Int, "Energy Drain Int: " + EnergyDrainCount.ToString(), -amount, TimeSpan.FromMinutes(5)));
+            target.AddStatMod(new StatMod(StatType.Str, "Energy Drain Str: " + EnergyDrainCount, -amount,
+                TimeSpan.FromMinutes(5)));
+            target.AddStatMod(new StatMod(StatType.Dex, "Energy Drain Dex: " + EnergyDrainCount, -amount,
+                TimeSpan.FromMinutes(5)));
+            target.AddStatMod(new StatMod(StatType.Int, "Energy Drain Int: " + EnergyDrainCount, -amount,
+                TimeSpan.FromMinutes(5)));
 
             if (skills)
-                for (int i = 0; i < target.Skills.Length; ++i)
-                    target.AddSkillMod(new TimedSkillMod((SkillName)i, true, (double)-amount, TimeSpan.FromMinutes(duration)));
+                for (var i = 0; i < target.Skills.Length; ++i)
+                    target.AddSkillMod(new TimedSkillMod((SkillName) i, true, -amount, TimeSpan.FromMinutes(duration)));
 
             if (from != null)
-                from.Hits += 5 * amount;
+                from.Hits += 5*amount;
 
             EnergyDrainCount++;
 
@@ -767,6 +813,7 @@ namespace Server
         #endregion
 
         #region ToolHandOuts
+
         public static bool GiveItem(Mobile to, Item item)
         {
             return GiveItem(to, 0, item, false);
@@ -790,15 +837,14 @@ namespace Server
             if (to.EquipItem(item))
                 return true;
 
-            Container pack = to.Backpack;
+            var pack = to.Backpack;
 
             if (pack != null && !mustequip)
             {
                 pack.DropItem(item);
                 return true;
             }
-            else
-                item.Delete();
+            item.Delete();
 
             return false;
         }
@@ -806,6 +852,7 @@ namespace Server
         #endregion
 
         #region ToolTargeting
+
         public static Mobile FindRandomTarget(Mobile from)
         {
             return FindRandomTarget(from, true);
@@ -813,17 +860,16 @@ namespace Server
 
         public static Mobile FindRandomTarget(Mobile from, bool allowcombatant)
         {
-            List<Mobile> list = new List<Mobile>();
+            var list = new List<Mobile>();
 
-            foreach (Mobile m in from.GetMobilesInRange(12))
+            foreach (var m in from.GetMobilesInRange(12))
             {
                 if (m != null && m != from)
                     if (CanTarget(from, m) && from.InLOS(m))
                     {
                         if (allowcombatant && m == from.Combatant)
                             continue;
-                        else
-                            list.Add(m);
+                        list.Add(m);
                     }
             }
 
@@ -849,19 +895,19 @@ namespace Server
         {
             if (to == null)
                 return false;
-            else if (from == null)
+            if (@from == null)
                 return allownull;
-            else if (from == to && !harm)
+            if (@from == to && !harm)
                 return true;
-            else if ((harm && to.Blessed) || (to.AccessLevel != AccessLevel.Player && to.Hidden))
+            if ((harm && to.Blessed) || (to.AccessLevel != AccessLevel.Player && to.Hidden))
                 return false;
-            else if (harm)
+            if (harm)
             {
                 if (!to.Alive)
                     return false;
-                else if (to is BaseCreature)
+                if (to is BaseCreature)
                 {
-                    if (((BaseCreature)to).IsDeadPet)
+                    if (((BaseCreature) to).IsDeadPet)
                         return false;
                 }
             }
@@ -869,15 +915,15 @@ namespace Server
             if (checkguildparty)
             {
                 //Guilds
-                Guild fromguild = GetGuild(from);
-                Guild toguild = GetGuild(to);
+                var fromguild = GetGuild(from);
+                var toguild = GetGuild(to);
 
                 if (fromguild != null && toguild != null)
                     if (fromguild == toguild || fromguild.IsAlly(toguild))
                         return !harm;
 
                 //Parties
-                Party p = GetParty(from);
+                var p = GetParty(from);
 
                 if (p != null && p.Contains(to))
                     return !harm;
@@ -886,8 +932,7 @@ namespace Server
             //Default
             if (harm)
                 return (IsGoodGuy(from) && !(IsGoodGuy(to))) | (!(IsGoodGuy(from)) && IsGoodGuy(to));
-            else
-                return (IsGoodGuy(from) && IsGoodGuy(to)) | (!(IsGoodGuy(from)) && !(IsGoodGuy(to)));
+            return (IsGoodGuy(@from) && IsGoodGuy(to)) | (!(IsGoodGuy(@from)) && !(IsGoodGuy(to)));
         }
 
         public static bool IsGoodGuy(Mobile m)
@@ -900,13 +945,13 @@ namespace Server
 
             if (m is BaseCreature)
             {
-                BaseCreature bc = (BaseCreature)m;
+                var bc = (BaseCreature) m;
 
                 if (bc.Controlled || bc.Summoned)
                 {
                     if (bc.ControlMaster != null)
                         return IsGoodGuy(bc.ControlMaster);
-                    else if (bc.SummonMaster != null)
+                    if (bc.SummonMaster != null)
                         return IsGoodGuy(bc.SummonMaster);
                 }
             }
@@ -916,11 +961,11 @@ namespace Server
 
         public static Guild GetGuild(Mobile m)
         {
-            Guild guild = m.Guild as Guild;
+            var guild = m.Guild as Guild;
 
             if (guild == null && m is BaseCreature)
             {
-                BaseCreature bc = (BaseCreature)m;
+                var bc = (BaseCreature) m;
                 m = bc.ControlMaster;
 
                 if (m != null)
@@ -937,11 +982,11 @@ namespace Server
 
         public static Party GetParty(Mobile m)
         {
-            Party party = Party.Get(m);
+            var party = Party.Get(m);
 
             if (party == null && m is BaseCreature)
             {
-                BaseCreature bc = (BaseCreature)m;
+                var bc = (BaseCreature) m;
                 m = bc.ControlMaster;
 
                 if (m != null)
@@ -959,65 +1004,66 @@ namespace Server
         #endregion
 
         #region ToolPlaces
+
         public static double GetDist(Point3D start, Point3D end)
         {
-            int xdiff = start.X - end.X;
-            int ydiff = start.Y - end.Y;
-            return Math.Sqrt((xdiff * xdiff) + (ydiff * ydiff));
+            var xdiff = start.X - end.X;
+            var ydiff = start.Y - end.Y;
+            return Math.Sqrt((xdiff*xdiff) + (ydiff*ydiff));
         }
 
         public static void IncreaseByDirection(ref Point3D point, Direction d)
         {
             switch (d)
             {
-                case (Direction)0x0:
-                case (Direction)0x80:
+                case 0x0:
+                case (Direction) 0x80:
                     point.Y--;
                     break; //North
-                case (Direction)0x1:
-                case (Direction)0x81:
-                    {
-                        point.X++;
-                        point.Y--;
-                        break;
-                    }//Right
-                case (Direction)0x2:
-                case (Direction)0x82:
+                case (Direction) 0x1:
+                case (Direction) 0x81:
+                {
+                    point.X++;
+                    point.Y--;
+                    break;
+                } //Right
+                case (Direction) 0x2:
+                case (Direction) 0x82:
                     point.X++;
                     break; //East
-                case (Direction)0x3:
-                case (Direction)0x83:
-                    {
-                        point.X++;
-                        point.Y++;
-                        break;
-                    }//Down
-                case (Direction)0x4:
-                case (Direction)0x84:
+                case (Direction) 0x3:
+                case (Direction) 0x83:
+                {
+                    point.X++;
+                    point.Y++;
+                    break;
+                } //Down
+                case (Direction) 0x4:
+                case (Direction) 0x84:
                     point.Y++;
                     break; //South
-                case (Direction)0x5:
-                case (Direction)0x85:
-                    {
-                        point.X--;
-                        point.Y++;
-                        break;
-                    }//Left
-                case (Direction)0x6:
-                case (Direction)0x86:
+                case (Direction) 0x5:
+                case (Direction) 0x85:
+                {
+                    point.X--;
+                    point.Y++;
+                    break;
+                } //Left
+                case (Direction) 0x6:
+                case (Direction) 0x86:
                     point.X--;
                     break; //West
-                case (Direction)0x7:
-                case (Direction)0x87:
-                    {
-                        point.X--;
-                        point.Y--;
-                        break;
-                    }//Up
+                case (Direction) 0x7:
+                case (Direction) 0x87:
+                {
+                    point.X--;
+                    point.Y--;
+                    break;
+                } //Up
                 default:
-                    {
-                        break;
-                    }
+                {
+                    break;
+                }
             }
         }
 
@@ -1026,9 +1072,9 @@ namespace Server
             if (from == null)
                 return false;
 
-            int count = 0;
+            var count = 0;
 
-            foreach (Mobile m in from.GetMobilesInRange(10))
+            foreach (var m in from.GetMobilesInRange(10))
             {
                 if (m != null)
                     if (m.GetType() == type)
@@ -1043,11 +1089,11 @@ namespace Server
             if (from == null)
                 return false;
 
-            int count = 0;
+            var count = 0;
 
-            foreach (Mobile m in from.GetMobilesInRange(10))
+            foreach (var m in from.GetMobilesInRange(10))
             {
-                for (int i = 0; i < types.Length; i++)
+                for (var i = 0; i < types.Length; i++)
                     if (m != null)
                         if (m.GetType() == types[i])
                             count++;
@@ -1063,10 +1109,10 @@ namespace Server
 
         public static Point3D RandomCloseLocation(Mobile target, int range)
         {
-            Point3D point = target.Location;
-            bool canfit = false;
+            var point = target.Location;
+            var canfit = false;
 
-            for (int i = 0; !canfit && i < 10; i++)
+            for (var i = 0; !canfit && i < 10; i++)
             {
                 point = target.Location;
                 point.X += Utility.RandomMinMax(-range, range);
@@ -1091,97 +1137,98 @@ namespace Server
 
         private class SlideTimer : Timer
         {
-            private Mobile m_Mob;
-            private Point3D m_Point;
-            private int m_Dist;
-            private bool m_Push;
             private int m_Count;
+            private readonly int m_Dist;
+            private readonly Mobile m_Mob;
+            private readonly Point3D m_Point;
+            private readonly bool m_Push;
 
             public SlideTimer(Mobile mob, Point3D point, int dist, bool push)
                 : base(TimeSpan.FromMilliseconds(100.0), TimeSpan.FromMilliseconds(100.0))
             {
-                this.m_Mob = mob;
-                this.m_Point = point;
-                this.m_Dist = dist;
-                this.m_Push = push;
-                this.m_Count = 0;
+                m_Mob = mob;
+                m_Point = point;
+                m_Dist = dist;
+                m_Push = push;
+                m_Count = 0;
 
-                this.m_Mob.CantWalk = true;
+                m_Mob.CantWalk = true;
             }
 
             protected override void OnTick()
             {
-                if (this.m_Mob == null)
+                if (m_Mob == null)
                 {
-                    this.Stop();
+                    Stop();
                     return;
                 }
-                else if (this.m_Count >= this.m_Dist)
+                if (m_Count >= m_Dist)
                 {
-                    this.m_Mob.CantWalk = false;
-                    this.Stop();
+                    m_Mob.CantWalk = false;
+                    Stop();
                     return;
                 }
 
-                Direction d = this.m_Mob.GetDirectionTo(this.m_Point);
-                Point3D moveto = new Point3D(this.m_Mob.X, this.m_Mob.Y, this.m_Mob.Z);
+                var d = m_Mob.GetDirectionTo(m_Point);
+                var moveto = new Point3D(m_Mob.X, m_Mob.Y, m_Mob.Z);
 
-                if (this.m_Push)
+                if (m_Push)
                 {
                     switch (d)
                     {
-                        case (Direction)0x0:
-                        case (Direction)0x80:
-                            d = (Direction)0x4;
+                        case 0x0:
+                        case (Direction) 0x80:
+                            d = (Direction) 0x4;
                             break; // North to South
-                        case (Direction)0x1:
-                        case (Direction)0x81:
-                            d = (Direction)0x5;
+                        case (Direction) 0x1:
+                        case (Direction) 0x81:
+                            d = (Direction) 0x5;
                             break; // Right to Left
-                        case (Direction)0x2:
-                        case (Direction)0x82:
-                            d = (Direction)0x6;
+                        case (Direction) 0x2:
+                        case (Direction) 0x82:
+                            d = (Direction) 0x6;
                             break; // East to West
-                        case (Direction)0x3:
-                        case (Direction)0x83:
-                            d = (Direction)0x7;
+                        case (Direction) 0x3:
+                        case (Direction) 0x83:
+                            d = (Direction) 0x7;
                             break; // Down to Up
-                        case (Direction)0x4:
-                        case (Direction)0x84:
-                            d = (Direction)0x0;
+                        case (Direction) 0x4:
+                        case (Direction) 0x84:
+                            d = 0x0;
                             break; // South to North
-                        case (Direction)0x5:
-                        case (Direction)0x85:
-                            d = (Direction)0x1;
+                        case (Direction) 0x5:
+                        case (Direction) 0x85:
+                            d = (Direction) 0x1;
                             break; // Left to Right
-                        case (Direction)0x6:
-                        case (Direction)0x86:
-                            d = (Direction)0x2;
+                        case (Direction) 0x6:
+                        case (Direction) 0x86:
+                            d = (Direction) 0x2;
                             break; // West to East
-                        case (Direction)0x7:
-                        case (Direction)0x87:
-                            d = (Direction)0x3;
+                        case (Direction) 0x7:
+                        case (Direction) 0x87:
+                            d = (Direction) 0x3;
                             break; // Up to Down
                         default:
-                            {
-                                break;
-                            }
+                        {
+                            break;
+                        }
                     }
                 }
 
                 IncreaseByDirection(ref moveto, d);
-                this.m_Mob.Direction = d;
+                m_Mob.Direction = d;
 
-                if (this.m_Mob.Map.CanFit(moveto.X, moveto.Y, this.m_Mob.Map.GetAverageZ(moveto.X, moveto.Y), 16, false, false))
-                    this.m_Mob.Location = moveto;
+                if (m_Mob.Map.CanFit(moveto.X, moveto.Y, m_Mob.Map.GetAverageZ(moveto.X, moveto.Y), 16, false, false))
+                    m_Mob.Location = moveto;
 
-                this.m_Count++;
+                m_Count++;
             }
         }
 
         #endregion
 
         #region ToolWeapons
+
         public static void Strike(Mobile from)
         {
             Strike(from, 1);
@@ -1192,7 +1239,7 @@ namespace Server
             if (from.Frozen || from.Paralyzed)
                 return;
 
-            Mobile target = from.Combatant;
+            var target = from.Combatant;
 
             if (target == null)
                 return;
@@ -1201,39 +1248,14 @@ namespace Server
                 if (from.Weapon != null)
                     if (from.Weapon is BaseWeapon)
                     {
-                        BaseWeapon weapon = (BaseWeapon)from.Weapon;
+                        var weapon = (BaseWeapon) from.Weapon;
 
-                        for (int i = 0; i < count + 1; i++)
+                        for (var i = 0; i < count + 1; i++)
                             if (target != null)
                                 weapon.OnHit(from, target, 1.0);
                     }
         }
 
-        #endregion
-
-        #region SimpleFlame
-        public static void SimpleFlame(Mobile from, Mobile target)
-        {
-            if (!CanUse(from, target))
-                return;
-
-            from.Say("*Ul Flam*");
-
-            Effects.SendLocationParticles(
-                EffectItem.Create(new Point3D(from.X - 1, from.Y - 1, from.Z), from.Map, EffectItem.DefaultDuration),
-                0x3709, 10, 30, 0, 4, 0, 0);
-            Effects.SendLocationParticles(
-                EffectItem.Create(new Point3D(from.X - 1, from.Y + 1, from.Z), from.Map, EffectItem.DefaultDuration),
-                0x3709, 10, 30, 0, 4, 0, 0);
-            Effects.SendLocationParticles(
-                EffectItem.Create(new Point3D(from.X + 1, from.Y - 1, from.Z), from.Map, EffectItem.DefaultDuration),
-                0x3709, 10, 30, 0, 4, 0, 0);
-            Effects.SendLocationParticles(
-                EffectItem.Create(new Point3D(from.X + 1, from.Y + 1, from.Z), from.Map, EffectItem.DefaultDuration),
-                0x3709, 10, 30, 0, 4, 0, 0);
-
-            new SimpleFlameTimer(from, target).Start();
-        }
         #endregion
     }
 }

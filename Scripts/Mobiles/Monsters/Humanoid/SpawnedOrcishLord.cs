@@ -1,4 +1,3 @@
-using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -9,12 +8,12 @@ namespace Server.Mobiles
         [Constructable]
         public SpawnedOrcishLord()
         {
-            Container pack = this.Backpack;
+            var pack = Backpack;
 
             if (pack != null)
                 pack.Delete();
 
-            this.NoKillAwards = true;
+            NoKillAwards = true;
         }
 
         public SpawnedOrcishLord(Serial serial)
@@ -32,14 +31,14 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write((int)0);
+            writer.Write(0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            int version = reader.ReadInt();
-            this.NoKillAwards = true;
+            var version = reader.ReadInt();
+            NoKillAwards = true;
         }
     }
 }

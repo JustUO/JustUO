@@ -94,9 +94,8 @@ namespace Server.Items
 
             return true;
         }
-        #region Enhance Client
-        public override bool OnDragDropInto(Mobile from, Item item, Point3D p, byte gridloc)
-        #endregion
+
+        public override bool OnDragDropInto(Mobile from, Item item, Point3D p)
         {
             if (!this.CheckHold(from, item, true, true))
                 return false;
@@ -116,9 +115,6 @@ namespace Server.Items
             }
 
             item.Location = new Point3D(p.X, p.Y, 0);
-            #region Enhance Client
-            item.SetGridLocation(gridloc, this);
-            #endregion
             this.AddItem(item);
 
             from.SendSound(this.GetDroppedSound(item), this.GetWorldLocation());
@@ -201,12 +197,11 @@ namespace Server.Items
             from.SendLocalizedMessage(500169); // You cannot pick that up.
             return false;
         }
-        #region Enhance Client
-        public override bool OnDragDropInto(Mobile from, Item item, Point3D p, byte gridloc)
+
+        public override bool OnDragDropInto(Mobile from, Item item, Point3D p)
         {
             return false;
         }
-        #endregion
 
         public override bool TryDropItem(Mobile from, Item dropped, bool sendFullMessage)
         {

@@ -1,4 +1,3 @@
-using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -10,37 +9,37 @@ namespace Server.Mobiles
         public Impaler()
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            this.Name = NameList.RandomName("impaler");
-            this.Body = 306;
-            this.BaseSoundID = 0x2A7;
+            Name = NameList.RandomName("impaler");
+            Body = 306;
+            BaseSoundID = 0x2A7;
 
-            this.SetStr(190);
-            this.SetDex(45);
-            this.SetInt(190);
+            SetStr(190);
+            SetDex(45);
+            SetInt(190);
 
-            this.SetHits(5000);
+            SetHits(5000);
 
-            this.SetDamage(31, 35);
+            SetDamage(31, 35);
 
-            this.SetDamageType(ResistanceType.Physical, 100);
+            SetDamageType(ResistanceType.Physical, 100);
 
-            this.SetResistance(ResistanceType.Physical, 90);
-            this.SetResistance(ResistanceType.Fire, 60);
-            this.SetResistance(ResistanceType.Cold, 75);
-            this.SetResistance(ResistanceType.Poison, 60);
-            this.SetResistance(ResistanceType.Energy, 100);
+            SetResistance(ResistanceType.Physical, 90);
+            SetResistance(ResistanceType.Fire, 60);
+            SetResistance(ResistanceType.Cold, 75);
+            SetResistance(ResistanceType.Poison, 60);
+            SetResistance(ResistanceType.Energy, 100);
 
-            this.SetSkill(SkillName.DetectHidden, 80.0);
-            this.SetSkill(SkillName.Meditation, 120.0);
-            this.SetSkill(SkillName.Poisoning, 160.0);
-            this.SetSkill(SkillName.MagicResist, 100.0);
-            this.SetSkill(SkillName.Tactics, 100.0);
-            this.SetSkill(SkillName.Wrestling, 80.0);
+            SetSkill(SkillName.DetectHidden, 80.0);
+            SetSkill(SkillName.Meditation, 120.0);
+            SetSkill(SkillName.Poisoning, 160.0);
+            SetSkill(SkillName.MagicResist, 100.0);
+            SetSkill(SkillName.Tactics, 100.0);
+            SetSkill(SkillName.Wrestling, 80.0);
 
-            this.Fame = 24000;
-            this.Karma = -24000;
+            Fame = 24000;
+            Karma = -24000;
 
-            this.VirtualArmor = 49;
+            VirtualArmor = 49;
         }
 
         public Impaler(Serial serial)
@@ -50,60 +49,44 @@ namespace Server.Mobiles
 
         public override bool IgnoreYoungProtection
         {
-            get
-            {
-                return Core.ML;
-            }
+            get { return Core.ML; }
         }
+
         public override bool AutoDispel
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override bool BardImmune
         {
-            get
-            {
-                return !Core.SE;
-            }
+            get { return !Core.SE; }
         }
+
         public override bool Unprovokable
         {
-            get
-            {
-                return Core.SE;
-            }
+            get { return Core.SE; }
         }
+
         public override bool AreaPeaceImmune
         {
-            get
-            {
-                return Core.SE;
-            }
+            get { return Core.SE; }
         }
+
         public override Poison PoisonImmune
         {
-            get
-            {
-                return Poison.Lethal;
-            }
+            get { return Poison.Lethal; }
         }
+
         public override Poison HitPoison
         {
-            get
-            {
-                return (0.8 >= Utility.RandomDouble() ? Poison.Greater : Poison.Deadly);
-            }
+            get { return (0.8 >= Utility.RandomDouble() ? Poison.Greater : Poison.Deadly); }
         }
+
         public override int TreasureMapLevel
         {
-            get
-            {
-                return 1;
-            }
+            get { return 1; }
         }
+
         public override WeaponAbility GetWeaponAbility()
         {
             return Utility.RandomBool() ? WeaponAbility.MortalStrike : WeaponAbility.BleedAttack;
@@ -111,30 +94,30 @@ namespace Server.Mobiles
 
         public override void GenerateLoot()
         {
-            this.AddLoot(LootPack.UltraRich, 2);
+            AddLoot(LootPack.UltraRich, 2);
         }
 
         public override void OnDeath(Container c)
         {
             base.OnDeath(c);
 
-            if (!this.Summoned && !this.NoKillAwards && DemonKnight.CheckArtifactChance(this))
+            if (!Summoned && !NoKillAwards && DemonKnight.CheckArtifactChance(this))
                 DemonKnight.DistributeArtifact(this);
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write((int)0);
+            writer.Write(0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
 
-            if (this.BaseSoundID == 1200)
-                this.BaseSoundID = 0x2A7;
+            if (BaseSoundID == 1200)
+                BaseSoundID = 0x2A7;
         }
     }
 }

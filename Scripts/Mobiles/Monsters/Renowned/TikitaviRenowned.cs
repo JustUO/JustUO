@@ -4,7 +4,7 @@ using Server.Misc;
 
 namespace Server.Mobiles
 {
-    [CorpseName("Tikitavi [Renowned] corpse")] 
+    [CorpseName("Tikitavi [Renowned] corpse")]
     public class TikitaviRenowned : BaseRenowned
     {
         [Constructable]
@@ -21,8 +21,8 @@ namespace Server.Mobiles
             SetInt(243, 288);
 
             SetHits(50000);
-			SetMana(243, 288);
-			SetStam(139, 177);
+            SetMana(243, 288);
+            SetStam(139, 177);
 
             SetDamage(7, 9);
 
@@ -53,53 +53,34 @@ namespace Server.Mobiles
 
         public override Type[] UniqueSAList
         {
-            get
-            {
-                return new Type[] { typeof(BasiliskHideBreastplate), typeof(CrystallineBlackrock) };
-            }
+            get { return new[] {typeof (BasiliskHideBreastplate), typeof (CrystallineBlackrock)}; }
         }
+
         public override Type[] SharedSAList
         {
-            get
-            {
-                return new Type[] { typeof(LegacyOfDespair), typeof(CrystalShards), typeof(MysticsGarb) };
-            }
+            get { return new[] {typeof (LegacyOfDespair), typeof (CrystalShards), typeof (MysticsGarb)}; }
         }
+
         public override InhumanSpeech SpeechType
         {
-            get
-            {
-                return InhumanSpeech.Ratman;
-            }
+            get { return InhumanSpeech.Ratman; }
         }
+
         public override bool CanRummageCorpses
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override int Hides
         {
-            get
-            {
-                return 8;
-            }
+            get { return 8; }
         }
+
         public override HideType HideType
         {
-            get
-            {
-                return HideType.Spined;
-            }
+            get { return HideType.Spined; }
         }
-        public override bool AllureImmune
-        {
-            get
-            {
-                return true;
-            }
-        }
+
         public override void GenerateLoot()
         {
             AddLoot(LootPack.Meager);
@@ -109,13 +90,13 @@ namespace Server.Mobiles
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write((int)0);
+            writer.Write(0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
         }
     }
 }

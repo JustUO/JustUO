@@ -21,8 +21,8 @@ namespace Server.Mobiles
             SetInt(327);
 
             SetHits(50000);
-			SetMana(327);
-			SetStam(279);
+            SetMana(327);
+            SetStam(279);
 
             SetDamage(8, 10);
 
@@ -46,7 +46,7 @@ namespace Server.Mobiles
             VirtualArmor = 56;
 
             PackItem(new EssenceBalance());
-			
+
             AddItem(new Bow());
             PackItem(new Arrow(Utility.RandomMinMax(10, 30)));
         }
@@ -58,68 +58,56 @@ namespace Server.Mobiles
 
         public override Type[] UniqueSAList
         {
-            get
-            {
-                return new Type[] { typeof(TatteredAncientScroll) };
-            }
+            get { return new[] {typeof (TatteredAncientScroll)}; }
         }
+
         public override Type[] SharedSAList
         {
             get
             {
-                return new Type[] { typeof(CavalrysFolly), typeof(ArcanicRuneStone), typeof(CrushedGlass), typeof(AbyssalCloth), typeof(TorcOfTheGuardians) };
+                return new[]
+                {
+                    typeof (CavalrysFolly), typeof (ArcanicRuneStone), typeof (CrushedGlass), typeof (AbyssalCloth),
+                    typeof (TorcOfTheGuardians)
+                };
             }
         }
+
         public override InhumanSpeech SpeechType
         {
-            get
-            {
-                return InhumanSpeech.Ratman;
-            }
+            get { return InhumanSpeech.Ratman; }
         }
+
         public override bool CanRummageCorpses
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
+
         public override int Hides
         {
-            get
-            {
-                return 8;
-            }
+            get { return 8; }
         }
+
         public override HideType HideType
         {
-            get
-            {
-                return HideType.Spined;
-            }
+            get { return HideType.Spined; }
         }
+
         public override void GenerateLoot()
         {
             AddLoot(LootPack.Rich);
-        }
-        public override bool AllureImmune
-        {
-            get
-            {
-                return true;
-            }
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write((int)0);
+            writer.Write(0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            int version = reader.ReadInt();
+            var version = reader.ReadInt();
 
             if (Body == 42)
             {

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Server.Accounting;
 using Server.Items;
 using Server.Mobiles;
-using Server.Gumps;
 
 namespace Server.Engines.VeteranRewards
 {
@@ -505,15 +504,7 @@ namespace Server.Engines.VeteranRewards
                     e.Mobile.SkillsCap = 7000;
             }
 
-            PlayerMobile pm = e.Mobile as PlayerMobile;
-            if(Core.SA)
-            {
-                if (pm != null && IsEligibleForStatReward(pm))
-                {
-                    pm.SendGump(new StatRewardGump(pm));
-                }
-            }
-            else if (Core.ML && e.Mobile is PlayerMobile && !((PlayerMobile)e.Mobile).HasStatReward && HasHalfLevel(e.Mobile))
+            if (Core.ML && e.Mobile is PlayerMobile && !((PlayerMobile)e.Mobile).HasStatReward && HasHalfLevel(e.Mobile))
             {
                 ((PlayerMobile)e.Mobile).HasStatReward = true;
                 e.Mobile.StatCap += 5;
@@ -521,21 +512,6 @@ namespace Server.Engines.VeteranRewards
 
             if (cur < max)
                 e.Mobile.SendGump(new RewardNoticeGump(e.Mobile));
-        }
-
-        public static bool IsEligibleForStatReward(PlayerMobile pm)
-        {
-            if (pm.HasStatReward)
-                return false;
-
-            Account acct = pm.Account as Account;
-
-            if (acct == null)
-                return false;
-
-            TimeSpan totalTime = (DateTime.UtcNow - acct.Created);
-
-            return totalTime >= TimeSpan.FromDays(180.0);
         }
     }
 }
