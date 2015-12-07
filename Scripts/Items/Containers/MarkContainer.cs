@@ -193,12 +193,12 @@ namespace Server.Items
                 return false;
             }
         }
-
-        public override bool OnDragDropInto(Mobile from, Item dropped, Point3D p)
+        #region Enhance Client
+        public override bool OnDragDropInto(Mobile from, Item dropped, Point3D p, byte gridloc)
         {
             RecallRune rune = dropped as RecallRune;
 
-            if (rune != null && base.OnDragDropInto(from, dropped, p))
+            if (rune != null && base.OnDragDropInto(from, dropped, p, gridloc))
             {
                 this.Mark(rune);
 
@@ -209,6 +209,7 @@ namespace Server.Items
                 return false;
             }
         }
+        #endregion
 
         public override void Serialize(GenericWriter writer)
         {
