@@ -7,6 +7,68 @@ using Server.Network;
 
 namespace Server.Items
 {
+	public class EnhancedBandage : Bandage
+    {
+        [Constructable]
+        public EnhancedBandage()
+            : this(1)
+        {
+        }
+
+        [Constructable]
+        public EnhancedBandage(int amount)
+            : base(amount)
+        {
+            this.Hue = 0x8A5;
+        }
+
+        public EnhancedBandage(Serial serial)
+            : base(serial)
+        {
+        }
+
+        public static int HealingBonus
+        {
+            get
+            {
+                return 10;
+            }
+        }
+        public override int LabelNumber
+        {
+            get
+            {
+                return 1152441;
+            }
+        }// enhanced bandage
+        public override bool Dye(Mobile from, DyeTub sender)
+        {
+            return false;
+        }
+
+        public override void AddNameProperties(ObjectPropertyList list)
+        {
+            base.AddNameProperties(list);
+
+            list.Add(1075216); // these bandages have been enhanced
+        }
+
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
+
+            writer.WriteEncodedInt(0); //version
+        }
+
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
+
+            int version = reader.ReadEncodedInt();
+        }
+    }
+	
+	
 	[Flipable( 0x2AC0, 0x2AC3 )]
 	public class FountainOfLife : BaseContainer, ISecurable
 	{

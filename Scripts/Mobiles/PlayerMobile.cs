@@ -129,7 +129,7 @@ namespace Server.Mobiles
 				Freeze(TimeSpan.FromSeconds(1));
 				Animate(61, 10, 1, true, false, 0);
 				Flying = false;
-				BuffInfo.RemoveBuff(this, BuffIcon.Fly);
+				BuffInfo.RemoveBuff(this, BuffIcon.Flying);
 				SendMessage("You have landed.");
 
 				BaseMount.Dismount(this);
@@ -181,7 +181,7 @@ namespace Server.Mobiles
 				else
 				{
 					Flying = false;
-					BuffInfo.RemoveBuff(this, BuffIcon.Fly);
+					BuffInfo.RemoveBuff(this, BuffIcon.Flying);
 				}
 			}
 		}
@@ -2795,7 +2795,7 @@ namespace Server.Mobiles
 			if (Flying)
 			{
 				Flying = false;
-				BuffInfo.RemoveBuff(this, BuffIcon.Fly);
+				BuffInfo.RemoveBuff(this, BuffIcon.Flying);
 			}
 			#endregion
 
