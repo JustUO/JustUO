@@ -50,12 +50,12 @@ namespace Server.Items
 
             int count = 0;
 
-            count += MoonGen(PMList.Trammel);
+            //count += MoonGen(PMList.Trammel);
             count += MoonGen(PMList.Felucca);
             count += MoonGen(PMList.Ilshenar);
-            count += MoonGen(PMList.Malas);
-            count += MoonGen(PMList.Tokuno);
-            count += MoonGen(PMList.TerMur);
+            //count += MoonGen(PMList.Malas);
+            //count += MoonGen(PMList.Tokuno);
+            //count += MoonGen(PMList.TerMur);
 
             World.Broadcast(0x35, true, "{0} moongates generated.", count);
         }
@@ -260,8 +260,8 @@ namespace Server.Items
 			});
         public static readonly PMList[] UORLists = new PMList[] { Trammel, Felucca };
         public static readonly PMList[] UORListsYoung = new PMList[] { Trammel };
-        public static readonly PMList[] LBRLists = new PMList[] { Trammel, Felucca, Ilshenar };
-        public static readonly PMList[] LBRListsYoung = new PMList[] { Trammel, Ilshenar };
+        public static readonly PMList[] LBRLists = new PMList[] { Felucca, Ilshenar };
+        public static readonly PMList[] LBRListsYoung = new PMList[] { Felucca, Ilshenar };
         public static readonly PMList[] AOSLists = new PMList[] { Trammel, Felucca, Ilshenar, Malas };
         public static readonly PMList[] AOSListsYoung = new PMList[] { Trammel, Ilshenar, Malas };
         public static readonly PMList[] SELists = new PMList[] { Trammel, Felucca, Ilshenar, Malas, Tokuno };
