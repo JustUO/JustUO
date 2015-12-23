@@ -692,7 +692,7 @@ namespace Server.Misc
                 pm.Profession = args.Profession;
 
                 if (pm.IsPlayer() && ((Account)pm.Account).Young)
-                    young = pm.Young = true;
+                    young = pm.Young = false;
 
                 if (pm.Race == Race.Gargoyle) // Gargoyles start with 2000 loyalty points
                     pm.Exp = 2000;
@@ -738,7 +738,7 @@ namespace Server.Misc
 
             CityInfo city = GetStartLocation(args, young);
 
-            newChar.MoveToWorld(city.Location, city.Map);
+            newChar.MoveToWorld(city.Location, Map.Felucca);
 
             Utility.PushColor(ConsoleColor.Green);
             Console.WriteLine("Login: {0}: New character being created (account={1})", state, args.Account.Username);
