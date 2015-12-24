@@ -168,6 +168,18 @@ namespace Server.Misc
             if (from == null || target == null || from.IsStaff() || target.IsStaff())
                 return true;
 
+            Map map = from.Map;
+
+            #region Factions
+            Faction targetFaction = Faction.Find(target, true);
+
+            if ((!Core.ML || map == Faction.Facet) && targetFaction != null)
+            {
+                if (Faction.Find(from, true) != targetFaction)
+                    return true; // In factions, anything goes
+            }
+            #endregion
+
             #region Mondain's Legacy
             if (target is Gregorio)
             {
@@ -227,8 +239,6 @@ namespace Server.Misc
             if (sz != null /*&& sz.IsDisabled()*/)
                 return false;
             #endregion
-
-            Map map = from.Map;
 
             if (map != null && (map.Rules & MapRules.HarmfulRestrictions) == 0)
                 return true; // In felucca, anything goes
