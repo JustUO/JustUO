@@ -3527,7 +3527,7 @@ namespace Server
         }
 	
 	
-        public virtual GraphicData GraphicData { get { return GraphicData.TileData; } }
+        //public virtual GraphicData GraphicData { get { return GraphicData.TileData; } }
 
 		protected virtual Packet GetWorldPacketFor(NetState state)
 		{
