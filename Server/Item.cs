@@ -3495,7 +3495,7 @@ namespace Server
 		{
 			return Core.GlobalUpdateRange;
 		}
-
+/*
 		public void SendInfoTo(NetState state)
 		{
             SendInfoTo(state, ObjectPropertyList.Enabled && GraphicData == GraphicData.TileData);
@@ -3510,7 +3510,23 @@ namespace Server
 				state.Send(OPLPacket);
 			}
 		}
+*/
+	public void SendInfoTo(NetState state)
+        {
+            SendInfoTo(state, ObjectPropertyList.Enabled);
+        }
 
+        public virtual void SendInfoTo(NetState state, bool sendOplPacket)
+        {
+            state.Send(GetWorldPacketFor(state));
+
+            if (sendOplPacket)
+            {
+                state.Send(OPLPacket);
+            }
+        }
+	
+	
         public virtual GraphicData GraphicData { get { return GraphicData.TileData; } }
 
 		protected virtual Packet GetWorldPacketFor(NetState state)
