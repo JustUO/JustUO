@@ -1315,7 +1315,7 @@ namespace Server.Network
 			m_Stream.Write((byte)item.GetPacketFlags());
 		}
 	}
-
+/*
     public enum GraphicData : byte
     {
         TileData = 0x0,
@@ -1355,8 +1355,9 @@ namespace Server.Network
             m_Stream.Write((short)0x0); // 0 for new item, 1 for update
         }
     }
+  */
 
-    /*
+    
 	public sealed class WorldItemHS : Packet
 	{
 		public WorldItemHS(Item item)
@@ -1409,7 +1410,7 @@ namespace Server.Network
 			m_Stream.Write((short)0x00); // ??
 		}
 	}
-     */
+     
 
 	public sealed class LiftRej : Packet
 	{
