@@ -49,7 +49,7 @@ namespace Server.Items
 			: base(serial)
 		{ }
 
-        public override GraphicData GraphicData { get { return GraphicData.MultiData; } }
+        //public override GraphicData GraphicData { get { return GraphicData.MultiData; } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public override int ItemID
