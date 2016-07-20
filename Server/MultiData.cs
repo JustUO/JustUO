@@ -14,6 +14,7 @@
 
 #region References
 using System;
+using System.Collections;
 using System.IO;
 #endregion
 
@@ -23,10 +24,8 @@ namespace Server
 	{
 		private static readonly MultiComponentList[] m_Components;
 
-		private static readonly FileStream m_Index;
-		private static readonly FileStream m_Stream;
-		private static readonly BinaryReader m_IndexReader;
-		private static readonly BinaryReader m_StreamReader;
+        private static readonly  FileStream m_Index, m_Stream;
+        private static readonly BinaryReader m_IndexReader, m_StreamReader;
 
 		public static MultiComponentList GetComponents(int multiID)
 		{
@@ -511,86 +510,86 @@ namespace Server
 			}
 		}
 
-		public MultiComponentList(GenericReader reader)
-		{
-			int version = reader.ReadInt();
+        public MultiComponentList(GenericReader reader)
+        {
+            int version = reader.ReadInt();
+            m_Min = reader.ReadPoint2D();
+            m_Max = reader.ReadPoint2D();
+            m_Center = reader.ReadPoint2D();
+            m_Width = reader.ReadInt();
+            m_Height = reader.ReadInt();
 
-			m_Min = reader.ReadPoint2D();
-			m_Max = reader.ReadPoint2D();
-			m_Center = reader.ReadPoint2D();
-			m_Width = reader.ReadInt();
-			m_Height = reader.ReadInt();
+            int length = reader.ReadInt();
 
-			int length = reader.ReadInt();
+            MultiTileEntry[] allTiles = m_List = new MultiTileEntry[length];
 
-			MultiTileEntry[] allTiles = m_List = new MultiTileEntry[length];
+            if (version == 0)
+            {
+                for (int i = 0; i < length; ++i)
+                {
+                    int id = reader.ReadShort();
 
-			if (version == 0)
-			{
-				for (int i = 0; i < length; ++i)
-				{
-					int id = reader.ReadShort();
-					if (id >= 0x4000)
-					{
-						id -= 0x4000;
-					}
+                    if (id >= 0x4000)
+                    {
+                        id -= 0x4000;
+                    }
 
-					allTiles[i].m_ItemID = (ushort)id;
-					allTiles[i].m_OffsetX = reader.ReadShort();
-					allTiles[i].m_OffsetY = reader.ReadShort();
-					allTiles[i].m_OffsetZ = reader.ReadShort();
-					allTiles[i].m_Flags = reader.ReadInt();
-				}
-			}
-			else
-			{
-				for (int i = 0; i < length; ++i)
-				{
-					allTiles[i].m_ItemID = reader.ReadUShort();
-					allTiles[i].m_OffsetX = reader.ReadShort();
-					allTiles[i].m_OffsetY = reader.ReadShort();
-					allTiles[i].m_OffsetZ = reader.ReadShort();
-					allTiles[i].m_Flags = reader.ReadInt();
-				}
-			}
+                    allTiles[i].m_ItemID = (ushort)id;
+                    allTiles[i].m_OffsetX = reader.ReadShort();
+                    allTiles[i].m_OffsetY = reader.ReadShort();
+                    allTiles[i].m_OffsetZ = reader.ReadShort();
+                    allTiles[i].m_Flags = reader.ReadInt();
+                }
+            }
+            else
+            {
+                for (int i = 0; i < length; ++i)
+                {
+                    allTiles[i].m_ItemID = reader.ReadUShort();
+                    allTiles[i].m_OffsetX = reader.ReadShort();
+                    allTiles[i].m_OffsetY = reader.ReadShort();
+                    allTiles[i].m_OffsetZ = reader.ReadShort();
+                    allTiles[i].m_Flags = reader.ReadInt();
+                }
 
-			var tiles = new TileList[m_Width][];
-			m_Tiles = new StaticTile[m_Width][][];
+            }
 
-			for (int x = 0; x < m_Width; ++x)
-			{
-				tiles[x] = new TileList[m_Height];
-				m_Tiles[x] = new StaticTile[m_Height][];
+            var tiles = new TileList[m_Width][];
+            m_Tiles = new StaticTile[m_Width][][];
 
-				for (int y = 0; y < m_Height; ++y)
-				{
-					tiles[x][y] = new TileList();
-				}
-			}
+            for (int x = 0; x < m_Width; ++x)
+            {
+                tiles[x] = new TileList[m_Height];
+                m_Tiles[x] = new StaticTile[m_Height][];
 
-			for (int i = 0; i < allTiles.Length; ++i)
-			{
-				if (i == 0 || allTiles[i].m_Flags != 0)
-				{
-					int xOffset = allTiles[i].m_OffsetX + m_Center.m_X;
-					int yOffset = allTiles[i].m_OffsetY + m_Center.m_Y;
+                for (int y = 0; y < m_Height; ++y)
+                {
+                    tiles[x][y] = new TileList();
+                }
+            }
 
-					#region Stygian Abyss
-					//tiles[xOffset][yOffset].Add( (ushort)allTiles[i].m_ItemID, (sbyte)allTiles[i].m_OffsetZ );
-					tiles[xOffset][yOffset].Add(
-						(ushort)((allTiles[i].m_ItemID & TileData.MaxItemValue) | 0x10000), (sbyte)allTiles[i].m_OffsetZ);
-					#endregion
-				}
-			}
+            for (int i = 0; i < allTiles.Length; ++i)
+            {
+                if (i == 0 || allTiles[i].m_Flags != 0)
+                {
+                    int xOffset = allTiles[i].m_OffsetX + m_Center.m_X;
+                    int yOffset = allTiles[i].m_OffsetY + m_Center.m_Y;
 
-			for (int x = 0; x < m_Width; ++x)
-			{
-				for (int y = 0; y < m_Height; ++y)
-				{
-					m_Tiles[x][y] = tiles[x][y].ToArray();
-				}
-			}
-		}
+                    #region Stygian Abyss
+                    //tiles[xOffset][yOffset].Add( (ushort)allTiles[i].m_ItemID, (sbyte)allTiles[i].m_OffsetZ );
+                    tiles[xOffset][yOffset].Add((ushort)((allTiles[i].m_ItemID & TileData.MaxItemValue) | 0x10000), (sbyte)allTiles[i].m_OffsetZ);
+                    #endregion
+                }
+            }
+
+            for (int x = 0; x < m_Width; ++x)
+            {
+                for (int y = 0; y < m_Height; ++y)
+                {
+                    m_Tiles[x][y] = tiles[x][y].ToArray();
+                }
+            }
+        }
 
 		public MultiComponentList(BinaryReader reader, int count)
 		{
@@ -662,8 +661,7 @@ namespace Server
 
 					#region Stygian Abyss
 					//tiles[xOffset][yOffset].Add( (ushort)allTiles[i].m_ItemID, (sbyte)allTiles[i].m_OffsetZ );
-					tiles[xOffset][yOffset].Add(
-						(ushort)((allTiles[i].m_ItemID & TileData.MaxItemValue) | 0x10000), (sbyte)allTiles[i].m_OffsetZ);
+					tiles[xOffset][yOffset].Add((ushort)((allTiles[i].m_ItemID & TileData.MaxItemValue) | 0x10000), (sbyte)allTiles[i].m_OffsetZ);
 					#endregion
 				}
 			}

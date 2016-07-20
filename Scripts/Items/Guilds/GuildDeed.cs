@@ -82,6 +82,9 @@ namespace Server.Items
 
         private class InternalPrompt : Prompt
         {
+            // Enter new guild name (40 characters max):
+            public override int MessageCliloc { get { return 1013060; } }
+
             private readonly GuildDeed m_Deed;
             public InternalPrompt(GuildDeed deed)
             {

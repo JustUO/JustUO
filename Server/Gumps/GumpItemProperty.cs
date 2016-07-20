@@ -1,4 +1,4 @@
-/***************************************************************************
+﻿/***************************************************************************
  *                            GumpItemProperty.cs
  *                            -------------------
  *   begin                : May 26, 2013
@@ -17,7 +17,6 @@
  *   (at your option) any later version.
  *
  ***************************************************************************/
-
 using System;
 using Server.Network;
 
@@ -46,7 +45,7 @@ namespace Server.Gumps
 
 		public override string Compile()
 		{
-			return String.Format( "{{ itemproperty {0} }}", m_Serial );
+			return String.Format( "{{ itemproperty {0} }}", m_Serial.ToString() );
 		}
 
 		private static byte[] m_LayoutName = Gump.StringToBuffer( "itemproperty" );

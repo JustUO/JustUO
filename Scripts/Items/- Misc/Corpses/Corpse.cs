@@ -1023,7 +1023,11 @@ namespace Server.Items
 				if (corpse != null && Owner.From.CheckAlive())
 				{
 					corpse.Open(Owner.From, false);
-				}
+                    #region Enhance Client
+                    if (corpse != null)
+                        Owner.From.NetState.Send(new RemoveWaypoint(corpse.Serial));
+                    #endregion
+                }
 			}
 		}
 
@@ -1297,7 +1301,7 @@ namespace Server.Items
 				}
 				#endregion
 
-				base.OnDoubleClick(from);
+                base.OnDoubleClick(from);
 			}
 			else
 			{
@@ -1306,10 +1310,18 @@ namespace Server.Items
 			}
 		}
 
-		public override void OnDoubleClick(Mobile from)
-		{
-			Open(from, Core.AOS);
-		}
+        public override void OnDoubleClick(Mobile from)
+        {
+            Open(from, Core.AOS);
+            #region Enhance Client
+            if (m_Owner == from)
+            {
+                if (from.Corpse != null)
+                    from.NetState.Send(new RemoveWaypoint(from.Corpse.Serial));
+            }
+            #endregion
+
+        }
 
 		public override bool CheckContentDisplay(Mobile from)
 		{

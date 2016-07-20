@@ -10,54 +10,55 @@ namespace Server.Gumps
 {
     public class PlayerVendorBuyGump : Gump
     {
+        public override int TypeID { get { return 0xF3E60; } }
         private readonly PlayerVendor m_Vendor;
         private readonly VendorItem m_VI;
 
         public PlayerVendorBuyGump(PlayerVendor vendor, VendorItem vi)
             : base(100, 200)
         {
-            this.m_Vendor = vendor;
-            this.m_VI = vi;
+            m_Vendor = vendor;
+            m_VI = vi;
 
-            this.AddBackground(100, 10, 300, 150, 5054);
+            AddBackground(100, 10, 300, 150, 5054);
 
-            this.AddHtmlLocalized(125, 20, 250, 24, 1019070, false, false); // You have agreed to purchase:
+            AddHtmlLocalized(125, 20, 250, 24, 1019070, false, false); // You have agreed to purchase:
 
             if (!String.IsNullOrEmpty(vi.Description))
-                this.AddLabel(125, 45, 0, vi.Description);
+                AddLabel(125, 45, 0, vi.Description);
             else
-                this.AddHtmlLocalized(125, 45, 250, 24, 1019072, false, false); // an item without a description
+                AddHtmlLocalized(125, 45, 250, 24, 1019072, false, false); // an item without a description
 
-            this.AddHtmlLocalized(125, 70, 250, 24, 1019071, false, false); // for the amount of:
-            this.AddLabel(125, 95, 0, vi.Price.ToString());
+            AddHtmlLocalized(125, 70, 250, 24, 1019071, false, false); // for the amount of:
+            AddLabel(125, 95, 0, vi.Price.ToString());
 
-            this.AddButton(250, 130, 4005, 4007, 0, GumpButtonType.Reply, 0);
-            this.AddHtmlLocalized(282, 130, 100, 24, 1011012, false, false); // CANCEL
+            AddButton(250, 130, 4005, 4007, 0, GumpButtonType.Reply, 0);
+            AddHtmlLocalized(282, 130, 100, 24, 1011012, false, false); // CANCEL
 
-            this.AddButton(120, 130, 4005, 4007, 1, GumpButtonType.Reply, 0);
-            this.AddHtmlLocalized(152, 130, 100, 24, 1011036, false, false); // OKAY
+            AddButton(120, 130, 4005, 4007, 1, GumpButtonType.Reply, 0);
+            AddHtmlLocalized(152, 130, 100, 24, 1011036, false, false); // OKAY
         }
 
         public override void OnResponse(NetState state, RelayInfo info)
         {
             Mobile from = state.Mobile;
 
-            if (!this.m_Vendor.CanInteractWith(from, false))
+            if (!m_Vendor.CanInteractWith(from, false))
                 return;
 
-            if (this.m_Vendor.IsOwner(from))
+            if (m_Vendor.IsOwner(from))
             {
-                this.m_Vendor.SayTo(from, 503212); // You own this shop, just take what you want.
+                m_Vendor.SayTo(from, 503212); // You own this shop, just take what you want.
                 return;
             }
 
             if (info.ButtonID == 1)
             {
-                this.m_Vendor.Say(from.Name);
+                m_Vendor.Say(from.Name);
 
-                if (!this.m_VI.Valid || !this.m_VI.Item.IsChildOf(this.m_Vendor.Backpack))
+                if (!m_VI.Valid || !m_VI.Item.IsChildOf(m_Vendor.Backpack))
                 {
-                    this.m_Vendor.SayTo(from, 503216); // You can't buy that.
+                    m_Vendor.SayTo(from, 503216); // You can't buy that.
                     return;
                 }
 
@@ -68,17 +69,17 @@ namespace Server.Gumps
 				
                 totalGold += Banker.GetBalance(from);
 
-                if (totalGold < this.m_VI.Price)
+                if (totalGold < m_VI.Price)
                 {
-                    this.m_Vendor.SayTo(from, 503205); // You cannot afford this item.
+                    m_Vendor.SayTo(from, 503205); // You cannot afford this item.
                 }
-                else if (!from.PlaceInBackpack(this.m_VI.Item))
+                else if (!from.PlaceInBackpack(m_VI.Item))
                 {
-                    this.m_Vendor.SayTo(from, 503204); // You do not have room in your backpack for this.
+                    m_Vendor.SayTo(from, 503204); // You do not have room in your backpack for 
                 }
                 else
                 {
-                    int leftPrice = this.m_VI.Price;
+                    int leftPrice = m_VI.Price;
 
                     if (from.Backpack != null)
                         leftPrice -= from.Backpack.ConsumeUpTo(typeof(Gold), leftPrice);
@@ -86,7 +87,7 @@ namespace Server.Gumps
                     if (leftPrice > 0)
                         Banker.Withdraw(from, leftPrice);
 
-                    this.m_Vendor.HoldGold += this.m_VI.Price;
+                    m_Vendor.HoldGold += m_VI.Price;
 
                     from.SendLocalizedMessage(503201); // You take the item.
                 }
@@ -105,56 +106,56 @@ namespace Server.Gumps
         public PlayerVendorOwnerGump(PlayerVendor vendor)
             : base(50, 200)
         {
-            this.m_Vendor = vendor;
+            m_Vendor = vendor;
 
-            int perDay = this.m_Vendor.ChargePerDay;
+            int perDay = m_Vendor.ChargePerDay;
 
-            this.AddPage(0);
-            this.AddBackground(25, 10, 530, 140, 5054);
+            AddPage(0);
+            AddBackground(25, 10, 530, 140, 5054);
 
-            this.AddHtmlLocalized(425, 25, 120, 20, 1019068, false, false); // See goods
-            this.AddButton(390, 25, 4005, 4007, 1, GumpButtonType.Reply, 0);
-            this.AddHtmlLocalized(425, 48, 120, 20, 1019069, false, false); // Customize
-            this.AddButton(390, 48, 4005, 4007, 2, GumpButtonType.Reply, 0);
-            this.AddHtmlLocalized(425, 72, 120, 20, 1011012, false, false); // CANCEL
-            this.AddButton(390, 71, 4005, 4007, 0, GumpButtonType.Reply, 0);
+            AddHtmlLocalized(425, 25, 120, 20, 1019068, false, false); // See goods
+            AddButton(390, 25, 4005, 4007, 1, GumpButtonType.Reply, 0);
+            AddHtmlLocalized(425, 48, 120, 20, 1019069, false, false); // Customize
+            AddButton(390, 48, 4005, 4007, 2, GumpButtonType.Reply, 0);
+            AddHtmlLocalized(425, 72, 120, 20, 1011012, false, false); // CANCEL
+            AddButton(390, 71, 4005, 4007, 0, GumpButtonType.Reply, 0);
 
-            this.AddHtmlLocalized(40, 72, 260, 20, 1038321, false, false); // Gold held for you:
-            this.AddLabel(300, 72, 0, this.m_Vendor.HoldGold.ToString());
-            this.AddHtmlLocalized(40, 96, 260, 20, 1038322, false, false); // Gold held in my account:
-            this.AddLabel(300, 96, 0, this.m_Vendor.BankAccount.ToString());
+            AddHtmlLocalized(40, 72, 260, 20, 1038321, false, false); // Gold held for you:
+            AddLabel(300, 72, 0, m_Vendor.HoldGold.ToString());
+            AddHtmlLocalized(40, 96, 260, 20, 1038322, false, false); // Gold held in my account:
+            AddLabel(300, 96, 0, m_Vendor.BankAccount.ToString());
 
             //AddHtmlLocalized( 40, 120, 260, 20, 1038324, false, false ); // My charge per day is:
             // Localization has changed, we must use a string here
-            this.AddHtml(40, 120, 260, 20, "My charge per day is:", false, false);
-            this.AddLabel(300, 120, 0, perDay.ToString());
+            AddHtml(40, 120, 260, 20, "My charge per day is:", false, false);
+            AddLabel(300, 120, 0, perDay.ToString());
 
-            double days = (this.m_Vendor.HoldGold + this.m_Vendor.BankAccount) / ((double)perDay);
+            double days = (m_Vendor.HoldGold + m_Vendor.BankAccount) / ((double)perDay);
 
-            this.AddHtmlLocalized(40, 25, 260, 20, 1038318, false, false); // Amount of days I can work: 
-            this.AddLabel(300, 25, 0, ((int)days).ToString());
-            this.AddHtmlLocalized(40, 48, 260, 20, 1038319, false, false); // Earth days: 
-            this.AddLabel(300, 48, 0, ((int)(days / 12.0)).ToString());
+            AddHtmlLocalized(40, 25, 260, 20, 1038318, false, false); // Amount of days I can work: 
+            AddLabel(300, 25, 0, ((int)days).ToString());
+            AddHtmlLocalized(40, 48, 260, 20, 1038319, false, false); // Earth days: 
+            AddLabel(300, 48, 0, ((int)(days / 12.0)).ToString());
         }
 
         public override void OnResponse(NetState state, RelayInfo info)
         {
             Mobile from = state.Mobile;
 
-            if (!this.m_Vendor.CanInteractWith(from, true))
+            if (!m_Vendor.CanInteractWith(from, true))
                 return;
 
             switch ( info.ButtonID )
             {
                 case 1:
                     {
-                        this.m_Vendor.OpenBackpack(from);
+                        m_Vendor.OpenBackpack(from);
 
                         break;
                     }
                 case 2:
                     {
-                        from.SendGump(new PlayerVendorCustomizeGump(this.m_Vendor, from));
+                        from.SendGump(new PlayerVendorCustomizeGump(m_Vendor, from));
 
                         break;
                     }
@@ -164,81 +165,116 @@ namespace Server.Gumps
 
     public class NewPlayerVendorOwnerGump : Gump
     {
+        public override int TypeID { get { return 0x2AB; } }
+
         private readonly PlayerVendor m_Vendor;
 
         public NewPlayerVendorOwnerGump(PlayerVendor vendor)
             : base(50, 200)
         {
-            this.m_Vendor = vendor;
+            m_Vendor = vendor;
 
             int perRealWorldDay = vendor.ChargePerRealWorldDay;
             int goldHeld = vendor.HoldGold;
 
-            this.AddBackground(25, 10, 530, 180, 0x13BE);
-
-            this.AddImageTiled(35, 20, 510, 160, 0xA40);
-            this.AddAlphaRegion(35, 20, 510, 160);
-
-            this.AddImage(10, 0, 0x28DC);
-            this.AddImage(537, 175, 0x28DC);
-            this.AddImage(10, 175, 0x28DC);
-            this.AddImage(537, 0, 0x28DC);
+            int days = 0;
+            int goldNeeded = 0;
 
             if (goldHeld < perRealWorldDay)
-            {
-                int goldNeeded = perRealWorldDay - goldHeld;
-
-                this.AddHtmlLocalized(40, 35, 260, 20, 1038320, 0x7FFF, false, false); // Gold needed for 1 day of vendor salary: 
-                this.AddLabel(300, 35, 0x1F, goldNeeded.ToString());
-            }
+                goldNeeded = perRealWorldDay - goldHeld;
             else
-            {
-                int days = goldHeld / perRealWorldDay;
+                days = goldHeld / perRealWorldDay;
 
-                this.AddHtmlLocalized(40, 35, 260, 20, 1038318, 0x7FFF, false, false); // # of days Vendor salary is paid for: 
-                this.AddLabel(300, 35, 0x480, days.ToString());
-            }
-
-            this.AddHtmlLocalized(40, 58, 260, 20, 1038324, 0x7FFF, false, false); // My charge per real world day is: 
-            this.AddLabel(300, 58, 0x480, perRealWorldDay.ToString());
-
-            this.AddHtmlLocalized(40, 82, 260, 20, 1038322, 0x7FFF, false, false); // Gold held in my account: 
-            this.AddLabel(300, 82, 0x480, goldHeld.ToString());
-
-            this.AddHtmlLocalized(40, 108, 260, 20, 1062509, 0x7FFF, false, false); // Shop Name:
-            this.AddLabel(140, 106, 0x66D, vendor.ShopName);
+            /*0*/
+            Intern(days.ToString());
+            /*1*/
+            Intern("");
+            /*2*/
+            Intern(goldNeeded.ToString());
+            /*3*/
+            Intern(goldHeld.ToString());
+            /*4*/
+            Intern("");
+            /*5*/
+            Intern(perRealWorldDay.ToString());
+            /*6*/
+            Intern("");
 
             if (vendor is RentedVendor)
             {
-                int days, hours;
-                ((RentedVendor)vendor).ComputeRentalExpireDelay(out days, out hours);
+                int dayz, hours;
+                ((RentedVendor)vendor).ComputeRentalExpireDelay(out dayz, out hours);
 
-                this.AddLabel(38, 132, 0x480, String.Format("Location rental will expire in {0} day{1} and {2} hour{3}.", days, days != 1 ? "s" : "", hours, hours != 1 ? "s" : ""));
+                /*7*/
+                Intern(String.Format("Location rental will expire in {0} day{1} and {2} hour{3}.", dayz, dayz != 1 ? "s" : "", hours, hours != 1 ? "s" : ""));
             }
+            else
+                /*7*/
+                Intern("");
 
-            this.AddButton(390, 24, 0x15E1, 0x15E5, 1, GumpButtonType.Reply, 0);
-            this.AddHtmlLocalized(408, 21, 120, 20, 1019068, 0x7FFF, false, false); // See goods
+            /*8*/
+            Intern(vendor.ShopName);
+            /*9*/
+            Intern(vendor.Name);
+            /*10*/
+            Intern("Collect Gold");
+            /*11*/
+            Intern("Dismiss Vendor");
 
-            this.AddButton(390, 44, 0x15E1, 0x15E5, 2, GumpButtonType.Reply, 0);
-            this.AddHtmlLocalized(408, 41, 120, 20, 1019069, 0x7FFF, false, false); // Customize
+            ///////////////
 
-            this.AddButton(390, 64, 0x15E1, 0x15E5, 3, GumpButtonType.Reply, 0);
-            this.AddHtmlLocalized(408, 61, 120, 20, 1062434, 0x7FFF, false, false); // Rename Shop
+            AddPage(0);
 
-            this.AddButton(390, 84, 0x15E1, 0x15E5, 4, GumpButtonType.Reply, 0);
-            this.AddHtmlLocalized(408, 81, 120, 20, 3006217, 0x7FFF, false, false); // Rename Vendor
+            AddBackground(25, 10, 530, 180, 0x13BE);
 
-            this.AddButton(390, 104, 0x15E1, 0x15E5, 5, GumpButtonType.Reply, 0);
-            this.AddHtmlLocalized(408, 101, 120, 20, 3006123, 0x7FFF, false, false); // Open Paperdoll
+            AddImageTiled(35, 20, 510, 160, 0xA40);
+            AddAlphaRegion(35, 20, 510, 160);
 
-            this.AddButton(390, 124, 0x15E1, 0x15E5, 6, GumpButtonType.Reply, 0);
-            this.AddLabel(408, 121, 0x480, "Collect Gold");
+            AddImage(10, 0, 0x28DC);
+            AddImage(537, 175, 0x28DC);
+            AddImage(10, 175, 0x28DC);
+            AddImage(537, 0, 0x28DC);
 
-            this.AddButton(390, 144, 0x15E1, 0x15E5, 7, GumpButtonType.Reply, 0);
-            this.AddLabel(408, 141, 0x480, "Dismiss Vendor");
+            AddHtmlLocalized(408, 21, 120, 20, 1019068, 0x7FFF, false, false); // See goods
+            AddHtmlLocalized(408, 41, 120, 20, 1019069, 0x7FFF, false, false); // Customize
+            AddHtmlLocalized(408, 61, 120, 20, 1062434, 0x7FFF, false, false); // Rename Shop
+            AddHtmlLocalized(408, 81, 120, 20, 3006217, 0x7FFF, false, false); // Rename Vendor
+            AddHtmlLocalized(408, 101, 120, 20, 3006123, 0x7FFF, false, false); // Open Paperdoll
+            AddLabelIntern(408, 121, 0x480, 10);
+            AddLabelIntern(408, 141, 0x480, 11);
+            AddHtmlLocalized(408, 161, 120, 20, 1011012, 0x7FFF, false, false); // CANCEL
 
-            this.AddButton(390, 162, 0x15E1, 0x15E5, 0, GumpButtonType.Reply, 0);
-            this.AddHtmlLocalized(408, 161, 120, 20, 1011012, 0x7FFF, false, false); // CANCEL
+            AddHtmlLocalized(40, 82, 260, 20, 1038322, 0x7FFF, false, false); // Gold held in my account: 
+            AddHtmlLocalized(40, 58, 260, 20, 1038324, 0x7FFF, false, false); // My charge per real world day is: 
+            AddHtmlLocalized(40, 108, 260, 20, 1062509, 0x7FFF, false, false); // Shop Name:
+
+            AddLabelIntern(300, 82, 0x480, 3);
+            AddLabelIntern(300, 58, 0x480, 5);
+
+            AddButton(390, 24, 0x15E1, 0x15E5, 1, GumpButtonType.Reply, 0);
+            AddButton(390, 44, 0x15E1, 0x15E5, 2, GumpButtonType.Reply, 0);
+            AddButton(390, 64, 0x15E1, 0x15E5, 3, GumpButtonType.Reply, 0);
+            AddButton(390, 84, 0x15E1, 0x15E5, 5, GumpButtonType.Reply, 0);
+            AddButton(390, 104, 0x15E1, 0x15E5, 6, GumpButtonType.Reply, 0);
+            AddButton(390, 124, 0x15E1, 0x15E5, 7, GumpButtonType.Reply, 0);
+            AddButton(390, 144, 0x15E1, 0x15E5, 8, GumpButtonType.Reply, 0);
+            AddButton(390, 162, 0x15E1, 0x15E5, 0, GumpButtonType.Reply, 0);
+
+            if (vendor is RentedVendor)
+                AddLabelIntern(38, 132, 0x480, 7);
+
+            AddLabelIntern(140, 106, 0x66D, 8);
+
+            if (goldHeld < perRealWorldDay)
+            {
+                AddHtmlLocalized(40, 35, 260, 20, 1038320, 0x7FFF, false, false); // Gold needed for 1 day of vendor salary: 
+                AddLabelIntern(300, 35, 0x1F, 2);
+            }
+            else
+            {
+                AddHtmlLocalized(40, 35, 260, 20, 1038318, 0x7FFF, false, false); // # of days Vendor salary is paid for: 
+                AddLabelIntern(300, 35, 0x480, 0);
+            }
         }
 
         public override void OnResponse(NetState sender, RelayInfo info)
@@ -246,52 +282,52 @@ namespace Server.Gumps
             Mobile from = sender.Mobile;
 
             if (info.ButtonID == 1 || info.ButtonID == 2) // See goods or Customize
-                this.m_Vendor.CheckTeleport(from);
+                m_Vendor.CheckTeleport(from);
 
-            if (!this.m_Vendor.CanInteractWith(from, true))
+            if (!m_Vendor.CanInteractWith(from, true))
                 return;
 
             switch ( info.ButtonID )
             {
                 case 1: // See goods
                     {
-                        this.m_Vendor.OpenBackpack(from);
+                        m_Vendor.OpenBackpack(from);
 
                         break;
                     }
                 case 2: // Customize
                     {
-                        from.SendGump(new NewPlayerVendorCustomizeGump(this.m_Vendor));
+                        from.SendGump(new NewPlayerVendorCustomizeGump(m_Vendor));
 
                         break;
                     }
                 case 3: // Rename Shop
                     {
-                        this.m_Vendor.RenameShop(from);
+                        m_Vendor.RenameShop(from);
 
                         break;
                     }
                 case 4: // Rename Vendor
                     {
-                        this.m_Vendor.Rename(from);
+                        m_Vendor.Rename(from);
 
                         break;
                     }
                 case 5: // Open Paperdoll
                     {
-                        this.m_Vendor.DisplayPaperdollTo(from);
+                        m_Vendor.DisplayPaperdollTo(from);
 
                         break;
                     }
                 case 6: // Collect Gold
                     {
-                        this.m_Vendor.CollectGold(from);
+                        m_Vendor.CollectGold(from);
 
                         break;
                     }
                 case 7: // Dismiss Vendor
                     {
-                        this.m_Vendor.Dismiss(from);
+                        m_Vendor.Dismiss(from);
 
                         break;
                     }
@@ -333,23 +369,23 @@ namespace Server.Gumps
 
             public CustomItem(Type type, int itemID, int loc, int art, bool longText)
             {
-                this.m_Type = type;
-                this.m_ItemID = itemID;
-                this.m_LocNum = loc;
-                this.m_ArtNum = art;
-                this.m_LongText = longText;
+                m_Type = type;
+                m_ItemID = itemID;
+                m_LocNum = loc;
+                m_ArtNum = art;
+                m_LongText = longText;
             }
 
             public Item Create()
             {
-                if (this.m_Type == null)
+                if (m_Type == null)
                     return null;
 
                 Item i = null;
 				
                 try
                 {
-                    ConstructorInfo ctor = this.m_Type.GetConstructor(new Type[0]);
+                    ConstructorInfo ctor = m_Type.GetConstructor(new Type[0]);
                     if (ctor != null)
                         i = ctor.Invoke(null) as Item;
                 }
@@ -364,35 +400,35 @@ namespace Server.Gumps
             {
                 get
                 {
-                    return this.m_Type;
+                    return m_Type;
                 }
             }
             public int ItemID
             {
                 get
                 {
-                    return this.m_ItemID;
+                    return m_ItemID;
                 }
             }
             public int LocNumber
             {
                 get
                 {
-                    return this.m_LocNum;
+                    return m_LocNum;
                 }
             }
             public int ArtNumber
             {
                 get
                 {
-                    return this.m_ArtNum;
+                    return m_ArtNum;
                 }
             }
             public bool LongText
             {
                 get
                 {
-                    return this.m_LongText;
+                    return m_LongText;
                 }
             }
         }
@@ -406,38 +442,38 @@ namespace Server.Gumps
 
             public CustomCategory(Layer layer, int loc, bool canDye, CustomItem[] items)
             {
-                this.m_Entries = items;
-                this.m_CanDye = canDye;
-                this.m_Layer = layer;
-                this.m_LocNum = loc;
+                m_Entries = items;
+                m_CanDye = canDye;
+                m_Layer = layer;
+                m_LocNum = loc;
             }
 
             public bool CanDye
             {
                 get
                 {
-                    return this.m_CanDye;
+                    return m_CanDye;
                 }
             }
             public CustomItem[] Entries
             {
                 get
                 {
-                    return this.m_Entries;
+                    return m_Entries;
                 }
             }
             public Layer Layer
             {
                 get
                 {
-                    return this.m_Layer;
+                    return m_Layer;
                 }
             }
             public int LocNumber
             {
                 get
                 {
-                    return this.m_LocNum;
+                    return m_LocNum;
                 }
             }
         }
@@ -545,33 +581,33 @@ namespace Server.Gumps
         public PlayerVendorCustomizeGump(Mobile v, Mobile from)
             : base(30, 40)
         {
-            this.m_Vendor = v;
+            m_Vendor = v;
             int x,y;
 
             from.CloseGump(typeof(PlayerVendorCustomizeGump));
 
-            this.AddPage(0);
-            this.AddBackground(0, 0, 585, 393, 5054);
-            this.AddBackground(195, 36, 387, 275, 3000);
-            this.AddHtmlLocalized(10, 10, 565, 18, 1011356, false, false); // <center>VENDOR CUSTOMIZATION MENU</center>
-            this.AddHtmlLocalized(60, 355, 150, 18, 1011036, false, false); // OKAY
-            this.AddButton(25, 355, 4005, 4007, 1, GumpButtonType.Reply, 0);
-            this.AddHtmlLocalized(320, 355, 150, 18, 1011012, false, false); // CANCEL
-            this.AddButton(285, 355, 4005, 4007, 0, GumpButtonType.Reply, 0);
+            AddPage(0);
+            AddBackground(0, 0, 585, 393, 5054);
+            AddBackground(195, 36, 387, 275, 3000);
+            AddHtmlLocalized(10, 10, 565, 18, 1011356, false, false); // <center>VENDOR CUSTOMIZATION MENU</center>
+            AddHtmlLocalized(60, 355, 150, 18, 1011036, false, false); // OKAY
+            AddButton(25, 355, 4005, 4007, 1, GumpButtonType.Reply, 0);
+            AddHtmlLocalized(320, 355, 150, 18, 1011012, false, false); // CANCEL
+            AddButton(285, 355, 4005, 4007, 0, GumpButtonType.Reply, 0);
 
             y = 35;
             for (int i = 0; i < Categories.Length; i++)
             {
                 CustomCategory cat = (CustomCategory)Categories[i];
-                this.AddHtmlLocalized(5, y, 150, 25, cat.LocNumber, true, false);
-                this.AddButton(155, y, 4005, 4007, 0, GumpButtonType.Page, i + 1);
+                AddHtmlLocalized(5, y, 150, 25, cat.LocNumber, true, false);
+                AddButton(155, y, 4005, 4007, 0, GumpButtonType.Page, i + 1);
                 y += 25;
             }
 
             for (int i = 0; i < Categories.Length; i++)
             {
                 CustomCategory cat = (CustomCategory)Categories[i];
-                this.AddPage(i + 1);
+                AddPage(i + 1);
 
                 for (int c = 0; c < cat.Entries.Length; c++)
                 {
@@ -579,45 +615,45 @@ namespace Server.Gumps
                     x = 198 + (c % 3) * 129;
                     y = 38 + (c / 3) * 67;
 
-                    this.AddHtmlLocalized(x, y, 100, entry.LongText ? 36 : 18, entry.LocNumber, false, false);
+                    AddHtmlLocalized(x, y, 100, entry.LongText ? 36 : 18, entry.LocNumber, false, false);
 
                     if (entry.ArtNumber != 0)
-                        this.AddItem(x + 20, y + 25, entry.ArtNumber);
+                        AddItem(x + 20, y + 25, entry.ArtNumber);
 
-                    this.AddRadio(x, y + (entry.LongText ? 40 : 20), 210, 211, false, (c << 8) + i);
+                    AddRadio(x, y + (entry.LongText ? 40 : 20), 210, 211, false, (c << 8) + i);
                 }
 
                 if (cat.CanDye)
                 {
-                    this.AddHtmlLocalized(327, 239, 100, 18, 1011402, false, false); // Color
-                    this.AddRadio(327, 259, 210, 211, false, 100 + i);
+                    AddHtmlLocalized(327, 239, 100, 18, 1011402, false, false); // Color
+                    AddRadio(327, 259, 210, 211, false, 100 + i);
                 }
 
-                this.AddHtmlLocalized(456, 239, 100, 18, 1011403, false, false); // Remove
-                this.AddRadio(456, 259, 210, 211, false, 200 + i);
+                AddHtmlLocalized(456, 239, 100, 18, 1011403, false, false); // Remove
+                AddRadio(456, 259, 210, 211, false, 200 + i);
             }
         }
 
         public override void OnResponse(NetState state, RelayInfo info)
         {
-            if (this.m_Vendor.Deleted)
+            if (m_Vendor.Deleted)
                 return;
 
             Mobile from = state.Mobile;
 
-            if (this.m_Vendor is PlayerVendor && !((PlayerVendor)this.m_Vendor).CanInteractWith(from, true))
+            if (m_Vendor is PlayerVendor && !((PlayerVendor)m_Vendor).CanInteractWith(from, true))
                 return;
 
-            if (this.m_Vendor is PlayerBarkeeper && !((PlayerBarkeeper)this.m_Vendor).IsOwner(from))
+            if (m_Vendor is PlayerBarkeeper && !((PlayerBarkeeper)m_Vendor).IsOwner(from))
                 return;
 
             if (info.ButtonID == 0)
             {
-                if (this.m_Vendor is PlayerVendor) // do nothing for barkeeps
+                if (m_Vendor is PlayerVendor) // do nothing for barkeeps
                 {
-                    this.m_Vendor.Direction = this.m_Vendor.GetDirectionTo(from);
-                    this.m_Vendor.Animate(32, 5, 1, true, false, 0);//bow
-                    this.m_Vendor.SayTo(from, 1043310 + Utility.Random(12)); // a little random speech
+                    m_Vendor.Direction = m_Vendor.GetDirectionTo(from);
+                    m_Vendor.Animate(32, 5, 1, true, false, 0);//bow
+                    m_Vendor.SayTo(from, 1043310 + Utility.Random(12)); // a little random speech
                 }
             }
             else if (info.ButtonID == 1 && info.Switches.Length > 0)
@@ -630,12 +666,12 @@ namespace Server.Gumps
                 {
                     if (ent < Categories[cat].Entries.Length && ent >= 0)
                     {
-                        Item item = this.m_Vendor.FindItemOnLayer(Categories[cat].Layer);
+                        Item item = m_Vendor.FindItemOnLayer(Categories[cat].Layer);
 
                         if (item != null)
                             item.Delete();
 
-                        List<Item> items = this.m_Vendor.Items;
+                        List<Item> items = m_Vendor.Items;
 
                         for (int i = 0; item == null && i < items.Count; ++i)
                         {
@@ -654,30 +690,30 @@ namespace Server.Gumps
 
                         if (Categories[cat].Layer == Layer.FacialHair)
                         {
-                            if (this.m_Vendor.Female)
+                            if (m_Vendor.Female)
                             {
                                 from.SendLocalizedMessage(1010639); // You cannot place facial hair on a woman!
                             }
                             else
                             {
-                                int hue = this.m_Vendor.FacialHairHue;
+                                int hue = m_Vendor.FacialHairHue;
 
-                                this.m_Vendor.FacialHairItemID = 0;
-                                this.m_Vendor.ProcessDelta(); // invalidate item ID for clients
+                                m_Vendor.FacialHairItemID = 0;
+                                m_Vendor.ProcessDelta(); // invalidate item ID for clients
 
-                                this.m_Vendor.FacialHairItemID = Categories[cat].Entries[ent].ItemID;
-                                this.m_Vendor.FacialHairHue = hue;
+                                m_Vendor.FacialHairItemID = Categories[cat].Entries[ent].ItemID;
+                                m_Vendor.FacialHairHue = hue;
                             }
                         }
                         else if (Categories[cat].Layer == Layer.Hair)
                         {
-                            int hue = this.m_Vendor.HairHue;
+                            int hue = m_Vendor.HairHue;
 
-                            this.m_Vendor.HairItemID = 0;
-                            this.m_Vendor.ProcessDelta(); // invalidate item ID for clients
+                            m_Vendor.HairItemID = 0;
+                            m_Vendor.ProcessDelta(); // invalidate item ID for clients
 
-                            this.m_Vendor.HairItemID = Categories[cat].Entries[ent].ItemID;
-                            this.m_Vendor.HairHue = hue;
+                            m_Vendor.HairItemID = Categories[cat].Entries[ent].ItemID;
+                            m_Vendor.HairHue = hue;
                         }
                         else
                         {
@@ -687,12 +723,12 @@ namespace Server.Gumps
                             {
                                 item.Layer = Categories[cat].Layer;
 
-                                if (!this.m_Vendor.EquipItem(item))
+                                if (!m_Vendor.EquipItem(item))
                                     item.Delete();
                             }
                         }
 
-                        from.SendGump(new PlayerVendorCustomizeGump(this.m_Vendor, from));
+                        from.SendGump(new PlayerVendorCustomizeGump(m_Vendor, from));
                     }
                 }
                 else
@@ -707,17 +743,17 @@ namespace Server.Gumps
 
                             if (category.Layer == Layer.Hair)
                             {
-                                new PVHairHuePicker(false, this.m_Vendor, from).SendTo(state);
+                                new PVHairHuePicker(false, m_Vendor, from).SendTo(state);
                             }
                             else if (category.Layer == Layer.FacialHair)
                             {
-                                new PVHairHuePicker(true, this.m_Vendor, from).SendTo(state);
+                                new PVHairHuePicker(true, m_Vendor, from).SendTo(state);
                             }
                             else
                             {
                                 Item item = null;
 
-                                List<Item> items = this.m_Vendor.Items;
+                                List<Item> items = m_Vendor.Items;
 
                                 for (int i = 0; item == null && i < items.Count; ++i)
                                 {
@@ -732,7 +768,7 @@ namespace Server.Gumps
                                 }
 
                                 if (item != null)
-                                    new PVHuePicker(item, this.m_Vendor, from).SendTo(state);
+                                    new PVHuePicker(item, m_Vendor, from).SendTo(state);
                             }
                         }
                     }
@@ -746,17 +782,17 @@ namespace Server.Gumps
 
                             if (category.Layer == Layer.Hair)
                             {
-                                this.m_Vendor.HairItemID = 0;
+                                m_Vendor.HairItemID = 0;
                             }
                             else if (category.Layer == Layer.FacialHair)
                             {
-                                this.m_Vendor.FacialHairItemID = 0;
+                                m_Vendor.FacialHairItemID = 0;
                             }
                             else
                             {
                                 Item item = null;
 
-                                List<Item> items = this.m_Vendor.Items;
+                                List<Item> items = m_Vendor.Items;
 
                                 for (int i = 0; item == null && i < items.Count; ++i)
                                 {
@@ -774,7 +810,7 @@ namespace Server.Gumps
                                     item.Delete();
                             }
 
-                            from.SendGump(new PlayerVendorCustomizeGump(this.m_Vendor, from));
+                            from.SendGump(new PlayerVendorCustomizeGump(m_Vendor, from));
                         }
                     }
                 }
@@ -790,24 +826,24 @@ namespace Server.Gumps
             public PVHuePicker(Item item, Mobile v, Mobile from)
                 : base(item.ItemID)
             {
-                this.m_Item = item;
-                this.m_Vendor = v;
-                this.m_Mob = from;
+                m_Item = item;
+                m_Vendor = v;
+                m_Mob = from;
             }
 
             public override void OnResponse(int hue)
             {
-                if (this.m_Item.Deleted)
+                if (m_Item.Deleted)
                     return;
 
-                if (this.m_Vendor is PlayerVendor && !((PlayerVendor)this.m_Vendor).CanInteractWith(this.m_Mob, true))
+                if (m_Vendor is PlayerVendor && !((PlayerVendor)m_Vendor).CanInteractWith(m_Mob, true))
                     return;
 
-                if (this.m_Vendor is PlayerBarkeeper && !((PlayerBarkeeper)this.m_Vendor).IsOwner(this.m_Mob))
+                if (m_Vendor is PlayerBarkeeper && !((PlayerBarkeeper)m_Vendor).IsOwner(m_Mob))
                     return;
 
-                this.m_Item.Hue = hue;
-                this.m_Mob.SendGump(new PlayerVendorCustomizeGump(this.m_Vendor, this.m_Mob));
+                m_Item.Hue = hue;
+                m_Mob.SendGump(new PlayerVendorCustomizeGump(m_Vendor, m_Mob));
             }
         }
 
@@ -820,34 +856,36 @@ namespace Server.Gumps
             public PVHairHuePicker(bool facialHair, Mobile v, Mobile from)
                 : base(0xFAB)
             {
-                this.m_FacialHair = facialHair;
-                this.m_Vendor = v;
-                this.m_Mob = from;
+                m_FacialHair = facialHair;
+                m_Vendor = v;
+                m_Mob = from;
             }
 
             public override void OnResponse(int hue)
             {
-                if (this.m_Vendor.Deleted)
+                if (m_Vendor.Deleted)
                     return;
 
-                if (this.m_Vendor is PlayerVendor && !((PlayerVendor)this.m_Vendor).CanInteractWith(this.m_Mob, true))
+                if (m_Vendor is PlayerVendor && !((PlayerVendor)m_Vendor).CanInteractWith(m_Mob, true))
                     return;
 
-                if (this.m_Vendor is PlayerBarkeeper && !((PlayerBarkeeper)this.m_Vendor).IsOwner(this.m_Mob))
+                if (m_Vendor is PlayerBarkeeper && !((PlayerBarkeeper)m_Vendor).IsOwner(m_Mob))
                     return;
 
-                if (this.m_FacialHair)
-                    this.m_Vendor.FacialHairHue = hue;
+                if (m_FacialHair)
+                    m_Vendor.FacialHairHue = hue;
                 else
-                    this.m_Vendor.HairHue = hue;
+                    m_Vendor.HairHue = hue;
 
-                this.m_Mob.SendGump(new PlayerVendorCustomizeGump(this.m_Vendor, this.m_Mob));
+                m_Mob.SendGump(new PlayerVendorCustomizeGump(m_Vendor, m_Mob));
             }
         }
     }
 
     public class NewPlayerVendorCustomizeGump : Gump
     {
+        public override int TypeID { get { return 0xF3E66; } }
+
         private readonly PlayerVendor m_Vendor;
 
         private class HairOrBeard
@@ -859,334 +897,292 @@ namespace Server.Gumps
             {
                 get
                 {
-                    return this.m_ItemID;
+                    return m_ItemID;
                 }
             }
             public int Name
             {
                 get
                 {
-                    return this.m_Name;
+                    return m_Name;
                 }
             }
 
             public HairOrBeard(int itemID, int name)
             {
-                this.m_ItemID = itemID;
-                this.m_Name = name;
+                m_ItemID = itemID;
+                m_Name = name;
             }
         }
-		
-        #region Mondain's Legacy
-        private static readonly HairOrBeard[] m_FemaleElfHairStyles = new HairOrBeard[]
-        {
-            new HairOrBeard(0x2FCC,	1074389), // Flower
-            new HairOrBeard(0x2FC0,	1074386), // Long Feather
-            new HairOrBeard(0x2FC1,	1074387), // Short
-            new HairOrBeard(0x2FC2,	1074388), // Mullet
-            new HairOrBeard(0x2FCE,	1074391), // Topknot
-            new HairOrBeard(0x2FCF,	1074392), // Long Braid
-            new HairOrBeard(0x2FD0,	1074393), // Buns
-            new HairOrBeard(0x2FD1,	1074394)// Spiked
-        };
+        private static HairOrBeard[] m_HairStyles = new HairOrBeard[]
+			{
+				new HairOrBeard( 0x203B,	1011052 ),	// Short
+				new HairOrBeard( 0x203C,	1011053 ),	// Long
+				new HairOrBeard( 0x203D,	1011054 ),	// Ponytail
+				new HairOrBeard( 0x2044,	1011055 ),	// Mohawk
+				new HairOrBeard( 0x2045,	1011047 ),	// Pageboy
+				new HairOrBeard( 0x204A,	1011050 ),	// Topknot
+				new HairOrBeard( 0x2047,	1011396 ),	// Curly
+				new HairOrBeard( 0x2048,	1011048 ),	// Receding
+				new HairOrBeard( 0x2049,	1011049 )	// 2-tails
+			};
 
-        private static readonly HairOrBeard[] m_MaleElfHairStyles = new HairOrBeard[]
-        {
-            new HairOrBeard(0x2FBF,	1074385), // Mid Long
-            new HairOrBeard(0x2FC0,	1074386), // Long Feather
-            new HairOrBeard(0x2FC1,	1074387), // Short
-            new HairOrBeard(0x2FC2,	1074388), // Mullet
-            new HairOrBeard(0x2FCE,	1074391), // Topknot
-            new HairOrBeard(0x2FCF,	1074392), // Long Braid
-            new HairOrBeard(0x2FCD,	1074390), // Long
-            new HairOrBeard(0x2FD1,	1074394)// Spiked
-        };
-        #endregion
-		
-        private static readonly HairOrBeard[] m_HairStyles = new HairOrBeard[]
-        {
-            new HairOrBeard(0x203B,	1011052), // Short
-            new HairOrBeard(0x203C,	1011053), // Long
-            new HairOrBeard(0x203D,	1011054), // Ponytail
-            new HairOrBeard(0x2044,	1011055), // Mohawk
-            new HairOrBeard(0x2045,	1011047), // Pageboy
-            new HairOrBeard(0x204A,	1011050), // Topknot
-            new HairOrBeard(0x2047,	1011396), // Curly
-            new HairOrBeard(0x2048,	1011048), // Receding
-            new HairOrBeard(0x2049,	1011049)// 2-tails
-        };
+        private static HairOrBeard[] m_ElvenHairStyles = new HairOrBeard[]
+			{
+				new HairOrBeard( 0x2FBF,	1074385 ), // Mid Long
+				new HairOrBeard( 0x2FC0,	1074386 ), // Long Feather
+				new HairOrBeard( 0x2FC1,	1074387 ), // Short
+				new HairOrBeard( 0x2FC2,	1074388 ), // Mullet
+				new HairOrBeard( 0x2FCE,	1074391 ), // Topknot
+				new HairOrBeard( 0x2FCF,	1074392 ), // Long Braid
+				new HairOrBeard( 0x2FCD,	1074390 ), // Long
+				new HairOrBeard( 0x2FD1,	1074394 ), // Spiked
+			};
 
-        private static readonly HairOrBeard[] m_BeardStyles = new HairOrBeard[]
-        {
-            new HairOrBeard(0x2041,	1011062), // Mustache
-            new HairOrBeard(0x203F,	1011060), // Short beard
-            new HairOrBeard(0x204B,	1015321), // Short Beard & Moustache
-            new HairOrBeard(0x203E,	1011061), // Long beard
-            new HairOrBeard(0x204C,	1015322), // Long Beard & Moustache
-            new HairOrBeard(0x2040,	1015323), // Goatee
-            new HairOrBeard(0x204D,	1011401)// Vandyke
-        };
+        private static HairOrBeard[] m_ElvenFemaleStyles = new HairOrBeard[]
+			{
+				new HairOrBeard( 0x2FCC,	1074389 ), // Flower
+				new HairOrBeard( 0x2FC0,	1074386 ), // Long Feather
+				new HairOrBeard( 0x2FC1,	1074387 ), // Short
+				new HairOrBeard( 0x2FC2,	1074388 ), // Mullet
+				new HairOrBeard( 0x2FCE,	1074391 ), // Topknot
+				new HairOrBeard( 0x2FCF,	1074392 ), // Long Braid
+				new HairOrBeard( 0x2046,	1074393 ), // Buns
+				new HairOrBeard( 0x2FD1,	1074394 ), // Spiked
+			};
+
+        private static HairOrBeard[] m_BeardStyles = new HairOrBeard[]
+			{
+				new HairOrBeard( 0x2041,	1011062 ),	// Mustache
+				new HairOrBeard( 0x203F,	1011060 ),	// Short beard
+				new HairOrBeard( 0x204B,	1015321 ),	// Short Beard & Moustache
+				new HairOrBeard( 0x203E,	1011061 ),	// Long beard
+				new HairOrBeard( 0x204C,	1015322 ),	// Long Beard & Moustache
+				new HairOrBeard( 0x2040,	1015323 ),	// Goatee
+				new HairOrBeard( 0x204D,	1011401 )	// Vandyke
+			};
 
         public NewPlayerVendorCustomizeGump(PlayerVendor vendor)
             : base(50, 50)
         {
-            this.m_Vendor = vendor;
+            m_Vendor = vendor;
 
-            this.AddBackground(0, 0, 370, 370, 0x13BE);
+            AddPage(0);
 
-            this.AddImageTiled(10, 10, 350, 20, 0xA40);
-            this.AddImageTiled(10, 40, 350, 20, 0xA40);
-            this.AddImageTiled(10, 70, 350, 260, 0xA40);
-            this.AddImageTiled(10, 340, 350, 20, 0xA40);
+            if (!(vendor.Race == Race.Elf && vendor.Female))
+                AddKRHtmlLocalized(0, 0, 0, 0, vendor.Race != Race.Elf ? vendor.Female ? -2 : -1 : -3, false, false);
 
-            this.AddAlphaRegion(10, 10, 350, 350);
+            AddBackground(0, 0, 370, 370, 0x13BE);
 
-            this.AddHtmlLocalized(10, 12, 350, 18, 1011356, 0x7FFF, false, false); // <center>VENDOR CUSTOMIZATION MENU</center>
+            if (vendor.Race == Race.Elf && vendor.Female)
+                AddKRHtmlLocalized(0, 0, 0, 0, -4, false, false);
 
-            this.AddHtmlLocalized(10, 42, 150, 18, 1062459, 0x421F, false, false); // <CENTER>HAIR</CENTER>
+            AddImageTiled(10, 10, 350, 20, 0xA40);
+            AddImageTiled(10, 40, 350, 20, 0xA40);
+            AddImageTiled(10, 70, 350, 260, 0xA40);
+            AddImageTiled(10, 340, 350, 20, 0xA40);
 
-            if (vendor.Race == Race.Elf)
+            AddAlphaRegion(10, 10, 350, 350);
+
+            AddHtmlLocalized(10, 12, 350, 18, 1011356, 0x7FFF, false, false); // <center>VENDOR CUSTOMIZATION MENU</center>
+
+            AddButton(10, 340, 0xFA5, 0xFA7, 0, GumpButtonType.Reply, 0);
+            AddHtmlLocalized(45, 342, 305, 18, 1060675, 0x7FFF, false, false); // CLOSE
+
+            AddHtmlLocalized(10, 42, 150, 18, 1062459, 0x421F, false, false); // <CENTER>HAIR</CENTER>
+
+            HairOrBeard[] hairstyles;
+
+            if (m_Vendor.Race != Race.Elf)
+                hairstyles = m_HairStyles;
+            else
+                hairstyles = m_Vendor.Female ? m_ElvenFemaleStyles : m_ElvenHairStyles;
+
+            for (int i = 0; i < hairstyles.Length; i++)
             {
-                // Remove Hair
-                this.AddButton(10, 70 + m_FemaleElfHairStyles.Length * 20, 0xFB1, 0xFB3, 2, GumpButtonType.Reply, 0);
-                this.AddHtmlLocalized(45, 72 + m_FemaleElfHairStyles.Length * 20, 110, 18, 1011403, 0x7FFF, false, false); // Remove
+                HairOrBeard hair = hairstyles[i];
 
-                // Color Hair
-                this.AddButton(10, 70 + (m_FemaleElfHairStyles.Length + 1) * 20, 0xFA5, 0xFA7, 3, GumpButtonType.Reply, 0);
-                this.AddHtmlLocalized(45, 72 + (m_FemaleElfHairStyles.Length + 1) * 20, 110, 18, 1011402, 0x7FFF, false, false); // Color
+                AddHtmlLocalized(45, 72 + i * 20, 110, 18, hair.Name, 0x7FFF, false, false);
+                AddButton(10, 70 + i * 20, 0xFA5, 0xFA7, 0x100 | i, GumpButtonType.Reply, 0);
+            }
 
-                if (vendor.Female)
+            AddHtmlLocalized(45, 252, 110, 18, 1011403, 0x7FFF, false, false); // Remove
+            AddButton(10, 250, 0xFB1, 0xFB3, 11, GumpButtonType.Reply, 0);
+
+            AddHtmlLocalized(45, 272, 110, 18, 1011402, 0x7FFF, false, false); // Color
+            AddButton(10, 270, 0xFA5, 0xFA7, 101, GumpButtonType.Reply, 0);
+
+            if (!vendor.Female && m_Vendor.Race != Race.Elf)
+            {
+                AddHtmlLocalized(160, 42, 210, 18, 1062460, 0x421F, false, false); // <CENTER>BEARD</CENTER>
+
+                for (int i = 0; i < m_BeardStyles.Length; i++)
                 {
-                    // Hair
-                    for (int i = 0; i < m_FemaleElfHairStyles.Length; i++)
-                    {
-                        HairOrBeard hair = m_FemaleElfHairStyles[i];
+                    HairOrBeard beard = m_BeardStyles[i];
 
-                        this.AddButton(10, 70 + i * 20, 0xFA5, 0xFA7, 0x100 | i, GumpButtonType.Reply, 0);
-                        this.AddHtmlLocalized(45, 72 + i * 20, 110, 18, hair.Name, 0x7FFF, false, false);
-                    }
-
-                    // Change gender
-                    this.AddButton(160, 290, 0xFA5, 0xFA7, 1, GumpButtonType.Reply, 0);
-                    this.AddHtmlLocalized(195, 292, 160, 18, 1015327, 0x7FFF, false, false); // Male
-
-                    this.AddHtmlLocalized(195, 312, 160, 18, 1015328, 0x421F, false, false); // Female
-                }
-                else
-                {
-                    // Hair
-                    for (int i = 0; i < m_MaleElfHairStyles.Length; i++)
-                    {
-                        HairOrBeard hair = m_MaleElfHairStyles[i];
-
-                        this.AddButton(10, 70 + i * 20, 0xFA5, 0xFA7, 0x100 | i, GumpButtonType.Reply, 0);
-                        this.AddHtmlLocalized(45, 72 + i * 20, 110, 18, hair.Name, 0x7FFF, false, false);
-                    }
-
-                    // Change gender
-                    this.AddHtmlLocalized(195, 292, 160, 18, 1015327, 0x421F, false, false); // Male
-
-                    this.AddButton(160, 310, 0xFA5, 0xFA7, 1, GumpButtonType.Reply, 0);
-                    this.AddHtmlLocalized(195, 312, 160, 18, 1015328, 0x7FFF, false, false); // Female
+                    AddHtmlLocalized(195, 72 + i * 20, 160, 18, beard.Name, 0x7FFF, false, false);
+                    AddButton(160, 70 + i * 20, 0xFA5, 0xFA7, 0x200 | i, GumpButtonType.Reply, 0);
                 }
 
-                // Change race
-                this.AddButton(245, 290, 0xFA5, 0xFA7, 6, GumpButtonType.Reply, 0);
-                this.AddHtmlLocalized(275, 292, 160, 18, 1072255, 0x7FFF, false, false); // Human
+                AddHtmlLocalized(195, 72 + m_BeardStyles.Length * 20, 160, 18, 1011403, 0x7FFF, false, false); // Remove
+                AddButton(160, 70 + m_BeardStyles.Length * 20, 0xFB1, 0xFB3, 12, GumpButtonType.Reply, 0);
 
-                this.AddHtmlLocalized(275, 312, 160, 18, 1072256, 0x421F, false, false); // Elf
+                AddHtmlLocalized(195, 72 + (m_BeardStyles.Length + 1) * 20, 160, 18, 1011402, 0x7FFF, false, false); // Color
+                AddButton(160, 70 + (m_BeardStyles.Length + 1) * 20, 0xFA5, 0xFA7, 102, GumpButtonType.Reply, 0);
+            }
+
+            if (vendor.Female)
+            {
+                AddHtmlLocalized(195, 292, 160, 18, 1015327, 0x7FFF, false, false); // Male
+                AddButton(160, 290, 0xFA5, 0xFA7, 201, GumpButtonType.Reply, 0);
+
+                AddHtmlLocalized(195, 312, 160, 18, 1015328, 0x421F, false, false); // Female
             }
             else
             {
-                // Change hair
-                for (int i = 0; i < m_HairStyles.Length; i++)
-                {
-                    HairOrBeard hair = m_HairStyles[i];
+                AddHtmlLocalized(195, 292, 160, 18, 1015327, 0x421F, false, false); // Male
+                AddHtmlLocalized(195, 312, 160, 18, 1015328, 0x7FFF, false, false); // Female
 
-                    this.AddButton(10, 70 + i * 20, 0xFA5, 0xFA7, 0x100 | i, GumpButtonType.Reply, 0);
-                    this.AddHtmlLocalized(45, 72 + i * 20, 110, 18, hair.Name, 0x7FFF, false, false);
-                }
-
-                this.AddButton(10, 70 + m_HairStyles.Length * 20, 0xFB1, 0xFB3, 2, GumpButtonType.Reply, 0);
-                this.AddHtmlLocalized(45, 72 + m_HairStyles.Length * 20, 110, 18, 1011403, 0x7FFF, false, false); // Remove
-
-                this.AddButton(10, 70 + (m_HairStyles.Length + 1) * 20, 0xFA5, 0xFA7, 3, GumpButtonType.Reply, 0);
-                this.AddHtmlLocalized(45, 72 + (m_HairStyles.Length + 1) * 20, 110, 18, 1011402, 0x7FFF, false, false); // Color
-
-                if (vendor.Female)
-                {
-                    this.AddButton(160, 290, 0xFA5, 0xFA7, 1, GumpButtonType.Reply, 0);
-                    this.AddHtmlLocalized(195, 292, 160, 18, 1015327, 0x7FFF, false, false); // Male
-
-                    this.AddHtmlLocalized(195, 312, 160, 18, 1015328, 0x421F, false, false); // Female
-                }
-                else
-                {
-                    this.AddHtmlLocalized(160, 42, 210, 18, 1062460, 0x421F, false, false); // <CENTER>BEARD</CENTER>
-
-                    for (int i = 0; i < m_BeardStyles.Length; i++)
-                    {
-                        HairOrBeard beard = m_BeardStyles[i];
-
-                        this.AddButton(160, 70 + i * 20, 0xFA5, 0xFA7, 0x200 | i, GumpButtonType.Reply, 0);
-                        this.AddHtmlLocalized(195, 72 + i * 20, 160, 18, beard.Name, 0x7FFF, false, false);
-                    }
-
-                    this.AddButton(160, 70 + m_BeardStyles.Length * 20, 0xFB1, 0xFB3, 4, GumpButtonType.Reply, 0);
-                    this.AddHtmlLocalized(195, 72 + m_BeardStyles.Length * 20, 160, 18, 1011403, 0x7FFF, false, false); // Remove
-
-                    this.AddButton(160, 70 + (m_BeardStyles.Length + 1) * 20, 0xFA5, 0xFA7, 5, GumpButtonType.Reply, 0);
-                    this.AddHtmlLocalized(195, 72 + (m_BeardStyles.Length + 1) * 20, 160, 18, 1011402, 0x7FFF, false, false); // Color
-
-                    this.AddHtmlLocalized(195, 292, 160, 18, 1015327, 0x421F, false, false); // Male
-
-                    this.AddButton(160, 310, 0xFA5, 0xFA7, 1, GumpButtonType.Reply, 0);
-                    this.AddHtmlLocalized(195, 312, 160, 18, 1015328, 0x7FFF, false, false); // Female
-                }
-
-                // Change race
-                this.AddHtmlLocalized(275, 292, 160, 18, 1072255, 0x421F, false, false); // Human
-
-                this.AddButton(245, 310, 0xFA5, 0xFA7, 6, GumpButtonType.Reply, 0);
-                this.AddHtmlLocalized(275, 312, 160, 18, 1072256, 0x7FFF, false, false); // Elf
+                AddButton(160, 310, 0xFA5, 0xFA7, 202, GumpButtonType.Reply, 0);
             }
 
-            this.AddButton(10, 340, 0xFA5, 0xFA7, 0, GumpButtonType.Reply, 0);
-            this.AddHtmlLocalized(45, 342, 305, 18, 1060675, 0x7FFF, false, false); // CLOSE
+            if (vendor.Race == Race.Elf)
+            {
+                AddHtmlLocalized(275, 292, 160, 18, 1072255, 0x7FFF, false, false); // Human
+                AddButton(245, 290, 0xFA5, 0xFA7, 203, GumpButtonType.Reply, 0);
+                AddHtmlLocalized(275, 312, 160, 18, 1072256, 0x421F, false, false); // Elf
+            }
+            else
+            {
+                AddHtmlLocalized(275, 292, 160, 18, 1072255, 0x421F, false, false); // Human
+                AddHtmlLocalized(275, 312, 160, 18, 1072256, 0x7FFF, false, false); // Elf
+
+                AddButton(245, 310, 0xFA5, 0xFA7, 204, GumpButtonType.Reply, 0);
+            }
         }
 
         public override void OnResponse(NetState sender, RelayInfo info)
         {
             Mobile from = sender.Mobile;
 
-            if (!this.m_Vendor.CanInteractWith(from, true))
+            if (!m_Vendor.CanInteractWith(from, true))
                 return;
 
-            switch ( info.ButtonID )
+            switch (info.ButtonID)
             {
                 case 0: // CLOSE
                     {
-                        this.m_Vendor.Direction = this.m_Vendor.GetDirectionTo(from);
-                        this.m_Vendor.Animate(32, 5, 1, true, false, 0); // bow
-                        this.m_Vendor.SayTo(from, 1043310 + Utility.Random(12)); // a little random speech
+                        m_Vendor.Direction = m_Vendor.GetDirectionTo(from);
+                        m_Vendor.Animate(32, 5, 1, true, false, 0); // bow
+                        m_Vendor.SayTo(from, 1043310 + Utility.Random(12)); // a little random speech
 
                         break;
                     }
-                case 1: // Female/Male
+                case 201: // Male
                     {
-                        if (this.m_Vendor.Female)
-                        {
-                            this.m_Vendor.BodyValue = 400;
-                            this.m_Vendor.Female = false;
-                        }
+                        m_Vendor.BodyValue = m_Vendor.Race == Race.Elf ? 605 : 400;
+                        m_Vendor.Female = false;
+
+                        from.SendGump(new NewPlayerVendorCustomizeGump(m_Vendor));
+
+                        break;
+                    }
+                case 202: // Female
+                    {
+                        m_Vendor.FacialHairItemID = 0;
+
+                        m_Vendor.BodyValue = m_Vendor.Race == Race.Elf ? 606 : 401;
+                        m_Vendor.Female = true;
+
+                        from.SendGump(new NewPlayerVendorCustomizeGump(m_Vendor));
+
+                        break;
+                    }
+                case 203: // Human
+                    {
+                        m_Vendor.BodyValue = m_Vendor.Female ? 401 : 400;
+                        m_Vendor.Race = Race.Human;
+
+                        from.SendGump(new NewPlayerVendorCustomizeGump(m_Vendor));
+
+                        break;
+                    }
+                case 204: // Elf
+                    {
+                        Item beard = m_Vendor.FindItemOnLayer(Layer.FacialHair);
+
+                        if (beard != null)
+                            beard.Delete();
+
+                        m_Vendor.BodyValue = m_Vendor.Female ? 606 : 605;
+                        m_Vendor.Race = Race.Elf;
+
+                        from.SendGump(new NewPlayerVendorCustomizeGump(m_Vendor));
+
+                        break;
+                    }
+                case 11: // Remove hair
+                    {
+                        m_Vendor.HairItemID = 0;
+
+                        from.SendGump(new NewPlayerVendorCustomizeGump(m_Vendor));
+
+                        break;
+                    }
+                case 101: // Color hair
+                    {
+                        if (m_Vendor.HairItemID > 0)
+                            new PVHuePicker(m_Vendor, false, from).SendTo(from.NetState);
                         else
-                        {
-                            this.m_Vendor.BodyValue = 401;
-                            this.m_Vendor.Female = true;
-
-                            this.m_Vendor.FacialHairItemID = 0;
-                        }
-
-                        from.SendGump(new NewPlayerVendorCustomizeGump(this.m_Vendor));
+                            from.SendGump(new NewPlayerVendorCustomizeGump(m_Vendor));
 
                         break;
                     }
-                case 2: // Remove hair
+                case 12: // Remove beard
                     {
-                        this.m_Vendor.HairItemID = 0;
+                        m_Vendor.FacialHairItemID = 0;
 
-                        from.SendGump(new NewPlayerVendorCustomizeGump(this.m_Vendor));
+                        from.SendGump(new NewPlayerVendorCustomizeGump(m_Vendor));
 
                         break;
                     }
-                case 3: // Color hair
+                case 102: // Color beard
                     {
-                        if (this.m_Vendor.HairItemID > 0)
-                        {
-                            new PVHuePicker(this.m_Vendor, false, from).SendTo(from.NetState);
-                        }
+                        if (m_Vendor.FacialHairItemID > 0)
+                            new PVHuePicker(m_Vendor, true, from).SendTo(from.NetState);
                         else
-                        {
-                            from.SendGump(new NewPlayerVendorCustomizeGump(this.m_Vendor));
-                        }
-
-                        break;
-                    }
-                case 4: // Remove beard
-                    {
-                        this.m_Vendor.FacialHairItemID = 0;
-
-                        from.SendGump(new NewPlayerVendorCustomizeGump(this.m_Vendor));
-
-                        break;
-                    }
-                case 5: // Color beard
-                    {
-                        if (this.m_Vendor.FacialHairItemID > 0)
-                        {
-                            new PVHuePicker(this.m_Vendor, true, from).SendTo(from.NetState);
-                        }
-                        else
-                        {
-                            from.SendGump(new NewPlayerVendorCustomizeGump(this.m_Vendor));
-                        }
-
-                        break;
-                    }
-                case 6: // Change race
-                    {
-                        if (this.m_Vendor.Race == Race.Elf)
-                            this.m_Vendor.Race = Race.Human;
-                        else
-                            this.m_Vendor.Race = Race.Elf;
-
-                        this.m_Vendor.Hue = this.m_Vendor.Race.RandomSkinHue();
-                        this.m_Vendor.HairItemID = this.m_Vendor.Race.RandomHair(this.m_Vendor.Female);
-                        this.m_Vendor.HairHue = 0;
-                        this.m_Vendor.FacialHairItemID = 0;
-                        this.m_Vendor.FacialHairHue = 0;
-
-                        from.SendGump(new NewPlayerVendorCustomizeGump(this.m_Vendor));
+                            from.SendGump(new NewPlayerVendorCustomizeGump(m_Vendor));
 
                         break;
                     }
                 default:
                     {
-                        int hairhue = 0;
-
                         if ((info.ButtonID & 0x100) != 0) // Hair style selected
                         {
+                            HairOrBeard[] hairstyles;
+
+                            if (m_Vendor.Race != Race.Elf)
+                                hairstyles = m_HairStyles;
+                            else
+                                hairstyles = m_Vendor.Female ? m_ElvenFemaleStyles : m_ElvenHairStyles;
+
                             int index = info.ButtonID & 0xFF;
 
-                            if (index >= m_HairStyles.Length && this.m_Vendor.Race == Race.Human)
-                                return;
-                            else if (index >= m_FemaleElfHairStyles.Length && this.m_Vendor.Race == Race.Elf)
+                            if (index >= hairstyles.Length)
                                 return;
 
-                            HairOrBeard hairStyle = m_HairStyles[index];
+                            HairOrBeard hairStyle = hairstyles[index];
 
-                            if (this.m_Vendor.Race == Race.Elf && this.m_Vendor.Female)
-                                hairStyle = m_FemaleElfHairStyles[index];
-                            else if (this.m_Vendor.Race == Race.Elf)
-                                hairStyle = m_MaleElfHairStyles[index];
-                            else
-                                hairStyle = m_HairStyles[index];
+                            m_Vendor.HairItemID = hairStyle.ItemID;
 
-                            hairhue = this.m_Vendor.HairHue;
-
-                            this.m_Vendor.HairItemID = 0;
-                            this.m_Vendor.ProcessDelta();
-
-                            this.m_Vendor.HairItemID = hairStyle.ItemID;
-
-                            this.m_Vendor.HairHue = hairhue;
-
-                            from.SendGump(new NewPlayerVendorCustomizeGump(this.m_Vendor));
+                            from.SendGump(new NewPlayerVendorCustomizeGump(m_Vendor));
                         }
                         else if ((info.ButtonID & 0x200) != 0) // Beard style selected
                         {
-                            if (this.m_Vendor.Female)
+                            if (m_Vendor.Female)
+                            {
                                 return;
+                            }
 
                             int index = info.ButtonID & 0xFF;
 
@@ -1195,16 +1191,9 @@ namespace Server.Gumps
 
                             HairOrBeard beardStyle = m_BeardStyles[index];
 
-                            hairhue = this.m_Vendor.FacialHairHue;
+                            m_Vendor.FacialHairItemID = beardStyle.ItemID;
 
-                            this.m_Vendor.FacialHairItemID = 0;
-                            this.m_Vendor.ProcessDelta();
-
-                            this.m_Vendor.FacialHairItemID = beardStyle.ItemID;
-
-                            this.m_Vendor.FacialHairHue = hairhue;
-
-                            from.SendGump(new NewPlayerVendorCustomizeGump(this.m_Vendor));
+                            from.SendGump(new NewPlayerVendorCustomizeGump(m_Vendor));
                         }
 
                         break;
@@ -1221,22 +1210,22 @@ namespace Server.Gumps
             public PVHuePicker(PlayerVendor vendor, bool facialHair, Mobile from)
                 : base(0xFAB)
             {
-                this.m_Vendor = vendor;
-                this.m_FacialHair = facialHair;
-                this.m_From = from;
+                m_Vendor = vendor;
+                m_FacialHair = facialHair;
+                m_From = from;
             }
 
             public override void OnResponse(int hue)
             {
-                if (!this.m_Vendor.CanInteractWith(this.m_From, true))
+                if (!m_Vendor.CanInteractWith(m_From, true))
                     return;
 
-                if (this.m_FacialHair)
-                    this.m_Vendor.FacialHairHue = hue;
+                if (m_FacialHair)
+                    m_Vendor.FacialHairHue = hue;
                 else
-                    this.m_Vendor.HairHue = hue;
+                    m_Vendor.HairHue = hue;
 
-                this.m_From.SendGump(new NewPlayerVendorCustomizeGump(this.m_Vendor));
+                m_From.SendGump(new NewPlayerVendorCustomizeGump(m_Vendor));
             }
         }
     }
