@@ -1,6 +1,6 @@
 ![ScreenShot](JustUOlogo.png)
 
-JustUO - http://www.playuo.org
+JustUO - // link removed
 
 Advanced Ultima Online server emulation software.
 
